@@ -47,40 +47,28 @@ end
 plot_data()
 
 
-# Turn a vector into a set of weights and biases.
-function unpack(nn_params::AbstractVector)
-    W₁ = reshape(nn_params[1:6], 3, 2)
-    b₁ = nn_params[7:9]
+# Construct a neural network using Flux
+nn_initial = Chain(Dense(2, 3, tanh), Dense(3, 2, tanh), Dense(2, 1, σ))
 
-    W₂ = reshape(nn_params[10:15], 2, 3)
-    b₂ = nn_params[16:17]
+# Extract weights and a helper function to reconstruct NN from weights
+parameters_initial, reconstruct = Flux.destructure(nn_initial)
 
-    Wₒ = reshape(nn_params[18:19], 1, 2)
-    bₒ = nn_params[20:20]
-
-    return W₁, b₁, W₂, b₂, Wₒ, bₒ
-end
-
-# Construct a neural network using Flux and return a predicted value.
-function nn_forward(xs, nn_params::AbstractVector)
-    W₁, b₁, W₂, b₂, Wₒ, bₒ = unpack(nn_params)
-    nn = Chain(Dense(W₁, b₁, tanh), Dense(W₂, b₂, tanh), Dense(Wₒ, bₒ, σ))
-    return nn(xs)
-end;
+length(parameters_initial) # number of paraemters in NN
 
 
-# Create a regularization term and a Gaussain prior variance term.
+# Create a regularization term and a Gaussian prior variance term.
 alpha = 0.09
 sig = sqrt(1.0 / alpha)
 
 # Specify the probabilistic model.
-@model function bayes_nn(xs, ts)
+@model function bayes_nn(xs, ts, nparameters, reconstruct)
     # Create the weight and bias vector.
-    nn_params ~ MvNormal(zeros(20), sig .* ones(20))
+    parameters ~ MvNormal(zeros(nparameters), sig .* ones(nparameters))
 
-    # Calculate predictions for the inputs given the weights
-    # and biases in theta.
-    preds = nn_forward(xs, nn_params)
+    # Construct NN from parameters
+    nn = reconstruct(parameters)
+    # Forward NN to make predictions
+    preds = nn(xs)
 
     # Observe each prediction.
     for i in 1:length(ts)
@@ -91,12 +79,17 @@ end;
 
 # Perform inference.
 N = 5000
-ch = sample(bayes_nn(hcat(xs...), ts), HMC(0.05, 4), N);
+ch = sample(
+    bayes_nn(hcat(xs...), ts, length(parameters_initial), reconstruct), HMC(0.05, 4), N
+);
 
 
 # Extract all weight and bias parameters.
-theta = MCMCChains.group(ch, :nn_params).value;
+theta = MCMCChains.group(ch, :parameters).value;
 
+
+# A helper to create NN from weights `theta` and run it through data `x`
+nn_forward(x, theta) = reconstruct(theta)(x)
 
 # Plot the data we have.
 plot_data()
@@ -107,11 +100,11 @@ _, i = findmax(ch[:lp])
 # Extract the max row value from i.
 i = i.I[1]
 
-# Plot the posterior distribution with a contour plot.
-x_range = collect(range(-6; stop=6, length=25))
-y_range = collect(range(-6; stop=6, length=25))
-Z = [nn_forward([x, y], theta[i, :])[1] for x in x_range, y in y_range]
-contour!(x_range, y_range, Z)
+# Plot the posterior distribution with a contour plot
+x1_range = collect(range(-6; stop=6, length=25))
+x2_range = collect(range(-6; stop=6, length=25))
+Z = [nn_forward([x1, x2], theta[i, :])[1] for x1 in x1_range, x2 in x2_range]
+contour!(x1_range, x2_range, Z)
 
 
 # Return the average predicted value across
@@ -125,10 +118,10 @@ end;
 plot_data()
 
 n_end = 1500
-x_range = collect(range(-6; stop=6, length=25))
-y_range = collect(range(-6; stop=6, length=25))
-Z = [nn_predict([x, y], theta, n_end)[1] for x in x_range, y in y_range]
-contour!(x_range, y_range, Z)
+x1_range = collect(range(-6; stop=6, length=25))
+x2_range = collect(range(-6; stop=6, length=25))
+Z = [nn_predict([x1, x2], theta, n_end)[1] for x1 in x1_range, x2 in x2_range]
+contour!(x1_range, x2_range, Z)
 
 
 # Number of iterations to plot.
@@ -136,83 +129,9 @@ n_end = 500
 
 anim = @gif for i in 1:n_end
     plot_data()
-    Z = [nn_forward([x, y], theta[i, :])[1] for x in x_range, y in y_range]
-    contour!(x_range, y_range, Z; title="Iteration $i", clim=(0, 1))
+    Z = [nn_forward([x1, x2], theta[i, :])[1] for x1 in x1_range, x2 in x2_range]
+    contour!(x1_range, x2_range, Z; title="Iteration $i", clim=(0, 1))
 end every 5
-
-
-# Specify the network architecture.
-network_shape = [(3, 2, :tanh), (2, 3, :tanh), (1, 2, :σ)]
-
-# Regularization, parameter variance, and total number of
-# parameters.
-alpha = 0.09
-sig = sqrt(1.0 / alpha)
-num_params = sum([i * o + i for (i, o, _) in network_shape])
-
-# This modification of the unpack function generates a series of vectors
-# given a network shape.
-function unpack(θ::AbstractVector, network_shape::AbstractVector)
-    index = 1
-    weights = []
-    biases = []
-    for layer in network_shape
-        rows, cols, _ = layer
-        size = rows * cols
-        last_index_w = size + index - 1
-        last_index_b = last_index_w + rows
-        push!(weights, reshape(θ[index:last_index_w], rows, cols))
-        push!(biases, reshape(θ[(last_index_w + 1):last_index_b], rows))
-        index = last_index_b + 1
-    end
-    return weights, biases
-end
-
-# Generate an abstract neural network given a shape, 
-# and return a prediction.
-function nn_forward(x, θ::AbstractVector, network_shape::AbstractVector)
-    weights, biases = unpack(θ, network_shape)
-    layers = []
-    for i in eachindex(network_shape)
-        push!(layers, Dense(weights[i], biases[i], eval(network_shape[i][3])))
-    end
-    nn = Chain(layers...)
-    return nn(x)
-end
-
-# General Turing specification for a BNN model.
-@model function bayes_nn_general(xs, ts, network_shape, num_params)
-    θ ~ MvNormal(zeros(num_params), sig .* ones(num_params))
-    preds = nn_forward(xs, θ, network_shape)
-    for i in 1:length(ts)
-        ts[i] ~ Bernoulli(preds[i])
-    end
-end
-
-# Perform inference.
-num_samples = 500
-ch2 = sample(
-    bayes_nn_general(hcat(xs...), ts, network_shape, num_params), NUTS(0.65), num_samples
-);
-
-
-# This function makes predictions based on network shape.
-function nn_predict(x, theta, num, network_shape)
-    return mean([nn_forward(x, theta[i, :], network_shape)[1] for i in 1:10:num])
-end;
-
-# Extract the θ parameters from the sampled chain.
-params2 = MCMCChains.group(ch2, :θ).value
-
-plot_data()
-
-x_range = collect(range(-6; stop=6, length=25))
-y_range = collect(range(-6; stop=6, length=25))
-Z = [
-    nn_predict([x, y], params2, length(ch2), network_shape)[1] for x in x_range,
-    y in y_range
-]
-contour!(x_range, y_range, Z)
 
 
 if isdefined(Main, :TuringTutorials)
