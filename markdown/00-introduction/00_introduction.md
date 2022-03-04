@@ -9,53 +9,78 @@ permalink: "/:collection/:name/"
 
 This is the first of a series of tutorials on the universal probabilistic programming language **Turing**.
 
-Turing is a probabilistic programming system written entirely in Julia. It has an intuitive modelling syntax and supports a wide range of sampling-based inference algorithms. Most importantly, Turing inference is composable: it combines Markov chain sampling operations on subsets of model variables, e.g. using a combination of a Hamiltonian Monte Carlo (HMC) engine and a particle Gibbs (PG) engine. This composable inference engine allows the user to easily switch between black-box style inference methods such as HMC and customized inference methods.
+Turing is a probabilistic programming system written entirely in Julia.
+It has an intuitive modelling syntax and supports a wide range of sampling-based inference algorithms.
 
 Familiarity with Julia is assumed throughout this tutorial. If you are new to Julia, [Learning Julia](https://julialang.org/learning/) is a good starting point.
 
-For users new to Bayesian machine learning, please consider more thorough introductions to the field, such as [Pattern Recognition and Machine Learning](https://www.springer.com/us/book/9780387310732). This tutorial tries to provide an intuition for Bayesian inference and gives a simple example on how to use Turing. Note that this is not a comprehensive introduction to Bayesian machine learning.
+For users new to Bayesian machine learning, please consider more thorough introductions to the field, such as [Pattern Recognition and Machine Learning](https://www.springer.com/us/book/9780387310732).
+This tutorial tries to provide an intuition for Bayesian inference and gives a simple example on how to use Turing.
+Note that this is not a comprehensive introduction to Bayesian machine learning.
 
 ### Coin Flipping Without Turing
 
-The following example illustrates the effect of updating our beliefs with every piece of new evidence we observe. In particular, assume that we are unsure about the probability of heads in a coin flip. To get an intuitive understanding of what "updating our beliefs" is, we will visualize the probability of heads in a coin flip after each observed evidence.
+The following example illustrates the effect of updating our beliefs with every piece of new evidence we observe.
 
-First, let's load some of the packages we need to flip a coin (`Random`, `Distributions`) and show our results (`Plots`). You will note that Turing is not an import here — we do not need it for this example. If you are already familiar with posterior updates, you can proceed to the next step.
+Assume that we are unsure about the probability of heads in a coin flip.
+To get an intuitive understanding of what "updating our beliefs" is, we will visualize the probability of heads in a coin flip after each observed evidence.
+
+First, let us load some packages that we need to simulate a coin flip
 
 ```julia
-# Using Base modules.
-using Random
-
-# Load a plotting library.
-using Plots
-
-# Load the distributions library.
 using Distributions
+
+using Random
+Random.seed!(12); # Set seed for reproducibility
 ```
 
 
 
 
-Next, we configure our posterior update model. First, let's set the true probability that any coin flip will turn up heads and set the number of coin flips we will show our model:
+and to visualize our results.
 
 ```julia
-# Set the true probability of heads in a coin.
-p_true = 0.5
-
-# Iterate from having seen 0 observations to 100 observations.
-Ns = 0:100;
+using StatsPlots
 ```
 
 
 
 
-We will now use the Bernoulli distribution to flip 100 coins, and collect the results in a variable called `data`:
+Note that Turing is not loaded here — we do not use it in this example.
+If you are already familiar with posterior updates, you can proceed to the next step.
+
+Next, we configure the data generating model.
+Let us set the true probability that a coin flip turns up heads
 
 ```julia
-# Draw data from a Bernoulli distribution, i.e. draw heads or tails.
-Random.seed!(12)
-data = rand(Bernoulli(p_true), last(Ns))
+p_true = 0.5;
+```
 
-# Here's what the first five coin flips look like:
+
+
+
+and set the number of coin flips we will show our model.
+
+```julia
+N = 100;
+```
+
+
+
+
+We simulate `N` coin flips by drawing `N` random samples from the Bernoulli distribution with success probability `p_true`.
+The draws are collected in a variable called `data`:
+
+```julia
+data = rand(Bernoulli(p_true), N);
+```
+
+
+
+
+Here is what the first five coin flips look like:
+
+```julia
 data[1:5]
 ```
 
@@ -72,10 +97,12 @@ data[1:5]
 
 
 
-After flipping all our coins, we want to set a prior belief about what we think the distribution of coin flips look like. In this case, we are going to choose a common prior distribution called the [Beta](https://en.wikipedia.org/wiki/Beta_distribution) distribution.
+Next, we specify a prior belief about the distribution of heads and tails in a coin toss.
+Here we choose a [Beta](https://en.wikipedia.org/wiki/Beta_distribution) distribution as prior distribution for the probability of heads.
+Before any coin flip is observed, we assume a uniform distribution $\operatorname{U}(0, 1) = \operatorname{Beta}(1, 1)$ of the probability of heads.
+I.e., every probability is equally likely initially.
 
 ```julia
-# Our prior belief about the probability of heads in a coin toss.
 prior_belief = Beta(1, 1);
 ```
 
@@ -84,39 +111,28 @@ prior_belief = Beta(1, 1);
 
 With our priors set and our data at hand, we can perform Bayesian inference.
 
-This is a fairly simple process. We expose one additional coin flip to our model every iteration, such that the first run only sees the first coin flip, while the last iteration sees all the coin flips. Then, we set the `updated_belief` variable to an updated version of the original Beta distribution that accounts for the new proportion of heads and tails.
-
-For the mathematically inclined, the `Beta` distribution is updated by adding each coin flip to the distribution's $\alpha$ and $\beta$ parameters, which are initially defined as $\alpha = 1, \beta = 1$. Over time, with more and more coin flips, $\alpha$ and $\beta$ will be approximately equal to each other as we are equally likely to flip a heads or a tails, and the plot of the beta distribution will become more tightly centered around 0.5.
-
-This works because mean of the `Beta` distribution is defined as the following:
-
-$$\text{E}[\text{Beta}] = \dfrac{\alpha}{\alpha+\beta}$$
-
-Which is 0.5 when $\alpha = \beta$, as we expect for a large enough number of coin flips. As we increase the number of samples, our variance will also decrease, such that the distribution will reflect less uncertainty about the probability of receiving a heads. The definition of the variance for the `Beta` distribution is the following:
-
-$$\text{var}[\text{Beta}] = \dfrac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$$
-
-The intuition about this definition is that the variance of the distribution will approach 0 with more and more samples, as the denominator will grow faster than will the numerator. More samples means less variance.
+This is a fairly simple process.
+We expose one additional coin flip to our model every iteration, such that the first run only sees the first coin flip, while the last iteration sees all the coin flips.
+In each iteration we update our belief to an updated version of the original Beta distribution that accounts for the new proportion of heads and tails.
+The update is particularly simple since our prior distribution is a [conjugate prior](https://en.wikipedia.org/wiki/Conjugate_prior).
+Note that a closed-form expression for the posterior (implemented in the `updated_belief` expression below) is not accessible in general and usually does not exist for more interesting models.
 
 ```julia
-# Import StatsPlots for animating purposes.
-using StatsPlots
-
-# Make an animation.
-animation = @gif for (i, N) in enumerate(Ns)
-
+function updated_belief(prior_belief::Beta, data::AbstractArray{Bool})
     # Count the number of heads and tails.
-    heads = sum(data[1:(i - 1)])
-    tails = N - heads
+    heads = sum(data)
+    tails = length(data) - heads
 
     # Update our prior belief in closed form (this is possible because we use a conjugate prior).
-    updated_belief = Beta(prior_belief.α + heads, prior_belief.β + tails)
+    return Beta(prior_belief.α + heads, prior_belief.β + tails)
+end
 
-    # Plotting
+# Show updated belief for increasing number of observations
+@gif for n in 0:N
     plot(
-        updated_belief;
+        updated_belief(prior_belief, data[1:n]);
         size=(500, 250),
-        title="Updated belief after $N observations",
+        title="Updated belief after $n observations",
         xlabel="probability of heads",
         ylabel="",
         legend=nothing,
@@ -129,27 +145,48 @@ animation = @gif for (i, N) in enumerate(Ns)
 end
 ```
 
-![](figures/00_introduction_5_1.gif)
+![](figures/00_introduction_8_1.gif)
 
 
 
-The animation above shows that with increasing evidence our belief about the probability of heads in a coin flip slowly adjusts towards the true value. The orange line in the animation represents the true probability of seeing heads on a single coin flip, while the mode of the distribution shows what the model believes the probability of a heads is given the evidence it has seen.
+The animation above shows that with increasing evidence our belief about the probability of heads in a coin flip slowly adjusts towards the true value.
+The orange line in the animation represents the true probability of seeing heads on a single coin flip, while the mode of the distribution shows what the model believes the probability of a heads is given the evidence it has seen.
+
+For the mathematically inclined, the $\operatorname{Beta}$ distribution is updated by adding each coin flip to the parameters $\alpha$ and $\beta$ of the distribution.
+Initially, the parameters are defined as $\alpha = 1$ and $\beta = 1$.
+Over time, with more and more coin flips, $\alpha$ and $\beta$ will be approximately equal to each other as we are equally likely to flip a heads or a tails.
+
+The mean of the $\operatorname{Beta}(\alpha, \beta)$ distribution is
+
+$$\operatorname{E}[X] = \dfrac{\alpha}{\alpha+\beta}.$$
+
+This implies that the plot of the distribution will become centered around 0.5 for a large enough number of coin flips, as we expect $\alpha \approx \beta$.
+
+The variance of the $\operatorname{Beta}(\alpha, \beta)$ distribution is
+
+$$\operatorname{var}[X] = \dfrac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}.$$
+
+Thus the variance of the distribution will approach 0 with more and more samples, as the denominator will grow faster than will the numerator.
+More samples means less variance.
+This implies that the distribution will reflect less uncertainty about the probability of receiving a heads and the plot will become more tightly centered around 0.5 for a large enough number of coin flips.
 
 ### Coin Flipping With Turing
 
-In the previous example, we used the fact that our prior distribution is a [conjugate prior](https://en.wikipedia.org/wiki/Conjugate_prior). Note that a closed-form expression (the `updated_belief` expression) for the posterior is not accessible in general and usually does not exist for more interesting models.
-
-We are now going to move away from the closed-form expression above and specify the same model using **Turing**. To do so, we will first need to import `Turing`, `MCMCChains`, `Distributions`, and `StatPlots`. `MCMCChains` is a library built by the Turing team to help summarize Markov Chain Monte Carlo (MCMC) simulations, as well as a variety of utility functions for diagnostics and visualizations.
+We now move away from the closed-form expression above.
+We use **Turing** to specify the same model and to approximate the posterior distribution with samples.
+To do so, we first need to load `Turing`.
 
 ```julia
-# Load Turing and MCMCChains.
-using Turing, MCMCChains
+using Turing
+```
 
-# Load the distributions library.
-using Distributions
 
-# Load StatsPlots for density plots.
-using StatsPlots
+
+
+Additionally, we load `MCMCChains`, a library for analyzing and visualizing the samples with which we approximate the posterior distribution.
+
+```julia
+using MCMCChains
 ```
 
 
@@ -159,8 +196,7 @@ First, we define the coin-flip model using Turing.
 
 ```julia
 @model function coinflip(y)
-
-    # Our prior belief about the probability of heads in a coin.
+    # Our prior belief about the probability of heads in a coin toss.
     p ~ Beta(1, 1)
 
     # The number of observations.
@@ -175,30 +211,47 @@ end;
 
 
 
-After defining the model, we can approximate the posterior distribution by drawing samples from the distribution. In this example, we use a [Hamiltonian Monte Carlo](https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo) sampler to draw these samples. Later tutorials will give more information on the samplers available in Turing and discuss their use for different models.
+In the Turing model the prior distribution of the variable `p`, the probability of heads in a coin toss, and the distribution of the observations `y[n]` are specified on the right-hand side of the `~` expressions.
+The `@model` macro modifies the body of the Julia function `coinflip(y)` and, e.g., replaces the `~` statements with internal function calls that are used for sampling.
+
+We combine the model with the observations:
 
 ```julia
-# Settings of the Hamiltonian Monte Carlo (HMC) sampler.
-iterations = 1000
-ϵ = 0.05
-τ = 10
-
-# Start sampling.
-chain = sample(coinflip(data), HMC(ϵ, τ), iterations; progress=false);
+model = coinflip(data);
 ```
 
 
 
 
-After finishing the sampling process, we can visualize the posterior distribution approximated using Turing against the posterior distribution in closed-form. We can extract the chain data from the sampler using the `Chains(chain[:p])` function, exported from the `MCMCChain` module. `Chains(chain[:p])` creates an instance of the `Chain` type which summarizes the MCMC simulation — the `MCMCChain` module supports numerous tools for plotting, summarizing, and describing variables of type `Chain`.
+After defining the model, we can approximate the posterior distribution by drawing samples from the distribution.
+In this example, we use a [Hamiltonian Monte Carlo](https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo) sampler to draw these samples.
+Other tutorials give more information on the samplers available in Turing and discuss their use for different models.
 
 ```julia
-# Construct summary of the sampling process for the parameter p, i.e. the probability of heads in a coin.
-p_summary = chain[:p]
-plot(p_summary; seriestype=:histogram)
+sampler = HMC(0.05, 10);
 ```
 
-![](figures/00_introduction_9_1.png)
+
+
+
+We approximate the posterior distribution with 1000 samples:
+
+```julia
+chain = sample(model, sampler, 1_000; progress=false);
+```
+
+
+
+
+The `sample` function and common keyword arguments are explained more extensively in the documentation of [AbstractMCMC.jl](https://turinglang.github.io/AbstractMCMC.jl/dev/api/).
+
+After finishing the sampling process, we can visually compare the closed-form posterior distribution with the approximation obtained with Turing.
+
+```julia
+histogram(chain)
+```
+
+![](figures/00_introduction_15_1.png)
 
 
 
@@ -206,19 +259,13 @@ Now we can build our plot:
 
 
 ```julia
-# Compute the posterior distribution in closed-form.
-N = length(data)
-heads = sum(data)
-updated_belief = Beta(prior_belief.α + heads, prior_belief.β + N - heads)
-
 # Visualize a blue density plot of the approximate posterior distribution using HMC (see Chain 1 in the legend).
-p = plot(p_summary; seriestype=:density, xlim=(0, 1), legend=:best, w=2, c=:blue)
+density(chain; xlim=(0, 1), legend=:best, w=2, c=:blue)
 
-# Visualize a green density plot of posterior distribution in closed-form.
+# Visualize a green density plot of the posterior distribution in closed-form.
 plot!(
-    p,
-    range(0; stop=1, length=100),
-    pdf.(Ref(updated_belief), range(0; stop=1, length=100));
+    0:0.01:1,
+    pdf.(updated_belief(prior_belief, data), 0:0.01:1);
     xlabel="probability of heads",
     ylabel="",
     title="",
@@ -231,14 +278,16 @@ plot!(
 )
 
 # Visualize the true probability of heads in red.
-vline!(p, [p_true]; label="True probability", c=:red)
+vline!([p_true]; label="True probability", c=:red)
 ```
 
-![](figures/00_introduction_11_1.png)
+![](figures/00_introduction_17_1.png)
 
 
 
-As we can see, the Turing model closely approximates the true probability. Hopefully this tutorial has provided an easy-to-follow, yet informative introduction to Turing's simpler applications. More advanced usage will be demonstrated in later tutorials.
+As we can see, the samples obtained with Turing closely approximate the true posterior distribution.
+Hopefully this tutorial has provided an easy-to-follow, yet informative introduction to Turing's simpler applications.
+More advanced usage is demonstrated in other tutorials.
 
 
 ## Appendix
@@ -274,8 +323,7 @@ Package Information:
 ```
       Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.49
-  [c7f686f2] MCMCChains v5.0.3
-  [91a5bcdd] Plots v1.25.11
+  [c7f686f2] MCMCChains v5.0.4
   [f3b207a7] StatsPlots v0.14.33
   [fce5fe82] Turing v0.18.0
   [9a3f8284] Random
@@ -286,7 +334,7 @@ And the full manifest:
 ```
       Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
-  [80f14c24] AbstractMCMC v3.2.1
+  [80f14c24] AbstractMCMC v3.3.1
   [7a57a42e] AbstractPPL v0.2.0
   [1520ce14] AbstractTrees v0.3.4
   [79e6a3ab] Adapt v3.3.3
@@ -296,15 +344,15 @@ And the full manifest:
   [b5ca4192] AdvancedVI v0.1.3
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v4.0.3
+  [4fba245c] ArrayInterface v5.0.1
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.4
-  [198e06fe] BangBang v0.3.35
+  [198e06fe] BangBang v0.3.36
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.9.11
   [49dc2e85] Calculus v0.5.1
   [082447d4] ChainRules v1.27.0
-  [d360d2e6] ChainRulesCore v1.12.1
+  [d360d2e6] ChainRulesCore v1.13.0
   [9e997f8a] ChangesOfVariables v0.1.2
   [aaaa29a8] Clustering v0.14.2
   [35d6a980] ColorSchemes v3.17.1
@@ -329,26 +377,26 @@ And the full manifest:
   [b552c78f] DiffRules v1.10.0
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.49
-  [ced4e74d] DistributionsAD v0.6.37
+  [ced4e74d] DistributionsAD v0.6.38
   [ffbed154] DocStringExtensions v0.8.6
   [fa6b7ba4] DualNumbers v0.6.6
   [366bfd00] DynamicPPL v0.15.1
-  [da5c29d0] EllipsisNotation v1.3.0
-  [cad2338a] EllipticalSliceSampling v0.4.6
+  [da5c29d0] EllipsisNotation v1.0.0
+  [cad2338a] EllipticalSliceSampling v0.4.7
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.4.5
-  [1a297f60] FillArrays v0.12.8
+  [7a1cc6ca] FFTW v1.4.6
+  [1a297f60] FillArrays v0.13.0
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.25
   [d9f16b24] Functors v0.2.8
   [28b8d3ca] GR v0.64.0
-  [5c1252a2] GeometryBasics v0.4.1
+  [5c1252a2] GeometryBasics v0.4.2
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v0.9.17
   [34004b35] HypergeometricFunctions v0.3.8
   [615f187c] IfElse v0.1.1
-  [83e8ac13] IniFile v0.5.0
+  [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.13.5
@@ -362,21 +410,21 @@ And the full manifest:
   [682c06a0] JSON v0.21.3
   [5ab0869b] KernelDensity v0.6.3
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.11
+  [23fbe1c1] Latexify v0.15.12
   [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
   [6f1fad26] Libtask v0.5.3
   [2ab3a3ac] LogExpFunctions v0.3.6
   [e6f89c97] LoggingExtras v0.4.7
-  [c7f686f2] MCMCChains v5.0.3
+  [c7f686f2] MCMCChains v5.0.4
   [be115224] MCMCDiagnosticTools v0.1.3
-  [e80e1ace] MLJModelInterface v1.3.6
+  [e80e1ace] MLJModelInterface v1.4.1
   [1914dd2f] MacroTools v0.5.9
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.0.3
   [442fdcdd] Measures v0.3.1
   [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
-  [6f286f6a] MultivariateStats v0.9.0
+  [6f286f6a] MultivariateStats v0.9.1
   [872c559c] NNlib v0.8.2
   [77ba4419] NaNMath v0.3.7
   [86f7a689] NamedArrays v0.9.6
@@ -385,21 +433,21 @@ And the full manifest:
   [510215fc] Observables v0.4.0
   [6fe1bfb0] OffsetArrays v1.10.8
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.5
+  [90014a1f] PDMats v0.11.6
   [69de0a69] Parsers v2.2.2
   [ccf2f8ad] PlotThemes v2.0.1
   [995b91a9] PlotUtils v1.1.3
-  [91a5bcdd] Plots v1.25.11
-  [21216c6a] Preferences v1.2.3
+  [91a5bcdd] Plots v1.26.0
+  [21216c6a] Preferences v1.2.4
   [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.1
   [1fd47b50] QuadGK v2.4.2
   [b3c3ace0] RangeArrays v0.3.2
-  [c84ed2f1] Ratios v0.4.2
+  [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.5.0
+  [01d81517] RecipesPipeline v0.5.1
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v0.1.3
   [ae029012] Requires v1.3.0
@@ -411,10 +459,10 @@ And the full manifest:
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
   [a2af1166] SortingAlgorithms v1.0.1
-  [276daf66] SpecialFunctions v1.8.3
+  [276daf66] SpecialFunctions v1.8.4
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.5.5
-  [90137ffa] StaticArrays v1.3.5
+  [aedffcd0] Static v0.6.0
+  [90137ffa] StaticArrays v1.4.1
   [64bff920] StatisticalTraits v3.0.0
   [82ae8749] StatsAPI v1.2.1
   [2913bbd2] StatsBase v0.33.16
@@ -425,7 +473,7 @@ And the full manifest:
   [3783bdb8] TableTraits v1.0.1
   [bd369af6] Tables v1.6.1
   [5d786b92] TerminalLoggers v0.1.5
-  [9f7883ad] Tracker v0.2.19
+  [9f7883ad] Tracker v0.2.20
   [28d57a85] Transducers v0.4.72
   [fce5fe82] Turing v0.18.0
   [5c2747f8] URIs v1.3.0
@@ -454,6 +502,7 @@ And the full manifest:
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
   [aacddb02] JpegTurbo_jll v2.1.2+0
   [c1c5ebd0] LAME_jll v3.100.1+0
+  [88015f11] LERC_jll v3.0.0+1
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
@@ -462,9 +511,9 @@ And the full manifest:
   [94ce4f54] Libiconv_jll v1.16.1+1
   [4b2f31a3] Libmount_jll v2.35.0+0
   [3ae2931a] Libtask_jll v0.4.3+0
-  [89763e89] Libtiff_jll v4.3.0+0
+  [89763e89] Libtiff_jll v4.3.0+1
   [38a345b3] Libuuid_jll v2.36.0+0
-  [856f044c] MKL_jll v2021.1.1+2
+  [856f044c] MKL_jll v2022.0.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
   [458c3c95] OpenSSL_jll v1.1.13+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
@@ -474,7 +523,7 @@ And the full manifest:
   [ea2cea3b] Qt5Base_jll v5.15.3+0
   [f50d1b31] Rmath_jll v0.3.0+0
   [a2964d1f] Wayland_jll v1.19.0+0
-  [2381bf8a] Wayland_protocols_jll v1.23.0+0
+  [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.9.12+0
   [aed1982a] XSLT_jll v1.1.34+0
   [4f6342f7] Xorg_libX11_jll v1.6.9+4

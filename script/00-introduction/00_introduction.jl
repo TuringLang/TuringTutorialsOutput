@@ -1,51 +1,43 @@
 
-# Using Base modules.
-using Random
-
-# Load a plotting library.
-using Plots
-
-# Load the distributions library.
 using Distributions
 
-
-# Set the true probability of heads in a coin.
-p_true = 0.5
-
-# Iterate from having seen 0 observations to 100 observations.
-Ns = 0:100;
+using Random
+Random.seed!(12); # Set seed for reproducibility
 
 
-# Draw data from a Bernoulli distribution, i.e. draw heads or tails.
-Random.seed!(12)
-data = rand(Bernoulli(p_true), last(Ns))
+using StatsPlots
 
-# Here's what the first five coin flips look like:
+
+p_true = 0.5;
+
+
+N = 100;
+
+
+data = rand(Bernoulli(p_true), N);
+
+
 data[1:5]
 
 
-# Our prior belief about the probability of heads in a coin toss.
 prior_belief = Beta(1, 1);
 
 
-# Import StatsPlots for animating purposes.
-using StatsPlots
-
-# Make an animation.
-animation = @gif for (i, N) in enumerate(Ns)
-
+function updated_belief(prior_belief::Beta, data::AbstractArray{Bool})
     # Count the number of heads and tails.
-    heads = sum(data[1:(i - 1)])
-    tails = N - heads
+    heads = sum(data)
+    tails = length(data) - heads
 
     # Update our prior belief in closed form (this is possible because we use a conjugate prior).
-    updated_belief = Beta(prior_belief.α + heads, prior_belief.β + tails)
+    return Beta(prior_belief.α + heads, prior_belief.β + tails)
+end
 
-    # Plotting
+# Show updated belief for increasing number of observations
+@gif for n in 0:N
     plot(
-        updated_belief;
+        updated_belief(prior_belief, data[1:n]);
         size=(500, 250),
-        title="Updated belief after $N observations",
+        title="Updated belief after $n observations",
         xlabel="probability of heads",
         ylabel="",
         legend=nothing,
@@ -58,19 +50,14 @@ animation = @gif for (i, N) in enumerate(Ns)
 end
 
 
-# Load Turing and MCMCChains.
-using Turing, MCMCChains
+using Turing
 
-# Load the distributions library.
-using Distributions
 
-# Load StatsPlots for density plots.
-using StatsPlots
+using MCMCChains
 
 
 @model function coinflip(y)
-
-    # Our prior belief about the probability of heads in a coin.
+    # Our prior belief about the probability of heads in a coin toss.
     p ~ Beta(1, 1)
 
     # The number of observations.
@@ -82,36 +69,28 @@ using StatsPlots
 end;
 
 
-# Settings of the Hamiltonian Monte Carlo (HMC) sampler.
-iterations = 1000
-ϵ = 0.05
-τ = 10
-
-# Start sampling.
-chain = sample(coinflip(data), HMC(ϵ, τ), iterations; progress=false);
+model = coinflip(data);
 
 
-# Construct summary of the sampling process for the parameter p, i.e. the probability of heads in a coin.
-p_summary = chain[:p]
-plot(p_summary; seriestype=:histogram)
+sampler = HMC(0.05, 10);
 
 
-@assert isapprox(mean(p_summary), 0.5; atol=1)
+chain = sample(model, sampler, 1_000; progress=false);
 
 
-# Compute the posterior distribution in closed-form.
-N = length(data)
-heads = sum(data)
-updated_belief = Beta(prior_belief.α + heads, prior_belief.β + N - heads)
+histogram(chain)
+
+
+@assert isapprox(mean(chain, :p), 0.5; atol=0.1)
+
 
 # Visualize a blue density plot of the approximate posterior distribution using HMC (see Chain 1 in the legend).
-p = plot(p_summary; seriestype=:density, xlim=(0, 1), legend=:best, w=2, c=:blue)
+density(chain; xlim=(0, 1), legend=:best, w=2, c=:blue)
 
-# Visualize a green density plot of posterior distribution in closed-form.
+# Visualize a green density plot of the posterior distribution in closed-form.
 plot!(
-    p,
-    range(0; stop=1, length=100),
-    pdf.(Ref(updated_belief), range(0; stop=1, length=100));
+    0:0.01:1,
+    pdf.(updated_belief(prior_belief, data), 0:0.01:1);
     xlabel="probability of heads",
     ylabel="",
     title="",
@@ -124,9 +103,5 @@ plot!(
 )
 
 # Visualize the true probability of heads in red.
-vline!(p, [p_true]; label="True probability", c=:red)
-
-
-isdefined(Main, :TuringTutorials) &&
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
+vline!([p_true]; label="True probability", c=:red)
 
