@@ -35,21 +35,25 @@ using StatsPlots
 animation = @gif for (i, N) in enumerate(Ns)
 
     # Count the number of heads and tails.
-    heads = sum(data[1:i-1])
+    heads = sum(data[1:(i - 1)])
     tails = N - heads
 
     # Update our prior belief in closed form (this is possible because we use a conjugate prior).
     updated_belief = Beta(prior_belief.α + heads, prior_belief.β + tails)
 
     # Plotting
-    plot(updated_belief,
-        size = (500, 250),
-        title = "Updated belief after $N observations",
-        xlabel = "probability of heads",
-        ylabel = "",
-        legend = nothing,
-        xlim = (0,1),
-        fill=0, α=0.3, w=3)
+    plot(
+        updated_belief;
+        size=(500, 250),
+        title="Updated belief after $N observations",
+        xlabel="probability of heads",
+        ylabel="",
+        legend=nothing,
+        xlim=(0, 1),
+        fill=0,
+        α=0.3,
+        w=3,
+    )
     vline!([p_true])
 end
 
@@ -84,12 +88,12 @@ iterations = 1000
 τ = 10
 
 # Start sampling.
-chain = sample(coinflip(data), HMC(ϵ, τ), iterations, progress=false);
+chain = sample(coinflip(data), HMC(ϵ, τ), iterations; progress=false);
 
 
 # Construct summary of the sampling process for the parameter p, i.e. the probability of heads in a coin.
 p_summary = chain[:p]
-plot(p_summary, seriestype = :histogram)
+plot(p_summary; seriestype=:histogram)
 
 
 @assert isapprox(mean(p_summary), 0.5; atol=1)
@@ -101,16 +105,28 @@ heads = sum(data)
 updated_belief = Beta(prior_belief.α + heads, prior_belief.β + N - heads)
 
 # Visualize a blue density plot of the approximate posterior distribution using HMC (see Chain 1 in the legend).
-p = plot(p_summary, seriestype = :density, xlim = (0,1), legend = :best, w = 2, c = :blue)
+p = plot(p_summary; seriestype=:density, xlim=(0, 1), legend=:best, w=2, c=:blue)
 
 # Visualize a green density plot of posterior distribution in closed-form.
-plot!(p, range(0, stop = 1, length = 100), pdf.(Ref(updated_belief), range(0, stop = 1, length = 100)),
-        xlabel = "probability of heads", ylabel = "", title = "", xlim = (0,1), label = "Closed-form",
-        fill=0, α=0.3, w=3, c = :lightgreen)
+plot!(
+    p,
+    range(0; stop=1, length=100),
+    pdf.(Ref(updated_belief), range(0; stop=1, length=100));
+    xlabel="probability of heads",
+    ylabel="",
+    title="",
+    xlim=(0, 1),
+    label="Closed-form",
+    fill=0,
+    α=0.3,
+    w=3,
+    c=:lightgreen,
+)
 
 # Visualize the true probability of heads in red.
-vline!(p, [p_true], label = "True probability", c = :red)
+vline!(p, [p_true]; label="True probability", c=:red)
 
 
-isdefined(Main, :TuringTutorials) && Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder],WEAVE_ARGS[:file])
+isdefined(Main, :TuringTutorials) &&
+    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
 

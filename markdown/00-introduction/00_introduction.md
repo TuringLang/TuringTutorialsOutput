@@ -16,6 +16,7 @@ Familiarity with Julia is assumed throughout this tutorial. If you are new to Ju
 For users new to Bayesian machine learning, please consider more thorough introductions to the field, such as [Pattern Recognition and Machine Learning](https://www.springer.com/us/book/9780387310732). This tutorial tries to provide an intuition for Bayesian inference and gives a simple example on how to use Turing. Note that this is not a comprehensive introduction to Bayesian machine learning.
 
 ### Coin Flipping Without Turing
+
 The following example illustrates the effect of updating our beliefs with every piece of new evidence we observe. In particular, assume that we are unsure about the probability of heads in a coin flip. To get an intuitive understanding of what "updating our beliefs" is, we will visualize the probability of heads in a coin flip after each observed evidence.
 
 First, let's load some of the packages we need to flip a coin (`Random`, `Distributions`) and show our results (`Plots`). You will note that Turing is not an import here — we do not need it for this example. If you are already familiar with posterior updates, you can proceed to the next step.
@@ -48,7 +49,6 @@ Ns = 0:100;
 
 
 We will now use the Bernoulli distribution to flip 100 coins, and collect the results in a variable called `data`:
-
 
 ```julia
 # Draw data from a Bernoulli distribution, i.e. draw heads or tails.
@@ -98,7 +98,6 @@ $$\text{var}[\text{Beta}] = \dfrac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \be
 
 The intuition about this definition is that the variance of the distribution will approach 0 with more and more samples, as the denominator will grow faster than will the numerator. More samples means less variance.
 
-
 ```julia
 # Import StatsPlots for animating purposes.
 using StatsPlots
@@ -107,21 +106,25 @@ using StatsPlots
 animation = @gif for (i, N) in enumerate(Ns)
 
     # Count the number of heads and tails.
-    heads = sum(data[1:i-1])
+    heads = sum(data[1:(i - 1)])
     tails = N - heads
 
     # Update our prior belief in closed form (this is possible because we use a conjugate prior).
     updated_belief = Beta(prior_belief.α + heads, prior_belief.β + tails)
 
     # Plotting
-    plot(updated_belief,
-        size = (500, 250),
-        title = "Updated belief after $N observations",
-        xlabel = "probability of heads",
-        ylabel = "",
-        legend = nothing,
-        xlim = (0,1),
-        fill=0, α=0.3, w=3)
+    plot(
+        updated_belief;
+        size=(500, 250),
+        title="Updated belief after $N observations",
+        xlabel="probability of heads",
+        ylabel="",
+        legend=nothing,
+        xlim=(0, 1),
+        fill=0,
+        α=0.3,
+        w=3,
+    )
     vline!([p_true])
 end
 ```
@@ -138,7 +141,6 @@ In the previous example, we used the fact that our prior distribution is a [conj
 
 We are now going to move away from the closed-form expression above and specify the same model using **Turing**. To do so, we will first need to import `Turing`, `MCMCChains`, `Distributions`, and `StatPlots`. `MCMCChains` is a library built by the Turing team to help summarize Markov Chain Monte Carlo (MCMC) simulations, as well as a variety of utility functions for diagnostics and visualizations.
 
-
 ```julia
 # Load Turing and MCMCChains.
 using Turing, MCMCChains
@@ -154,7 +156,6 @@ using StatsPlots
 
 
 First, we define the coin-flip model using Turing.
-
 
 ```julia
 @model function coinflip(y)
@@ -176,7 +177,6 @@ end;
 
 After defining the model, we can approximate the posterior distribution by drawing samples from the distribution. In this example, we use a [Hamiltonian Monte Carlo](https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo) sampler to draw these samples. Later tutorials will give more information on the samplers available in Turing and discuss their use for different models.
 
-
 ```julia
 # Settings of the Hamiltonian Monte Carlo (HMC) sampler.
 iterations = 1000
@@ -184,7 +184,7 @@ iterations = 1000
 τ = 10
 
 # Start sampling.
-chain = sample(coinflip(data), HMC(ϵ, τ), iterations, progress=false);
+chain = sample(coinflip(data), HMC(ϵ, τ), iterations; progress=false);
 ```
 
 
@@ -192,11 +192,10 @@ chain = sample(coinflip(data), HMC(ϵ, τ), iterations, progress=false);
 
 After finishing the sampling process, we can visualize the posterior distribution approximated using Turing against the posterior distribution in closed-form. We can extract the chain data from the sampler using the `Chains(chain[:p])` function, exported from the `MCMCChain` module. `Chains(chain[:p])` creates an instance of the `Chain` type which summarizes the MCMC simulation — the `MCMCChain` module supports numerous tools for plotting, summarizing, and describing variables of type `Chain`.
 
-
 ```julia
 # Construct summary of the sampling process for the parameter p, i.e. the probability of heads in a coin.
 p_summary = chain[:p]
-plot(p_summary, seriestype = :histogram)
+plot(p_summary; seriestype=:histogram)
 ```
 
 ![](figures/00_introduction_9_1.png)
@@ -213,15 +212,26 @@ heads = sum(data)
 updated_belief = Beta(prior_belief.α + heads, prior_belief.β + N - heads)
 
 # Visualize a blue density plot of the approximate posterior distribution using HMC (see Chain 1 in the legend).
-p = plot(p_summary, seriestype = :density, xlim = (0,1), legend = :best, w = 2, c = :blue)
+p = plot(p_summary; seriestype=:density, xlim=(0, 1), legend=:best, w=2, c=:blue)
 
 # Visualize a green density plot of posterior distribution in closed-form.
-plot!(p, range(0, stop = 1, length = 100), pdf.(Ref(updated_belief), range(0, stop = 1, length = 100)),
-        xlabel = "probability of heads", ylabel = "", title = "", xlim = (0,1), label = "Closed-form",
-        fill=0, α=0.3, w=3, c = :lightgreen)
+plot!(
+    p,
+    range(0; stop=1, length=100),
+    pdf.(Ref(updated_belief), range(0; stop=1, length=100));
+    xlabel="probability of heads",
+    ylabel="",
+    title="",
+    xlim=(0, 1),
+    label="Closed-form",
+    fill=0,
+    α=0.3,
+    w=3,
+    c=:lightgreen,
+)
 
 # Visualize the true probability of heads in red.
-vline!(p, [p_true], label = "True probability", c = :red)
+vline!(p, [p_true]; label="True probability", c=:red)
 ```
 
 ![](figures/00_introduction_11_1.png)
@@ -254,7 +264,6 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -263,7 +272,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.49
   [c7f686f2] MCMCChains v5.0.3
   [91a5bcdd] Plots v1.25.11
@@ -275,7 +284,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
