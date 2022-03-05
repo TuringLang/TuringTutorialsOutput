@@ -325,7 +325,7 @@ Package Information:
   [31c24e10] Distributions v0.25.49
   [c7f686f2] MCMCChains v5.0.4
   [f3b207a7] StatsPlots v0.14.33
-  [fce5fe82] Turing v0.18.0
+  [fce5fe82] Turing v0.20.4
   [9a3f8284] Random
 ```
 
@@ -335,16 +335,16 @@ And the full manifest:
       Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v3.3.1
-  [7a57a42e] AbstractPPL v0.2.0
+  [7a57a42e] AbstractPPL v0.5.1
   [1520ce14] AbstractTrees v0.3.4
   [79e6a3ab] Adapt v3.3.3
   [0bf59076] AdvancedHMC v0.3.3
   [5b7e9947] AdvancedMH v0.6.6
-  [576499cb] AdvancedPS v0.2.4
+  [576499cb] AdvancedPS v0.3.5
   [b5ca4192] AdvancedVI v0.1.3
   [dce04be8] ArgCheck v2.3.0
-  [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v5.0.1
+  [7d9fca2a] Arpack v0.5.0
+  [4fba245c] ArrayInterface v4.0.4
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.4
   [198e06fe] BangBang v0.3.36
@@ -380,8 +380,8 @@ And the full manifest:
   [ced4e74d] DistributionsAD v0.6.38
   [ffbed154] DocStringExtensions v0.8.6
   [fa6b7ba4] DualNumbers v0.6.6
-  [366bfd00] DynamicPPL v0.15.1
-  [da5c29d0] EllipsisNotation v1.0.0
+  [366bfd00] DynamicPPL v0.17.8
+  [da5c29d0] EllipsisNotation v1.3.0
   [cad2338a] EllipticalSliceSampling v0.4.7
   [c87230d0] FFMPEG v0.4.1
   [7a1cc6ca] FFTW v1.4.6
@@ -393,8 +393,9 @@ And the full manifest:
   [28b8d3ca] GR v0.64.0
   [5c1252a2] GeometryBasics v0.4.2
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v0.9.17
+  [cd3eb016] HTTP v0.8.19
   [34004b35] HypergeometricFunctions v0.3.8
+  [7869d1d1] IRTools v0.4.5
   [615f187c] IfElse v0.1.1
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
@@ -409,10 +410,11 @@ And the full manifest:
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
   [5ab0869b] KernelDensity v0.6.3
+  [8ac3fa9e] LRUCache v1.3.0
   [b964fa9f] LaTeXStrings v1.3.0
   [23fbe1c1] Latexify v0.15.12
   [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
-  [6f1fad26] Libtask v0.5.3
+  [6f1fad26] Libtask v0.6.10
   [2ab3a3ac] LogExpFunctions v0.3.6
   [e6f89c97] LoggingExtras v0.4.7
   [c7f686f2] MCMCChains v5.0.4
@@ -448,20 +450,22 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.2.1
   [01d81517] RecipesPipeline v0.5.1
+  [731186ca] RecursiveArrayTools v2.25.0
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v0.1.3
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
   [f2b01f46] Roots v1.3.14
+  [0bca4576] SciMLBase v1.28.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.0
   [91c51154] SentinelArrays v1.3.12
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
   [a2af1166] SortingAlgorithms v1.0.1
-  [276daf66] SpecialFunctions v1.8.4
+  [276daf66] SpecialFunctions v2.1.4
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.6.0
+  [aedffcd0] Static v0.5.6
   [90137ffa] StaticArrays v1.4.1
   [64bff920] StatisticalTraits v3.0.0
   [82ae8749] StatsAPI v1.2.1
@@ -475,15 +479,15 @@ And the full manifest:
   [5d786b92] TerminalLoggers v0.1.5
   [9f7883ad] Tracker v0.2.20
   [28d57a85] Transducers v0.4.72
-  [fce5fe82] Turing v0.18.0
-  [5c2747f8] URIs v1.3.0
+  [a2a6695c] TreeViews v0.3.0
+  [fce5fe82] Turing v0.20.4
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
   [cc8bc4a8] Widgets v0.6.5
   [efce3f68] WoodburyMatrices v0.5.5
   [700de1a5] ZygoteRules v0.2.2
-  [68821587] Arpack_jll v3.5.0+3
+  [68821587] Arpack_jll v3.8.0+0
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
   [5ae413db] EarCut_jll v2.2.3+0
@@ -510,7 +514,6 @@ And the full manifest:
   [7add5ba3] Libgpg_error_jll v1.42.0+0
   [94ce4f54] Libiconv_jll v1.16.1+1
   [4b2f31a3] Libmount_jll v2.35.0+0
-  [3ae2931a] Libtask_jll v0.4.3+0
   [89763e89] Libtiff_jll v4.3.0+1
   [38a345b3] Libuuid_jll v2.36.0+0
   [856f044c] MKL_jll v2022.0.0+0
