@@ -30,19 +30,13 @@ m = model(x);
 samples_nuts = sample(m, NUTS(200, 0.65), 10_000);
 
 
-#! format: off
 @doc(Variational.vi)
-#! format: on
 
 
-#! format: off
 @doc(Variational.meanfield)
-#! format: on
 
 
-#! format: off
 @doc(Variational.ADVI)
-#! format: on
 
 
 # ADVI

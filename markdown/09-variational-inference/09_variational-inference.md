@@ -90,9 +90,7 @@ samples_nuts = sample(m, NUTS(200, 0.65), 10_000);
 Now let's try VI. The most important function you need to now about to do VI in Turing is `vi`:
 
 ```julia
-#! format: off
 @doc(Variational.vi)
-#! format: on
 ```
 
 
@@ -123,9 +121,7 @@ Additionally, you can pass
 By default, i.e. when calling `vi(m, advi)`, Turing use a *mean-field* approximation with a multivariate normal as the base-distribution. Mean-field refers to the fact that we assume all the latent variables to be *independent*. This the "standard" ADVI approach; see [Automatic Differentiation Variational Inference (2016)](https://arxiv.org/abs/1603.00788) for more. In Turing, one can obtain such a mean-field approximation by calling `Variational.meanfield(model)` for which there exists an internal implementation for `update`:
 
 ```julia
-#! format: off
 @doc(Variational.meanfield)
-#! format: on
 ```
 
 
@@ -141,9 +137,7 @@ Creates a mean-field approximation with multivariate normal as underlying distri
 Currently the only implementation of `VariationalInference` available is `ADVI`, which is very convenient and applicable as long as your `Model` is differentiable with respect to the *variational parameters*, that is, the parameters of your variational distribution, e.g. mean and variance in the mean-field approximation.
 
 ```julia
-#! format: off
 @doc(Variational.ADVI)
-#! format: on
 ```
 
 
