@@ -188,243 +188,75 @@ chain = sample(m, HMC(0.05, 10), MCMCThreads(), 1_500, 3)
 ```
 
 ```
-Error: TaskFailedException
+Chains MCMC chain (1500×19×3 Array{Float64, 3}):
 
-    nested task error: TaskFailedException
-    Stacktrace:
-     [1] wait
-       @ ./task.jl:322 [inlined]
-     [2] threading_run(func::Function)
-       @ Base.Threads ./threadingconstructs.jl:34
-     [3] macro expansion
-       @ ./threadingconstructs.jl:93 [inlined]
-     [4] macro expansion
-       @ /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c
-91cf3da/packages/AbstractMCMC/BPJCW/src/sample.jl:342 [inlined]
-     [5] (::AbstractMCMC.var"#36#48"{Bool, Base.Iterators.Pairs{Symbol, Uni
-onAll, Tuple{Symbol}, NamedTuple{(:chain_type,), Tuple{UnionAll}}}, Int64, 
-Int64, Vector{Any}, Vector{UInt64}, Vector{DynamicPPL.Sampler{Turing.Infere
-nce.HMC{Turing.Core.ForwardDiffAD{40}, (), AdvancedHMC.UnitEuclideanMetric}
-}}, Vector{DynamicPPL.Model{Main.##WeaveSandBox#289.var"#1#2", (:x, :y, :σ)
-, (), (), Tuple{Matrix{Float64}, SubArray{Union{Nothing, Int64}, 1, Vector{
-Union{Nothing, Int64}}, Tuple{Vector{Int64}}, false}, Int64}, Tuple{}}}, Ve
-ctor{Random._GLOBAL_RNG}})()
-       @ AbstractMCMC ./task.jl:411
-    
-        nested task error: MethodError: no method matching Int64(::Irration
-al{:log2π})
-        Closest candidates are:
-          (::Type{T})(::T) where T<:Number at boot.jl:760
-          (::Type{T})(!Matched::AbstractChar) where T<:Union{AbstractChar, 
-Number} at char.jl:50
-          (::Type{T})(!Matched::BigInt) where T<:Union{Int128, Int16, Int32
-, Int64, Int8} at gmp.jl:356
-          ...
-        Stacktrace:
-          [1] convert(#unused#::Type{Int64}, x::Irrational{:log2π})
-            @ Base ./number.jl:7
-          [2] mvnormal_c0(g::Distributions.MvNormal{Int64, PDMats.ScalMat{I
-nt64}, FillArrays.Zeros{Int64, 1, Tuple{Base.OneTo{Int64}}}})
-            @ Distributions /cache/julia-buildkite-plugin/depots/7aa0085e-7
-9a4-45f3-a5bd-9743c91cf3da/packages/Distributions/t65ji/src/multivariate/mv
-normal.jl:99
-          [3] _logpdf(d::Distributions.MvNormal{Int64, PDMats.ScalMat{Int64
-}, FillArrays.Zeros{Int64, 1, Tuple{Base.OneTo{Int64}}}}, x::Vector{Float64
-})
-            @ Distributions /cache/julia-buildkite-plugin/depots/7aa0085e-7
-9a4-45f3-a5bd-9743c91cf3da/packages/Distributions/t65ji/src/multivariate/mv
-normal.jl:127
-          [4] logpdf(d::Distributions.MvNormal{Int64, PDMats.ScalMat{Int64}
-, FillArrays.Zeros{Int64, 1, Tuple{Base.OneTo{Int64}}}}, X::Vector{Float64}
-)
-            @ Distributions /cache/julia-buildkite-plugin/depots/7aa0085e-7
-9a4-45f3-a5bd-9743c91cf3da/packages/Distributions/t65ji/src/multivariates.j
-l:201
-          [5] logpdf_with_trans(d::Distributions.MvNormal{Int64, PDMats.Sca
-lMat{Int64}, FillArrays.Zeros{Int64, 1, Tuple{Base.OneTo{Int64}}}}, x::Vect
-or{Float64}, transform::Bool)
-            @ Bijectors /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-
-45f3-a5bd-9743c91cf3da/packages/Bijectors/LmARY/src/Bijectors.jl:129
-          [6] assume(rng::Random._GLOBAL_RNG, sampler::DynamicPPL.SampleFro
-mUniform, dist::Distributions.MvNormal{Int64, PDMats.ScalMat{Int64}, FillAr
-rays.Zeros{Int64, 1, Tuple{Base.OneTo{Int64}}}}, vn::AbstractPPL.VarName{:c
-oefficients_versicolor, Tuple{}}, vi::DynamicPPL.UntypedVarInfo{DynamicPPL.
-Metadata{Dict{AbstractPPL.VarName, Int64}, Vector{Distributions.Distributio
-n}, Vector{AbstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Select
-or}}}, Float64})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/context_implementatio
-ns.jl:262
-          [7] tilde_assume(rng::Random._GLOBAL_RNG, #unused#::DynamicPPL.De
-faultContext, sampler::DynamicPPL.SampleFromUniform, right::Distributions.M
-vNormal{Int64, PDMats.ScalMat{Int64}, FillArrays.Zeros{Int64, 1, Tuple{Base
-.OneTo{Int64}}}}, vn::AbstractPPL.VarName{:coefficients_versicolor, Tuple{}
-}, inds::Tuple{}, vi::DynamicPPL.UntypedVarInfo{DynamicPPL.Metadata{Dict{Ab
-stractPPL.VarName, Int64}, Vector{Distributions.Distribution}, Vector{Abstr
-actPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Selector}}}, Float64})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/context_implementatio
-ns.jl:42
-          [8] tilde_assume(context::DynamicPPL.SamplingContext{DynamicPPL.S
-ampleFromUniform, DynamicPPL.DefaultContext, Random._GLOBAL_RNG}, right::Di
-stributions.MvNormal{Int64, PDMats.ScalMat{Int64}, FillArrays.Zeros{Int64, 
-1, Tuple{Base.OneTo{Int64}}}}, vn::AbstractPPL.VarName{:coefficients_versic
-olor, Tuple{}}, inds::Tuple{}, vi::DynamicPPL.UntypedVarInfo{DynamicPPL.Met
-adata{Dict{AbstractPPL.VarName, Int64}, Vector{Distributions.Distribution},
- Vector{AbstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Selector}
-}}, Float64})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/context_implementatio
-ns.jl:34
-          [9] tilde_assume!(context::DynamicPPL.SamplingContext{DynamicPPL.
-SampleFromUniform, DynamicPPL.DefaultContext, Random._GLOBAL_RNG}, right::D
-istributions.MvNormal{Int64, PDMats.ScalMat{Int64}, FillArrays.Zeros{Int64,
- 1, Tuple{Base.OneTo{Int64}}}}, vn::AbstractPPL.VarName{:coefficients_versi
-color, Tuple{}}, inds::Tuple{}, vi::DynamicPPL.UntypedVarInfo{DynamicPPL.Me
-tadata{Dict{AbstractPPL.VarName, Int64}, Vector{Distributions.Distribution}
-, Vector{AbstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Selector
-}}}, Float64})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/context_implementatio
-ns.jl:131
-         [10] #1
-            @ /cache/build/exclusive-amdci3-0/julialang/turingtutorials/tut
-orials/08-multinomial-logistic-regression/08_multinomial-logistic-regressio
-n.jmd:11 [inlined]
-         [11] (::Main.##WeaveSandBox#289.var"#1#2")(__model__::DynamicPPL.M
-odel{Main.##WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{
-Float64}, SubArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}},
- Tuple{Vector{Int64}}, false}, Int64}, Tuple{}}, __varinfo__::DynamicPPL.Un
-typedVarInfo{DynamicPPL.Metadata{Dict{AbstractPPL.VarName, Int64}, Vector{D
-istributions.Distribution}, Vector{AbstractPPL.VarName}, Vector{Real}, Vect
-or{Set{DynamicPPL.Selector}}}, Float64}, __context__::DynamicPPL.SamplingCo
-ntext{DynamicPPL.SampleFromUniform, DynamicPPL.DefaultContext, Random._GLOB
-AL_RNG}, x::Matrix{Float64}, y::SubArray{Union{Nothing, Int64}, 1, Vector{U
-nion{Nothing, Int64}}, Tuple{Vector{Int64}}, false}, σ::Int64)
-            @ Main.##WeaveSandBox#289 ./none:0
-         [12] macro expansion
-            @ /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-
-9743c91cf3da/packages/DynamicPPL/F7F1M/src/model.jl:0 [inlined]
-         [13] _evaluate(model::DynamicPPL.Model{Main.##WeaveSandBox#289.var
-"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{Union{Nothing
-, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vector{Int64}}, false}, I
-nt64}, Tuple{}}, varinfo::DynamicPPL.UntypedVarInfo{DynamicPPL.Metadata{Dic
-t{AbstractPPL.VarName, Int64}, Vector{Distributions.Distribution}, Vector{A
-bstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Selector}}}, Float
-64}, context::DynamicPPL.SamplingContext{DynamicPPL.SampleFromUniform, Dyna
-micPPL.DefaultContext, Random._GLOBAL_RNG})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/model.jl:156
-         [14] evaluate_threadunsafe(model::DynamicPPL.Model{Main.##WeaveSan
-dBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{U
-nion{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vector{Int64}
-}, false}, Int64}, Tuple{}}, varinfo::DynamicPPL.UntypedVarInfo{DynamicPPL.
-Metadata{Dict{AbstractPPL.VarName, Int64}, Vector{Distributions.Distributio
-n}, Vector{AbstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Select
-or}}}, Float64}, context::DynamicPPL.SamplingContext{DynamicPPL.SampleFromU
-niform, DynamicPPL.DefaultContext, Random._GLOBAL_RNG})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/model.jl:129
-         [15] (::DynamicPPL.Model{Main.##WeaveSandBox#289.var"#1#2", (:x, :
-y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{Union{Nothing, Int64}, 1, V
-ector{Union{Nothing, Int64}}, Tuple{Vector{Int64}}, false}, Int64}, Tuple{}
-})(varinfo::DynamicPPL.UntypedVarInfo{DynamicPPL.Metadata{Dict{AbstractPPL.
-VarName, Int64}, Vector{Distributions.Distribution}, Vector{AbstractPPL.Var
-Name}, Vector{Real}, Vector{Set{DynamicPPL.Selector}}}, Float64}, context::
-DynamicPPL.SamplingContext{DynamicPPL.SampleFromUniform, DynamicPPL.Default
-Context, Random._GLOBAL_RNG})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/model.jl:97
-         [16] (::DynamicPPL.Model{Main.##WeaveSandBox#289.var"#1#2", (:x, :
-y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{Union{Nothing, Int64}, 1, V
-ector{Union{Nothing, Int64}}, Tuple{Vector{Int64}}, false}, Int64}, Tuple{}
-})(rng::Random._GLOBAL_RNG, varinfo::DynamicPPL.UntypedVarInfo{DynamicPPL.M
-etadata{Dict{AbstractPPL.VarName, Int64}, Vector{Distributions.Distribution
-}, Vector{AbstractPPL.VarName}, Vector{Real}, Vector{Set{DynamicPPL.Selecto
-r}}}, Float64}, sampler::DynamicPPL.SampleFromUniform, context::DynamicPPL.
-DefaultContext)
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/model.jl:91
-         [17] DynamicPPL.VarInfo(rng::Random._GLOBAL_RNG, model::DynamicPPL
-.Model{Main.##WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matri
-x{Float64}, SubArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}
-}, Tuple{Vector{Int64}}, false}, Int64}, Tuple{}}, sampler::DynamicPPL.Samp
-leFromUniform, context::DynamicPPL.DefaultContext)
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/varinfo.jl:132
-         [18] DynamicPPL.VarInfo(rng::Random._GLOBAL_RNG, model::DynamicPPL
-.Model{Main.##WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matri
-x{Float64}, SubArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}
-}, Tuple{Vector{Int64}}, false}, Int64}, Tuple{}}, sampler::DynamicPPL.Samp
-leFromUniform)
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/varinfo.jl:131
-         [19] step(rng::Random._GLOBAL_RNG, model::DynamicPPL.Model{Main.##
-WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, Su
-bArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vecto
-r{Int64}}, false}, Int64}, Tuple{}}, spl::DynamicPPL.Sampler{Turing.Inferen
-ce.HMC{Turing.Core.ForwardDiffAD{40}, (), AdvancedHMC.UnitEuclideanMetric}}
-; resume_from::Nothing, kwargs::Base.Iterators.Pairs{Union{}, Union{}, Tupl
-e{}, NamedTuple{(), Tuple{}}})
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/sampler.jl:69
-         [20] step(rng::Random._GLOBAL_RNG, model::DynamicPPL.Model{Main.##
-WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, Su
-bArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vecto
-r{Int64}}, false}, Int64}, Tuple{}}, spl::DynamicPPL.Sampler{Turing.Inferen
-ce.HMC{Turing.Core.ForwardDiffAD{40}, (), AdvancedHMC.UnitEuclideanMetric}}
-)
-            @ DynamicPPL /cache/julia-buildkite-plugin/depots/7aa0085e-79a4
--45f3-a5bd-9743c91cf3da/packages/DynamicPPL/F7F1M/src/sampler.jl:62
-         [21] macro expansion
-            @ /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-
-9743c91cf3da/packages/AbstractMCMC/BPJCW/src/sample.jl:123 [inlined]
-         [22] macro expansion
-            @ /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-
-9743c91cf3da/packages/AbstractMCMC/BPJCW/src/logging.jl:15 [inlined]
-         [23] mcmcsample(rng::Random._GLOBAL_RNG, model::DynamicPPL.Model{M
-ain.##WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float6
-4}, SubArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple
-{Vector{Int64}}, false}, Int64}, Tuple{}}, sampler::DynamicPPL.Sampler{Turi
-ng.Inference.HMC{Turing.Core.ForwardDiffAD{40}, (), AdvancedHMC.UnitEuclide
-anMetric}}, N::Int64; progress::Bool, progressname::String, callback::Nothi
-ng, discard_initial::Int64, thinning::Int64, chain_type::Type, kwargs::Base
-.Iterators.Pairs{Union{}, Union{}, Tuple{}, NamedTuple{(), Tuple{}}})
-            @ AbstractMCMC /cache/julia-buildkite-plugin/depots/7aa0085e-79
-a4-45f3-a5bd-9743c91cf3da/packages/AbstractMCMC/BPJCW/src/sample.jl:114
-         [24] sample(rng::Random._GLOBAL_RNG, model::DynamicPPL.Model{Main.
-##WeaveSandBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, 
-SubArray{Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vec
-tor{Int64}}, false}, Int64}, Tuple{}}, sampler::DynamicPPL.Sampler{Turing.I
-nference.HMC{Turing.Core.ForwardDiffAD{40}, (), AdvancedHMC.UnitEuclideanMe
-tric}}, N::Int64; chain_type::Type, resume_from::Nothing, progress::Bool, k
-wargs::Base.Iterators.Pairs{Union{}, Union{}, Tuple{}, NamedTuple{(), Tuple
-{}}})
-            @ Turing.Inference /cache/julia-buildkite-plugin/depots/7aa0085
-e-79a4-45f3-a5bd-9743c91cf3da/packages/Turing/YGtAo/src/inference/Inference
-.jl:156
-         [25] macro expansion
-            @ /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-
-9743c91cf3da/packages/AbstractMCMC/BPJCW/src/sample.jl:351 [inlined]
-         [26] (::AbstractMCMC.var"#1082#threadsfor_fun#49"{UnitRange{Int64}
-, Bool, Base.Iterators.Pairs{Symbol, UnionAll, Tuple{Symbol}, NamedTuple{(:
-chain_type,), Tuple{UnionAll}}}, Int64, Vector{Any}, Vector{UInt64}, Vector
-{DynamicPPL.Sampler{Turing.Inference.HMC{Turing.Core.ForwardDiffAD{40}, (),
- AdvancedHMC.UnitEuclideanMetric}}}, Vector{DynamicPPL.Model{Main.##WeaveSa
-ndBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{
-Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vector{Int64
-}}, false}, Int64}, Tuple{}}}, Vector{Random._GLOBAL_RNG}})(onethread::Bool
-)
-            @ AbstractMCMC ./threadingconstructs.jl:81
-         [27] (::AbstractMCMC.var"#1082#threadsfor_fun#49"{UnitRange{Int64}
-, Bool, Base.Iterators.Pairs{Symbol, UnionAll, Tuple{Symbol}, NamedTuple{(:
-chain_type,), Tuple{UnionAll}}}, Int64, Vector{Any}, Vector{UInt64}, Vector
-{DynamicPPL.Sampler{Turing.Inference.HMC{Turing.Core.ForwardDiffAD{40}, (),
- AdvancedHMC.UnitEuclideanMetric}}}, Vector{DynamicPPL.Model{Main.##WeaveSa
-ndBox#289.var"#1#2", (:x, :y, :σ), (), (), Tuple{Matrix{Float64}, SubArray{
-Union{Nothing, Int64}, 1, Vector{Union{Nothing, Int64}}, Tuple{Vector{Int64
-}}, false}, Int64}, Tuple{}}}, Vector{Random._GLOBAL_RNG}})()
-            @ AbstractMCMC ./threadingconstructs.jl:48
+Iterations        = 1:1:1500
+Number of chains  = 3
+Samples per chain = 1500
+Wall duration     = 13.22 seconds
+Compute duration  = 12.55 seconds
+parameters        = intercept_versicolor, intercept_virginica, coefficients
+_versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
+fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
+2], coefficients_virginica[3], coefficients_virginica[4]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
+amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+
+Summary Statistics
+                  parameters      mean       std   naive_se      mcse      
+  e ⋯
+                      Symbol   Float64   Float64    Float64   Float64    Fl
+oat ⋯
+
+        intercept_versicolor    0.9354    0.5238     0.0078    0.0227   542
+.78 ⋯
+         intercept_virginica   -0.6837    0.6685     0.0100    0.0317   481
+.34 ⋯
+  coefficients_versicolor[1]    1.0630    0.6406     0.0096    0.0293   497
+.97 ⋯
+  coefficients_versicolor[2]   -1.4800    0.5730     0.0085    0.0248   632
+.34 ⋯
+  coefficients_versicolor[3]    1.0131    0.7155     0.0107    0.0330   449
+.34 ⋯
+  coefficients_versicolor[4]    0.3243    0.7044     0.0105    0.0364   357
+.08 ⋯
+   coefficients_virginica[1]    0.9780    0.6766     0.0101    0.0284   512
+.07 ⋯
+   coefficients_virginica[2]   -0.7076    0.6770     0.0101    0.0289   520
+.45 ⋯
+   coefficients_virginica[3]    2.1067    0.8158     0.0122    0.0379   388
+.54 ⋯
+   coefficients_virginica[4]    2.6082    0.7995     0.0119    0.0462   255
+.90 ⋯
+                                                               3 columns om
+itted
+
+Quantiles
+                  parameters      2.5%     25.0%     50.0%     75.0%     97
+.5% ⋯
+                      Symbol   Float64   Float64   Float64   Float64   Floa
+t64 ⋯
+
+        intercept_versicolor   -0.0782    0.5827    0.9308    1.2831    1.9
+832 ⋯
+         intercept_virginica   -2.0133   -1.1248   -0.6926   -0.2305    0.6
+289 ⋯
+  coefficients_versicolor[1]   -0.1748    0.6246    1.0593    1.4983    2.3
+599 ⋯
+  coefficients_versicolor[2]   -2.6648   -1.8507   -1.4605   -1.0870   -0.4
+017 ⋯
+  coefficients_versicolor[3]   -0.3586    0.5081    1.0048    1.4892    2.4
+542 ⋯
+  coefficients_versicolor[4]   -1.0370   -0.1608    0.3164    0.8088    1.7
+027 ⋯
+   coefficients_virginica[1]   -0.3566    0.5259    0.9830    1.4316    2.2
+932 ⋯
+   coefficients_virginica[2]   -2.0652   -1.1573   -0.6868   -0.2362    0.5
+693 ⋯
+   coefficients_virginica[3]    0.4721    1.5736    2.1018    2.6520    3.6
+780 ⋯
+   coefficients_virginica[4]    1.1115    2.0559    2.6021    3.1349    4.2
+297 ⋯
 ```
 
 
@@ -437,11 +269,7 @@ Since we ran multiple chains, we may as well do a spot check to make sure each c
 plot(chain)
 ```
 
-```
-Error: UndefVarError: chain not defined
-```
-
-
+![](figures/08_multinomial-logistic-regression_7_1.png)
 
 
 
@@ -457,11 +285,7 @@ corner(
 )
 ```
 
-```
-Error: UndefVarError: chain not defined
-```
-
-
+![](figures/08_multinomial-logistic-regression_8_1.png)
 
 ```julia
 corner(
@@ -471,11 +295,7 @@ corner(
 )
 ```
 
-```
-Error: UndefVarError: chain not defined
-```
-
-
+![](figures/08_multinomial-logistic-regression_9_1.png)
 
 
 
@@ -524,7 +344,7 @@ mean(predictions .== testset[!, :Species_index])
 ```
 
 ```
-Error: UndefVarError: chain not defined
+0.92
 ```
 
 
@@ -548,7 +368,11 @@ end
 
 ```
 Number of `setosa`: 24
-Error: UndefVarError: predictions not defined
+Percentage of `setosa` predicted correctly: 0.9583333333333334
+Number of `versicolor`: 25
+Percentage of `versicolor` predicted correctly: 0.88
+Number of `virginica`: 26
+Percentage of `virginica` predicted correctly: 0.9230769230769231
 ```
 
 
@@ -581,6 +405,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -589,47 +414,42 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
-  [a93c6f00] DataFrames v1.3.2
-  [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.14
-  [38e38edf] GLM v1.6.1
-  [c7f686f2] MCMCChains v4.14.1
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.7.34
-  [91a5bcdd] Plots v1.25.5
   [ce6b1742] RDatasets v0.7.7
-  [4c63d2b9] StatsFuns v0.9.9
-  [f3b207a7] StatsPlots v0.14.30
-  [fce5fe82] Turing v0.16.6
+  [f3b207a7] StatsPlots v0.14.33
+  [fce5fe82] Turing v0.20.4
   [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
-  [621f4979] AbstractFFTs v1.0.1
-  [80f14c24] AbstractMCMC v3.2.1
-  [7a57a42e] AbstractPPL v0.1.4
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+  [621f4979] AbstractFFTs v1.1.0
+  [80f14c24] AbstractMCMC v3.3.1
+  [7a57a42e] AbstractPPL v0.5.1
   [1520ce14] AbstractTrees v0.3.4
   [79e6a3ab] Adapt v3.3.3
   [0bf59076] AdvancedHMC v0.3.3
   [5b7e9947] AdvancedMH v0.6.6
-  [576499cb] AdvancedPS v0.2.4
+  [576499cb] AdvancedPS v0.3.5
   [b5ca4192] AdvancedVI v0.1.3
   [dce04be8] ArgCheck v2.3.0
-  [7d9fca2a] Arpack v0.4.0
-  [4fba245c] ArrayInterface v4.0.3
+  [7d9fca2a] Arpack v0.5.3
+  [4fba245c] ArrayInterface v5.0.1
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.4
-  [198e06fe] BangBang v0.3.35
+  [198e06fe] BangBang v0.3.36
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.9.7
+  [76274a88] Bijectors v0.9.11
   [336ed68f] CSV v0.10.2
-  [324d7699] CategoricalArrays v0.10.2
-  [082447d4] ChainRules v0.8.25
-  [d360d2e6] ChainRulesCore v0.10.13
+  [49dc2e85] Calculus v0.5.1
+  [324d7699] CategoricalArrays v0.10.3
+  [082447d4] ChainRules v1.27.0
+  [d360d2e6] ChainRulesCore v1.13.0
+  [9e997f8a] ChangesOfVariables v0.1.2
   [aaaa29a8] Clustering v0.14.2
   [944b1d66] CodecZlib v0.7.0
   [35d6a980] ColorSchemes v3.17.1
@@ -650,57 +470,61 @@ And the full manifest:
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
+  [b429d917] DensityInterface v0.4.0
   [163ba53b] DiffResults v1.0.3
-  [b552c78f] DiffRules v1.5.0
+  [b552c78f] DiffRules v1.10.0
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.14
-  [ced4e74d] DistributionsAD v0.6.29
+  [31c24e10] Distributions v0.25.49
+  [ced4e74d] DistributionsAD v0.6.38
   [ffbed154] DocStringExtensions v0.8.6
-  [366bfd00] DynamicPPL v0.12.4
-  [da5c29d0] EllipsisNotation v1.3.0
-  [cad2338a] EllipticalSliceSampling v0.4.6
+  [fa6b7ba4] DualNumbers v0.6.6
+  [366bfd00] DynamicPPL v0.17.8
+  [da5c29d0] EllipsisNotation v1.0.0
+  [cad2338a] EllipticalSliceSampling v0.4.7
   [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.4.5
+  [7a1cc6ca] FFTW v1.4.6
   [5789e2e9] FileIO v1.13.0
   [48062228] FilePathsBase v0.9.17
-  [1a297f60] FillArrays v0.11.9
-  [6a86dc24] FiniteDiff v2.10.1
+  [1a297f60] FillArrays v0.13.0
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.25
   [d9f16b24] Functors v0.2.8
-  [38e38edf] GLM v1.6.1
-  [28b8d3ca] GR v0.63.1
-  [5c1252a2] GeometryBasics v0.4.1
+  [28b8d3ca] GR v0.64.0
+  [5c1252a2] GeometryBasics v0.4.2
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v0.9.17
+  [34004b35] HypergeometricFunctions v0.3.8
+  [7869d1d1] IRTools v0.4.5
   [615f187c] IfElse v0.1.1
-  [83e8ac13] IniFile v0.5.0
+  [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [842dd82b] InlineStrings v1.1.2
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.13.5
   [8197267c] IntervalSets v0.5.3
+  [3587e190] InverseFunctions v0.1.2
   [41ab1584] InvertedIndices v1.1.0
   [92d709cd] IrrationalConstants v0.1.1
   [c8e1da08] IterTools v1.4.0
-  [42fd0dbc] IterativeSolvers v0.9.2
   [82899510] IteratorInterfaceExtensions v1.0.0
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
   [5ab0869b] KernelDensity v0.6.3
+  [8ac3fa9e] LRUCache v1.3.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.11
+  [23fbe1c1] Latexify v0.15.12
   [7f8f8fb0] LearnBase v0.3.0
   [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
-  [6f1fad26] Libtask v0.5.3
-  [2ab3a3ac] LogExpFunctions v0.3.0
+  [6f1fad26] Libtask v0.6.10
+  [2ab3a3ac] LogExpFunctions v0.3.6
   [e6f89c97] LoggingExtras v0.4.7
-  [c7f686f2] MCMCChains v4.14.1
+  [c7f686f2] MCMCChains v5.0.4
+  [be115224] MCMCDiagnosticTools v0.1.3
   [9920b226] MLDataPattern v0.5.4
   [cc2ba9b6] MLDataUtils v0.5.4
-  [e80e1ace] MLJModelInterface v1.3.6
+  [e80e1ace] MLJModelInterface v1.4.1
   [66a33bbf] MLLabelUtils v0.5.7
   [1914dd2f] MacroTools v0.5.9
   [dbb5928d] MappedArrays v0.4.1
@@ -709,23 +533,22 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
   [78c3b35d] Mocking v0.7.3
-  [6f286f6a] MultivariateStats v0.8.0
+  [6f286f6a] MultivariateStats v0.9.1
   [872c559c] NNlib v0.7.34
   [77ba4419] NaNMath v0.3.7
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [b8a86587] NearestNeighbors v0.4.9
-  [8913a72c] NonlinearSolve v0.3.14
   [510215fc] Observables v0.4.0
   [6fe1bfb0] OffsetArrays v1.10.8
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.5
+  [90014a1f] PDMats v0.11.6
   [69de0a69] Parsers v2.2.2
   [ccf2f8ad] PlotThemes v2.0.1
   [995b91a9] PlotUtils v1.1.3
-  [91a5bcdd] Plots v1.25.5
+  [91a5bcdd] Plots v1.26.0
   [2dfb63ee] PooledArrays v1.4.0
-  [21216c6a] Preferences v1.2.3
+  [21216c6a] Preferences v1.2.4
   [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.1
@@ -733,44 +556,43 @@ And the full manifest:
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
   [b3c3ace0] RangeArrays v0.3.2
-  [c84ed2f1] Ratios v0.4.2
+  [c84ed2f1] Ratios v0.4.3
+  [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.4.1
-  [731186ca] RecursiveArrayTools v2.24.2
-  [f2c3362d] RecursiveFactorization v0.1.0
+  [01d81517] RecipesPipeline v0.5.1
+  [731186ca] RecursiveArrayTools v2.25.0
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v0.1.3
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
-  [0bca4576] SciMLBase v1.26.1
+  [f2b01f46] Roots v1.3.14
+  [0bca4576] SciMLBase v1.28.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.0
   [91c51154] SentinelArrays v1.3.12
   [efcf1570] Setfield v0.8.2
-  [1277b4bf] ShiftedArrays v1.0.0
   [992d4aef] Showoff v1.0.3
   [a2af1166] SortingAlgorithms v1.0.1
-  [276daf66] SpecialFunctions v1.8.3
+  [276daf66] SpecialFunctions v2.1.4
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.5.5
-  [90137ffa] StaticArrays v1.3.5
+  [aedffcd0] Static v0.6.0
+  [90137ffa] StaticArrays v1.4.1
   [64bff920] StatisticalTraits v3.0.0
   [82ae8749] StatsAPI v1.2.1
   [2913bbd2] StatsBase v0.33.16
-  [4c63d2b9] StatsFuns v0.9.9
-  [3eaba693] StatsModels v0.6.28
-  [f3b207a7] StatsPlots v0.14.30
+  [4c63d2b9] StatsFuns v0.9.16
+  [f3b207a7] StatsPlots v0.14.33
   [09ab397b] StructArrays v0.6.5
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
   [bd369af6] Tables v1.6.1
   [5d786b92] TerminalLoggers v0.1.5
-  [f269a46b] TimeZones v1.7.1
-  [9f7883ad] Tracker v0.2.19
+  [f269a46b] TimeZones v1.7.2
+  [9f7883ad] Tracker v0.2.20
   [3bb67fe8] TranscodingStreams v0.9.6
-  [28d57a85] Transducers v0.4.72
+  [28d57a85] Transducers v0.4.73
   [a2a6695c] TreeViews v0.3.0
-  [fce5fe82] Turing v0.16.6
+  [fce5fe82] Turing v0.20.4
   [5c2747f8] URIs v1.3.0
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
@@ -798,6 +620,7 @@ And the full manifest:
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
   [aacddb02] JpegTurbo_jll v2.1.2+0
   [c1c5ebd0] LAME_jll v3.100.1+0
+  [88015f11] LERC_jll v3.0.0+1
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
@@ -805,10 +628,9 @@ And the full manifest:
   [7add5ba3] Libgpg_error_jll v1.42.0+0
   [94ce4f54] Libiconv_jll v1.16.1+1
   [4b2f31a3] Libmount_jll v2.35.0+0
-  [3ae2931a] Libtask_jll v0.4.3+0
-  [89763e89] Libtiff_jll v4.3.0+0
+  [89763e89] Libtiff_jll v4.3.0+1
   [38a345b3] Libuuid_jll v2.36.0+0
-  [856f044c] MKL_jll v2021.1.1+2
+  [856f044c] MKL_jll v2022.0.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
   [458c3c95] OpenSSL_jll v1.1.13+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
@@ -818,7 +640,7 @@ And the full manifest:
   [ea2cea3b] Qt5Base_jll v5.15.3+0
   [f50d1b31] Rmath_jll v0.3.0+0
   [a2964d1f] Wayland_jll v1.19.0+0
-  [2381bf8a] Wayland_protocols_jll v1.23.0+0
+  [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.9.12+0
   [aed1982a] XSLT_jll v1.1.34+0
   [4f6342f7] Xorg_libX11_jll v1.6.9+4
