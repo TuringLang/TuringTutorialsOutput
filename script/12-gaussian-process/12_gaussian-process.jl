@@ -1,6 +1,6 @@
 
 using Turing
-using AbstractGPs, KernelFunctions, Random, Plots
+using AbstractGPs, Random
 
 using LinearAlgebra
 using VegaLite, DataFrames, StatsPlots, StatsBase
@@ -182,7 +182,7 @@ using Stheno
 
     ## Standard
     # gpc = GPC()
-    # f = Stheno.wrap(GP(kernel), gpc)
+    # f = atomic(GP(kernel), gpc)
     # gp = f(ColVecs(Z), noise)
     # Y ~ filldist(gp, D)
 
@@ -196,7 +196,7 @@ using Stheno
     #  locations = collect(LinRange(lbound, ubound, n_inducing))
     locations = quantile(vec(Y), LinRange(0.01, 0.99, n_inducing))
     xu = reshape(locations, 1, :)
-    gp = Stheno.wrap(GP(kernel), GPC())
+    gp = atomic(GP(kernel), GPC())
     fobs = gp(ColVecs(Z), noise)
     finducing = gp(xu, 1e-12)
     sfgp = SparseFiniteGP(fobs, finducing)
@@ -223,22 +223,4 @@ df_gplvm_sparse[!, :ard1] = z_mean[alpha_indices[1], :]
 df_gplvm_sparse[!, :ard2] = z_mean[alpha_indices[2], :]
 p_sparse = @vlplot(:point, x = :ard1, y = :ard2, color = "labels:n")(df_gplvm_sparse)
 p_sparse
-
-
-let
-    @assert abs(
-        mean(z_mean[alpha_indices[1], labels[1:n_data] .== "setosa"]) -
-        mean(z_mean[alpha_indices[1], labels[1:n_data] .!= "setosa"]),
-    ) > 1.0
-
-    @assert abs(
-        mean(z_mean[alpha_indices[2], labels[1:n_data] .== "setosa"]) -
-        mean(z_mean[alpha_indices[2], labels[1:n_data] .!= "setosa"]),
-    ) > 0.1
-end
-
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
 
