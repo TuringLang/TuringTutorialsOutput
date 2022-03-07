@@ -462,12 +462,7 @@ end
 
 
 # kernel density estimate
-using StatsPlots, KernelDensity
+using KernelDensity
 dens = kde((vec(samples_raw[1, :, :]), vec(samples_raw[2, :, :])))
 StatsPlots.plot(dens)
-
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
 

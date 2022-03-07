@@ -50,13 +50,6 @@ using Random
 Random.seed!(1789);
 ```
 
-```
-Error: Failed to precompile RDatasets [ce6b1742-4840-55fa-b093-852dadbb1d8b
-] to /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf
-3da/compiled/v1.6/RDatasets/jl_cvUht6.
-```
-
-
 
 
 
@@ -256,15 +249,15 @@ z = permutedims(reshape(mean(group(chain_pccaARD, :z))[:, 2], (n_genes, n_cells)
 
 ```
 9-element Vector{Float64}:
- 3.424414971863102
- 3.4143030762548228
- 0.07647453717454128
- 0.0758307677003625
- 3.445602991992485
- 3.5416163118617505
- 3.4914228019778073
- 3.5093413318666697
- 3.496446372430391
+ 0.07644560784252166
+ 0.07598082383199926
+ 3.5048712041270975
+ 3.3786519059536384
+ 3.489567215521377
+ 3.4766110264554304
+ 3.547881871985896
+ 3.5250771071171623
+ 3.580285620733203
 ```
 
 
@@ -324,11 +317,6 @@ dat = data[!, 1:d]
 n = size(dat)[1];
 ```
 
-```
-Error: UndefVarError: dataset not defined
-```
-
-
 
 
 
@@ -363,11 +351,7 @@ df_iris[!, :species] = species
 @vlplot(:point, x = :z1, y = :z2, color = "species:n")(df_iris)
 ```
 
-```
-Error: UndefVarError: dat not defined
-```
-
-
+![](figures/11_probabilistic-pca_13_1.png)
 
 
 
@@ -398,11 +382,7 @@ df_pre[!, :batch] = batch
 @vlplot(:point, x = :z1, y = :z2, color = "species:n", shape = :batch)(df_pre)
 ```
 
-```
-Error: UndefVarError: dat not defined
-```
-
-
+![](figures/11_probabilistic-pca_14_1.png)
 
 
 
@@ -442,11 +422,6 @@ ppca_residual = pPCA_residual(batch_dat, convert(Vector{Float64}, batch))
 chain_ppcaResidual = sample(ppca_residual, HMC(ϵ, τ), 1000);
 ```
 
-```
-Error: UndefVarError: batch_dat not defined
-```
-
-
 
 
 
@@ -463,11 +438,7 @@ df_post[!, :batch] = batch
 @vlplot(:point, x = :z1, y = :z2, color = "species:n", shape = :batch)(df_post)
 ```
 
-```
-Error: UndefVarError: chain_ppcaResidual not defined
-```
-
-
+![](figures/11_probabilistic-pca_16_1.png)
 
 
 
@@ -596,11 +567,7 @@ df_post[!, :species] = species
 @vlplot(:point, x = :z1, y = :z2, color = "species:n")(df_post)
 ```
 
-```
-Error: UndefVarError: Random not defined
-```
-
-
+![](figures/11_probabilistic-pca_17_1.png)
 
 
 
@@ -675,11 +642,7 @@ end
 gif(anim, "anim_fps.gif"; fps=5)
 ```
 
-```
-Error: UndefVarError: chain_ppcaHouseholder not defined
-```
-
-
+![](figures/11_probabilistic-pca_18_1.gif)
 
 
 
@@ -688,24 +651,15 @@ projections. We can see quite clearly that it is possible to separate Setosa fro
 Virginica species, but that the latter two cannot be clearly separated based on the pPCA projection. This can be
 shown even more clearly by using a kernel density estimate and plotting the contours of that estimate.
 
-```
-Error: UndefVarError: samples_raw not defined
-```
-
-
 
 ```julia
 # kernel density estimate
-using StatsPlots, KernelDensity
+using KernelDensity
 dens = kde((vec(samples_raw[1, :, :]), vec(samples_raw[2, :, :])))
 StatsPlots.plot(dens)
 ```
 
-```
-Error: UndefVarError: samples_raw not defined
-```
-
-
+![](figures/11_probabilistic-pca_20_1.png)
 
 
 ## Appendix
@@ -731,6 +685,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -739,238 +694,230 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/11-probabilistic-pca/Project.toml`
-  [76274a88] Bijectors v0.9.8
-  [a93c6f00] DataFrames v1.2.2
-  [31c24e10] Distributions v0.25.16
-  [28b8d3ca] GR v0.59.0
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/11-probabilistic-pca/Project.toml`
+  [a93c6f00] DataFrames v1.3.2
   [5ab0869b] KernelDensity v0.6.3
-  [ce6b1742] RDatasets v0.7.5
-  [f3b207a7] StatsPlots v0.14.27
-  [fce5fe82] Turing v0.18.0
+  [ce6b1742] RDatasets v0.7.7
+  [f3b207a7] StatsPlots v0.14.33
+  [fce5fe82] Turing v0.20.4
   [112f6efa] VegaLite v2.6.0
   [37e2e46d] LinearAlgebra
+  [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/11-probabilistic-pca/Manifest.toml`
-  [621f4979] AbstractFFTs v1.0.1
-  [80f14c24] AbstractMCMC v3.2.1
-  [7a57a42e] AbstractPPL v0.2.0
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/11-probabilistic-pca/Manifest.toml`
+  [621f4979] AbstractFFTs v1.1.0
+  [80f14c24] AbstractMCMC v3.3.1
+  [7a57a42e] AbstractPPL v0.5.1
   [1520ce14] AbstractTrees v0.3.4
-  [79e6a3ab] Adapt v3.3.1
-  [0bf59076] AdvancedHMC v0.3.1
-  [5b7e9947] AdvancedMH v0.6.5
-  [576499cb] AdvancedPS v0.2.4
+  [79e6a3ab] Adapt v3.3.3
+  [0bf59076] AdvancedHMC v0.3.3
+  [5b7e9947] AdvancedMH v0.6.6
+  [576499cb] AdvancedPS v0.3.5
   [b5ca4192] AdvancedVI v0.1.3
-  [dce04be8] ArgCheck v2.1.0
-  [7d9fca2a] Arpack v0.4.0
-  [4fba245c] ArrayInterface v3.1.33
-  [13072b0f] AxisAlgorithms v1.0.0
+  [dce04be8] ArgCheck v2.3.0
+  [7d9fca2a] Arpack v0.5.3
+  [4fba245c] ArrayInterface v5.0.1
+  [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.4
-  [198e06fe] BangBang v0.3.32
+  [198e06fe] BangBang v0.3.36
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.9.8
-  [62783981] BitTwiddlingConvenienceFunctions v0.1.0
-  [2a0fbf3d] CPUSummary v0.1.3
-  [336ed68f] CSV v0.8.5
-  [324d7699] CategoricalArrays v0.10.1
-  [082447d4] ChainRules v1.11.5
-  [d360d2e6] ChainRulesCore v1.6.0
-  [fb6a15b2] CloseOpenIntervals v0.1.2
+  [76274a88] Bijectors v0.9.11
+  [336ed68f] CSV v0.10.2
+  [49dc2e85] Calculus v0.5.1
+  [324d7699] CategoricalArrays v0.10.3
+  [082447d4] ChainRules v1.27.0
+  [d360d2e6] ChainRulesCore v1.13.0
+  [9e997f8a] ChangesOfVariables v0.1.2
   [aaaa29a8] Clustering v0.14.2
   [944b1d66] CodecZlib v0.7.0
-  [35d6a980] ColorSchemes v3.14.0
+  [35d6a980] ColorSchemes v3.17.1
   [3da002f7] ColorTypes v0.11.0
   [5ae59095] Colors v0.12.8
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.0
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.37.0
+  [34da2185] Compat v3.41.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.3.0
   [d38c429a] Contour v0.5.7
-  [a8cc5b0e] Crayons v4.0.4
+  [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.9.0
-  [a93c6f00] DataFrames v1.2.2
-  [864edb3b] DataStructures v0.18.10
+  [a93c6f00] DataFrames v1.3.2
+  [864edb3b] DataStructures v0.18.11
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
-  [244e2a9f] DefineSingletons v0.1.1
+  [244e2a9f] DefineSingletons v0.1.2
+  [b429d917] DensityInterface v0.4.0
   [163ba53b] DiffResults v1.0.3
-  [b552c78f] DiffRules v1.3.1
-  [b4f34e82] Distances v0.10.4
-  [31c24e10] Distributions v0.25.16
-  [ced4e74d] DistributionsAD v0.6.31
-  [ffbed154] DocStringExtensions v0.8.5
-  [366bfd00] DynamicPPL v0.15.1
-  [da5c29d0] EllipsisNotation v1.1.0
-  [cad2338a] EllipticalSliceSampling v0.4.4
-  [e2ba6199] ExprTools v0.1.6
+  [b552c78f] DiffRules v1.10.0
+  [b4f34e82] Distances v0.10.7
+  [31c24e10] Distributions v0.25.49
+  [ced4e74d] DistributionsAD v0.6.38
+  [ffbed154] DocStringExtensions v0.8.6
+  [fa6b7ba4] DualNumbers v0.6.6
+  [366bfd00] DynamicPPL v0.17.8
+  [da5c29d0] EllipsisNotation v1.0.0
+  [cad2338a] EllipticalSliceSampling v0.4.7
+  [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.4.5
-  [5789e2e9] FileIO v1.11.1
+  [7a1cc6ca] FFTW v1.4.6
+  [5789e2e9] FileIO v1.13.0
   [8fc22ac5] FilePaths v0.8.3
-  [48062228] FilePathsBase v0.9.11
-  [1a297f60] FillArrays v0.12.5
-  [6a86dc24] FiniteDiff v2.8.1
+  [48062228] FilePathsBase v0.9.17
+  [1a297f60] FillArrays v0.13.0
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
-  [f6369f11] ForwardDiff v0.10.19
-  [d9f16b24] Functors v0.2.5
-  [28b8d3ca] GR v0.59.0
-  [5c1252a2] GeometryBasics v0.4.1
+  [f6369f11] ForwardDiff v0.10.25
+  [d9f16b24] Functors v0.2.8
+  [28b8d3ca] GR v0.64.0
+  [5c1252a2] GeometryBasics v0.4.2
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v0.9.14
-  [3e5b6fbb] HostCPUFeatures v0.1.4
-  [0e44f5e4] Hwloc v2.0.0
-  [615f187c] IfElse v0.1.0
-  [83e8ac13] IniFile v0.5.0
-  [22cec73e] InitialValues v0.2.10
+  [cd3eb016] HTTP v0.9.17
+  [34004b35] HypergeometricFunctions v0.3.8
+  [7869d1d1] IRTools v0.4.5
+  [615f187c] IfElse v0.1.1
+  [83e8ac13] IniFile v0.5.1
+  [22cec73e] InitialValues v0.3.1
+  [842dd82b] InlineStrings v1.1.2
   [505f98c9] InplaceOps v0.3.0
-  [a98d9a8b] Interpolations v0.13.4
+  [a98d9a8b] Interpolations v0.13.5
   [8197267c] IntervalSets v0.5.3
+  [3587e190] InverseFunctions v0.1.2
   [41ab1584] InvertedIndices v1.1.0
-  [92d709cd] IrrationalConstants v0.1.0
-  [c8e1da08] IterTools v1.3.0
-  [42fd0dbc] IterativeSolvers v0.9.1
+  [92d709cd] IrrationalConstants v0.1.1
+  [c8e1da08] IterTools v1.4.0
   [82899510] IteratorInterfaceExtensions v1.0.0
-  [692b3bcd] JLLWrappers v1.3.0
-  [682c06a0] JSON v0.21.2
+  [692b3bcd] JLLWrappers v1.4.1
+  [682c06a0] JSON v0.21.3
   [7d188eb4] JSONSchema v0.3.4
   [5ab0869b] KernelDensity v0.6.3
-  [b964fa9f] LaTeXStrings v1.2.1
-  [23fbe1c1] Latexify v0.15.6
-  [10f19ff3] LayoutPointers v0.1.3
-  [1d6d02ad] LeftChildRightSiblingTrees v0.1.2
-  [6f1fad26] Libtask v0.5.3
-  [2ab3a3ac] LogExpFunctions v0.3.3
+  [8ac3fa9e] LRUCache v1.3.0
+  [b964fa9f] LaTeXStrings v1.3.0
+  [23fbe1c1] Latexify v0.15.12
+  [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
+  [6f1fad26] Libtask v0.6.10
+  [2ab3a3ac] LogExpFunctions v0.3.6
   [e6f89c97] LoggingExtras v0.4.7
-  [bdcacae8] LoopVectorization v0.12.75
-  [c7f686f2] MCMCChains v5.0.1
-  [be115224] MCMCDiagnosticTools v0.1.0
-  [e80e1ace] MLJModelInterface v1.3.2
-  [1914dd2f] MacroTools v0.5.8
-  [d125e4d3] ManualMemory v0.1.6
+  [c7f686f2] MCMCChains v5.0.4
+  [be115224] MCMCDiagnosticTools v0.1.3
+  [e80e1ace] MLJModelInterface v1.4.1
+  [1914dd2f] MacroTools v0.5.9
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.0.3
   [442fdcdd] Measures v0.3.1
-  [128add7d] MicroCollections v0.1.1
+  [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
-  [78c3b35d] Mocking v0.7.2
-  [6f286f6a] MultivariateStats v0.8.0
-  [872c559c] NNlib v0.7.29
-  [77ba4419] NaNMath v0.3.5
+  [78c3b35d] Mocking v0.7.3
+  [6f286f6a] MultivariateStats v0.9.1
+  [872c559c] NNlib v0.8.3
+  [77ba4419] NaNMath v0.3.7
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [b8a86587] NearestNeighbors v0.4.9
   [2bd173c7] NodeJS v1.3.0
-  [8913a72c] NonlinearSolve v0.3.11
   [510215fc] Observables v0.4.0
-  [6fe1bfb0] OffsetArrays v1.10.7
+  [6fe1bfb0] OffsetArrays v1.10.8
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.1
-  [69de0a69] Parsers v1.1.2
+  [90014a1f] PDMats v0.11.6
+  [69de0a69] Parsers v2.2.2
   [ccf2f8ad] PlotThemes v2.0.1
-  [995b91a9] PlotUtils v1.0.14
-  [91a5bcdd] Plots v1.22.1
-  [f517fe37] Polyester v0.5.1
-  [1d0040c9] PolyesterWeave v0.1.0
-  [2dfb63ee] PooledArrays v1.3.0
-  [21216c6a] Preferences v1.2.2
-  [08abe8d2] PrettyTables v1.1.0
+  [995b91a9] PlotUtils v1.1.3
+  [91a5bcdd] Plots v1.26.0
+  [2dfb63ee] PooledArrays v1.4.0
+  [21216c6a] Preferences v1.2.4
+  [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.1
   [1fd47b50] QuadGK v2.4.2
   [df47a6cb] RData v0.8.3
-  [ce6b1742] RDatasets v0.7.5
+  [ce6b1742] RDatasets v0.7.7
   [b3c3ace0] RangeArrays v0.3.2
-  [c84ed2f1] Ratios v0.4.2
-  [3cdcf5f2] RecipesBase v1.1.2
-  [01d81517] RecipesPipeline v0.4.1
-  [731186ca] RecursiveArrayTools v2.17.2
-  [f2c3362d] RecursiveFactorization v0.2.4
+  [c84ed2f1] Ratios v0.4.3
+  [c1ae055f] RealDot v0.1.0
+  [3cdcf5f2] RecipesBase v1.2.1
+  [01d81517] RecipesPipeline v0.5.1
+  [731186ca] RecursiveArrayTools v2.25.0
   [189a3867] Reexport v1.2.2
-  [ae029012] Requires v1.1.3
+  [05181044] RelocatableFolders v0.1.3
+  [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
-  [94e857df] SIMDTypes v0.1.0
-  [476501e8] SLEEFPirates v0.6.27
-  [0bca4576] SciMLBase v1.19.0
-  [30f210dd] ScientificTypesBase v2.2.0
+  [f2b01f46] Roots v1.3.14
+  [0bca4576] SciMLBase v1.28.0
+  [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.0
-  [91c51154] SentinelArrays v1.3.7
+  [91c51154] SentinelArrays v1.3.12
   [efcf1570] Setfield v0.7.1
   [992d4aef] Showoff v1.0.3
   [a2af1166] SortingAlgorithms v1.0.1
-  [276daf66] SpecialFunctions v1.6.2
+  [276daf66] SpecialFunctions v2.1.4
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.3.3
-  [90137ffa] StaticArrays v1.2.12
-  [64bff920] StatisticalTraits v2.1.0
-  [82ae8749] StatsAPI v1.0.0
-  [2913bbd2] StatsBase v0.33.10
-  [4c63d2b9] StatsFuns v0.9.10
-  [f3b207a7] StatsPlots v0.14.27
-  [7792a7ef] StrideArraysCore v0.2.4
-  [09ab397b] StructArrays v0.6.3
-  [ab02a1b2] TableOperations v1.1.0
+  [aedffcd0] Static v0.6.0
+  [90137ffa] StaticArrays v1.4.1
+  [64bff920] StatisticalTraits v3.0.0
+  [82ae8749] StatsAPI v1.2.1
+  [2913bbd2] StatsBase v0.33.16
+  [4c63d2b9] StatsFuns v0.9.16
+  [f3b207a7] StatsPlots v0.14.33
+  [09ab397b] StructArrays v0.6.5
+  [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
   [382cd787] TableTraitsUtils v1.0.2
-  [bd369af6] Tables v1.5.2
-  [5d786b92] TerminalLoggers v0.1.4
-  [8290d209] ThreadingUtilities v0.4.6
-  [f269a46b] TimeZones v1.5.7
-  [9f7883ad] Tracker v0.2.16
+  [bd369af6] Tables v1.6.1
+  [5d786b92] TerminalLoggers v0.1.5
+  [f269a46b] TimeZones v1.7.2
+  [9f7883ad] Tracker v0.2.20
   [3bb67fe8] TranscodingStreams v0.9.6
-  [28d57a85] Transducers v0.4.66
+  [28d57a85] Transducers v0.4.73
   [a2a6695c] TreeViews v0.3.0
-  [d5829a12] TriangularSolve v0.1.6
-  [fce5fe82] Turing v0.18.0
+  [fce5fe82] Turing v0.20.4
   [30578b45] URIParser v0.4.1
   [5c2747f8] URIs v1.3.0
   [3a884ed6] UnPack v1.0.2
-  [3d5dd08c] VectorizationBase v0.21.9
+  [1cfade01] UnicodeFun v0.4.1
+  [41fe7b60] Unzip v0.1.2
   [239c3e63] Vega v2.3.0
   [112f6efa] VegaLite v2.6.0
-  [cc8bc4a8] Widgets v0.6.4
-  [efce3f68] WoodburyMatrices v0.5.3
-  [700de1a5] ZygoteRules v0.2.1
+  [ea10d353] WeakRefStrings v1.4.1
+  [cc8bc4a8] Widgets v0.6.5
+  [efce3f68] WoodburyMatrices v0.5.5
+  [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
-  [83423d85] Cairo_jll v1.16.1+0
+  [83423d85] Cairo_jll v1.16.1+1
   [5ae413db] EarCut_jll v2.2.3+0
-  [2e619515] Expat_jll v2.2.10+0
+  [2e619515] Expat_jll v2.4.4+0
   [b22a6f82] FFMPEG_jll v4.4.0+0
   [f5851436] FFTW_jll v3.3.10+0
   [a3f928ae] Fontconfig_jll v2.13.93+0
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
-  [0656b61e] GLFW_jll v3.3.5+0
-  [d2c73de3] GR_jll v0.59.0+0
+  [0656b61e] GLFW_jll v3.3.6+0
+  [d2c73de3] GR_jll v0.64.0+0
   [78b55507] Gettext_jll v0.21.0+0
-  [7746bdde] Glib_jll v2.68.3+0
+  [7746bdde] Glib_jll v2.68.3+2
   [3b182d85] Graphite2_jll v1.3.14+0
-  [2e76f6c2] HarfBuzz_jll v2.8.1+0
-  [e33a78d0] Hwloc_jll v2.5.0+0
+  [2e76f6c2] HarfBuzz_jll v2.8.1+1
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
-  [aacddb02] JpegTurbo_jll v2.1.0+0
+  [aacddb02] JpegTurbo_jll v2.1.2+0
   [c1c5ebd0] LAME_jll v3.100.1+0
+  [88015f11] LERC_jll v3.0.0+1
   [dd4b983a] LZO_jll v2.10.1+0
-  [e9f186c6] Libffi_jll v3.2.2+0
+  [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
   [7e76a0d4] Libglvnd_jll v1.3.0+3
   [7add5ba3] Libgpg_error_jll v1.42.0+0
   [94ce4f54] Libiconv_jll v1.16.1+1
   [4b2f31a3] Libmount_jll v2.35.0+0
-  [3ae2931a] Libtask_jll v0.4.3+0
-  [89763e89] Libtiff_jll v4.3.0+0
+  [89763e89] Libtiff_jll v4.3.0+1
   [38a345b3] Libuuid_jll v2.36.0+0
-  [856f044c] MKL_jll v2021.1.1+2
-  [e7412a2a] Ogg_jll v1.3.5+0
-  [458c3c95] OpenSSL_jll v1.1.10+0
+  [856f044c] MKL_jll v2022.0.0+0
+  [e7412a2a] Ogg_jll v1.3.5+1
+  [458c3c95] OpenSSL_jll v1.1.13+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
   [2f80f16e] PCRE_jll v8.44.0+0
@@ -978,7 +925,7 @@ And the full manifest:
   [ea2cea3b] Qt5Base_jll v5.15.3+0
   [f50d1b31] Rmath_jll v0.3.0+0
   [a2964d1f] Wayland_jll v1.19.0+0
-  [2381bf8a] Wayland_protocols_jll v1.18.0+4
+  [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.9.12+0
   [aed1982a] XSLT_jll v1.1.34+0
   [4f6342f7] Xorg_libX11_jll v1.6.9+4
@@ -1002,11 +949,11 @@ And the full manifest:
   [35661453] Xorg_xkbcomp_jll v1.4.2+4
   [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
   [c5fb5394] Xorg_xtrans_jll v1.4.0+3
-  [3161d3a3] Zstd_jll v1.5.0+0
+  [3161d3a3] Zstd_jll v1.5.2+0
   [0ac62f75] libass_jll v0.15.1+0
   [f638f0a6] libfdk_aac_jll v2.0.2+0
   [b53b4c65] libpng_jll v1.6.38+0
-  [f27f6e37] libvorbis_jll v1.3.7+0
+  [f27f6e37] libvorbis_jll v1.3.7+1
   [1270edf5] x264_jll v2021.5.5+0
   [dfaa095f] x265_jll v3.5.0+0
   [d8fb68d0] xkbcommon_jll v0.9.1+5
