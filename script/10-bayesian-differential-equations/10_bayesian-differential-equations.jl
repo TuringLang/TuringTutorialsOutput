@@ -1,8 +1,9 @@
 
-using Turing, Distributions, DifferentialEquations
+using Turing
+using DifferentialEquations
 
-# Import MCMCChain, Plots, and StatsPlots for visualizations and diagnostics.
-using MCMCChains, Plots, StatsPlots
+# Load StatsPlots for visualizations and diagnostics.
+using StatsPlots
 
 # Set a seed for reproducibility.
 using Random
@@ -49,7 +50,7 @@ end
 model = fitlv(odedata, prob1)
 
 # This next command runs 3 independent chains without using multithreading.
-chain = mapreduce(c -> sample(model, NUTS(0.65), 1000), chainscat, 1:3)
+chain = sample(model, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
 
 
 plot(chain)
@@ -149,11 +150,10 @@ end;
 model = fitlv(ddedata, prob1)
 
 
-chain = sample(model, NUTS(0.65), MCMCThreads(), 300, 3; progress=true)
+chain = sample(model, NUTS(0.65), MCMCThreads(), 300, 3; progress=false)
+
+
 plot(chain)
-
-
-chain
 
 
 pl = scatter(sol.t, ddedata')
@@ -208,7 +208,7 @@ chain = sample(model, NUTS(0.65), 1000)
     end
 end;
 model = fitlv(odedata, prob1)
-@time chain = sample(model, NUTS(0.65), 1000)
+@time chain = sample(model, NUTS(0.65), 1000; progress=false)
 
 
 u0 = [1.0, 1.0]
@@ -247,8 +247,8 @@ Turing.setadbackend(:forwarddiff)
     prob = remake(prob; p=p)
     predicted = solve(prob, SOSRI(); saveat=0.1)
 
-    if predicted.retcode != :Success
-        Turing.acclogp!(_varinfo, -Inf)
+    if predicted.retcode !== :Success
+        Turing.@addlogprob! -Inf
     end
 
     for i in 1:length(predicted)
@@ -258,11 +258,6 @@ end;
 
 
 model = fitlv(odedata, prob_sde)
-chain = sample(model, NUTS(0.25), 5000; init_theta=[1.5, 1.3, 1.2, 2.7, 1.2, 0.12, 0.12])
+chain = sample(model, NUTS(0.25), 5000; init_params=[1.5, 1.3, 1.2, 2.7, 1.2, 0.12, 0.12])
 plot(chain)
-
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
 
