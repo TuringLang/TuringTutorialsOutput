@@ -1,101 +1,100 @@
 
-using Distributions, StatsPlots, Random
+using Distributions
+using FillArrays
+using StatsPlots
+
+using LinearAlgebra
+using Random
 
 # Set a random seed.
 Random.seed!(3)
 
-# Construct 30 data points for each cluster.
-N = 30
+# Define Gaussian mixture model.
+w = [0.5, 0.5]
+μ = [-3.5, 0.5]
+mixturemodel = MixtureModel([MvNormal(Fill(μₖ, 2), I) for μₖ in μ], w)
 
-# Parameters for each cluster, we assume that each cluster is Gaussian distributed in the example.
-μs = [-3.5, 0.0]
+# We draw the data points.
+N = 60
+x = rand(mixturemodel, N);
 
-# Construct the data points.
-x = mapreduce(c -> rand(MvNormal([μs[c], μs[c]], 1.0), N), hcat, 1:2)
 
-# Visualization.
 scatter(x[1, :], x[2, :]; legend=false, title="Synthetic Dataset")
 
 
-using Turing, MCMCChains
+using Turing
 
-# Turn off the progress monitor.
-Turing.setprogress!(false);
+@model function gaussian_mixture_model(x)
+    # Draw the parameters for each of the K=2 clusters from a standard normal distribution.
+    K = 2
+    μ ~ MvNormal(Zeros(K), I)
 
+    # Draw the weights for the K clusters from a Dirichlet distribution with parameters αₖ = 1.
+    w ~ Dirichlet(K, 1.0)
+    # Alternatively, one could use a fixed set of weights.
+    # w = fill(1/K, K)
 
-@model function GaussianMixtureModel(x)
+    # Construct categorical distribution of assignments.
+    distribution_assignments = Categorical(w)
+
+    # Construct multivariate normal distributions of each cluster.
     D, N = size(x)
+    distribution_clusters = [MvNormal(Fill(μₖ, D), I) for μₖ in μ]
 
-    # Draw the parameters for cluster 1.
-    μ1 ~ Normal()
-
-    # Draw the parameters for cluster 2.
-    μ2 ~ Normal()
-
-    μ = [μ1, μ2]
-
-    # Uncomment the following lines to draw the weights for the K clusters
-    # from a Dirichlet distribution.
-
-    # α = 1.0
-    # w ~ Dirichlet(2, α)
-
-    # Comment out this line if you instead want to draw the weights.
-    w = [0.5, 0.5]
-
-    # Draw assignments for each datum and generate it from a multivariate normal.
+    # Draw assignments for each datum and generate it from the multivariate normal distribution.
     k = Vector{Int}(undef, N)
     for i in 1:N
-        k[i] ~ Categorical(w)
-        x[:, i] ~ MvNormal([μ[k[i]], μ[k[i]]], 1.0)
+        k[i] ~ distribution_assignments
+        x[:, i] ~ distribution_clusters[k[i]]
     end
+
     return k
-end;
+end
+
+model = gaussian_mixture_model(x);
 
 
-gmm_model = GaussianMixtureModel(x);
-
-
-gmm_sampler = Gibbs(PG(100, :k), HMC(0.05, 10, :μ1, :μ2))
-tchain = sample(gmm_model, gmm_sampler, MCMCThreads(), 100, 3);
+sampler = Gibbs(PG(100, :k), HMC(0.05, 10, :μ, :w))
+nsamples = 100
+nchains = 3
+chains = sample(model, sampler, MCMCThreads(), nsamples, nchains);
 
 
 let
-    matrix = get(tchain, :μ1).μ1
-    first_chain = matrix[:, 1]
-    actual = mean(first_chain)
     # Verify that the output of the chain is as expected.
-    # μ1 and μ2 appear to switch places, so that's why isapprox(...) || isapprox(...).
-    @assert isapprox(actual, -3.5; atol=1) || isapprox(actual, 0.2; atol=1)
+    for i in MCMCChains.chains(chains)
+        # μ[1] and μ[2] can switch places, so we sort the values first.
+        chain = Array(chains[:, ["μ[1]", "μ[2]"], i])
+        μ_mean = vec(mean(chain; dims=1))
+        @assert isapprox(sort(μ_mean), μ; rtol=0.1)
+    end
 end
 
 
-ids = findall(map(name -> occursin("μ", string(name)), names(tchain)));
-p = plot(tchain[:, ids, :]; legend=true, labels=["Mu 1" "Mu 2"], colordim=:parameter)
+plot(chains[["μ[1]", "μ[2]"]]; colordim=:parameter, legend=true)
 
 
-tchain = tchain[:, :, 1];
+plot(chains[["w[1]", "w[2]"]]; colordim=:parameter, legend=true)
 
 
-# Helper function used for visualizing the density region.
-function predict(x, y, w, μ)
-    # Use log-sum-exp trick for numeric stability.
-    return Turing.logaddexp(
-        log(w[1]) + logpdf(MvNormal([μ[1], μ[1]], 1.0), [x, y]),
-        log(w[2]) + logpdf(MvNormal([μ[2], μ[2]], 1.0), [x, y]),
-    )
-end;
+chain = chains[:, :, 1];
 
+
+# Model with mean of samples as parameters.
+μ_mean = [mean(chain, "μ[$i]") for i in 1:2]
+w_mean = [mean(chain, "w[$i]") for i in 1:2]
+mixturemodel_mean = MixtureModel([MvNormal(Fill(μₖ, 2), I) for μₖ in μ_mean], w_mean)
 
 contour(
-    range(-5; stop=3),
-    range(-6; stop=2),
-    (x, y) -> predict(x, y, [0.5, 0.5], [mean(tchain[:μ1]), mean(tchain[:μ2])]),
+    range(-7.5, 3; length=1_000),
+    range(-6.5, 3; length=1_000),
+    (x, y) -> logpdf(mixturemodel_mean, [x, y]);
+    widen=false,
 )
 scatter!(x[1, :], x[2, :]; legend=false, title="Synthetic Dataset")
 
 
-assignments = mean(MCMCChains.group(tchain, :k)).nt.mean
+assignments = [mean(chain, "k[$i]") for i in 1:N]
 scatter(
     x[1, :],
     x[2, :];
