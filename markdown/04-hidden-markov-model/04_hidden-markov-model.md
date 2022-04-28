@@ -252,8 +252,8 @@ TuringTutorials.weave("04-hidden-markov-model", "04_hidden-markov-model.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.5
-Commit 9058264a69 (2021-12-19 12:30 UTC)
+Julia Version 1.6.6
+Commit b8708f954a (2022-03-28 07:17 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -270,9 +270,9 @@ Package Information:
 
 ```
       Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
-  [91a5bcdd] Plots v1.26.0
+  [91a5bcdd] Plots v1.27.6
   [f3b207a7] StatsPlots v0.14.33
-  [fce5fe82] Turing v0.20.4
+  [fce5fe82] Turing v0.21.1
   [9a3f8284] Random
 ```
 
@@ -281,25 +281,24 @@ And the full manifest:
 ```
       Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
-  [80f14c24] AbstractMCMC v3.3.1
-  [7a57a42e] AbstractPPL v0.5.1
+  [80f14c24] AbstractMCMC v4.0.0
+  [7a57a42e] AbstractPPL v0.5.2
   [1520ce14] AbstractTrees v0.3.4
   [79e6a3ab] Adapt v3.3.3
-  [0bf59076] AdvancedHMC v0.3.3
-  [5b7e9947] AdvancedMH v0.6.6
-  [576499cb] AdvancedPS v0.3.5
-  [b5ca4192] AdvancedVI v0.1.3
+  [0bf59076] AdvancedHMC v0.3.4
+  [5b7e9947] AdvancedMH v0.6.7
+  [576499cb] AdvancedPS v0.3.7
+  [b5ca4192] AdvancedVI v0.1.4
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v5.0.1
+  [4fba245c] ArrayInterface v5.0.7
   [13072b0f] AxisAlgorithms v1.0.1
-  [39de3d68] AxisArrays v0.4.4
+  [39de3d68] AxisArrays v0.4.5
   [198e06fe] BangBang v0.3.36
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.9.11
-  [49dc2e85] Calculus v0.5.1
-  [082447d4] ChainRules v1.27.0
-  [d360d2e6] ChainRulesCore v1.13.0
+  [082447d4] ChainRules v1.28.3
+  [d360d2e6] ChainRulesCore v1.14.0
   [9e997f8a] ChangesOfVariables v0.1.2
   [aaaa29a8] Clustering v0.14.2
   [35d6a980] ColorSchemes v3.17.1
@@ -308,13 +307,13 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.0
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.41.0
+  [34da2185] Compat v3.43.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.3.0
   [d38c429a] Contour v0.5.7
   [a8cc5b0e] Crayons v4.1.1
-  [9a962f9c] DataAPI v1.9.0
+  [9a962f9c] DataAPI v1.10.0
   [864edb3b] DataStructures v0.18.11
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
@@ -323,33 +322,30 @@ And the full manifest:
   [163ba53b] DiffResults v1.0.3
   [b552c78f] DiffRules v1.10.0
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.49
+  [31c24e10] Distributions v0.25.53
   [ced4e74d] DistributionsAD v0.6.38
   [ffbed154] DocStringExtensions v0.8.6
-  [fa6b7ba4] DualNumbers v0.6.6
-  [366bfd00] DynamicPPL v0.17.8
-  [da5c29d0] EllipsisNotation v1.0.0
-  [cad2338a] EllipticalSliceSampling v0.4.7
+  [366bfd00] DynamicPPL v0.19.1
+  [cad2338a] EllipticalSliceSampling v0.5.0
   [c87230d0] FFMPEG v0.4.1
   [7a1cc6ca] FFTW v1.4.6
-  [1a297f60] FillArrays v0.13.0
+  [1a297f60] FillArrays v0.13.2
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
-  [f6369f11] ForwardDiff v0.10.25
+  [f6369f11] ForwardDiff v0.10.26
   [d9f16b24] Functors v0.2.8
-  [28b8d3ca] GR v0.64.0
+  [28b8d3ca] GR v0.64.2
   [5c1252a2] GeometryBasics v0.4.2
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v0.9.17
-  [34004b35] HypergeometricFunctions v0.3.8
   [7869d1d1] IRTools v0.4.5
   [615f187c] IfElse v0.1.1
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
-  [a98d9a8b] Interpolations v0.13.5
-  [8197267c] IntervalSets v0.5.3
-  [3587e190] InverseFunctions v0.1.2
+  [a98d9a8b] Interpolations v0.13.6
+  [8197267c] IntervalSets v0.6.1
+  [3587e190] InverseFunctions v0.1.3
   [41ab1584] InvertedIndices v1.1.0
   [92d709cd] IrrationalConstants v0.1.1
   [c8e1da08] IterTools v1.4.0
@@ -359,14 +355,14 @@ And the full manifest:
   [5ab0869b] KernelDensity v0.6.3
   [8ac3fa9e] LRUCache v1.3.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.12
+  [23fbe1c1] Latexify v0.15.14
   [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
-  [6f1fad26] Libtask v0.6.10
-  [2ab3a3ac] LogExpFunctions v0.3.6
+  [6f1fad26] Libtask v0.7.0
+  [2ab3a3ac] LogExpFunctions v0.3.12
   [e6f89c97] LoggingExtras v0.4.7
-  [c7f686f2] MCMCChains v5.0.4
+  [c7f686f2] MCMCChains v5.1.1
   [be115224] MCMCDiagnosticTools v0.1.3
-  [e80e1ace] MLJModelInterface v1.4.1
+  [e80e1ace] MLJModelInterface v1.4.2
   [1914dd2f] MacroTools v0.5.9
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.0.3
@@ -374,36 +370,36 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
   [6f286f6a] MultivariateStats v0.9.1
-  [872c559c] NNlib v0.8.3
-  [77ba4419] NaNMath v0.3.7
+  [872c559c] NNlib v0.8.4
+  [77ba4419] NaNMath v1.0.0
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [b8a86587] NearestNeighbors v0.4.9
+  [b8a86587] NearestNeighbors v0.4.10
   [510215fc] Observables v0.4.0
   [6fe1bfb0] OffsetArrays v1.10.8
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.6
-  [69de0a69] Parsers v2.2.2
-  [ccf2f8ad] PlotThemes v2.0.1
-  [995b91a9] PlotUtils v1.1.3
-  [91a5bcdd] Plots v1.26.0
-  [21216c6a] Preferences v1.2.4
+  [90014a1f] PDMats v0.11.7
+  [69de0a69] Parsers v2.3.0
+  [ccf2f8ad] PlotThemes v3.0.0
+  [995b91a9] PlotUtils v1.2.0
+  [91a5bcdd] Plots v1.27.6
+  [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
-  [92933f4c] ProgressMeter v1.7.1
+  [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.4.2
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.5.1
-  [731186ca] RecursiveArrayTools v2.25.0
+  [01d81517] RecipesPipeline v0.5.2
+  [731186ca] RecursiveArrayTools v2.26.3
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v0.1.3
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
-  [f2b01f46] Roots v1.3.14
-  [0bca4576] SciMLBase v1.28.0
+  [f2b01f46] Roots v1.4.1
+  [0bca4576] SciMLBase v1.31.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.0
   [91c51154] SentinelArrays v1.3.12
@@ -412,22 +408,22 @@ And the full manifest:
   [a2af1166] SortingAlgorithms v1.0.1
   [276daf66] SpecialFunctions v2.1.4
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.6.0
-  [90137ffa] StaticArrays v1.4.1
+  [aedffcd0] Static v0.6.1
+  [90137ffa] StaticArrays v1.4.4
   [64bff920] StatisticalTraits v3.0.0
-  [82ae8749] StatsAPI v1.2.1
+  [82ae8749] StatsAPI v1.2.2
   [2913bbd2] StatsBase v0.33.16
-  [4c63d2b9] StatsFuns v0.9.16
+  [4c63d2b9] StatsFuns v0.9.18
   [f3b207a7] StatsPlots v0.14.33
   [09ab397b] StructArrays v0.6.5
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
-  [bd369af6] Tables v1.6.1
+  [bd369af6] Tables v1.7.0
   [5d786b92] TerminalLoggers v0.1.5
   [9f7883ad] Tracker v0.2.20
   [28d57a85] Transducers v0.4.73
   [a2a6695c] TreeViews v0.3.0
-  [fce5fe82] Turing v0.20.4
+  [fce5fe82] Turing v0.21.1
   [5c2747f8] URIs v1.3.0
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
@@ -439,14 +435,14 @@ And the full manifest:
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
   [5ae413db] EarCut_jll v2.2.3+0
-  [2e619515] Expat_jll v2.4.4+0
+  [2e619515] Expat_jll v2.4.8+0
   [b22a6f82] FFMPEG_jll v4.4.0+0
   [f5851436] FFTW_jll v3.3.10+0
   [a3f928ae] Fontconfig_jll v2.13.93+0
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.6+0
-  [d2c73de3] GR_jll v0.64.0+0
+  [d2c73de3] GR_jll v0.64.2+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.68.3+2
   [3b182d85] Graphite2_jll v1.3.14+0
@@ -466,12 +462,12 @@ And the full manifest:
   [38a345b3] Libuuid_jll v2.36.0+0
   [856f044c] MKL_jll v2022.0.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
-  [458c3c95] OpenSSL_jll v1.1.13+0
+  [458c3c95] OpenSSL_jll v1.1.14+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
   [2f80f16e] PCRE_jll v8.44.0+0
   [30392449] Pixman_jll v0.40.1+0
-  [ea2cea3b] Qt5Base_jll v5.15.3+0
+  [ea2cea3b] Qt5Base_jll v5.15.3+1
   [f50d1b31] Rmath_jll v0.3.0+0
   [a2964d1f] Wayland_jll v1.19.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
