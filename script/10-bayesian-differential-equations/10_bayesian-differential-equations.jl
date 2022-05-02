@@ -5,210 +5,227 @@ using DifferentialEquations
 # Load StatsPlots for visualizations and diagnostics.
 using StatsPlots
 
+using LinearAlgebra
+
 # Set a seed for reproducibility.
 using Random
 Random.seed!(14);
 
 
+# Define Lotka-Volterra model.
 function lotka_volterra(du, u, p, t)
-    x, y = u
+    # Model parameters.
     α, β, γ, δ = p
-    du[1] = (α - β * y)x # dx =
-    return du[2] = (δ * x - γ)y # dy =
+    # Current state.
+    x, y = u
+
+    # Evaluate differential equations.
+    du[1] = (α - β * y) * x # prey
+    du[2] = (δ * x - γ) * y # predator
+
+    return nothing
 end
-p = [1.5, 1.0, 3.0, 1.0]
+
+# Define initial-value problem.
 u0 = [1.0, 1.0]
-prob1 = ODEProblem(lotka_volterra, u0, (0.0, 10.0), p)
-sol = solve(prob1, Tsit5())
-plot(sol)
+p = [1.5, 1.0, 3.0, 1.0]
+tspan = (0.0, 10.0)
+prob = ODEProblem(lotka_volterra, u0, tspan, p)
+
+# Plot simulation.
+plot(solve(prob, Tsit5()))
 
 
-sol1 = solve(prob1, Tsit5(); saveat=0.1)
-odedata = Array(sol1) + 0.8 * randn(size(Array(sol1)))
-plot(sol1; alpha=0.3, legend=false);
-scatter!(sol1.t, odedata');
+sol = solve(prob, Tsit5(); saveat=0.1)
+odedata = Array(sol) + 0.8 * randn(size(Array(sol)))
+
+# Plot simulation and noisy observations.
+plot(sol; alpha=0.3)
+scatter!(sol.t, odedata'; color=[1 2], label="")
 
 
-Turing.setadbackend(:forwarddiff)
-
-@model function fitlv(data, prob1)
-    σ ~ InverseGamma(2, 3) # ~ is the tilde character
+@model function fitlv(data, prob)
+    # Prior distributions.
+    σ ~ InverseGamma(2, 3)
     α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
     β ~ truncated(Normal(1.2, 0.5), 0, 2)
     γ ~ truncated(Normal(3.0, 0.5), 1, 4)
     δ ~ truncated(Normal(1.0, 0.5), 0, 2)
 
+    # Simulate Lotka-Volterra model. 
     p = [α, β, γ, δ]
-    prob = remake(prob1; p=p)
-    predicted = solve(prob, Tsit5(); saveat=0.1)
+    predicted = solve(prob, Tsit5(); p=p, saveat=0.1)
 
+    # Observations.
     for i in 1:length(predicted)
-        data[:, i] ~ MvNormal(predicted[i], σ)
+        data[:, i] ~ MvNormal(predicted[i], σ^2 * I)
     end
+
+    return nothing
 end
 
-model = fitlv(odedata, prob1)
+model = fitlv(odedata, prob)
 
-# This next command runs 3 independent chains without using multithreading.
+# Sample 3 independent chains with forward-mode automatic differentiation (the default).
 chain = sample(model, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
 
 
 plot(chain)
 
 
-pl = scatter(sol1.t, odedata');
-
-
-chain_array = Array(chain)
-for k in 1:300
-    resol = solve(remake(prob1; p=chain_array[rand(1:1500), 1:4]), Tsit5(); saveat=0.1)
-    plot!(resol; alpha=0.1, color="#BBBBBB", legend=false)
+plot(; legend=false)
+posterior_samples = sample(chain[[:α, :β, :γ, :δ]], 300; replace=false)
+for p in eachrow(Array(posterior_samples))
+    sol_p = solve(prob, Tsit5(); p=p, saveat=0.1)
+    plot!(sol_p; alpha=0.1, color="#BBBBBB")
 end
-# display(pl)
-plot!(sol1; w=1, legend=false)
+
+# Plot simulation and noisy observations.
+plot!(sol; color=[1 2], linewidth=1)
+scatter!(sol.t, odedata'; color=[1 2])
 
 
-@model function fitlv2(data, prob1) # data should be a Vector
-    σ ~ InverseGamma(2, 3) # ~ is the tilde character
+@model function fitlv2(data::AbstractVector, prob)
+    # Prior distributions.
+    σ ~ InverseGamma(2, 3)
     α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
     β ~ truncated(Normal(1.2, 0.5), 0, 2)
     γ ~ truncated(Normal(3.0, 0.5), 1, 4)
     δ ~ truncated(Normal(1.0, 0.5), 0, 2)
 
+    # Simulate Lotka-Volterra model but save only the second state of the system (predators).
     p = [α, β, γ, δ]
-    prob = remake(prob1; p=p)
-    predicted = solve(prob, Tsit5(); saveat=0.1)
+    predicted = solve(prob, Tsit5(); p=p, saveat=0.1, save_idxs=2)
 
-    for i in 1:length(predicted)
-        data[i] ~ Normal(predicted[i][2], σ) # predicted[i][2] is the data for y - a scalar, so we use Normal instead of MvNormal
-    end
-end
+    # Observations of the predators.
+    data ~ MvNormal(predicted.u, σ^2 * I)
 
-model2 = fitlv2(odedata[2, :], prob1)
-
-
-Threads.nthreads()
-
-
-# This next command runs 3 independent chains with multithreading.
-chain2 = sample(model2, NUTS(0.45), MCMCThreads(), 5000, 3; progress=false)
-
-
-pl = scatter(sol1.t, odedata');
-chain_array2 = Array(chain2)
-for k in 1:300
-    resol = solve(remake(prob1; p=chain_array2[rand(1:12000), 1:4]), Tsit5(); saveat=0.1)
-    # Note that due to a bug in AxisArray, the variables from the chain will be returned always in
-    # the order it is stored in the array, not by the specified order in the call - :α, :β, :γ, :δ
-    plot!(resol; alpha=0.1, color="#BBBBBB", legend=false)
-end
-#display(pl)
-plot!(sol1; w=1, legend=false)
-
-
-function delay_lotka_volterra(du, u, h, p, t)
-    x, y = u
-    α, β, γ, δ = p
-    du[1] = α * h(p, t - 1; idxs=1) - β * x * y
-    du[2] = -γ * y + δ * x * y
     return nothing
 end
 
+model2 = fitlv2(odedata[2, :], prob)
+
+# Sample 3 independent chains.
+chain2 = sample(model2, NUTS(0.45), MCMCSerial(), 5000, 3; progress=false)
+
+
+plot(; legend=false)
+posterior_samples = sample(chain2[[:α, :β, :γ, :δ]], 300; replace=false)
+for p in eachrow(Array(posterior_samples))
+    sol_p = solve(prob, Tsit5(); p=p, saveat=0.1)
+    plot!(sol_p; alpha=0.1, color="#BBBBBB")
+end
+
+# Plot simulation and noisy observations.
+plot!(sol; color=[1 2], linewidth=1)
+scatter!(sol.t, odedata'; color=[1 2])
+
+
+function delay_lotka_volterra(du, u, h, p, t)
+    # Model parameters.
+    α, β, γ, δ = p
+
+    # Current state.
+    x, y = u
+    # Evaluate differential equations
+    du[1] = α * h(p, t - 1; idxs=1) - β * x * y
+    du[2] = -γ * y + δ * x * y
+
+    return nothing
+end
+
+# Define initial-value problem.
 p = (1.5, 1.0, 3.0, 1.0)
 u0 = [1.0; 1.0]
 tspan = (0.0, 10.0)
 h(p, t; idxs::Int) = 1.0
-prob1 = DDEProblem(delay_lotka_volterra, u0, h, tspan, p)
+prob_dde = DDEProblem(delay_lotka_volterra, u0, h, tspan, p);
 
 
-sol = solve(prob1; saveat=0.1)
-ddedata = Array(sol)
-ddedata = ddedata + 0.5 * randn(size(ddedata))
+sol_dde = solve(prob_dde; saveat=0.1)
+ddedata = Array(sol_dde) + 0.5 * randn(size(sol_dde))
+
+# Plot simulation and noisy observations.
+plot(sol_dde)
+scatter!(sol_dde.t, ddedata'; color=[1 2], label="")
 
 
-scatter(sol.t, ddedata');
-plot!(sol);
-
-
-Turing.setadbackend(:forwarddiff)
-@model function fitlv(data, prob1)
+@model function fitlv_dde(data, prob)
+    # Prior distributions.
     σ ~ InverseGamma(2, 3)
     α ~ Truncated(Normal(1.5, 0.5), 0.5, 2.5)
     β ~ Truncated(Normal(1.2, 0.5), 0, 2)
     γ ~ Truncated(Normal(3.0, 0.5), 1, 4)
     δ ~ Truncated(Normal(1.0, 0.5), 0, 2)
 
+    # Simulate Lotka-Volterra model.
     p = [α, β, γ, δ]
+    predicted = solve(prob, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
 
-    #prob = DDEProblem(delay_lotka_volterra,u0,_h,tspan,p)
-    prob = remake(prob1; p=p)
-    predicted = solve(prob; saveat=0.1)
+    # Observations.
     for i in 1:length(predicted)
-        data[:, i] ~ MvNormal(predicted[i], σ)
+        data[:, i] ~ MvNormal(predicted[i], σ^2 * I)
     end
-end;
-model = fitlv(ddedata, prob1)
-
-
-chain = sample(model, NUTS(0.65), MCMCThreads(), 300, 3; progress=false)
-
-
-plot(chain)
-
-
-pl = scatter(sol.t, ddedata')
-chain_array = Array(chain)
-for k in 1:100
-    resol = solve(remake(prob1; p=chain_array[rand(1:450), 1:4]), Tsit5(); saveat=0.1)
-    # Note that due to a bug in AxisArray, the variables from the chain will be returned always in
-    # the order it is stored in the array, not by the specified order in the call - :α, :β, :γ, :δ
-
-    plot!(resol; alpha=0.1, color="#BBBBBB", legend=false)
 end
-#display(pl)
-plot!(sol)
+
+model_dde = fitlv_dde(ddedata, prob_dde)
+
+# Sample 3 independent chains.
+chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 300, 3; progress=false)
+
+
+plot(chain_dde)
+
+
+plot(; legend=false)
+posterior_samples = sample(chain_dde[[:α, :β, :γ, :δ]], 300; replace=false)
+for p in eachrow(Array(posterior_samples))
+    sol_p = solve(prob_dde, MethodOfSteps(Tsit5()); p=p, saveat=0.1)
+    plot!(sol_p; alpha=0.1, color="#BBBBBB")
+end
+
+# Plot simulation and noisy observations.
+plot!(sol_dde; color=[1 2], linewidth=1)
+scatter!(sol_dde.t, ddedata'; color=[1 2])
 
 
 using Zygote, DiffEqSensitivity
-Turing.setadbackend(:zygote)
-prob1 = ODEProblem(lotka_volterra, u0, (0.0, 10.0), p)
+
+# Sample a single chain with 1000 samples using Zygote.
+setadbackend(:zygote)
+sample(model, NUTS(0.65), 1000; progress=false)
 
 
-@model function fitlv(data, prob)
+@model function fitlv_sensealg(data, prob)
+    # Prior distributions.
     σ ~ InverseGamma(2, 3)
     α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
     β ~ truncated(Normal(1.2, 0.5), 0, 2)
     γ ~ truncated(Normal(3.0, 0.5), 1, 4)
     δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+
+    # Simulate Lotka-Volterra model and use a specific algorithm for computing sensitivities.
     p = [α, β, γ, δ]
-    prob = remake(prob; p=p)
-
-    predicted = solve(prob; saveat=0.1)
-    for i in 1:length(predicted)
-        data[:, i] ~ MvNormal(predicted[i], σ)
-    end
-end;
-model = fitlv(odedata, prob1)
-chain = sample(model, NUTS(0.65), 1000)
-
-
-@model function fitlv(data, prob)
-    σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
-    p = [α, β, γ, δ]
-    prob = remake(prob; p=p)
     predicted = solve(
-        prob; saveat=0.1, sensealg=InterpolatingAdjoint(; autojacvec=ReverseDiffVJP(true))
+        prob;
+        p=p,
+        saveat=0.1,
+        sensealg=InterpolatingAdjoint(; autojacvec=ReverseDiffVJP(true)),
     )
+
+    # Observations.
     for i in 1:length(predicted)
-        data[:, i] ~ MvNormal(predicted[i], σ)
+        data[:, i] ~ MvNormal(predicted[i], σ^2 * I)
     end
+
+    return nothing
 end;
-model = fitlv(odedata, prob1)
-@time chain = sample(model, NUTS(0.65), 1000; progress=false)
+
+model_sensealg = fitlv_sensealg(odedata, prob)
+
+# Sample a single chain with 1000 samples using Zygote.
+setadbackend(:zygote)
+sample(model_sensealg, NUTS(0.65), 1000; progress=false)
 
 
 u0 = [1.0, 1.0]
@@ -230,12 +247,12 @@ end
 prob_sde = SDEProblem(lotka_volterra!, multiplicative_noise!, u0, tspan, p)
 
 ensembleprob = EnsembleProblem(prob_sde)
-@time data = solve(ensembleprob, SOSRI(); saveat=0.1, trajectories=1000)
+data = solve(ensembleprob, SOSRI(); saveat=0.1, trajectories=1000)
 plot(EnsembleSummary(data))
 
 
-Turing.setadbackend(:forwarddiff)
-@model function fitlv(data, prob)
+@model function fitlv_sde(data, prob)
+    # Prior distributions.
     σ ~ InverseGamma(2, 3)
     α ~ truncated(Normal(1.3, 0.5), 0.5, 2.5)
     β ~ truncated(Normal(1.2, 0.25), 0.5, 2)
@@ -243,21 +260,35 @@ Turing.setadbackend(:forwarddiff)
     δ ~ truncated(Normal(1.2, 0.25), 0.5, 2.0)
     ϕ1 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
     ϕ2 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
-    p = [α, β, γ, δ, ϕ1, ϕ2]
-    prob = remake(prob; p=p)
-    predicted = solve(prob, SOSRI(); saveat=0.1)
 
+    # Simulate stochastic Lotka-Volterra model.
+    p = [α, β, γ, δ, ϕ1, ϕ2]
+    predicted = solve(prob, SOSRI(); p=p, saveat=0.1)
+
+    # Early exit if simulation could not be computed successfully.
     if predicted.retcode !== :Success
         Turing.@addlogprob! -Inf
+        return nothing
     end
 
+    # Observations.
     for i in 1:length(predicted)
-        data[:, i] ~ MvNormal(predicted[i], σ)
+        data[:, i] ~ MvNormal(predicted[i], σ^2 * I)
     end
+
+    return nothing
 end;
 
 
-model = fitlv(odedata, prob_sde)
-chain = sample(model, NUTS(0.25), 5000; init_params=[1.5, 1.3, 1.2, 2.7, 1.2, 0.12, 0.12])
-plot(chain)
+model_sde = fitlv_sde(odedata, prob_sde)
+
+setadbackend(:forwarddiff)
+chain_sde = sample(
+    model_sde,
+    NUTS(0.25),
+    5000;
+    init_params=[1.5, 1.3, 1.2, 2.7, 1.2, 0.12, 0.12],
+    progress=false,
+)
+plot(chain_sde)
 
