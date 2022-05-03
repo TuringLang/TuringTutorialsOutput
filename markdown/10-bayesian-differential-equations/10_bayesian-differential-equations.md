@@ -128,8 +128,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 67.78 seconds
-Compute duration  = 67.27 seconds
+Wall duration     = 66.01 seconds
+Compute duration  = 65.5 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -243,8 +243,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 51.43 seconds
-Compute duration  = 50.73 seconds
+Wall duration     = 52.19 seconds
+Compute duration  = 51.51 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -401,8 +401,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 28.98 seconds
-Compute duration  = 28.47 seconds
+Wall duration     = 28.74 seconds
+Compute duration  = 28.23 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -507,8 +507,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1216.11 seconds
-Compute duration  = 1216.11 seconds
+Wall duration     = 1240.24 seconds
+Compute duration  = 1240.24 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -590,8 +590,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1407.42 seconds
-Compute duration  = 1407.42 seconds
+Wall duration     = 1434.11 seconds
+Compute duration  = 1434.11 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -753,7 +753,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [41bf760c] DiffEqSensitivity v6.72.0
   [0c46a032] DifferentialEquations v7.1.0
   [f3b207a7] StatsPlots v0.14.33
@@ -766,7 +766,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2
