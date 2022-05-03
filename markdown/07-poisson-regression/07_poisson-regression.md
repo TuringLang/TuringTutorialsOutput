@@ -250,8 +250,8 @@ Chains MCMC chain (2500×16×4 Array{Float64, 3}):
 Iterations        = 1:1:2500
 Number of chains  = 4
 Samples per chain = 2500
-Wall duration     = 9.53 seconds
-Compute duration  = 9.19 seconds
+Wall duration     = 12.5 seconds
+Compute duration  = 12.04 seconds
 parameters        = b2, b1, b3, b0
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -420,8 +420,8 @@ TuringTutorials.weave("07-poisson-regression", "07_poisson-regression.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.5
-Commit 9058264a69 (2021-12-19 12:30 UTC)
+Julia Version 1.6.6
+Commit b8708f954a (2022-03-28 07:17 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -438,7 +438,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.14
@@ -457,7 +457,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.1.4
