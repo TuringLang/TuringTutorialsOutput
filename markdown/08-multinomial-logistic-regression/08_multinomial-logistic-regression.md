@@ -193,8 +193,8 @@ Chains MCMC chain (1500×19×3 Array{Float64, 3}):
 Iterations        = 1:1:1500
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 15.66 seconds
-Compute duration  = 14.82 seconds
+Wall duration     = 15.75 seconds
+Compute duration  = 14.92 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
@@ -405,7 +405,6 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -414,7 +413,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.4
   [ce6b1742] RDatasets v0.7.7
@@ -426,7 +425,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2
