@@ -269,7 +269,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
   [91a5bcdd] Plots v1.27.6
   [f3b207a7] StatsPlots v0.14.33
   [fce5fe82] Turing v0.21.1
@@ -279,7 +279,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2
