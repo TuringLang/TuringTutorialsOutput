@@ -254,8 +254,8 @@ TuringTutorials.weave("03-bayesian-neural-network", "03_bayesian-neural-network.
 Computer Information:
 
 ```
-Julia Version 1.6.5
-Commit 9058264a69 (2021-12-19 12:30 UTC)
+Julia Version 1.6.6
+Commit b8708f954a (2022-03-28 07:17 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -263,6 +263,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -271,7 +272,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
   [b5ca4192] AdvancedVI v0.1.3
   [76274a88] Bijectors v0.9.7
   [587475ba] Flux v0.12.8
@@ -284,7 +285,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.1.4
