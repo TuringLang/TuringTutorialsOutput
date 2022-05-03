@@ -219,8 +219,8 @@ TuringTutorials.weave("01-gaussian-mixture-model", "01_gaussian-mixture-model.jm
 Computer Information:
 
 ```
-Julia Version 1.6.5
-Commit 9058264a69 (2021-12-19 12:30 UTC)
+Julia Version 1.6.6
+Commit b8708f954a (2022-03-28 07:17 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -228,7 +228,6 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -237,7 +236,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/01-gaussian-mixture-model/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/01-gaussian-mixture-model/Project.toml`
   [31c24e10] Distributions v0.25.52
   [1a297f60] FillArrays v0.13.2
   [f3b207a7] StatsPlots v0.14.33
@@ -249,7 +248,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/01-gaussian-mixture-model/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/01-gaussian-mixture-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2
