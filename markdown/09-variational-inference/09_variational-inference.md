@@ -1330,8 +1330,8 @@ TuringTutorials.weave("09-variational-inference", "09_variational-inference.jmd"
 Computer Information:
 
 ```
-Julia Version 1.6.5
-Commit 9058264a69 (2021-12-19 12:30 UTC)
+Julia Version 1.6.6
+Commit b8708f954a (2022-03-28 07:17 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -1347,7 +1347,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.9.7
   [b0b7db55] ComponentArrays v0.11.9
   [1624bea9] ConjugatePriors v0.4.0
@@ -1366,7 +1366,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
