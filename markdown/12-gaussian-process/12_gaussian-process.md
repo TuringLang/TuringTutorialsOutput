@@ -392,6 +392,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -400,7 +401,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.12
   [a93c6f00] DataFrames v1.3.3
   [ce6b1742] RDatasets v0.7.7
@@ -416,7 +417,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [99985d1d] AbstractGPs v0.5.12
   [80f14c24] AbstractMCMC v4.0.0
