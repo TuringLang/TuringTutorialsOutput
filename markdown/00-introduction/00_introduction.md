@@ -195,24 +195,28 @@ using MCMCChains
 First, we define the coin-flip model using Turing.
 
 ```julia
-@model function coinflip(y)
+# Unconditioned coinflip model with `N` observations.
+@model function coinflip(; N::Int)
     # Our prior belief about the probability of heads in a coin toss.
     p ~ Beta(1, 1)
 
-    # The number of observations.
-    N = length(y)
-    for n in 1:N
-        # Heads or tails of a coin are drawn from a Bernoulli distribution.
-        y[n] ~ Bernoulli(p)
-    end
-end;
+    # Heads or tails of a coin are drawn from `N` independent and identically
+    # distributed Bernoulli distributions with success rate `p`.
+    y ~ filldist(Bernoulli(p), N)
+
+    return y
+end
+
+# Convenience method for constructing a coinflip model
+# that is conditioned on observations `y`.
+coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y);
 ```
 
 
 
 
-In the Turing model the prior distribution of the variable `p`, the probability of heads in a coin toss, and the distribution of the observations `y[n]` are specified on the right-hand side of the `~` expressions.
-The `@model` macro modifies the body of the Julia function `coinflip(y)` and, e.g., replaces the `~` statements with internal function calls that are used for sampling.
+In the Turing model the prior distribution of the variable `p`, the probability of heads in a coin toss, and the distribution of the observations `y` are specified on the right-hand side of the `~` expressions.
+The `@model` macro modifies the body of the Julia function `coinflip` and, e.g., replaces the `~` statements with internal function calls that are used for sampling.
 
 We combine the model with the observations:
 
@@ -322,7 +326,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.53
   [c7f686f2] MCMCChains v5.1.1
   [f3b207a7] StatsPlots v0.14.33
@@ -333,7 +337,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2

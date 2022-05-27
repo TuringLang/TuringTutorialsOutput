@@ -56,17 +56,21 @@ using Turing
 using MCMCChains
 
 
-@model function coinflip(y)
+# Unconditioned coinflip model with `N` observations.
+@model function coinflip(; N::Int)
     # Our prior belief about the probability of heads in a coin toss.
     p ~ Beta(1, 1)
 
-    # The number of observations.
-    N = length(y)
-    for n in 1:N
-        # Heads or tails of a coin are drawn from a Bernoulli distribution.
-        y[n] ~ Bernoulli(p)
-    end
-end;
+    # Heads or tails of a coin are drawn from `N` independent and identically
+    # distributed Bernoulli distributions with success rate `p`.
+    y ~ filldist(Bernoulli(p), N)
+
+    return y
+end
+
+# Convenience method for constructing a coinflip model
+# that is conditioned on observations `y`.
+coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y);
 
 
 model = coinflip(data);
