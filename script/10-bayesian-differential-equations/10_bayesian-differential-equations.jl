@@ -206,12 +206,7 @@ sample(model, NUTS(0.65), 1000; progress=false)
 
     # Simulate Lotka-Volterra model and use a specific algorithm for computing sensitivities.
     p = [α, β, γ, δ]
-    predicted = solve(
-        prob;
-        p=p,
-        saveat=0.1,
-        sensealg=InterpolatingAdjoint(; autojacvec=ReverseDiffVJP(true)),
-    )
+    predicted = solve(prob; p=p, saveat=0.1)
 
     # Observations.
     for i in 1:length(predicted)

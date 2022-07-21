@@ -128,8 +128,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 66.01 seconds
-Compute duration  = 65.5 seconds
+Wall duration     = 52.56 seconds
+Compute duration  = 52.13 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -243,8 +243,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 52.19 seconds
-Compute duration  = 51.51 seconds
+Wall duration     = 39.17 seconds
+Compute duration  = 38.66 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -401,8 +401,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 28.74 seconds
-Compute duration  = 28.23 seconds
+Wall duration     = 22.38 seconds
+Compute duration  = 21.99 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -481,7 +481,7 @@ Specifically, the local sensitivity of the solution to a parameter is defined by
 Sensitivity analysis provides a cheap way to calculate the gradient of the solution which can be used in parameter estimation and other optimization tasks.
 
 The AD ecosystem in Julia allows you to switch between forward mode, reverse mode, source to source and other choices of AD and have it work with any Julia code.
-For a user to make use of this within [SciML](https://sciml.ai), [high level interactions in `solve`](https://docs.sciml.ai/latest/analysis/sensitivity/#High-Level-Interface:-sensealg-1) automatically plug into those AD systems to allow for choosing advanced sensitivity analysis (derivative calculation) [methods](https://docs.sciml.ai/latest/analysis/sensitivity/#Sensitivity-Algorithms-1).
+For a user to make use of this within [SciML](https://sciml.ai), [high level interactions in `solve`](https://sensitivity.sciml.ai/dev/ad_examples/differentiating_ode/) automatically plug into those AD systems to allow for choosing advanced sensitivity analysis (derivative calculation) [methods](https://sensitivity.sciml.ai/dev/manual/differential_equation_sensitivities/).
 
 More theoretical details on these methods can be found at: https://docs.sciml.ai/latest/extras/sensitivity_math/.
 
@@ -507,8 +507,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1240.24 seconds
-Compute duration  = 1240.24 seconds
+Wall duration     = 947.99 seconds
+Compute duration  = 947.99 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -549,7 +549,7 @@ Quantiles
 
 
 If desired, we can control the sensitivity analysis method that is used by providing the `sensealg` keyword argument to `solve`.
-For instance, we can choose the [`InterpolatingAdjoint` method](https://docs.sciml.ai/latest/analysis/sensitivity/#Sensitivity-Algorithms-1) with a compiled ReverseDiff vector-Jacobian product:
+Here we will not choose a `sensealg` and let it use the default choice:
 
 ```julia
 @model function fitlv_sensealg(data, prob)
@@ -562,12 +562,7 @@ For instance, we can choose the [`InterpolatingAdjoint` method](https://docs.sci
 
     # Simulate Lotka-Volterra model and use a specific algorithm for computing sensitivities.
     p = [α, β, γ, δ]
-    predicted = solve(
-        prob;
-        p=p,
-        saveat=0.1,
-        sensealg=InterpolatingAdjoint(; autojacvec=ReverseDiffVJP(true)),
-    )
+    predicted = solve(prob; p=p, saveat=0.1)
 
     # Observations.
     for i in 1:length(predicted)
@@ -590,8 +585,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1434.11 seconds
-Compute duration  = 1434.11 seconds
+Wall duration     = 1032.06 seconds
+Compute duration  = 1032.06 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -603,15 +598,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8113    0.0417     0.0013    0.0017   447.2509    1.0004 
+           σ    0.8119    0.0411     0.0013    0.0019   547.8959    0.9990 
     ⋯
-           α    1.5635    0.0535     0.0017    0.0032   192.4816    0.9995 
+           α    1.5477    0.0526     0.0017    0.0030   260.9383    0.9992 
     ⋯
-           β    1.0992    0.0571     0.0018    0.0033   251.2279    0.9990 
+           β    1.0859    0.0529     0.0017    0.0026   323.9556    0.9992 
     ⋯
-           γ    2.8612    0.1398     0.0044    0.0078   211.3020    0.9995 
+           γ    2.9025    0.1420     0.0045    0.0081   266.7772    0.9995 
     ⋯
-           δ    0.9313    0.0502     0.0016    0.0030   206.4354    0.9994 
+           δ    0.9461    0.0507     0.0016    0.0029   264.4642    0.9991 
     ⋯
                                                                 1 column om
 itted
@@ -620,11 +615,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7363    0.7833    0.8097    0.8394    0.8989
-           α    1.4677    1.5241    1.5587    1.6009    1.6721
-           β    0.9978    1.0590    1.0958    1.1372    1.2204
-           γ    2.5943    2.7550    2.8665    2.9569    3.1321
-           δ    0.8365    0.8957    0.9320    0.9663    1.0260
+           σ    0.7388    0.7820    0.8100    0.8397    0.8988
+           α    1.4480    1.5115    1.5457    1.5820    1.6591
+           β    0.9916    1.0469    1.0817    1.1201    1.2014
+           γ    2.6288    2.8091    2.9036    2.9939    3.2115
+           δ    0.8492    0.9116    0.9452    0.9792    1.0504
 ```
 
 
@@ -735,8 +730,8 @@ TuringTutorials.weave("10-bayesian-differential-equations", "10_bayesian-differe
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -753,7 +748,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-amdci7-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [41bf760c] DiffEqSensitivity v6.72.0
   [0c46a032] DifferentialEquations v7.1.0
   [f3b207a7] StatsPlots v0.14.33
@@ -766,7 +761,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-amdci7-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2
