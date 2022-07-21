@@ -205,11 +205,7 @@ First, we define the coin-flip model using Turing.
     y ~ filldist(Bernoulli(p), N)
 
     return y
-end
-
-# Convenience method for constructing a coinflip model
-# that is conditioned on observations `y`.
-coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y);
+end;
 ```
 
 
@@ -218,9 +214,28 @@ coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y);
 In the Turing model the prior distribution of the variable `p`, the probability of heads in a coin toss, and the distribution of the observations `y` are specified on the right-hand side of the `~` expressions.
 The `@model` macro modifies the body of the Julia function `coinflip` and, e.g., replaces the `~` statements with internal function calls that are used for sampling.
 
-We combine the model with the observations:
+Here we defined a model that is not conditioned on any specific observations as this allows us to easily obtain samples of both `p` and `y` with
 
 ```julia
+rand(coinflip(; N))
+```
+
+```
+(p = 0.029506810837457417, y = Bool[0, 0, 0, 0, 0, 0, 0, 1, 0, 0  …  0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0])
+```
+
+
+
+
+
+The model can be conditioned on some observations with `|`.
+See the [documentation of the `condition` syntax](https://beta.turing.ml/DynamicPPL.jl/stable/api/#Condition-and-decondition) in DynamicPPL.jl for more details.
+In the conditioned `model` the observations `y` are fixed to `data`.
+
+```julia
+coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y)
+
 model = coinflip(data);
 ```
 
@@ -255,7 +270,7 @@ After finishing the sampling process, we can visually compare the closed-form po
 histogram(chain)
 ```
 
-![](figures/00_introduction_15_1.png)
+![](figures/00_introduction_16_1.png)
 
 
 
@@ -285,7 +300,7 @@ plot!(
 vline!([p_true]; label="True probability", c=:red)
 ```
 
-![](figures/00_introduction_17_1.png)
+![](figures/00_introduction_18_1.png)
 
 
 
@@ -308,8 +323,8 @@ TuringTutorials.weave("00-introduction", "00_introduction.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -326,7 +341,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-amdci7-2/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.53
   [c7f686f2] MCMCChains v5.1.1
   [f3b207a7] StatsPlots v0.14.33
@@ -337,7 +352,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-amdci7-2/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v4.0.0
   [7a57a42e] AbstractPPL v0.5.2

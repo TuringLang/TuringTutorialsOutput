@@ -66,12 +66,13 @@ using MCMCChains
     y ~ filldist(Bernoulli(p), N)
 
     return y
-end
+end;
 
-# Convenience method for constructing a coinflip model
-# that is conditioned on observations `y`.
-coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y);
 
+rand(coinflip(; N))
+
+
+coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y)
 
 model = coinflip(data);
 
