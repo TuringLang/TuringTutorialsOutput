@@ -189,7 +189,7 @@ plot!(sol_dde; color=[1 2], linewidth=1)
 scatter!(sol_dde.t, ddedata'; color=[1 2])
 
 
-using Zygote, DiffEqSensitivity
+using Zygote, SciMLSensitivity
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)

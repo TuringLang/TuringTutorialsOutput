@@ -128,8 +128,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 52.56 seconds
-Compute duration  = 52.13 seconds
+Wall duration     = 64.37 seconds
+Compute duration  = 63.98 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -141,15 +141,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64
     ⋯
 
-           σ    0.8120    0.0410     0.0007    0.0011   1734.7161    1.0007
+           σ    0.8120    0.0411     0.0008    0.0011   1721.7324    1.0008
     ⋯
-           α    1.5541    0.0538     0.0010    0.0021    793.4515    1.0011
+           α    1.5540    0.0538     0.0010    0.0020    792.3794    1.0012
     ⋯
-           β    1.0904    0.0533     0.0010    0.0018    915.4801    1.0012
+           β    1.0903    0.0534     0.0010    0.0018    913.9769    1.0013
     ⋯
-           γ    2.8852    0.1427     0.0026    0.0053    815.7527    1.0009
+           γ    2.8852    0.1426     0.0026    0.0053    815.5472    1.0010
     ⋯
-           δ    0.9403    0.0506     0.0009    0.0019    806.1465    1.0010
+           δ    0.9404    0.0506     0.0009    0.0019    804.6753    1.0011
     ⋯
                                                                 1 column om
 itted
@@ -158,11 +158,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7342    0.7853    0.8099    0.8379    0.8958
-           α    1.4551    1.5169    1.5509    1.5888    1.6645
-           β    0.9930    1.0533    1.0882    1.1248    1.2030
-           γ    2.6111    2.7871    2.8858    2.9821    3.1675
-           δ    0.8422    0.9053    0.9404    0.9736    1.0395
+           σ    0.7342    0.7853    0.8099    0.8380    0.8962
+           α    1.4551    1.5168    1.5509    1.5888    1.6645
+           β    0.9930    1.0532    1.0881    1.1247    1.2030
+           γ    2.6111    2.7872    2.8859    2.9821    3.1675
+           δ    0.8422    0.9053    0.9405    0.9736    1.0395
 ```
 
 
@@ -243,8 +243,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 39.17 seconds
-Compute duration  = 38.66 seconds
+Wall duration     = 67.08 seconds
+Compute duration  = 66.61 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -256,15 +256,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8122    0.0601     0.0005    0.0034   178.0090    1.0098 
+           σ    0.8228    0.0582     0.0005    0.0033   170.0700    1.0351 
     ⋯
-           α    1.5606    0.1854     0.0015    0.0093   194.7338    1.0109 
+           α    1.5517    0.1840     0.0015    0.0091   305.3414    1.0084 
     ⋯
-           β    1.1210    0.1483     0.0012    0.0072   209.2477    1.0063 
+           β    1.1143    0.1492     0.0012    0.0072   323.7839    1.0075 
     ⋯
-           γ    2.9673    0.3052     0.0025    0.0157   188.1207    1.0214 
+           γ    2.9782    0.2999     0.0024    0.0149   289.3999    1.0116 
     ⋯
-           δ    0.9510    0.2444     0.0020    0.0120   208.6355    1.0119 
+           δ    0.9639    0.2504     0.0020    0.0123   296.9284    1.0092 
     ⋯
                                                                 1 column om
 itted
@@ -273,11 +273,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7105    0.7688    0.8046    0.8495    0.9449
-           α    1.2446    1.4351    1.5359    1.6718    1.9816
-           β    0.8729    1.0184    1.1030    1.2133    1.4521
-           γ    2.3967    2.7612    2.9610    3.1443    3.6634
-           δ    0.5074    0.7749    0.9463    1.1042    1.4739
+           σ    0.7205    0.7824    0.8183    0.8598    0.9509
+           α    1.2373    1.4241    1.5384    1.6665    1.9604
+           β    0.8611    1.0078    1.1003    1.2120    1.4427
+           γ    2.4140    2.7778    2.9628    3.1706    3.5998
+           δ    0.5245    0.7828    0.9457    1.1211    1.4948
 ```
 
 
@@ -401,8 +401,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 22.38 seconds
-Compute duration  = 21.99 seconds
+Wall duration     = 22.92 seconds
+Compute duration  = 22.54 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -414,15 +414,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.5274    0.0275     0.0009    0.0009   713.6394    1.0017 
+           σ    0.4949    0.0247     0.0008    0.0011   429.9468    0.9994 
     ⋯
-           α    1.5019    0.0657     0.0022    0.0043   187.5820    1.0312 
+           α    1.4868    0.0655     0.0022    0.0045   221.5918    1.0188 
     ⋯
-           β    0.9800    0.0480     0.0016    0.0029   227.2167    1.0193 
+           β    1.0235    0.0553     0.0018    0.0035   275.4992    1.0117 
     ⋯
-           γ    2.9852    0.1538     0.0051    0.0097   198.0514    1.0280 
+           γ    3.0378    0.1382     0.0046    0.0099   216.0740    1.0301 
     ⋯
-           δ    1.0023    0.0537     0.0018    0.0034   190.5342    1.0255 
+           δ    1.0152    0.0489     0.0016    0.0035   206.9970    1.0289 
     ⋯
                                                                 1 column om
 itted
@@ -431,11 +431,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.4812    0.5070    0.5249    0.5451    0.5856
-           α    1.3771    1.4555    1.5034    1.5449    1.6252
-           β    0.8898    0.9474    0.9793    1.0116    1.0788
-           γ    2.7227    2.8751    2.9726    3.0835    3.2956
-           δ    0.9098    0.9639    0.9963    1.0359    1.1115
+           σ    0.4482    0.4779    0.4936    0.5114    0.5480
+           α    1.3698    1.4463    1.4840    1.5212    1.6263
+           β    0.9245    0.9907    1.0197    1.0546    1.1358
+           γ    2.7761    2.9517    3.0302    3.1216    3.3129
+           δ    0.9237    0.9846    1.0137    1.0465    1.1145
 ```
 
 
@@ -494,7 +494,7 @@ This is because adjoints have a higher overhead on small parameter models and th
 For more details, see https://arxiv.org/abs/1812.01892.
 
 ```julia
-using Zygote, DiffEqSensitivity
+using Zygote, SciMLSensitivity
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)
@@ -507,8 +507,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 947.99 seconds
-Compute duration  = 947.99 seconds
+Wall duration     = 958.27 seconds
+Compute duration  = 958.27 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -520,15 +520,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8134    0.0395     0.0012    0.0017   414.6996    1.0004 
+           σ    0.8132    0.0403     0.0013    0.0015   519.2956    1.0067 
     ⋯
-           α    1.5653    0.0545     0.0017    0.0042   173.7679    0.9993 
+           α    1.5616    0.0531     0.0017    0.0039   183.9805    0.9992 
     ⋯
-           β    1.0989    0.0534     0.0017    0.0034   242.8625    0.9992 
+           β    1.0960    0.0519     0.0016    0.0032   247.6342    1.0013 
     ⋯
-           γ    2.8552    0.1411     0.0045    0.0109   178.5271    0.9990 
+           γ    2.8648    0.1391     0.0044    0.0102   186.8802    0.9993 
     ⋯
-           δ    0.9293    0.0501     0.0016    0.0038   180.0480    0.9992 
+           δ    0.9333    0.0499     0.0016    0.0037   186.9087    0.9990 
     ⋯
                                                                 1 column om
 itted
@@ -537,11 +537,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7400    0.7875    0.8121    0.8382    0.8953
-           α    1.4667    1.5284    1.5611    1.5988    1.6778
-           β    1.0034    1.0615    1.0951    1.1343    1.2115
-           γ    2.5903    2.7618    2.8565    2.9472    3.1393
-           δ    0.8294    0.8951    0.9306    0.9615    1.0277
+           σ    0.7353    0.7861    0.8131    0.8401    0.8916
+           α    1.4662    1.5251    1.5586    1.5957    1.6633
+           β    1.0047    1.0599    1.0942    1.1281    1.2051
+           γ    2.6095    2.7725    2.8612    2.9594    3.1293
+           δ    0.8425    0.8989    0.9325    0.9659    1.0297
 ```
 
 
@@ -585,8 +585,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1032.06 seconds
-Compute duration  = 1032.06 seconds
+Wall duration     = 1139.65 seconds
+Compute duration  = 1139.65 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -598,15 +598,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8119    0.0411     0.0013    0.0019   547.8959    0.9990 
+           σ    0.8128    0.0394     0.0012    0.0019   472.6523    1.0003 
     ⋯
-           α    1.5477    0.0526     0.0017    0.0030   260.9383    0.9992 
+           α    1.5577    0.0503     0.0016    0.0028   355.8089    1.0037 
     ⋯
-           β    1.0859    0.0529     0.0017    0.0026   323.9556    0.9992 
+           β    1.0930    0.0546     0.0017    0.0026   409.6718    1.0074 
     ⋯
-           γ    2.9025    0.1420     0.0045    0.0081   266.7772    0.9995 
+           γ    2.8746    0.1325     0.0042    0.0070   367.8213    1.0024 
     ⋯
-           δ    0.9461    0.0507     0.0016    0.0029   264.4642    0.9991 
+           δ    0.9364    0.0471     0.0015    0.0026   372.1754    1.0034 
     ⋯
                                                                 1 column om
 itted
@@ -615,11 +615,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7388    0.7820    0.8100    0.8397    0.8988
-           α    1.4480    1.5115    1.5457    1.5820    1.6591
-           β    0.9916    1.0469    1.0817    1.1201    1.2014
-           γ    2.6288    2.8091    2.9036    2.9939    3.2115
-           δ    0.8492    0.9116    0.9452    0.9792    1.0504
+           σ    0.7410    0.7838    0.8107    0.8403    0.8923
+           α    1.4665    1.5229    1.5535    1.5918    1.6583
+           β    0.9970    1.0549    1.0894    1.1276    1.2053
+           γ    2.6226    2.7832    2.8771    2.9618    3.1311
+           δ    0.8442    0.9020    0.9379    0.9679    1.0293
 ```
 
 
@@ -748,12 +748,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci7-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
-  [41bf760c] DiffEqSensitivity v6.72.0
-  [0c46a032] DifferentialEquations v7.1.0
-  [f3b207a7] StatsPlots v0.14.33
-  [fce5fe82] Turing v0.21.1
-  [e88e6eb3] Zygote v0.6.39
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+  [0c46a032] DifferentialEquations v7.2.0
+  [1ed8b502] SciMLSensitivity v7.4.0
+  [f3b207a7] StatsPlots v0.15.1
+  [fce5fe82] Turing v0.21.10
+  [e88e6eb3] Zygote v0.6.44
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
@@ -761,111 +761,122 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci7-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
-  [621f4979] AbstractFFTs v1.1.0
-  [80f14c24] AbstractMCMC v4.0.0
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+  [621f4979] AbstractFFTs v1.2.1
+  [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
   [1520ce14] AbstractTrees v0.3.4
-  [79e6a3ab] Adapt v3.3.3
-  [0bf59076] AdvancedHMC v0.3.4
-  [5b7e9947] AdvancedMH v0.6.7
-  [576499cb] AdvancedPS v0.3.7
-  [b5ca4192] AdvancedVI v0.1.4
+  [79e6a3ab] Adapt v3.4.0
+  [0bf59076] AdvancedHMC v0.3.5
+  [5b7e9947] AdvancedMH v0.6.8
+  [576499cb] AdvancedPS v0.3.8
+  [b5ca4192] AdvancedVI v0.1.5
   [dce04be8] ArgCheck v2.3.0
   [ec485272] ArnoldiMethod v0.2.0
   [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v5.0.7
-  [4c555306] ArrayLayouts v0.8.6
+  [4fba245c] ArrayInterface v6.0.22
+  [30b0a656] ArrayInterfaceCore v0.1.17
+  [6ba088a2] ArrayInterfaceGPUArrays v0.2.1
+  [015c0d05] ArrayInterfaceOffsetArrays v0.1.6
+  [b0d46f97] ArrayInterfaceStaticArrays v0.1.4
+  [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.0
+  [a2b0951a] ArrayInterfaceTracker v0.1.1
+  [4c555306] ArrayLayouts v0.8.11
   [13072b0f] AxisAlgorithms v1.0.1
-  [39de3d68] AxisArrays v0.4.5
-  [aae01518] BandedMatrices v0.16.13
+  [39de3d68] AxisArrays v0.4.6
+  [aae01518] BandedMatrices v0.17.5
   [198e06fe] BangBang v0.3.36
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.9.11
-  [62783981] BitTwiddlingConvenienceFunctions v0.1.3
-  [8e7c35d0] BlockArrays v0.16.16
-  [ffab5731] BlockBandedMatrices v0.11.6
-  [764a87c0] BoundaryValueDiffEq v2.7.1
+  [76274a88] Bijectors v0.10.3
+  [62783981] BitTwiddlingConvenienceFunctions v0.1.4
+  [8e7c35d0] BlockArrays v0.16.20
+  [ffab5731] BlockBandedMatrices v0.11.9
+  [764a87c0] BoundaryValueDiffEq v2.9.0
   [fa961155] CEnum v0.4.2
-  [2a0fbf3d] CPUSummary v0.1.21
+  [2a0fbf3d] CPUSummary v0.1.25
+  [49dc2e85] Calculus v0.5.1
   [7057c7e9] Cassette v0.3.10
-  [082447d4] ChainRules v1.28.3
-  [d360d2e6] ChainRulesCore v1.14.0
-  [9e997f8a] ChangesOfVariables v0.1.2
-  [fb6a15b2] CloseOpenIntervals v0.1.6
+  [082447d4] ChainRules v1.44.2
+  [d360d2e6] ChainRulesCore v1.15.3
+  [9e997f8a] ChangesOfVariables v0.1.4
+  [fb6a15b2] CloseOpenIntervals v0.1.10
   [aaaa29a8] Clustering v0.14.2
-  [35d6a980] ColorSchemes v3.17.1
-  [3da002f7] ColorTypes v0.11.0
+  [944b1d66] CodecZlib v0.7.0
+  [35d6a980] ColorSchemes v3.19.0
+  [3da002f7] ColorTypes v0.11.4
+  [c3611d14] ColorVectorSpace v0.9.9
   [5ae59095] Colors v0.12.8
   [861a8166] Combinatorics v1.0.2
-  [38540f10] CommonSolve v0.2.0
+  [38540f10] CommonSolve v0.2.1
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.43.0
+  [34da2185] Compat v3.45.0
   [b152e2b5] CompositeTypes v0.1.2
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
-  [187b0558] ConstructionBase v1.3.0
-  [d38c429a] Contour v0.5.7
+  [187b0558] ConstructionBase v1.4.0
+  [d38c429a] Contour v0.6.2
   [adafc99b] CpuId v0.3.0
   [a8cc5b0e] Crayons v4.1.1
-  [754358af] DEDataArrays v0.2.2
   [9a962f9c] DataAPI v1.10.0
-  [864edb3b] DataStructures v0.18.11
+  [864edb3b] DataStructures v0.18.13
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
-  [bcd4f6db] DelayDiffEq v5.35.1
+  [bcd4f6db] DelayDiffEq v5.37.0
   [b429d917] DensityInterface v0.4.0
-  [2b5f629d] DiffEqBase v6.83.2
-  [459566f4] DiffEqCallbacks v2.22.0
-  [c894b116] DiffEqJump v8.3.1
-  [77a26b50] DiffEqNoiseProcess v5.9.0
-  [9fdde737] DiffEqOperators v4.43.0
-  [41bf760c] DiffEqSensitivity v6.72.0
+  [2b5f629d] DiffEqBase v6.95.2
+  [459566f4] DiffEqCallbacks v2.24.0
+  [77a26b50] DiffEqNoiseProcess v5.12.1
+  [9fdde737] DiffEqOperators v4.43.1
   [163ba53b] DiffResults v1.0.3
   [b552c78f] DiffRules v1.11.0
-  [0c46a032] DifferentialEquations v7.1.0
+  [0c46a032] DifferentialEquations v7.2.0
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.55
-  [ced4e74d] DistributionsAD v0.6.38
+  [31c24e10] Distributions v0.25.67
+  [ced4e74d] DistributionsAD v0.6.42
   [ffbed154] DocStringExtensions v0.8.6
-  [5b8099bc] DomainSets v0.5.9
-  [366bfd00] DynamicPPL v0.19.1
-  [da5c29d0] EllipsisNotation v1.5.0
-  [cad2338a] EllipticalSliceSampling v0.5.0
-  [7da242da] Enzyme v0.9.3
-  [d4d017d3] ExponentialUtilities v1.14.0
+  [5b8099bc] DomainSets v0.5.11
+  [fa6b7ba4] DualNumbers v0.6.8
+  [366bfd00] DynamicPPL v0.20.0
+  [da5c29d0] EllipsisNotation v1.6.0
+  [cad2338a] EllipticalSliceSampling v1.0.0
+  [7da242da] Enzyme v0.10.4
+  [d4d017d3] ExponentialUtilities v1.18.0
   [e2ba6199] ExprTools v0.1.8
+  [411431e0] Extents v0.1.1
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.4.6
-  [7034ab61] FastBroadcast v0.1.15
+  [7a1cc6ca] FFTW v1.5.0
+  [7034ab61] FastBroadcast v0.2.1
   [9aa1b823] FastClosures v0.3.2
+  [29a986be] FastLapackInterface v1.2.2
   [1a297f60] FillArrays v0.13.2
-  [6a86dc24] FiniteDiff v2.11.0
+  [6a86dc24] FiniteDiff v2.15.0
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
-  [f6369f11] ForwardDiff v0.10.27
+  [f6369f11] ForwardDiff v0.10.32
   [069b7b12] FunctionWrappers v1.1.2
   [d9f16b24] Functors v0.2.8
-  [61eb1bfa] GPUCompiler v0.14.1
-  [28b8d3ca] GR v0.64.2
+  [0c68f7d7] GPUArrays v8.4.2
+  [46192b85] GPUArraysCore v0.1.1
+  [61eb1bfa] GPUCompiler v0.16.3
+  [28b8d3ca] GR v0.66.2
   [c145ed77] GenericSchur v0.5.3
-  [5c1252a2] GeometryBasics v0.4.2
-  [af5da776] GlobalSensitivity v1.3.2
-  [86223c79] Graphs v1.6.0
+  [cf35fbd7] GeoInterface v1.0.1
+  [5c1252a2] GeometryBasics v0.4.3
+  [86223c79] Graphs v1.7.1
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v0.9.17
-  [3e5b6fbb] HostCPUFeatures v0.1.7
-  [0e44f5e4] Hwloc v2.0.0
-  [7869d1d1] IRTools v0.4.5
+  [cd3eb016] HTTP v1.2.1
+  [3e5b6fbb] HostCPUFeatures v0.1.8
+  [34004b35] HypergeometricFunctions v0.3.11
+  [7869d1d1] IRTools v0.4.6
   [615f187c] IfElse v0.1.1
   [d25df0c9] Inflate v0.1.2
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
-  [a98d9a8b] Interpolations v0.13.6
-  [8197267c] IntervalSets v0.5.4
-  [3587e190] InverseFunctions v0.1.3
+  [a98d9a8b] Interpolations v0.14.4
+  [8197267c] IntervalSets v0.7.1
+  [3587e190] InverseFunctions v0.1.7
   [41ab1584] InvertedIndices v1.1.0
   [92d709cd] IrrationalConstants v0.1.1
   [c8e1da08] IterTools v1.4.0
@@ -873,36 +884,34 @@ And the full manifest:
   [82899510] IteratorInterfaceExtensions v1.0.0
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
+  [ccbc3e58] JumpProcesses v9.1.0
   [ef3ab10e] KLU v0.3.0
-  [5ab0869b] KernelDensity v0.6.3
-  [ba0b0d4f] Krylov v0.8.0
+  [5ab0869b] KernelDensity v0.6.5
+  [ba0b0d4f] Krylov v0.8.3
   [0b1a1467] KrylovKit v0.5.4
-  [929cbde3] LLVM v4.9.1
+  [929cbde3] LLVM v4.14.0
   [8ac3fa9e] LRUCache v1.3.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [2ee39098] LabelledArrays v1.8.0
-  [23fbe1c1] Latexify v0.15.15
-  [a5e1c1ea] LatinHypercubeSampling v1.8.0
-  [73f95e8e] LatticeRules v0.0.1
-  [10f19ff3] LayoutPointers v0.1.6
-  [5078a376] LazyArrays v0.22.10
-  [d7e5e226] LazyBandedMatrices v0.7.9
+  [23fbe1c1] Latexify v0.15.16
+  [10f19ff3] LayoutPointers v0.1.10
+  [5078a376] LazyArrays v0.22.11
+  [d7e5e226] LazyBandedMatrices v0.7.17
   [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
   [2d8b4e74] LevyArea v1.0.0
   [6f1fad26] Libtask v0.7.0
   [d3d80556] LineSearches v7.1.1
-  [7ed4a6bd] LinearSolve v1.15.0
-  [2ab3a3ac] LogExpFunctions v0.3.13
-  [e6f89c97] LoggingExtras v0.4.7
-  [bdcacae8] LoopVectorization v0.12.108
-  [c7f686f2] MCMCChains v5.2.0
-  [be115224] MCMCDiagnosticTools v0.1.3
-  [e80e1ace] MLJModelInterface v1.4.2
+  [7ed4a6bd] LinearSolve v1.23.3
+  [2ab3a3ac] LogExpFunctions v0.3.17
+  [e6f89c97] LoggingExtras v0.4.9
+  [bdcacae8] LoopVectorization v0.12.122
+  [c7f686f2] MCMCChains v5.3.1
+  [be115224] MCMCDiagnosticTools v0.1.4
+  [e80e1ace] MLJModelInterface v1.6.0
   [1914dd2f] MacroTools v0.5.9
   [d125e4d3] ManualMemory v0.1.8
   [dbb5928d] MappedArrays v0.4.1
-  [a3b82374] MatrixFactorizations v0.9.1
-  [739be429] MbedTLS v1.0.3
+  [a3b82374] MatrixFactorizations v0.9.2
+  [739be429] MbedTLS v1.1.3
   [442fdcdd] Measures v0.3.1
   [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
@@ -910,126 +919,127 @@ And the full manifest:
   [6f286f6a] MultivariateStats v0.9.1
   [d41bc354] NLSolversBase v7.8.2
   [2774e3e8] NLsolve v4.5.1
-  [872c559c] NNlib v0.8.4
+  [872c559c] NNlib v0.8.9
   [77ba4419] NaNMath v0.3.7
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [b8a86587] NearestNeighbors v0.4.10
-  [8913a72c] NonlinearSolve v0.3.16
+  [b8a86587] NearestNeighbors v0.4.11
+  [8913a72c] NonlinearSolve v0.3.22
   [d8793406] ObjectFile v0.3.7
-  [510215fc] Observables v0.4.0
-  [6fe1bfb0] OffsetArrays v1.10.8
-  [429524aa] Optim v1.6.2
+  [510215fc] Observables v0.5.1
+  [6fe1bfb0] OffsetArrays v1.12.7
+  [429524aa] Optim v1.7.1
   [bac558e1] OrderedCollections v1.4.1
-  [1dea7af3] OrdinaryDiffEq v6.10.0
-  [90014a1f] PDMats v0.11.8
+  [1dea7af3] OrdinaryDiffEq v6.20.0
+  [90014a1f] PDMats v0.11.16
   [d96e819e] Parameters v0.12.3
-  [69de0a69] Parsers v2.3.1
+  [69de0a69] Parsers v2.3.2
   [ccf2f8ad] PlotThemes v3.0.0
-  [995b91a9] PlotUtils v1.2.0
-  [91a5bcdd] Plots v1.28.0
-  [e409e4f3] PoissonRandom v0.4.0
-  [f517fe37] Polyester v0.6.8
-  [1d0040c9] PolyesterWeave v0.1.5
+  [995b91a9] PlotUtils v1.3.0
+  [91a5bcdd] Plots v1.31.7
+  [e409e4f3] PoissonRandom v0.4.1
+  [f517fe37] Polyester v0.6.14
+  [1d0040c9] PolyesterWeave v0.1.8
   [85a6dd25] PositiveFactorizations v0.2.4
-  [d236fae5] PreallocationTools v0.2.4
+  [d236fae5] PreallocationTools v0.4.2
   [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.4.2
-  [8a4e6c94] QuasiMonteCarlo v0.2.4
-  [74087812] Random123 v1.5.0
+  [74087812] Random123 v1.6.0
   [e6cf234a] RandomNumbers v1.5.3
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.5.2
-  [731186ca] RecursiveArrayTools v2.26.3
-  [f2c3362d] RecursiveFactorization v0.2.10
+  [01d81517] RecipesPipeline v0.6.3
+  [731186ca] RecursiveArrayTools v2.32.0
+  [f2c3362d] RecursiveFactorization v0.2.11
   [189a3867] Reexport v1.2.2
-  [05181044] RelocatableFolders v0.1.3
+  [05181044] RelocatableFolders v0.3.0
   [ae029012] Requires v1.3.0
   [ae5879a3] ResettableStacks v1.1.1
-  [37e2e3b7] ReverseDiff v1.13.0
+  [37e2e3b7] ReverseDiff v1.14.1
   [79098fc4] Rmath v0.7.0
-  [f2b01f46] Roots v1.4.1
+  [f2b01f46] Roots v2.0.2
   [7e49a35a] RuntimeGeneratedFunctions v0.5.3
-  [3cdde19b] SIMDDualNumbers v0.1.0
+  [3cdde19b] SIMDDualNumbers v0.1.1
   [94e857df] SIMDTypes v0.1.0
-  [476501e8] SLEEFPirates v0.6.32
-  [0bca4576] SciMLBase v1.31.0
+  [476501e8] SLEEFPirates v0.6.33
+  [0bca4576] SciMLBase v1.48.1
+  [1ed8b502] SciMLSensitivity v7.4.0
   [30f210dd] ScientificTypesBase v3.0.0
-  [6c6a2e73] Scratch v1.1.0
-  [91c51154] SentinelArrays v1.3.12
+  [6c6a2e73] Scratch v1.1.1
+  [91c51154] SentinelArrays v1.3.13
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
+  [777ac1f9] SimpleBufferStream v1.1.0
   [699a6c99] SimpleTraits v0.9.4
-  [ed01d8cd] Sobol v1.5.0
+  [66db9d55] SnoopPrecompile v1.0.0
   [a2af1166] SortingAlgorithms v1.0.1
-  [47a9eef4] SparseDiffTools v1.21.0
-  [276daf66] SpecialFunctions v2.1.4
+  [47a9eef4] SparseDiffTools v1.25.1
+  [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.14
-  [860ef19b] StableRNGs v1.0.0
-  [aedffcd0] Static v0.6.3
-  [90137ffa] StaticArrays v1.4.4
-  [64bff920] StatisticalTraits v3.0.0
+  [aedffcd0] Static v0.7.6
+  [90137ffa] StaticArrays v1.5.4
+  [1e83bf80] StaticArraysCore v1.1.0
+  [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.2.2
-  [2913bbd2] StatsBase v0.33.16
-  [4c63d2b9] StatsFuns v0.9.18
-  [f3b207a7] StatsPlots v0.14.33
-  [9672c7b4] SteadyStateDiffEq v1.6.6
-  [789caeaf] StochasticDiffEq v6.46.0
-  [7792a7ef] StrideArraysCore v0.3.3
-  [09ab397b] StructArrays v0.6.6
+  [2913bbd2] StatsBase v0.33.21
+  [4c63d2b9] StatsFuns v1.0.1
+  [f3b207a7] StatsPlots v0.15.1
+  [9672c7b4] SteadyStateDiffEq v1.9.0
+  [789caeaf] StochasticDiffEq v6.52.0
+  [7792a7ef] StrideArraysCore v0.3.15
+  [09ab397b] StructArrays v0.6.11
   [53d494c1] StructIO v0.3.0
-  [c3572dad] Sundials v4.9.3
+  [c3572dad] Sundials v4.9.4
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
   [bd369af6] Tables v1.7.0
+  [62fd8b95] TensorCore v0.1.1
   [5d786b92] TerminalLoggers v0.1.5
   [8290d209] ThreadingUtilities v0.5.0
-  [a759f4b9] TimerOutputs v0.5.17
+  [a759f4b9] TimerOutputs v0.5.20
   [9f7883ad] Tracker v0.2.20
+  [3bb67fe8] TranscodingStreams v0.9.6
   [28d57a85] Transducers v0.4.73
-  [592b5752] Trapz v2.0.3
   [a2a6695c] TreeViews v0.3.0
-  [d5829a12] TriangularSolve v0.1.11
-  [fce5fe82] Turing v0.21.1
-  [5c2747f8] URIs v1.3.0
+  [d5829a12] TriangularSolve v0.1.13
+  [fce5fe82] Turing v0.21.10
+  [5c2747f8] URIs v1.4.0
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
-  [3d5dd08c] VectorizationBase v0.21.30
+  [3d5dd08c] VectorizationBase v0.21.46
   [19fa3120] VertexSafeGraphs v0.2.0
-  [cc8bc4a8] Widgets v0.6.5
+  [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
-  [e88e6eb3] Zygote v0.6.39
+  [e88e6eb3] Zygote v0.6.44
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
   [5ae413db] EarCut_jll v2.2.3+0
-  [7cc45869] Enzyme_jll v0.0.29+0
+  [7cc45869] Enzyme_jll v0.0.33+0
   [2e619515] Expat_jll v2.4.8+0
-  [b22a6f82] FFMPEG_jll v4.4.0+0
+  [b22a6f82] FFMPEG_jll v4.4.2+0
   [f5851436] FFTW_jll v3.3.10+0
   [a3f928ae] Fontconfig_jll v2.13.93+0
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
-  [0656b61e] GLFW_jll v3.3.6+0
-  [d2c73de3] GR_jll v0.64.2+0
+  [0656b61e] GLFW_jll v3.3.8+0
+  [d2c73de3] GR_jll v0.66.0+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.68.3+2
   [3b182d85] Graphite2_jll v1.3.14+0
   [2e76f6c2] HarfBuzz_jll v2.8.1+1
-  [e33a78d0] Hwloc_jll v2.7.1+0
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
   [aacddb02] JpegTurbo_jll v2.1.2+0
   [c1c5ebd0] LAME_jll v3.100.1+0
   [88015f11] LERC_jll v3.0.0+1
-  [dad2f222] LLVMExtra_jll v0.0.14+2
+  [dad2f222] LLVMExtra_jll v0.0.16+0
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
@@ -1037,11 +1047,11 @@ And the full manifest:
   [7add5ba3] Libgpg_error_jll v1.42.0+0
   [94ce4f54] Libiconv_jll v1.16.1+1
   [4b2f31a3] Libmount_jll v2.35.0+0
-  [89763e89] Libtiff_jll v4.3.0+1
+  [89763e89] Libtiff_jll v4.4.0+0
   [38a345b3] Libuuid_jll v2.36.0+0
   [856f044c] MKL_jll v2022.0.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
-  [458c3c95] OpenSSL_jll v1.1.14+0
+  [458c3c95] OpenSSL_jll v1.1.17+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
   [2f80f16e] PCRE_jll v8.44.0+0
@@ -1051,7 +1061,7 @@ And the full manifest:
   [fb77eaff] Sundials_jll v5.2.0+1
   [a2964d1f] Wayland_jll v1.19.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
-  [02c8fc9c] XML2_jll v2.9.12+0
+  [02c8fc9c] XML2_jll v2.9.14+0
   [aed1982a] XSLT_jll v1.1.34+0
   [4f6342f7] Xorg_libX11_jll v1.6.9+4
   [0c0b7dd1] Xorg_libXau_jll v1.0.9+4
@@ -1075,6 +1085,7 @@ And the full manifest:
   [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
   [c5fb5394] Xorg_xtrans_jll v1.4.0+3
   [3161d3a3] Zstd_jll v1.5.2+0
+  [a4ae2306] libaom_jll v3.4.0+0
   [0ac62f75] libass_jll v0.15.1+0
   [8e850b90] libblastrampoline_jll v3.1.0+2
   [f638f0a6] libfdk_aac_jll v2.0.2+0
@@ -1082,7 +1093,7 @@ And the full manifest:
   [f27f6e37] libvorbis_jll v1.3.7+1
   [1270edf5] x264_jll v2021.5.5+0
   [dfaa095f] x265_jll v3.5.0+0
-  [d8fb68d0] xkbcommon_jll v0.9.1+5
+  [d8fb68d0] xkbcommon_jll v1.4.1+0
   [0dad84c5] ArgTools
   [56f22d72] Artifacts
   [2a0f44e3] Base64
