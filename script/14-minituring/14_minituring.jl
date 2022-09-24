@@ -7,7 +7,6 @@
 end
 
 
-# First, we import some needed packages
 using MacroTools, Distributions, Random, AbstractMCMC, MCMCChains
 
 
@@ -25,24 +24,22 @@ function Base.setindex!(varinfo::VarInfo, (value, logp), var_id)
 end
 
 
-struct SamplingContext{R<:Random.AbstractRNG,S<:AbstractMCMC.AbstractSampler}
+struct SamplingContext{S<:AbstractMCMC.AbstractSampler,R<:Random.AbstractRNG}
     rng::R
     sampler::S
 end
 
-struct DummySampler <: AbstractMCMC.AbstractSampler end
+struct PriorSampler <: AbstractMCMC.AbstractSampler end
 
-SamplingContext() = SamplingContext(Random.default_rng(), DummySampler())
-
-function observe(context::SamplingContext, sampler, varinfo, dist, var_id, var_value)
-    logp = Distributions.loglikelihood(dist, var_value)
+function observe(context::SamplingContext, varinfo, dist, var_id, var_value)
+    logp = logpdf(dist, var_value)
     varinfo[var_id] = (var_value, logp)
-    return var_value # return value not used, only for coherent behavior as `assume`
+    return nothing
 end
 
-function assume(context::SamplingContext, sampler::DummySampler, varinfo, dist, var_id)
+function assume(context::SamplingContext{PriorSampler}, varinfo, dist, var_id)
     sample = Random.rand(context.rng, dist)
-    logp = Distributions.loglikelihood(dist, sample)
+    logp = logpdf(dist, sample)
     varinfo[var_id] = (sample, logp)
     return sample
 end;
@@ -53,41 +50,28 @@ macro mini_model(expr)
 end
 
 function mini_model(expr)
+    # Split the function definition into a dictionary with its name, arguments, body etc.
     def = MacroTools.splitdef(expr)
 
-    # `MacroTools.postwalk` is a utility function for traverse AST in post-order
+    # Replace tildes in the function body with calls to `assume` or `observe`
     def[:body] = MacroTools.postwalk(def[:body]) do sub_expr
-        # `MacroTools.@capture` provide a utility function for pattern matching
         if MacroTools.@capture(sub_expr, var_ ~ dist_)
             if var in def[:args]
-                return quote
-                    $(observe)(
-                        context,
-                        context.sampler,
-                        varinfo,
-                        $dist,
-                        $(Meta.quot(var)),
-                        $var,
-                    )
-                end
+                # If the variable is an argument of the model function, it is observed
+                return :($(observe)(context, varinfo, $dist, $(Meta.quot(var)), $var))
             else
-                return quote
-                    $var = $(assume)(
-                        context, context.sampler, varinfo, $dist, $(Meta.quot(var))
-                    )
-                end
+                # Otherwise it is unobserved
+                return :($var = $(assume)(context, varinfo, $dist, $(Meta.quot(var))))
             end
         else
             return sub_expr
         end
     end
 
-    def[:args] = vcat([
-        # Insert extra arguments
-        :(varinfo),
-        :(context),
-    ], def[:args])
+    # Add `context` and `varinfo` arguments to the model function
+    def[:args] = vcat(:varinfo, :context, def[:args])
 
+    # Reassemble the function definition from its name, arguments, body etc.
     return MacroTools.combinedef(def)
 end;
 
@@ -98,82 +82,68 @@ struct MiniModel{F,D} <: AbstractMCMC.AbstractModel
 end
 
 
-# Just a Normal distribution as proposal in this simple case
-struct MHSampler{P<:Normal} <: AbstractMCMC.AbstractSampler
-    proposal::P
+struct MHSampler{T<:Real} <: AbstractMCMC.AbstractSampler
+    sigma::T
 end
 
-struct Transition{V}
-    varinfo::V
-end
+MHSampler() = MHSampler(1)
 
-SamplingContext(sampler::MHSampler) = SamplingContext(Random.default_rng(), sampler)
-
-
-function assume(context::SamplingContext, sampler::MHSampler, varinfo, dist, var_id)
+function assume(context::SamplingContext{<:MHSampler}, varinfo, dist, var_id)
+    sampler = context.sampler
     old_value = varinfo.values[var_id]
+
     # propose a random-walk step, i.e, add the current value to a random 
     # value sampled from a Normal distribution centered at 0
-    value = old_value + rand(context.rng, sampler.proposal)
-    logp = Distributions.loglikelihood(dist, value)
+    value = rand(context.rng, Normal(old_value, sampler.sigma))
+    logp = Distributions.logpdf(dist, value)
     varinfo[var_id] = (value, logp)
+
     return value
 end;
 
 
-# The fist step
+# The fist step: Sampling from the prior distributions
 function AbstractMCMC.step(
     rng::Random.AbstractRNG, model::MiniModel, sampler::MHSampler; kwargs...
 )
     vi = VarInfo()
-    ctx = SamplingContext() # context with DUmmySampler
+    ctx = SamplingContext(rng, PriorSampler())
     model.f(vi, ctx, values(model.data)...)
-    return Transition(vi), vi
+    return vi, vi
 end
 
-# Defining functions to compute values to determine if accept the proposal
-function condition_logprob(vi, condition_vi, args, proposal)
-    return sum(
-        Distributions.loglikelihood(proposal, vi.values[key] - condition_vi.values[key]) for
-        key in keys(vi.values) if !(key in args)
-    )
-end
-
-log_joint(vi) = sum(values(vi.logps))
-
-function logα(old_vi, new_vi, args, proposal)
-    return log_joint(new_vi) - log_joint(old_vi) +
-           condition_logprob(old_vi, new_vi, args, proposal) -
-           condition_logprob(new_vi, old_vi, args, proposal)
-end
-
-# The following steps
+# The following steps: Sampling with random-walk proposal
 function AbstractMCMC.step(
     rng::Random.AbstractRNG,
     model::MiniModel,
     sampler::MHSampler,
-    prev_state::VarInfo, # is just the old vi
-    kargs...,
+    prev_state::VarInfo; # is just the old trace
+    kwargs...,
 )
     vi = prev_state
     new_vi = deepcopy(vi)
-    ctx = SamplingContext(sampler)
+    ctx = SamplingContext(rng, sampler)
     model.f(new_vi, ctx, values(model.data)...)
-    log_α = logα(vi, new_vi, keys(model.data), ctx.sampler.proposal)
-    if -randexp(rng) < log_α
-        return Transition(new_vi), new_vi
-    else
-        return Transition(prev_state), prev_state
-    end
-end
 
-# Create Chains object at the end of the sampling process
+    # Compute log acceptance probability
+    # Since the proposal is symmetric the computation can be simplified
+    logα = sum(values(new_vi.logps)) - sum(values(vi.logps))
+
+    # Accept proposal with computed acceptance probability
+    if -randexp(rng) < logα
+        return new_vi, new_vi
+    else
+        return prev_state, prev_state
+    end
+end;
+
+
 function AbstractMCMC.bundle_samples(
-    samples, model::MiniModel, ::MHSampler, ::Any, ::Type; kargs...
+    samples, model::MiniModel, ::MHSampler, ::Any, ::Type{Chains}; kwargs...
 )
-    # We get a vector of `Transition`s
-    values = [sample.varinfo.values for sample in samples]
-    params = [key for key in Base.keys(values[1]) if key ∉ keys(model.data)]
+    # We get a vector of traces
+    values = [sample.values for sample in samples]
+    params = [key for key in keys(values[1]) if key ∉ keys(model.data)]
     vals = reduce(hcat, [value[p] for value in values] for p in params)
     # Composing the `Chains` data-structure, of which analyzing infrastructure is provided
     chains = Chains(vals, params)
@@ -189,11 +159,7 @@ end;
 end;
 
 
-# Manually defining the model.
-model = MiniModel(m, (x=3.0,))
-
-# `sample` function is implemented as part of `AbstractMCMC.jl`
-samples = sample(model, MHSampler(Normal(0, 1)), 1000000)
+sample(MiniModel(m, (x=3.0,)), MHSampler(), 1_000_000; chain_type=Chains)
 
 
 using Turing
@@ -203,8 +169,7 @@ using Turing
     b ~ Normal(a, 2)
     x ~ Normal(b, 0.5)
     return nothing
-end;
+end
 
-
-sample(turing_m(3.0), MH(), 1000000)
+sample(turing_m(3.0), MH(:a => Normal(), :b => Normal()), 1_000_000)
 
