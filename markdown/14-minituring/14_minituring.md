@@ -311,17 +311,17 @@ at
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64
 
-           a    0.9783    0.8996     0.0009    0.0031    82497.0808    1.00
+           a    0.9808    0.9034     0.0009    0.0032    79468.7241    1.00
 00
-           b    2.8791    0.4881     0.0005    0.0012   171943.7890    1.00
+           b    2.8811    0.4878     0.0005    0.0012   172482.5192    1.00
 00
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7858    0.3700    0.9783    1.5845    2.7465
-           b    1.9233    2.5492    2.8782    3.2081    3.8364
+           a   -0.7914    0.3723    0.9802    1.5913    2.7528
+           b    1.9253    2.5527    2.8808    3.2092    3.8382
 ```
 
 
@@ -332,6 +332,7 @@ We compare these results with Turing.
 
 ```julia
 using Turing
+using PDMats
 
 @model function turing_m(x)
     a ~ Normal(0.5, 1)
@@ -340,7 +341,7 @@ using Turing
     return nothing
 end
 
-sample(turing_m(3.0), MH(:a => Normal(), :b => Normal()), 1_000_000)
+sample(turing_m(3.0), MH(ScalMat(2, 1.0)), 1_000_000)
 ```
 
 ```
@@ -349,21 +350,21 @@ Chains MCMC chain (1000000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 10.21 seconds
-Compute duration  = 10.21 seconds
+Wall duration     = 7.48 seconds
+Compute duration  = 7.48 seconds
 parameters        = a, b
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse         ess      rhat
-    ⋯
-      Symbol   Float64   Float64    Float64   Float64     Float64   Float64
-    ⋯
+  parameters      mean       std   naive_se      mcse           ess      rh
+at  ⋯
+      Symbol   Float64   Float64    Float64   Float64       Float64   Float
+64  ⋯
 
-           a    1.0363    0.9651     0.0010    0.0228   2880.4534    1.0052
-    ⋯
-           b    2.9033    0.5004     0.0005    0.0117   2781.6220    1.0008
-    ⋯
+           a    0.9773    0.8988     0.0009    0.0031    80842.2897    1.00
+00  ⋯
+           b    2.8821    0.4867     0.0005    0.0012   174277.4500    1.00
+00  ⋯
                                                                 1 column om
 itted
 
@@ -371,8 +372,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7543    0.3871    0.9842    1.6513    3.0814
-           b    1.9055    2.5590    2.9084    3.2727    3.8672
+           a   -0.7847    0.3716    0.9771    1.5873    2.7320
+           b    1.9274    2.5538    2.8826    3.2099    3.8382
 ```
 
 

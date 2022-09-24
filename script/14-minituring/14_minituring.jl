@@ -163,6 +163,7 @@ sample(MiniModel(m, (x=3.0,)), MHSampler(), 1_000_000; chain_type=Chains)
 
 
 using Turing
+using PDMats
 
 @model function turing_m(x)
     a ~ Normal(0.5, 1)
@@ -171,5 +172,5 @@ using Turing
     return nothing
 end
 
-sample(turing_m(3.0), MH(:a => Normal(), :b => Normal()), 1_000_000)
+sample(turing_m(3.0), MH(ScalMat(2, 1.0)), 1_000_000)
 
