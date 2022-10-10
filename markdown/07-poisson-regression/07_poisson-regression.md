@@ -250,8 +250,8 @@ Chains MCMC chain (2500×16×4 Array{Float64, 3}):
 Iterations        = 1:1:2500
 Number of chains  = 4
 Samples per chain = 2500
-Wall duration     = 12.5 seconds
-Compute duration  = 12.04 seconds
+Wall duration     = 9.49 seconds
+Compute duration  = 9.15 seconds
 parameters        = b2, b1, b3, b0
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -364,33 +364,54 @@ The exponentiated mean of the coefficient `b1` is roughly half of that of `b2`. 
 
 # Removing the Warmup Samples
 
-As can be seen from the plots above, the parameters converge to their final distributions after a few iterations. These initial values during the warmup phase increase the standard deviations of the parameters and are not required after we get the desired distributions. Thus, we remove these warmup values and once again view the diagnostics.
-
-To remove these warmup values, we take all values except the first 200. This is because we set the second parameter of the NUTS sampler (which is the number of adaptations) to be equal to 200. `describe(chain)` is used to view the standard deviations in the estimates of the parameters. It also gives other useful information such as the means and the quantiles.
-
-```julia
-# Note the standard deviation before removing the warmup samples
-describe(chain)
-```
-
-```
-2-element Vector{MCMCChains.ChainDataFrame}:
- Summary Statistics (4 x 8)
- Quantiles (4 x 6)
-```
-
-
+As can be seen from the plots above, the parameters converge to their final distributions after a few iterations.
+The initial values during the warmup phase increase the standard deviations of the parameters and are not required after we get the desired distributions.
+Thus, we remove these warmup values and once again view the diagnostics.
+To remove these warmup values, we take all values except the first 200.
+This is because we set the second parameter of the NUTS sampler (which is the number of adaptations) to be equal to 200.
 
 ```julia
-# Removing the first 200 values of the chains.
-chains_new = chain[201:2500, :, :]
-describe(chains_new)
+chains_new = chain[201:end, :, :]
 ```
 
 ```
-2-element Vector{MCMCChains.ChainDataFrame}:
- Summary Statistics (4 x 8)
- Quantiles (4 x 6)
+Chains MCMC chain (2300×16×4 Array{Float64, 3}):
+
+Iterations        = 201:1:2500
+Number of chains  = 4
+Samples per chain = 2300
+Wall duration     = 9.49 seconds
+Compute duration  = 9.15 seconds
+parameters        = b2, b1, b3, b0
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat
+    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64
+    ⋯
+
+          b0    1.6434    0.0301     0.0003    0.0005   3383.8935    1.0003
+    ⋯
+          b1    0.5488    0.0560     0.0006    0.0012   2305.7218    1.0014
+    ⋯
+          b2    0.8789    0.0523     0.0005    0.0011   2380.5917    1.0016
+    ⋯
+          b3    0.2937    0.0518     0.0005    0.0011   2301.1872    1.0015
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+          b0    1.5846    1.6233    1.6435    1.6636    1.7021
+          b1    0.4407    0.5112    0.5485    0.5853    0.6603
+          b2    0.7796    0.8430    0.8778    0.9131    0.9850
+          b3    0.1900    0.2596    0.2938    0.3296    0.3938
 ```
 
 
@@ -399,7 +420,7 @@ describe(chains_new)
 plot(chains_new)
 ```
 
-![](figures/07_poisson-regression_13_1.png)
+![](figures/07_poisson-regression_12_1.png)
 
 
 
@@ -420,8 +441,8 @@ TuringTutorials.weave("07-poisson-regression", "07_poisson-regression.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -429,7 +450,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 128
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -438,7 +459,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.14
@@ -457,7 +478,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.1.4

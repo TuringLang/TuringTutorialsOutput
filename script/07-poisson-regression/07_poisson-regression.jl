@@ -122,13 +122,7 @@ print("The posterior distributions obtained after sampling can be visualised as 
 plot(chain)
 
 
-# Note the standard deviation before removing the warmup samples
-describe(chain)
-
-
-# Removing the first 200 values of the chains.
-chains_new = chain[201:2500, :, :]
-describe(chains_new)
+chains_new = chain[201:end, :, :]
 
 
 plot(chains_new)
