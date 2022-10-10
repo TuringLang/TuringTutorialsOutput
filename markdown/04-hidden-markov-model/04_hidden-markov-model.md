@@ -143,7 +143,9 @@ chn = sample(BayesHmm(y, 3), g, 1000);
 
 
 
-Let's see how well our chain performed. Ordinarily, using the `describe` function from [MCMCChain](https://github.com/TuringLang/MCMCChain.jl) would be a good first step, but we have generated a lot of parameters here (`s[1]`, `s[2]`, `m[1]`, and so on). It's a bit easier to show how our model performed graphically.
+Let's see how well our chain performed.
+Ordinarily, using `display(chn)` would be a good first step, but we have generated a lot of parameters here (`s[1]`, `s[2]`, `m[1]`, and so on).
+It's a bit easier to show how our model performed graphically.
 
 The code below generates an animation showing the graph of the data above, and the data our model generates in each sample.
 
@@ -261,7 +263,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -270,7 +272,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
   [91a5bcdd] Plots v1.31.7
   [f3b207a7] StatsPlots v0.15.1
   [fce5fe82] Turing v0.21.10
@@ -280,7 +282,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
