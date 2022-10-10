@@ -99,10 +99,10 @@ Therefore, we write the Lotka-Volterra parameter estimation problem using the Tu
 @model function fitlv(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model. 
     p = [α, β, γ, δ]
@@ -128,8 +128,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 64.37 seconds
-Compute duration  = 63.98 seconds
+Wall duration     = 65.43 seconds
+Compute duration  = 64.95 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -216,10 +216,10 @@ I.e., we fit the model only to the $y$ variable of the system without providing 
 @model function fitlv2(data::AbstractVector, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model but save only the second state of the system (predators).
     p = [α, β, γ, δ]
@@ -243,8 +243,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 67.08 seconds
-Compute duration  = 66.61 seconds
+Wall duration     = 69.96 seconds
+Compute duration  = 69.4 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -374,10 +374,10 @@ Now we define the Turing model for the Lotka-Volterra model with delay and sampl
 @model function fitlv_dde(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ Truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ Truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ Truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ Truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model.
     p = [α, β, γ, δ]
@@ -401,8 +401,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 22.92 seconds
-Compute duration  = 22.54 seconds
+Wall duration     = 22.98 seconds
+Compute duration  = 22.51 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -507,8 +507,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 958.27 seconds
-Compute duration  = 958.27 seconds
+Wall duration     = 905.52 seconds
+Compute duration  = 905.52 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -555,10 +555,10 @@ Here we will not choose a `sensealg` and let it use the default choice:
 @model function fitlv_sensealg(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model and use a specific algorithm for computing sensitivities.
     p = [α, β, γ, δ]
@@ -585,8 +585,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1139.65 seconds
-Compute duration  = 1139.65 seconds
+Wall duration     = 1072.84 seconds
+Compute duration  = 1072.84 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -666,12 +666,12 @@ plot(EnsembleSummary(data))
 @model function fitlv_sde(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.3, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.25), 0.5, 2)
-    γ ~ truncated(Normal(3.2, 0.25), 2.2, 4.0)
-    δ ~ truncated(Normal(1.2, 0.25), 0.5, 2.0)
-    ϕ1 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
-    ϕ2 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
+    α ~ truncated(Normal(1.3, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.25); lower=0.5, upper=2)
+    γ ~ truncated(Normal(3.2, 0.25); lower=2.2, upper=4)
+    δ ~ truncated(Normal(1.2, 0.25); lower=0.5, upper=2)
+    ϕ1 ~ truncated(Normal(0.12, 0.3); lower=0.05, upper=0.25)
+    ϕ2 ~ truncated(Normal(0.12, 0.3); lower=0.05, upper=0.25)
 
     # Simulate stochastic Lotka-Volterra model.
     p = [α, β, γ, δ, ϕ1, ϕ2]
@@ -748,12 +748,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
-  [0c46a032] DifferentialEquations v7.2.0
-  [1ed8b502] SciMLSensitivity v7.4.0
-  [f3b207a7] StatsPlots v0.15.1
-  [fce5fe82] Turing v0.21.10
-  [e88e6eb3] Zygote v0.6.44
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+  [0c46a032] DifferentialEquations v7.5.0
+  [1ed8b502] SciMLSensitivity v7.10.0
+  [f3b207a7] StatsPlots v0.15.3
+  [fce5fe82] Turing v0.21.12
+  [e88e6eb3] Zygote v0.6.49
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
@@ -761,22 +761,22 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
-  [1520ce14] AbstractTrees v0.3.4
+  [1520ce14] AbstractTrees v0.4.2
   [79e6a3ab] Adapt v3.4.0
-  [0bf59076] AdvancedHMC v0.3.5
+  [0bf59076] AdvancedHMC v0.3.6
   [5b7e9947] AdvancedMH v0.6.8
   [576499cb] AdvancedPS v0.3.8
   [b5ca4192] AdvancedVI v0.1.5
   [dce04be8] ArgCheck v2.3.0
   [ec485272] ArnoldiMethod v0.2.0
   [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v6.0.22
-  [30b0a656] ArrayInterfaceCore v0.1.17
-  [6ba088a2] ArrayInterfaceGPUArrays v0.2.1
+  [4fba245c] ArrayInterface v6.0.23
+  [30b0a656] ArrayInterfaceCore v0.1.20
+  [6ba088a2] ArrayInterfaceGPUArrays v0.2.2
   [015c0d05] ArrayInterfaceOffsetArrays v0.1.6
   [b0d46f97] ArrayInterfaceStaticArrays v0.1.4
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.0
@@ -784,23 +784,22 @@ And the full manifest:
   [4c555306] ArrayLayouts v0.8.11
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
-  [aae01518] BandedMatrices v0.17.5
-  [198e06fe] BangBang v0.3.36
+  [aae01518] BandedMatrices v0.17.7
+  [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.10.3
+  [76274a88] Bijectors v0.10.6
+  [d1d4a3ce] BitFlags v0.1.5
   [62783981] BitTwiddlingConvenienceFunctions v0.1.4
-  [8e7c35d0] BlockArrays v0.16.20
-  [ffab5731] BlockBandedMatrices v0.11.9
   [764a87c0] BoundaryValueDiffEq v2.9.0
   [fa961155] CEnum v0.4.2
-  [2a0fbf3d] CPUSummary v0.1.25
+  [2a0fbf3d] CPUSummary v0.1.27
   [49dc2e85] Calculus v0.5.1
   [7057c7e9] Cassette v0.3.10
-  [082447d4] ChainRules v1.44.2
-  [d360d2e6] ChainRulesCore v1.15.3
+  [082447d4] ChainRules v1.44.6
+  [d360d2e6] ChainRulesCore v1.15.6
   [9e997f8a] ChangesOfVariables v0.1.4
   [fb6a15b2] CloseOpenIntervals v0.1.10
-  [aaaa29a8] Clustering v0.14.2
+  [aaaa29a8] Clustering v0.14.3
   [944b1d66] CodecZlib v0.7.0
   [35d6a980] ColorSchemes v3.19.0
   [3da002f7] ColorTypes v0.11.4
@@ -809,230 +808,226 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.1
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.45.0
-  [b152e2b5] CompositeTypes v0.1.2
+  [34da2185] Compat v4.2.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
-  [187b0558] ConstructionBase v1.4.0
+  [187b0558] ConstructionBase v1.4.1
   [d38c429a] Contour v0.6.2
   [adafc99b] CpuId v0.3.0
   [a8cc5b0e] Crayons v4.1.1
-  [9a962f9c] DataAPI v1.10.0
+  [9a962f9c] DataAPI v1.12.0
   [864edb3b] DataStructures v0.18.13
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
-  [bcd4f6db] DelayDiffEq v5.37.0
+  [bcd4f6db] DelayDiffEq v5.38.0
   [b429d917] DensityInterface v0.4.0
-  [2b5f629d] DiffEqBase v6.95.2
-  [459566f4] DiffEqCallbacks v2.24.0
-  [77a26b50] DiffEqNoiseProcess v5.12.1
-  [9fdde737] DiffEqOperators v4.43.1
-  [163ba53b] DiffResults v1.0.3
-  [b552c78f] DiffRules v1.11.0
-  [0c46a032] DifferentialEquations v7.2.0
+  [2b5f629d] DiffEqBase v6.105.0
+  [459566f4] DiffEqCallbacks v2.24.1
+  [77a26b50] DiffEqNoiseProcess v5.13.0
+  [163ba53b] DiffResults v1.1.0
+  [b552c78f] DiffRules v1.11.1
+  [0c46a032] DifferentialEquations v7.5.0
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.67
-  [ced4e74d] DistributionsAD v0.6.42
+  [31c24e10] Distributions v0.25.75
+  [ced4e74d] DistributionsAD v0.6.43
   [ffbed154] DocStringExtensions v0.8.6
-  [5b8099bc] DomainSets v0.5.11
   [fa6b7ba4] DualNumbers v0.6.8
-  [366bfd00] DynamicPPL v0.20.0
+  [366bfd00] DynamicPPL v0.20.2
   [da5c29d0] EllipsisNotation v1.6.0
   [cad2338a] EllipticalSliceSampling v1.0.0
-  [7da242da] Enzyme v0.10.4
-  [d4d017d3] ExponentialUtilities v1.18.0
+  [7da242da] Enzyme v0.10.6
+  [d4d017d3] ExponentialUtilities v1.19.0
   [e2ba6199] ExprTools v0.1.8
-  [411431e0] Extents v0.1.1
   [c87230d0] FFMPEG v0.4.1
   [7a1cc6ca] FFTW v1.5.0
   [7034ab61] FastBroadcast v0.2.1
   [9aa1b823] FastClosures v0.3.2
-  [29a986be] FastLapackInterface v1.2.2
-  [1a297f60] FillArrays v0.13.2
+  [29a986be] FastLapackInterface v1.2.7
+  [1a297f60] FillArrays v0.13.4
   [6a86dc24] FiniteDiff v2.15.0
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.32
-  [069b7b12] FunctionWrappers v1.1.2
-  [d9f16b24] Functors v0.2.8
-  [0c68f7d7] GPUArrays v8.4.2
-  [46192b85] GPUArraysCore v0.1.1
-  [61eb1bfa] GPUCompiler v0.16.3
-  [28b8d3ca] GR v0.66.2
+  [069b7b12] FunctionWrappers v1.1.3
+  [77dc65aa] FunctionWrappersWrappers v0.1.1
+  [d9f16b24] Functors v0.3.0
+  [0c68f7d7] GPUArrays v8.5.0
+  [46192b85] GPUArraysCore v0.1.2
+  [61eb1bfa] GPUCompiler v0.16.4
+  [28b8d3ca] GR v0.69.3
   [c145ed77] GenericSchur v0.5.3
-  [cf35fbd7] GeoInterface v1.0.1
-  [5c1252a2] GeometryBasics v0.4.3
-  [86223c79] Graphs v1.7.1
+  [86223c79] Graphs v1.7.4
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v1.2.1
+  [cd3eb016] HTTP v1.4.0
   [3e5b6fbb] HostCPUFeatures v0.1.8
   [34004b35] HypergeometricFunctions v0.3.11
   [7869d1d1] IRTools v0.4.6
   [615f187c] IfElse v0.1.1
-  [d25df0c9] Inflate v0.1.2
+  [d25df0c9] Inflate v0.1.3
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
-  [a98d9a8b] Interpolations v0.14.4
-  [8197267c] IntervalSets v0.7.1
-  [3587e190] InverseFunctions v0.1.7
+  [a98d9a8b] Interpolations v0.14.5
+  [8197267c] IntervalSets v0.7.3
+  [3587e190] InverseFunctions v0.1.8
   [41ab1584] InvertedIndices v1.1.0
   [92d709cd] IrrationalConstants v0.1.1
   [c8e1da08] IterTools v1.4.0
   [42fd0dbc] IterativeSolvers v0.9.2
   [82899510] IteratorInterfaceExtensions v1.0.0
+  [1019f520] JLFzf v0.1.5
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
-  [ccbc3e58] JumpProcesses v9.1.0
+  [ccbc3e58] JumpProcesses v9.2.0
   [ef3ab10e] KLU v0.3.0
   [5ab0869b] KernelDensity v0.6.5
-  [ba0b0d4f] Krylov v0.8.3
+  [ba0b0d4f] Krylov v0.8.4
   [0b1a1467] KrylovKit v0.5.4
   [929cbde3] LLVM v4.14.0
   [8ac3fa9e] LRUCache v1.3.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.16
+  [23fbe1c1] Latexify v0.15.17
   [10f19ff3] LayoutPointers v0.1.10
-  [5078a376] LazyArrays v0.22.11
-  [d7e5e226] LazyBandedMatrices v0.7.17
-  [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
+  [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [2d8b4e74] LevyArea v1.0.0
   [6f1fad26] Libtask v0.7.0
-  [d3d80556] LineSearches v7.1.1
-  [7ed4a6bd] LinearSolve v1.23.3
-  [2ab3a3ac] LogExpFunctions v0.3.17
+  [d3d80556] LineSearches v7.2.0
+  [7ed4a6bd] LinearSolve v1.26.0
+  [6fdf6af0] LogDensityProblems v1.0.2
+  [2ab3a3ac] LogExpFunctions v0.3.18
   [e6f89c97] LoggingExtras v0.4.9
-  [bdcacae8] LoopVectorization v0.12.122
-  [c7f686f2] MCMCChains v5.3.1
+  [bdcacae8] LoopVectorization v0.12.132
+  [c7f686f2] MCMCChains v5.4.0
   [be115224] MCMCDiagnosticTools v0.1.4
-  [e80e1ace] MLJModelInterface v1.6.0
-  [1914dd2f] MacroTools v0.5.9
+  [e80e1ace] MLJModelInterface v1.7.0
+  [1914dd2f] MacroTools v0.5.10
   [d125e4d3] ManualMemory v0.1.8
   [dbb5928d] MappedArrays v0.4.1
-  [a3b82374] MatrixFactorizations v0.9.2
-  [739be429] MbedTLS v1.1.3
+  [739be429] MbedTLS v1.1.6
   [442fdcdd] Measures v0.3.1
   [128add7d] MicroCollections v0.1.2
   [e1d29d7a] Missings v1.0.2
   [46d2c3a1] MuladdMacro v0.2.2
-  [6f286f6a] MultivariateStats v0.9.1
+  [6f286f6a] MultivariateStats v0.10.0
   [d41bc354] NLSolversBase v7.8.2
   [2774e3e8] NLsolve v4.5.1
   [872c559c] NNlib v0.8.9
-  [77ba4419] NaNMath v0.3.7
+  [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [b8a86587] NearestNeighbors v0.4.11
+  [b8a86587] NearestNeighbors v0.4.12
   [8913a72c] NonlinearSolve v0.3.22
   [d8793406] ObjectFile v0.3.7
-  [510215fc] Observables v0.5.1
+  [510215fc] Observables v0.5.2
   [6fe1bfb0] OffsetArrays v1.12.7
-  [429524aa] Optim v1.7.1
+  [4d8831e6] OpenSSL v1.2.1
+  [429524aa] Optim v1.7.3
+  [3bd65402] Optimisers v0.2.9
   [bac558e1] OrderedCollections v1.4.1
-  [1dea7af3] OrdinaryDiffEq v6.20.0
+  [1dea7af3] OrdinaryDiffEq v6.28.0
   [90014a1f] PDMats v0.11.16
   [d96e819e] Parameters v0.12.3
-  [69de0a69] Parsers v2.3.2
+  [69de0a69] Parsers v2.4.0
+  [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.0.0
-  [995b91a9] PlotUtils v1.3.0
-  [91a5bcdd] Plots v1.31.7
+  [995b91a9] PlotUtils v1.3.1
+  [91a5bcdd] Plots v1.35.2
   [e409e4f3] PoissonRandom v0.4.1
-  [f517fe37] Polyester v0.6.14
-  [1d0040c9] PolyesterWeave v0.1.8
+  [f517fe37] Polyester v0.6.15
+  [1d0040c9] PolyesterWeave v0.1.10
   [85a6dd25] PositiveFactorizations v0.2.4
-  [d236fae5] PreallocationTools v0.4.2
+  [d236fae5] PreallocationTools v0.4.4
   [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
-  [1fd47b50] QuadGK v2.4.2
+  [1fd47b50] QuadGK v2.5.0
   [74087812] Random123 v1.6.0
   [e6cf234a] RandomNumbers v1.5.3
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
-  [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.6.3
+  [3cdcf5f2] RecipesBase v1.3.0
+  [01d81517] RecipesPipeline v0.6.6
   [731186ca] RecursiveArrayTools v2.32.0
-  [f2c3362d] RecursiveFactorization v0.2.11
+  [f2c3362d] RecursiveFactorization v0.2.12
   [189a3867] Reexport v1.2.2
-  [05181044] RelocatableFolders v0.3.0
+  [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
   [ae5879a3] ResettableStacks v1.1.1
-  [37e2e3b7] ReverseDiff v1.14.1
+  [37e2e3b7] ReverseDiff v1.14.3
   [79098fc4] Rmath v0.7.0
-  [f2b01f46] Roots v2.0.2
-  [7e49a35a] RuntimeGeneratedFunctions v0.5.3
+  [f2b01f46] Roots v2.0.7
   [3cdde19b] SIMDDualNumbers v0.1.1
   [94e857df] SIMDTypes v0.1.0
-  [476501e8] SLEEFPirates v0.6.33
-  [0bca4576] SciMLBase v1.48.1
-  [1ed8b502] SciMLSensitivity v7.4.0
+  [476501e8] SLEEFPirates v0.6.36
+  [0bca4576] SciMLBase v1.59.4
+  [1ed8b502] SciMLSensitivity v7.10.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
-  [91c51154] SentinelArrays v1.3.13
+  [91c51154] SentinelArrays v1.3.15
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
   [699a6c99] SimpleTraits v0.9.4
-  [66db9d55] SnoopPrecompile v1.0.0
+  [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.0.1
-  [47a9eef4] SparseDiffTools v1.25.1
+  [47a9eef4] SparseDiffTools v1.26.2
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.7.6
-  [90137ffa] StaticArrays v1.5.4
-  [1e83bf80] StaticArraysCore v1.1.0
+  [aedffcd0] Static v0.7.7
+  [90137ffa] StaticArrays v1.5.9
+  [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
-  [82ae8749] StatsAPI v1.2.2
+  [82ae8749] StatsAPI v1.5.0
   [2913bbd2] StatsBase v0.33.21
   [4c63d2b9] StatsFuns v1.0.1
-  [f3b207a7] StatsPlots v0.15.1
+  [f3b207a7] StatsPlots v0.15.3
   [9672c7b4] SteadyStateDiffEq v1.9.0
-  [789caeaf] StochasticDiffEq v6.52.0
+  [789caeaf] StochasticDiffEq v6.54.0
   [7792a7ef] StrideArraysCore v0.3.15
-  [09ab397b] StructArrays v0.6.11
+  [09ab397b] StructArrays v0.6.12
   [53d494c1] StructIO v0.3.0
-  [c3572dad] Sundials v4.9.4
+  [c3572dad] Sundials v4.10.1
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
-  [bd369af6] Tables v1.7.0
+  [bd369af6] Tables v1.9.0
   [62fd8b95] TensorCore v0.1.1
-  [5d786b92] TerminalLoggers v0.1.5
+  [5d786b92] TerminalLoggers v0.1.6
   [8290d209] ThreadingUtilities v0.5.0
-  [a759f4b9] TimerOutputs v0.5.20
-  [9f7883ad] Tracker v0.2.20
-  [3bb67fe8] TranscodingStreams v0.9.6
+  [a759f4b9] TimerOutputs v0.5.21
+  [9f7883ad] Tracker v0.2.22
+  [3bb67fe8] TranscodingStreams v0.9.9
   [28d57a85] Transducers v0.4.73
   [a2a6695c] TreeViews v0.3.0
-  [d5829a12] TriangularSolve v0.1.13
-  [fce5fe82] Turing v0.21.10
+  [d5829a12] TriangularSolve v0.1.14
+  [410a4b4d] Tricks v0.1.6
+  [fce5fe82] Turing v0.21.12
   [5c2747f8] URIs v1.4.0
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
-  [3d5dd08c] VectorizationBase v0.21.46
+  [3d5dd08c] VectorizationBase v0.21.51
   [19fa3120] VertexSafeGraphs v0.2.0
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
-  [e88e6eb3] Zygote v0.6.44
+  [e88e6eb3] Zygote v0.6.49
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
-  [5ae413db] EarCut_jll v2.2.3+0
-  [7cc45869] Enzyme_jll v0.0.33+0
+  [7cc45869] Enzyme_jll v0.0.38+0
   [2e619515] Expat_jll v2.4.8+0
-  [b22a6f82] FFMPEG_jll v4.4.2+0
+  [b22a6f82] FFMPEG_jll v4.4.2+2
   [f5851436] FFTW_jll v3.3.10+0
   [a3f928ae] Fontconfig_jll v2.13.93+0
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.66.0+0
+  [d2c73de3] GR_jll v0.69.1+0
   [78b55507] Gettext_jll v0.21.0+0
-  [7746bdde] Glib_jll v2.68.3+2
+  [7746bdde] Glib_jll v2.74.0+1
   [3b182d85] Graphite2_jll v1.3.14+0
   [2e76f6c2] HarfBuzz_jll v2.8.1+1
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
@@ -1049,12 +1044,11 @@ And the full manifest:
   [4b2f31a3] Libmount_jll v2.35.0+0
   [89763e89] Libtiff_jll v4.4.0+0
   [38a345b3] Libuuid_jll v2.36.0+0
-  [856f044c] MKL_jll v2022.0.0+0
+  [856f044c] MKL_jll v2022.1.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
   [458c3c95] OpenSSL_jll v1.1.17+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
-  [2f80f16e] PCRE_jll v8.44.0+0
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+1
   [f50d1b31] Rmath_jll v0.3.0+0
@@ -1085,6 +1079,7 @@ And the full manifest:
   [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
   [c5fb5394] Xorg_xtrans_jll v1.4.0+3
   [3161d3a3] Zstd_jll v1.5.2+0
+  [214eeab7] fzf_jll v0.29.0+0
   [a4ae2306] libaom_jll v3.4.0+0
   [0ac62f75] libass_jll v0.15.1+0
   [8e850b90] libblastrampoline_jll v3.1.0+2
@@ -1135,6 +1130,7 @@ And the full manifest:
   [14a3606d] MozillaCACerts_jll
   [4536629a] OpenBLAS_jll
   [05823500] OpenLibm_jll
+  [efcefdf7] PCRE2_jll
   [bea87d4a] SuiteSparse_jll
   [83775a58] Zlib_jll
   [8e850ede] nghttp2_jll

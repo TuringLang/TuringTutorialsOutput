@@ -47,10 +47,10 @@ scatter!(sol.t, odedata'; color=[1 2], label="")
 @model function fitlv(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model. 
     p = [α, β, γ, δ]
@@ -88,10 +88,10 @@ scatter!(sol.t, odedata'; color=[1 2])
 @model function fitlv2(data::AbstractVector, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model but save only the second state of the system (predators).
     p = [α, β, γ, δ]
@@ -153,10 +153,10 @@ scatter!(sol_dde.t, ddedata'; color=[1 2], label="")
 @model function fitlv_dde(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ Truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ Truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ Truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ Truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model.
     p = [α, β, γ, δ]
@@ -199,10 +199,10 @@ sample(model, NUTS(0.65), 1000; progress=false)
 @model function fitlv_sensealg(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.5, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.5), 0, 2)
-    γ ~ truncated(Normal(3.0, 0.5), 1, 4)
-    δ ~ truncated(Normal(1.0, 0.5), 0, 2)
+    α ~ truncated(Normal(1.5, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.5); lower=0, upper=2)
+    γ ~ truncated(Normal(3.0, 0.5); lower=1, upper=4)
+    δ ~ truncated(Normal(1.0, 0.5); lower=0, upper=2)
 
     # Simulate Lotka-Volterra model and use a specific algorithm for computing sensitivities.
     p = [α, β, γ, δ]
@@ -249,12 +249,12 @@ plot(EnsembleSummary(data))
 @model function fitlv_sde(data, prob)
     # Prior distributions.
     σ ~ InverseGamma(2, 3)
-    α ~ truncated(Normal(1.3, 0.5), 0.5, 2.5)
-    β ~ truncated(Normal(1.2, 0.25), 0.5, 2)
-    γ ~ truncated(Normal(3.2, 0.25), 2.2, 4.0)
-    δ ~ truncated(Normal(1.2, 0.25), 0.5, 2.0)
-    ϕ1 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
-    ϕ2 ~ truncated(Normal(0.12, 0.3), 0.05, 0.25)
+    α ~ truncated(Normal(1.3, 0.5); lower=0.5, upper=2.5)
+    β ~ truncated(Normal(1.2, 0.25); lower=0.5, upper=2)
+    γ ~ truncated(Normal(3.2, 0.25); lower=2.2, upper=4)
+    δ ~ truncated(Normal(1.2, 0.25); lower=0.5, upper=2)
+    ϕ1 ~ truncated(Normal(0.12, 0.3); lower=0.05, upper=0.25)
+    ϕ2 ~ truncated(Normal(0.12, 0.3); lower=0.05, upper=0.25)
 
     # Simulate stochastic Lotka-Volterra model.
     p = [α, β, γ, δ, ϕ1, ϕ2]
