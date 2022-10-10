@@ -27,6 +27,12 @@ using MLDataUtils: shuffleobs, splitobs, rescale!
 # We need a softmax function which is provided by NNlib.
 using NNlib: softmax
 
+# Functionality for constructing arrays with identical elements efficiently.
+using FillArrays
+
+# Functionality for working with scaled identity matrices.
+using LinearAlgebra
+
 # Set a seed for reproducibility.
 using Random
 Random.seed!(0)
@@ -161,8 +167,8 @@ We select the `setosa` species as the baseline class (the choice does not matter
     # Priors of intercepts and coefficients.
     intercept_versicolor ~ Normal(0, σ)
     intercept_virginica ~ Normal(0, σ)
-    coefficients_versicolor ~ MvNormal(4, σ)
-    coefficients_virginica ~ MvNormal(4, σ)
+    coefficients_versicolor ~ MvNormal(Zeros(4), σ^2 * I)
+    coefficients_virginica ~ MvNormal(Zeros(4), σ^2 * I)
 
     # Compute the likelihood of the observations.
     values_versicolor = intercept_versicolor .+ x * coefficients_versicolor
@@ -193,8 +199,8 @@ Chains MCMC chain (1500×19×3 Array{Float64, 3}):
 Iterations        = 1:1:1500
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 10.29 seconds
-Compute duration  = 9.65 seconds
+Wall duration     = 11.09 seconds
+Compute duration  = 10.43 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
@@ -414,19 +420,21 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+  [1a297f60] FillArrays v0.13.2
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.9
   [ce6b1742] RDatasets v0.7.7
   [f3b207a7] StatsPlots v0.15.1
   [fce5fe82] Turing v0.21.10
+  [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2

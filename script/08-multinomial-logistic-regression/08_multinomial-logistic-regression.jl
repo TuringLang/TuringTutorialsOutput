@@ -14,6 +14,12 @@ using MLDataUtils: shuffleobs, splitobs, rescale!
 # We need a softmax function which is provided by NNlib.
 using NNlib: softmax
 
+# Functionality for constructing arrays with identical elements efficiently.
+using FillArrays
+
+# Functionality for working with scaled identity matrices.
+using LinearAlgebra
+
 # Set a seed for reproducibility.
 using Random
 Random.seed!(0)
@@ -64,8 +70,8 @@ rescale!(test_features, μ, σ; obsdim=1);
     # Priors of intercepts and coefficients.
     intercept_versicolor ~ Normal(0, σ)
     intercept_virginica ~ Normal(0, σ)
-    coefficients_versicolor ~ MvNormal(4, σ)
-    coefficients_virginica ~ MvNormal(4, σ)
+    coefficients_versicolor ~ MvNormal(Zeros(4), σ^2 * I)
+    coefficients_virginica ~ MvNormal(Zeros(4), σ^2 * I)
 
     # Compute the likelihood of the observations.
     values_versicolor = intercept_versicolor .+ x * coefficients_versicolor
