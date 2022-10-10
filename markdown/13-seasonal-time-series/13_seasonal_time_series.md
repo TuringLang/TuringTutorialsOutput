@@ -29,8 +29,16 @@ and *cyclic effects* which contribute oscillating effects around the trend.
 Let us simulate some data with an additive linear trend and oscillating effects.
 
 ```julia
-using StatsPlots, Turing, Statistics, LinearAlgebra, Random
+using Turing
+using FillArrays
+using StatsPlots
+
+using LinearAlgebra
+using Random
+using Statistics
+
 Random.seed!(12345)
+
 true_sin_freq = 2
 true_sin_amp = 5
 true_cos_freq = 7
@@ -145,7 +153,7 @@ Finally, we plot prior predictive samples to make sure our priors make sense.
 @model function decomp_model(t, c, op)
     α ~ Normal(0, 10)
     βt ~ Normal(0, 2)
-    βc ~ MvNormal(zeros(size(c, 2)), I)
+    βc ~ MvNormal(Zeros(size(c, 2)), I)
     σ ~ truncated(Normal(0, 0.1); lower=0)
 
     cyclic = c * βc
@@ -384,15 +392,17 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/13-seasonal-time-series/Project.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/13-seasonal-time-series/Project.toml`
+  [1a297f60] FillArrays v0.13.2
   [f3b207a7] StatsPlots v0.15.1
   [fce5fe82] Turing v0.21.10
+  [37e2e46d] LinearAlgebra
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/13-seasonal-time-series/Manifest.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/13-seasonal-time-series/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2

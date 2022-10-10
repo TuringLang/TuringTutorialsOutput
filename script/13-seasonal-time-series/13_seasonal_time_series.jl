@@ -1,6 +1,14 @@
 
-using StatsPlots, Turing, Statistics, LinearAlgebra, Random
+using Turing
+using FillArrays
+using StatsPlots
+
+using LinearAlgebra
+using Random
+using Statistics
+
 Random.seed!(12345)
+
 true_sin_freq = 2
 true_sin_amp = 5
 true_cos_freq = 7
@@ -57,7 +65,7 @@ freq_ptl = plot(
 @model function decomp_model(t, c, op)
     α ~ Normal(0, 10)
     βt ~ Normal(0, 2)
-    βc ~ MvNormal(zeros(size(c, 2)), I)
+    βc ~ MvNormal(Zeros(size(c, 2)), I)
     σ ~ truncated(Normal(0, 0.1); lower=0)
 
     cyclic = c * βc
