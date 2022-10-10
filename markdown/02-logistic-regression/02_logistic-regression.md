@@ -178,14 +178,45 @@ n, _ = size(train)
 # Sample using HMC.
 m = logistic_regression(train, train_label, n, 1)
 chain = sample(m, HMC(0.05, 10), MCMCThreads(), 1_500, 3)
-
-describe(chain)
 ```
 
 ```
-2-element Vector{MCMCChains.ChainDataFrame}:
- Summary Statistics (4 x 8)
- Quantiles (4 x 6)
+Chains MCMC chain (1500×13×3 Array{Float64, 3}):
+
+Iterations        = 1:1:1500
+Number of chains  = 3
+Samples per chain = 1500
+Wall duration     = 3.94 seconds
+Compute duration  = 3.32 seconds
+parameters        = income, student, intercept, balance
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
+amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+
+Summary Statistics
+  parameters      mean       std   naive_se      mcse         ess      rhat
+    ⋯
+      Symbol   Float64   Float64    Float64   Float64     Float64   Float64
+    ⋯
+
+   intercept   -3.8134    0.4469     0.0067    0.0120   1300.8182    1.0009
+    ⋯
+     student   -1.8813    0.6183     0.0092    0.0211    765.6952    1.0031
+    ⋯
+     balance    1.6466    0.2938     0.0044    0.0071   1824.3353    1.0013
+    ⋯
+      income   -0.5267    0.3384     0.0050    0.0085   1645.2522    1.0004
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+   intercept   -4.6138   -4.0549   -3.7916   -3.5396   -3.1080
+     student   -3.0908   -2.2857   -1.8758   -1.4509   -0.6814
+     balance    1.1393    1.4685    1.6436    1.8165    2.1741
+      income   -1.1955   -0.7445   -0.5200   -0.3011    0.1072
 ```
 
 
@@ -331,8 +362,8 @@ TuringTutorials.weave("02-logistic-regression", "02_logistic-regression.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -340,7 +371,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 128
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -349,7 +380,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.14
@@ -369,7 +400,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
