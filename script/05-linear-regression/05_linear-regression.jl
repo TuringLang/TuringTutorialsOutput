@@ -14,6 +14,12 @@ using MLDataUtils: shuffleobs, splitobs, rescale!
 # Functionality for evaluating the model predictions.
 using Distances
 
+# Functionality for constructing arrays with identical elements efficiently.
+using FillArrays
+
+# Functionality for working with scaled identity matrices.
+using LinearAlgebra
+
 # Set a seed for reproducibility.
 using Random
 Random.seed!(0)
@@ -57,29 +63,26 @@ rescale!(test_target, μtarget, σtarget; obsdim=1);
 # Bayesian linear regression.
 @model function linear_regression(x, y)
     # Set variance prior.
-    σ₂ ~ truncated(Normal(0, 100), 0, Inf)
+    σ² ~ truncated(Normal(0, 100); lower=0)
 
     # Set intercept prior.
     intercept ~ Normal(0, sqrt(3))
 
     # Set the priors on our coefficients.
     nfeatures = size(x, 2)
-    coefficients ~ MvNormal(nfeatures, sqrt(10))
+    coefficients ~ MvNormal(Zeros(nfeatures), 10.0 * I)
 
     # Calculate all the mu terms.
     mu = intercept .+ x * coefficients
-    return y ~ MvNormal(mu, sqrt(σ₂))
+    return y ~ MvNormal(mu, σ² * I)
 end
 
 
 model = linear_regression(train, train_target)
-chain = sample(model, NUTS(0.65), 3_000);
+chain = sample(model, NUTS(0.65), 3_000)
 
 
 plot(chain)
-
-
-describe(chain)
 
 
 # Import the GLM package.

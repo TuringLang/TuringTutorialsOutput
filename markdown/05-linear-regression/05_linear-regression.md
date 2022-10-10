@@ -27,6 +27,12 @@ using MLDataUtils: shuffleobs, splitobs, rescale!
 # Functionality for evaluating the model predictions.
 using Distances
 
+# Functionality for constructing arrays with identical elements efficiently.
+using FillArrays
+
+# Functionality for working with scaled identity matrices.
+using LinearAlgebra
+
 # Set a seed for reproducibility.
 using Random
 Random.seed!(0)
@@ -128,24 +134,30 @@ $$
 
 where $\alpha$ is an intercept term common to all observations, $\boldsymbol{\beta}$ is a coefficient vector, $\boldsymbol{X_i}$ is the observed data for car $i$, and $\sigma^2$ is a common variance term.
 
-For $\sigma^2$, we assign a prior of `truncated(Normal(0, 100), 0, Inf)`. This is consistent with [Andrew Gelman's recommendations](http://www.stat.columbia.edu/%7Egelman/research/published/taumain.pdf) on noninformative priors for variance. The intercept term ($\alpha$) is assumed to be normally distributed with a mean of zero and a variance of three. This represents our assumptions that miles per gallon can be explained mostly by our assorted variables, but a high variance term indicates our uncertainty about that. Each coefficient is assumed to be normally distributed with a mean of zero and a variance of 10. We do not know that our coefficients are different from zero, and we don't know which ones are likely to be the most important, so the variance term is quite high. Lastly, each observation $y_i$ is distributed according to the calculated `mu` term given by $\alpha + \boldsymbol{\beta}^\mathsf{T}\boldsymbol{X_i}$.
+For $\sigma^2$, we assign a prior of `truncated(Normal(0, 100); lower=0)`.
+This is consistent with [Andrew Gelman's recommendations](http://www.stat.columbia.edu/%7Egelman/research/published/taumain.pdf) on noninformative priors for variance.
+The intercept term ($\alpha$) is assumed to be normally distributed with a mean of zero and a variance of three.
+This represents our assumptions that miles per gallon can be explained mostly by our assorted variables, but a high variance term indicates our uncertainty about that.
+Each coefficient is assumed to be normally distributed with a mean of zero and a variance of 10.
+We do not know that our coefficients are different from zero, and we don't know which ones are likely to be the most important, so the variance term is quite high.
+Lastly, each observation $y_i$ is distributed according to the calculated `mu` term given by $\alpha + \boldsymbol{\beta}^\mathsf{T}\boldsymbol{X_i}$.
 
 ```julia
 # Bayesian linear regression.
 @model function linear_regression(x, y)
     # Set variance prior.
-    σ₂ ~ truncated(Normal(0, 100), 0, Inf)
+    σ² ~ truncated(Normal(0, 100); lower=0)
 
     # Set intercept prior.
     intercept ~ Normal(0, sqrt(3))
 
     # Set the priors on our coefficients.
     nfeatures = size(x, 2)
-    coefficients ~ MvNormal(nfeatures, sqrt(10))
+    coefficients ~ MvNormal(Zeros(nfeatures), 10.0 * I)
 
     # Calculate all the mu terms.
     mu = intercept .+ x * coefficients
-    return y ~ MvNormal(mu, sqrt(σ₂))
+    return y ~ MvNormal(mu, σ² * I)
 end
 ```
 
@@ -161,13 +173,80 @@ With our model specified, we can call the sampler. We will use the No U-Turn Sam
 
 ```julia
 model = linear_regression(train, train_target)
-chain = sample(model, NUTS(0.65), 3_000);
+chain = sample(model, NUTS(0.65), 3_000)
+```
+
+```
+Chains MCMC chain (3000×24×1 Array{Float64, 3}):
+
+Iterations        = 1001:1:4000
+Number of chains  = 1
+Samples per chain = 3000
+Wall duration     = 5.19 seconds
+Compute duration  = 5.19 seconds
+parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
+cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
+7], coefficients[8], coefficients[9], coefficients[10]
+internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size
+
+Summary Statistics
+        parameters      mean       std   naive_se      mcse         ess    
+  r ⋯
+            Symbol   Float64   Float64    Float64   Float64     Float64   F
+loa ⋯
+
+                σ²    0.3117    0.1834     0.0033    0.0063    783.2997    
+1.0 ⋯
+         intercept   -0.0016    0.1131     0.0021    0.0018   3502.6971    
+0.9 ⋯
+   coefficients[1]   -0.0450    0.5486     0.0100    0.0145   1435.1582    
+1.0 ⋯
+   coefficients[2]    0.3194    0.7314     0.0134    0.0216   1006.0850    
+1.0 ⋯
+   coefficients[3]   -0.3857    0.3972     0.0073    0.0099   1616.0794    
+1.0 ⋯
+   coefficients[4]    0.1694    0.2927     0.0053    0.0084   1266.8139    
+1.0 ⋯
+   coefficients[5]   -0.3347    0.7274     0.0133    0.0236    843.4465    
+0.9 ⋯
+   coefficients[6]    0.0764    0.3670     0.0067    0.0097   1230.1250    
+0.9 ⋯
+   coefficients[7]    0.0123    0.3945     0.0072    0.0116   1415.7843    
+1.0 ⋯
+   coefficients[8]    0.1782    0.3127     0.0057    0.0092   1075.5653    
+1.0 ⋯
+   coefficients[9]    0.1111    0.2862     0.0052    0.0085   1007.7045    
+1.0 ⋯
+  coefficients[10]   -0.2593    0.4142     0.0076    0.0145    795.1212    
+1.0 ⋯
+                                                               2 columns om
+itted
+
+Quantiles
+        parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+            Symbol   Float64   Float64   Float64   Float64   Float64
+
+                σ²    0.1182    0.1931    0.2658    0.3720    0.7957
+         intercept   -0.2377   -0.0717    0.0011    0.0687    0.2204
+   coefficients[1]   -1.1493   -0.3834   -0.0425    0.2987    1.0444
+   coefficients[2]   -1.1663   -0.1402    0.3273    0.7817    1.7194
+   coefficients[3]   -1.1710   -0.6219   -0.3953   -0.1528    0.4414
+   coefficients[4]   -0.4003   -0.0161    0.1712    0.3494    0.7630
+   coefficients[5]   -1.7905   -0.8004   -0.3388    0.1256    1.0998
+   coefficients[6]   -0.6517   -0.1630    0.0670    0.3126    0.8036
+   coefficients[7]   -0.8004   -0.2296    0.0193    0.2623    0.8055
+   coefficients[8]   -0.4758   -0.0140    0.1837    0.3747    0.8049
+   coefficients[9]   -0.4626   -0.0696    0.1075    0.2929    0.6702
+  coefficients[10]   -1.1081   -0.5109   -0.2541   -0.0036    0.5771
 ```
 
 
 
 
-As a visual check to confirm that our coefficients have converged, we show the densities and trace plots for our parameters using the `plot` functionality.
+
+We can also check the densities and traces of the parameters visually using the `plot` functionality.
 
 ```julia
 plot(chain)
@@ -177,21 +256,7 @@ plot(chain)
 
 
 
-It looks like each of our parameters has converged. We can check our numerical esimates using `describe(chain)`, as below.
-
-```julia
-describe(chain)
-```
-
-```
-2-element Vector{MCMCChains.ChainDataFrame}:
- Summary Statistics (12 x 8)
- Quantiles (12 x 6)
-```
-
-
-
-
+It looks like all parameters have converged.
 
 ## Comparing to OLS
 
@@ -258,16 +323,16 @@ DataFrame(; MPG=testset[!, target], Bayes=test_prediction_bayes, OLS=test_predic
  Row │ MPG      Bayes     OLS
      │ Float64  Float64   Float64
 ─────┼─────────────────────────────
-   1 │    19.2  18.2018   18.1265
-   2 │    15.0   6.11481   6.37891
-   3 │    16.4  14.0115   13.883
-   4 │    14.3  11.5931   11.7337
-   5 │    21.4  25.2662   25.1916
-   6 │    18.1  20.6593   20.672
-   7 │    19.7  15.7532   15.8408
-   8 │    15.2  18.382    18.3391
-   9 │    26.0  28.6003   28.4865
-  10 │    17.3  14.5752   14.534
+   1 │    19.2  17.9818   18.1265
+   2 │    15.0   6.67636   6.37891
+   3 │    16.4  13.8408   13.883
+   4 │    14.3  11.8707   11.7337
+   5 │    21.4  25.1902   25.1916
+   6 │    18.1  20.6603   20.672
+   7 │    19.7  15.9947   15.8408
+   8 │    15.2  18.292    18.3391
+   9 │    26.0  28.4566   28.4865
+  10 │    17.3  14.5441   14.534
 ```
 
 
@@ -300,10 +365,10 @@ println(
 
 ```
 Training set:
-	Bayes loss: 4.651234142170903
+	Bayes loss: 4.651083751584832
 	OLS loss: 4.648142085690521
 Test set:
-	Bayes loss: 15.436086458335751
+	Bayes loss: 14.10580325710221
 	OLS loss: 14.796847779051523
 ```
 
@@ -329,8 +394,8 @@ TuringTutorials.weave("05-linear-regression", "05_linear-regression.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
   CPU: AMD EPYC 7502 32-Core Processor
@@ -347,11 +412,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.49
   [5789e2e9] FileIO v1.13.0
+  [1a297f60] FillArrays v0.12.8
   [38e38edf] GLM v1.6.1
   [c7f686f2] MCMCChains v5.0.3
   [cc2ba9b6] MLDataUtils v0.5.4
@@ -361,13 +427,14 @@ Package Information:
   [4c63d2b9] StatsFuns v0.9.16
   [f3b207a7] StatsPlots v0.14.33
   [fce5fe82] Turing v0.18.0
+  [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
