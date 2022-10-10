@@ -162,8 +162,10 @@ p = plot(p1, p2; layout=(2, 1), size=(900, 500))
 Random.seed!(1);
 
 
-# Import RDatasets.
+using FillArrays
 using RDatasets
+
+using LinearAlgebra
 
 # Hide the progress prompt while sampling.
 Turing.setprogress!(false);
@@ -224,17 +226,17 @@ test = Matrix(test_cut[:, remove_names]);
 # Bayesian linear regression.
 @model function linear_regression(x, y, n_obs, n_vars, ::Type{T}=Vector{Float64}) where {T}
     # Set variance prior.
-    σ₂ ~ truncated(Normal(0, 100), 0, Inf)
+    σ² ~ truncated(Normal(0, 100), 0, Inf)
 
     # Set intercept prior.
     intercept ~ Normal(0, 3)
 
     # Set the priors on our coefficients.
-    coefficients ~ MvNormal(zeros(n_vars), 10 * ones(n_vars))
+    coefficients ~ MvNormal(Zeros(n_vars), 10.0 * I)
 
     # Calculate all the mu terms.
     mu = intercept .+ x * coefficients
-    return y ~ MvNormal(mu, σ₂)
+    return y ~ MvNormal(mu, σ² * I)
 end;
 
 
@@ -475,9 +477,6 @@ p1 = plot_variational_marginals(rand(q_mf_normal, 10_000), sym2range) # MvDiagNo
 p2 = plot_variational_marginals(rand(q, 10_000), sym2range)  # Turing.meanfield(m)
 
 plot(p1, p2; layout=(1, 2), size=(800, 2000))
-
-
-using LinearAlgebra
 
 
 # Using `ComponentArrays.jl` together with `UnPack.jl` makes our lives much easier.
