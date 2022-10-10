@@ -1,6 +1,12 @@
 
 # Import libraries.
-using Turing, Flux, Plots, Random, ReverseDiff
+using Turing
+using Flux
+using Plots
+using ReverseDiff
+
+using LinearAlgebra
+using Random
 
 # Hide sampling progress.
 Turing.setprogress!(false);
@@ -56,14 +62,9 @@ parameters_initial, reconstruct = Flux.destructure(nn_initial)
 length(parameters_initial) # number of paraemters in NN
 
 
-# Create a regularization term and a Gaussian prior variance term.
-alpha = 0.09
-sig = sqrt(1.0 / alpha)
-
-# Specify the probabilistic model.
-@model function bayes_nn(xs, ts, nparameters, reconstruct)
+@model function bayes_nn(xs, ts, nparameters, reconstruct; alpha=0.09)
     # Create the weight and bias vector.
-    parameters ~ MvNormal(zeros(nparameters), sig .* ones(nparameters))
+    parameters ~ MvNormal(Zeros(nparameters), I / alpha)
 
     # Construct NN from parameters
     nn = reconstruct(parameters)
