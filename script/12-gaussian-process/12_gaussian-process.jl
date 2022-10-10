@@ -1,10 +1,15 @@
 
 using Turing
-using AbstractGPs, Random
+using AbstractGPs
+using DataFrames
+using FillArrays
+using RDatasets
+using StatsBase
+using StatsPlots
+using VegaLite
 
 using LinearAlgebra
-using VegaLite, DataFrames, StatsPlots, StatsBase
-using RDatasets
+using Random
 
 Random.seed!(1789);
 
@@ -55,7 +60,7 @@ sekernel(α, σ) = σ * SqExponentialKernel() ∘ ARDTransform(α);
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
 
@@ -75,7 +80,7 @@ end;
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     σ ~ LogNormal(0.0, 1.0)
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
@@ -173,7 +178,7 @@ using Stheno
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     σ ~ LogNormal(1.0, 1.0)
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
