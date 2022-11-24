@@ -810,8 +810,8 @@ Chains MCMC chain &#40;1500×19×3 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:1500
 Number of chains  &#61; 3
 Samples per chain &#61; 1500
-Wall duration     &#61; 22.78 seconds
-Compute duration  &#61; 19.92 seconds
+Wall duration     &#61; 22.19 seconds
+Compute duration  &#61; 19.33 seconds
 parameters        &#61; intercept_versicolor, intercept_virginica, coefficients
 _versicolor&#91;1&#93;, coefficients_versicolor&#91;2&#93;, coefficients_versicolor&#91;3&#93;, coe
 fficients_versicolor&#91;4&#93;, coefficients_virginica&#91;1&#93;, coefficients_virginica&#91;
@@ -916,7 +916,7 @@ t64 ⋯
 
 <p>Fortunately the corner plots appear to demonstrate unimodal distributions for each of our parameters, so it should be straightforward to take the means of each parameter&#39;s sampled values to estimate our model to make predictions.</p>
 <h2>Making Predictions</h2>
-<p>How do we test how well the model actually predicts whether someone is likely to default? We need to build a <code>prediction</code> function that takes the test dataset and runs it through the average parameter calculated during sampling.</p>
+<p>How do we test how well the model actually predicts which of the three classes an iris flower belongs to? We need to build a <code>prediction</code> function that takes the test dataset and runs it through the average parameter calculated during sampling.</p>
 <p>The <code>prediction</code> function below takes a <code>Matrix</code> and a <code>Chains</code> object. It computes the mean of the sampled parameters and calculates the species with the highest probability for each observation. Note that we do not have to evaluate the <code>softmax</code> function since it does not affect the order of its inputs.</p>
 
 
@@ -1017,7 +1017,7 @@ Environment:
 </div>
 <div class="markdown"><p>Package Information:</p>
 </div>
-<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
+<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
   &#91;1a297f60&#93; FillArrays v0.13.2
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
   &#91;872c559c&#93; NNlib v0.8.9
@@ -1027,7 +1027,7 @@ Environment:
   &#91;37e2e46d&#93; LinearAlgebra
   &#91;9a3f8284&#93; Random</code></pre>
 <p>And the full manifest:</p>
-<pre><code>      Status &#96;/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
+<pre><code>      Status &#96;/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
   &#91;621f4979&#93; AbstractFFTs v1.2.1
   &#91;80f14c24&#93; AbstractMCMC v4.1.3
   &#91;7a57a42e&#93; AbstractPPL v0.5.2
@@ -1329,7 +1329,7 @@ Environment:
         <div class="footer">
           <p>
             Published from <a href="08_multinomial-logistic-regression.jmd">08_multinomial-logistic-regression.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.10 on 2022-10-05.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.10 on 2022-11-22.
           </p>
         </div>
       </div>

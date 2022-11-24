@@ -199,8 +199,8 @@ Chains MCMC chain (1500×19×3 Array{Float64, 3}):
 Iterations        = 1:1:1500
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 11.09 seconds
-Compute duration  = 10.43 seconds
+Wall duration     = 12.03 seconds
+Compute duration  = 11.35 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
@@ -309,7 +309,7 @@ Fortunately the corner plots appear to demonstrate unimodal distributions for ea
 
 ## Making Predictions
 
-How do we test how well the model actually predicts whether someone is likely to default? We need to build a `prediction` function that takes the test dataset and runs it through the average parameter calculated during sampling.
+How do we test how well the model actually predicts which of the three classes an iris flower belongs to? We need to build a `prediction` function that takes the test dataset and runs it through the average parameter calculated during sampling.
 
 The `prediction` function below takes a `Matrix` and a `Chains` object. It computes the mean of the sampled parameters and calculates the species with the highest probability for each observation. Note that we do not have to evaluate the `softmax` function since it does not affect the order of its inputs.
 
@@ -420,7 +420,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
   [1a297f60] FillArrays v0.13.2
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.9
@@ -434,7 +434,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
