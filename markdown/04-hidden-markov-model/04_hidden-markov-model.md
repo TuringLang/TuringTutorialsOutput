@@ -7,6 +7,8 @@ permalink: "/:collection/:name/"
 
 This tutorial illustrates training Bayesian [Hidden Markov Models](https://en.wikipedia.org/wiki/Hidden_Markov_model) (HMM) using Turing. The main goals are learning the transition matrix, emission parameter, and hidden states. For a more rigorous academic overview on Hidden Markov Models, see [An introduction to Hidden Markov Models and Bayesian Networks](http://mlg.eng.cam.ac.uk/zoubin/papers/ijprai.pdf) (Ghahramani, 2001).
 
+In this tutorial, we assume there are $k$ discrete hidden states; the observations are continuous and normally distributed - centered around the hidden states. This assumption reduces the number of parameters to be estimated in the emission matrix.
+
 Let's load the libraries we'll need. We also set a random seed (for reproducibility) and the automatic differentiation backend to forward mode (more [here](http://turing.ml/docs/autodiff/) on why this is useful).
 
 ```julia
@@ -272,7 +274,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
   [91a5bcdd] Plots v1.31.7
   [f3b207a7] StatsPlots v0.15.1
   [fce5fe82] Turing v0.21.10
@@ -282,7 +284,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
