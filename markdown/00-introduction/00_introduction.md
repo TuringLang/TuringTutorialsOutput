@@ -332,7 +332,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -341,7 +341,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.67
   [c7f686f2] MCMCChains v5.3.1
   [f3b207a7] StatsPlots v0.15.1
@@ -352,7 +352,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
