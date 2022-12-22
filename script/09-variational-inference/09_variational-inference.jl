@@ -274,7 +274,7 @@ _, sym2range = bijector(m, Val(true));
 sym2range
 
 
-avg[union(sym2range[:σ₂]...)]
+avg[union(sym2range[:σ²]...)]
 
 
 avg[union(sym2range[:intercept]...)]
@@ -322,7 +322,7 @@ plot(chain)
 vi_mean = vec(mean(z; dims=2))[[
     union(sym2range[:coefficients]...)...,
     union(sym2range[:intercept]...)...,
-    union(sym2range[:σ₂]...)...,
+    union(sym2range[:σ²]...)...,
 ]]
 
 

@@ -149,12 +149,8 @@ Automatic Differentiation Variational Inference (ADVI) with automatic differenti
 
 # Fields
 
-  * `samples_per_step::Int64`
-
-    Number of samples used to estimate the ELBO in each optimization step.
-  * `max_iters::Int64`
-
-    Maximum number of gradient steps.
+  * `samples_per_step::Int64`: Number of samples used to estimate the ELBO in each optimization step.
+  * `max_iters::Int64`: Maximum number of gradient steps.
 
 
 
@@ -374,8 +370,10 @@ Random.seed!(1);
 
 
 ```julia
-# Import RDatasets.
+using FillArrays
 using RDatasets
+
+using LinearAlgebra
 
 # Hide the progress prompt while sampling.
 Turing.setprogress!(false);
@@ -470,17 +468,17 @@ test = Matrix(test_cut[:, remove_names]);
 # Bayesian linear regression.
 @model function linear_regression(x, y, n_obs, n_vars, ::Type{T}=Vector{Float64}) where {T}
     # Set variance prior.
-    σ₂ ~ truncated(Normal(0, 100), 0, Inf)
+    σ² ~ truncated(Normal(0, 100), 0, Inf)
 
     # Set intercept prior.
     intercept ~ Normal(0, 3)
 
     # Set the priors on our coefficients.
-    coefficients ~ MvNormal(zeros(n_vars), 10 * ones(n_vars))
+    coefficients ~ MvNormal(Zeros(n_vars), 10.0 * I)
 
     # Calculate all the mu terms.
     mu = intercept .+ x * coefficients
-    return y ~ MvNormal(mu, σ₂)
+    return y ~ MvNormal(mu, σ² * I)
 end;
 ```
 
@@ -599,26 +597,26 @@ avg = vec(mean(z; dims=2))
 
 ```
 13-element Vector{Float64}:
-  0.020117192340218845
-  0.0002796669830116834
-  1.0010658079947254
- -0.0002761310047700402
-  0.0019703203129575395
-  0.0011012413001283384
- -0.0026832227558891424
- -0.001726266613041328
- -0.001056494152911324
- -8.207373094641174e-5
-  5.198685294517197e-5
-  5.2850973296015544e-5
-  0.0031336481988492515
+  0.00048143714208168206
+  0.0005353323885300161
+  1.0010504689703281
+  2.0403034827736474e-5
+  0.0020094855806153675
+  0.0015565021927057964
+ -0.0027603379198603223
+ -0.0019466198535029221
+ -0.0011363456032940477
+  0.00011734999166794386
+  9.333492830297085e-5
+  0.0007743539902889951
+  0.0028121425805021955
 ```
 
 
 
 
 
-The vector has the same ordering as the model, e.g. in this case `σ₂` has index `1`, `intercept` has index `2` and `coefficients` has indices `3:12`. If  you forget or you might want to do something programmatically with the result, you can obtain the `sym → indices` mapping as follows:
+The vector has the same ordering as the model, e.g. in this case `σ²` has index `1`, `intercept` has index `2` and `coefficients` has indices `3:12`. If  you forget or you might want to do something programmatically with the result, you can obtain the `sym → indices` mapping as follows:
 
 ```julia
 _, sym2range = bijector(m, Val(true));
@@ -626,19 +624,19 @@ sym2range
 ```
 
 ```
-(intercept = UnitRange{Int64}[2:2], σ₂ = UnitRange{Int64}[1:1], coefficient
+(intercept = UnitRange{Int64}[2:2], σ² = UnitRange{Int64}[1:1], coefficient
 s = UnitRange{Int64}[3:13])
 ```
 
 
 
 ```julia
-avg[union(sym2range[:σ₂]...)]
+avg[union(sym2range[:σ²]...)]
 ```
 
 ```
 1-element Vector{Float64}:
- 0.020117192340218845
+ 0.00048143714208168206
 ```
 
 
@@ -649,7 +647,7 @@ avg[union(sym2range[:intercept]...)]
 
 ```
 1-element Vector{Float64}:
- 0.0002796669830116834
+ 0.0005353323885300161
 ```
 
 
@@ -660,17 +658,17 @@ avg[union(sym2range[:coefficients]...)]
 
 ```
 11-element Vector{Float64}:
-  1.0010658079947254
- -0.0002761310047700402
-  0.0019703203129575395
-  0.0011012413001283384
- -0.0026832227558891424
- -0.001726266613041328
- -0.001056494152911324
- -8.207373094641174e-5
-  5.198685294517197e-5
-  5.2850973296015544e-5
-  0.0031336481988492515
+  1.0010504689703281
+  2.0403034827736474e-5
+  0.0020094855806153675
+  0.0015565021927057964
+ -0.0027603379198603223
+ -0.0019466198535029221
+ -0.0011363456032940477
+  0.00011734999166794386
+  9.333492830297085e-5
+  0.0007743539902889951
+  0.0028121425805021955
 ```
 
 
@@ -740,25 +738,25 @@ plot(chain)
 vi_mean = vec(mean(z; dims=2))[[
     union(sym2range[:coefficients]...)...,
     union(sym2range[:intercept]...)...,
-    union(sym2range[:σ₂]...)...,
+    union(sym2range[:σ²]...)...,
 ]]
 ```
 
 ```
 13-element Vector{Float64}:
-  1.0010658079947254
- -0.0002761310047700402
-  0.0019703203129575395
-  0.0011012413001283384
- -0.0026832227558891424
- -0.001726266613041328
- -0.001056494152911324
- -8.207373094641174e-5
-  5.198685294517197e-5
-  5.2850973296015544e-5
-  0.0031336481988492515
-  0.0002796669830116834
-  0.020117192340218845
+  1.0010504689703281
+  2.0403034827736474e-5
+  0.0020094855806153675
+  0.0015565021927057964
+ -0.0027603379198603223
+ -0.0019466198535029221
+ -0.0011363456032940477
+  0.00011734999166794386
+  9.333492830297085e-5
+  0.0007743539902889951
+  0.0028121425805021955
+  0.0005353323885300161
+  0.00048143714208168206
 ```
 
 
@@ -769,19 +767,19 @@ mean(chain).nt.mean
 
 ```
 13-element Vector{Float64}:
-  3.327585779683854e-6
-  6.46438750001574e-9
-  0.9999999987596979
- -1.2517071229600751e-9
-  1.8164887025175205e-9
-  3.434912879061198e-8
- -4.436487221464908e-9
- -2.885840202112096e-8
-  1.6697580401168777e-8
-  2.545122906767988e-9
- -4.47280083144483e-9
- -3.771392731970527e-9
-  1.4803950315652668e-8
+  4.688593073724003e-12
+ -7.301712220264674e-11
+  1.0000000589746774
+ -3.738027322030151e-8
+ -2.875113481503356e-8
+  3.507239617662332e-8
+ -2.795795042160691e-8
+  3.359434956871488e-8
+ -1.3507013537054476e-8
+ -1.4034348233867787e-8
+ -1.7936232598001916e-8
+  6.8892926656668044e-9
+  1.552665826799602e-8
 ```
 
 
@@ -795,7 +793,7 @@ sum(abs2, mean(chain).nt.mean .- vi_mean)
 ```
 
 ```
-1.9986165247617516
+1.9981113979312017
 ```
 
 
@@ -934,13 +932,13 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007203719795253705
-    Bayes loss: 8.52527599839704e-15
+    VI loss: 0.0007767246038802808
+    Bayes loss: 1.7448673499812828e-14
     OLS loss: 3.070926124893025
 Test set: 
-    VI loss: 0.0014515966218430758
-    Bayes loss: 4.597388201171708e-14
-    OLS loss: 27.094813070760445
+    VI loss: 0.0019788267068461605
+    Bayes loss: 8.39574802503184e-14
+    OLS loss: 27.094813070760495
 ```
 
 
@@ -1081,11 +1079,6 @@ But using this interface it becomes trivial to go beyond the mean-field assumpti
 Here we'll instead consider the variational family to be a full non-diagonal multivariate Gaussian. As in the previous section we'll implement this by transforming a standard multivariate Gaussian using `Scale` and `Shift`, but now `Scale` will instead be using a lower-triangular matrix (representing the Cholesky of the covariance matrix of a multivariate normal) in contrast to the diagonal matrix we used in for the mean-field approximate posterior.
 
 ```julia
-using LinearAlgebra
-```
-
-
-```julia
 # Using `ComponentArrays.jl` together with `UnPack.jl` makes our lives much easier.
 using ComponentArrays, UnPack
 ```
@@ -1145,19 +1138,20 @@ A = q_full_normal.transform.ts[1].a
 
 ```
 13×13 LinearAlgebra.LowerTriangular{Float64, Matrix{Float64}}:
-  0.148461       ⋅          …    ⋅            ⋅           ⋅ 
- -0.00286815    0.0266021        ⋅            ⋅           ⋅ 
-  0.00355239    0.00111258       ⋅            ⋅           ⋅ 
-  0.000269915  -0.0101284        ⋅            ⋅           ⋅ 
- -0.000434053   0.00800138       ⋅            ⋅           ⋅ 
- -0.00364249    0.0234437   …    ⋅            ⋅           ⋅ 
-  0.000754999  -0.00507704       ⋅            ⋅           ⋅ 
- -0.00197858   -0.00736003       ⋅            ⋅           ⋅ 
- -0.00538114   -0.010006         ⋅            ⋅           ⋅ 
- -0.00095493   -0.00540092       ⋅            ⋅           ⋅ 
-  6.89586e-5   -0.0103944   …   0.0230532     ⋅           ⋅ 
- -0.0159148     0.0390608      -0.0114822    0.0192219    ⋅ 
-  0.0104396    -0.0133047       0.00217745  -0.00101715  0.0190319
+  0.307526       ⋅            ⋅          …    ⋅           ⋅          ⋅ 
+ -0.00817073    0.028508      ⋅               ⋅           ⋅          ⋅ 
+  0.00144512   -0.00654958   0.0600295        ⋅           ⋅          ⋅ 
+ -0.00529554   -0.00508605  -0.0305389        ⋅           ⋅          ⋅ 
+ -0.00332483    0.00432132   0.00377296       ⋅           ⋅          ⋅ 
+ -0.00297716    0.0316259    0.00465554  …    ⋅           ⋅          ⋅ 
+  0.000226902   0.00140716  -0.0350322        ⋅           ⋅          ⋅ 
+  0.00520171   -0.00474651  -0.00706782       ⋅           ⋅          ⋅ 
+  0.00170386   -0.00649531  -0.0041954        ⋅           ⋅          ⋅ 
+  0.00123501   -0.00503382   0.00644257       ⋅           ⋅          ⋅ 
+ -0.00620481   -0.0072301   -0.00439729  …   0.0243102    ⋅          ⋅ 
+ -0.0157021     0.0421276   -0.00688028     -0.0142071   0.0203115   ⋅ 
+  0.0155063    -0.0219528    0.0520911      -0.00226855  0.0069929  0.02014
+77
 ```
 
 
@@ -1166,7 +1160,7 @@ A = q_full_normal.transform.ts[1].a
 heatmap(cov(A * A'))
 ```
 
-![](figures/09_variational-inference_69_1.png)
+![](figures/09_variational-inference_68_1.png)
 
 ```julia
 zs = rand(q_full_normal, 10_000);
@@ -1180,7 +1174,7 @@ p2 = plot_variational_marginals(rand(q_full_normal, 10_000), sym2range)
 plot(p1, p2; layout=(1, 2), size=(800, 2000))
 ```
 
-![](figures/09_variational-inference_71_1.png)
+![](figures/09_variational-inference_70_1.png)
 
 
 
@@ -1223,13 +1217,13 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007203719795253705
-    Bayes loss: 8.52527599839704e-15
+    VI loss: 0.0007767246038802808
+    Bayes loss: 1.7448673499812828e-14
     OLS loss: 3.070926124893025
 Test set: 
-    VI loss: 0.0014515966218430758
-    Bayes loss: 4.597388201171708e-14
-    OLS loss: 27.094813070760445
+    VI loss: 0.0019788267068461605
+    Bayes loss: 8.39574802503184e-14
+    OLS loss: 27.094813070760495
 ```
 
 
@@ -1255,7 +1249,7 @@ ylims!(95, 140)
 title!("Mean-field ADVI (Normal)")
 ```
 
-![](figures/09_variational-inference_76_1.png)
+![](figures/09_variational-inference_75_1.png)
 
 ```julia
 z = rand(q_full_normal, 1000);
@@ -1277,7 +1271,7 @@ ylims!(95, 140)
 title!("Full ADVI (Normal)")
 ```
 
-![](figures/09_variational-inference_77_1.png)
+![](figures/09_variational-inference_76_1.png)
 
 ```julia
 preds = hcat(
@@ -1301,13 +1295,13 @@ ylims!(95, 140)
 title!("MCMC (NUTS)")
 ```
 
-![](figures/09_variational-inference_78_1.png)
+![](figures/09_variational-inference_77_1.png)
 
 ```julia
 plot(p1, p2, p3; layout=(1, 3), size=(900, 250), label="")
 ```
 
-![](figures/09_variational-inference_79_1.png)
+![](figures/09_variational-inference_78_1.png)
 
 
 
@@ -1330,15 +1324,16 @@ TuringTutorials.weave("09-variational-inference", "09_variational-inference.jmd"
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -1347,11 +1342,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.9.7
   [b0b7db55] ComponentArrays v0.11.9
   [1624bea9] ConjugatePriors v0.4.0
   [5789e2e9] FileIO v1.13.0
+  [1a297f60] FillArrays v0.9.7
   [38e38edf] GLM v1.6.1
   [b964fa9f] LaTeXStrings v1.3.0
   [91a5bcdd] Plots v1.25.5
@@ -1360,13 +1356,14 @@ Package Information:
   [f3b207a7] StatsPlots v0.14.30
   [fce5fe82] Turing v0.17.4
   [3a884ed6] UnPack v1.0.2
+  [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
