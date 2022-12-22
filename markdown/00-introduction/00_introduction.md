@@ -12,7 +12,8 @@ This is the first of a series of tutorials on the universal probabilistic progra
 Turing is a probabilistic programming system written entirely in Julia.
 It has an intuitive modelling syntax and supports a wide range of sampling-based inference algorithms.
 
-Familiarity with Julia is assumed throughout this tutorial. If you are new to Julia, [Learning Julia](https://julialang.org/learning/) is a good starting point.
+Familiarity with Julia is assumed throughout this tutorial.
+If you are new to Julia, [Learning Julia](https://julialang.org/learning/) is a good starting point.
 
 For users new to Bayesian machine learning, please consider more thorough introductions to the field, such as [Pattern Recognition and Machine Learning](https://www.springer.com/us/book/9780387310732).
 This tutorial tries to provide an intuition for Bayesian inference and gives a simple example on how to use Turing.
@@ -327,12 +328,12 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 96
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -341,7 +342,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.67
   [c7f686f2] MCMCChains v5.3.1
   [f3b207a7] StatsPlots v0.15.1
@@ -352,7 +353,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.1.3
   [7a57a42e] AbstractPPL v0.5.2
