@@ -250,8 +250,8 @@ Chains MCMC chain (2500×16×4 Array{Float64, 3}):
 Iterations        = 1:1:2500
 Number of chains  = 4
 Samples per chain = 2500
-Wall duration     = 9.49 seconds
-Compute duration  = 9.15 seconds
+Wall duration     = 9.0 seconds
+Compute duration  = 8.73 seconds
 parameters        = b2, b1, b3, b0
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -380,8 +380,8 @@ Chains MCMC chain (2300×16×4 Array{Float64, 3}):
 Iterations        = 201:1:2500
 Number of chains  = 4
 Samples per chain = 2300
-Wall duration     = 9.49 seconds
-Compute duration  = 9.15 seconds
+Wall duration     = 9.0 seconds
+Compute duration  = 8.73 seconds
 parameters        = b2, b1, b3, b0
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -445,12 +445,12 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -459,7 +459,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.14
@@ -478,7 +478,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.1.4
