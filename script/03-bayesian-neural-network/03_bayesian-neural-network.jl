@@ -1,6 +1,6 @@
 
-# Import libraries.
 using Turing
+using FillArrays
 using Flux
 using Plots
 using ReverseDiff
@@ -9,7 +9,7 @@ using LinearAlgebra
 using Random
 
 # Hide sampling progress.
-Turing.setprogress!(false);
+Turing.setprogress!(false)
 
 # Use reverse_diff due to the number of parameters in neural networks.
 Turing.setadbackend(:reversediff)
