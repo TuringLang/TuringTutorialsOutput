@@ -19,11 +19,16 @@ Let's start by loading some dependencies.
 
 ```julia
 using Turing
-using AbstractGPs, Random
+using AbstractGPs
+using DataFrames
+using FillArrays
+using RDatasets
+using StatsBase
+using StatsPlots
+using VegaLite
 
 using LinearAlgebra
-using VegaLite, DataFrames, StatsPlots, StatsBase
-using RDatasets
+using Random
 
 Random.seed!(1789);
 ```
@@ -108,7 +113,7 @@ We create separate models for the two types of kernel.
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
 
@@ -128,7 +133,7 @@ end;
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     σ ~ LogNormal(0.0, 1.0)
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
@@ -192,10 +197,10 @@ alpha_mean = mean(group(chain_linear, :α))[:, 2]
 
 ```
 4-element Vector{Float64}:
- 0.48246972574348507
- 0.4547127054344807
- 0.5679711122550067
- 0.45665907429879266
+ 0.4573916332788623
+ 0.5244420375120039
+ 0.5032902616561209
+ 0.4548029438488051
 ```
 
 
@@ -215,7 +220,7 @@ p_linear
 ```
 
 ```
-[3, 1]
+[2, 3]
 ```
 
 
@@ -239,10 +244,10 @@ alpha_mean = mean(group(chain_gplvm, :α))[:, 2]
 
 ```
 4-element Vector{Float64}:
- 0.17392648795292895
- 0.8050969213863638
- 0.17221569204259213
- 0.15629298383156232
+ 0.15699922659921323
+ 0.7887930375112809
+ 0.17187239953779038
+ 0.15627072713559162
 ```
 
 
@@ -262,7 +267,7 @@ p_gplvm
 ```
 
 ```
-[2, 1]
+[2, 3]
 ```
 
 
@@ -292,7 +297,7 @@ using Stheno
     noise = 1e-3
 
     # Priors
-    α ~ MvLogNormal(MvNormal(zeros(K), I))
+    α ~ MvLogNormal(MvNormal(Zeros(K), I))
     σ ~ LogNormal(1.0, 1.0)
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
@@ -342,10 +347,10 @@ alpha_mean = mean(group(chain_gplvm_sparse, :α))[:, 2]
 
 ```
 4-element Vector{Float64}:
- 0.8621189679377088
- 0.1539115560431259
- 0.13382160252466813
- 0.48650121015252795
+ 0.1347245321913309
+ 0.1886553362408269
+ 0.6090443132588738
+ 0.28379259049979433
 ```
 
 
@@ -383,16 +388,16 @@ TuringTutorials.weave("12-gaussian-process", "12_gaussian-process.jmd")
 Computer Information:
 
 ```
-Julia Version 1.6.6
-Commit b8708f954a (2022-03-28 07:17 UTC)
+Julia Version 1.6.7
+Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 96
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -401,9 +406,10 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.12
   [a93c6f00] DataFrames v1.3.3
+  [1a297f60] FillArrays v0.13.2
   [ce6b1742] RDatasets v0.7.7
   [2913bbd2] StatsBase v0.33.16
   [f3b207a7] StatsPlots v0.14.33
@@ -417,7 +423,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [99985d1d] AbstractGPs v0.5.12
   [80f14c24] AbstractMCMC v4.0.0
