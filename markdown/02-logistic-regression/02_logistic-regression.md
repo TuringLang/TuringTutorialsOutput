@@ -186,8 +186,8 @@ Chains MCMC chain (1500×13×3 Array{Float64, 3}):
 Iterations        = 1:1:1500
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 3.94 seconds
-Compute duration  = 3.32 seconds
+Wall duration     = 3.5 seconds
+Compute duration  = 2.97 seconds
 parameters        = income, student, intercept, balance
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
@@ -366,12 +366,12 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -380,7 +380,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.14
@@ -400,7 +400,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
