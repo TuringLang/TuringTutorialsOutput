@@ -333,10 +333,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -347,7 +347,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Project.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Project.toml`
   [91a5bcdd] Plots v1.25.11
   [fce5fe82] Turing v0.16.6
   [9a3f8284] Random
@@ -356,7 +356,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.0.1
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.1.4
