@@ -182,8 +182,8 @@ Chains MCMC chain (3000×24×1 Array{Float64, 3}):
 Iterations        = 1001:1:4000
 Number of chains  = 1
 Samples per chain = 3000
-Wall duration     = 5.19 seconds
-Compute duration  = 5.19 seconds
+Wall duration     = 5.04 seconds
+Compute duration  = 5.04 seconds
 parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
 cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
 7], coefficients[8], coefficients[9], coefficients[10]
@@ -197,29 +197,29 @@ Summary Statistics
             Symbol   Float64   Float64    Float64   Float64     Float64   F
 loa ⋯
 
-                σ²    0.3117    0.1834     0.0033    0.0063    783.2997    
-1.0 ⋯
-         intercept   -0.0016    0.1131     0.0021    0.0018   3502.6971    
+                σ²    0.3044    0.1874     0.0034    0.0062    774.6769    
 0.9 ⋯
-   coefficients[1]   -0.0450    0.5486     0.0100    0.0145   1435.1582    
+         intercept    0.0027    0.1187     0.0022    0.0023   3313.9518    
 1.0 ⋯
-   coefficients[2]    0.3194    0.7314     0.0134    0.0216   1006.0850    
-1.0 ⋯
-   coefficients[3]   -0.3857    0.3972     0.0073    0.0099   1616.0794    
-1.0 ⋯
-   coefficients[4]    0.1694    0.2927     0.0053    0.0084   1266.8139    
-1.0 ⋯
-   coefficients[5]   -0.3347    0.7274     0.0133    0.0236    843.4465    
+   coefficients[1]   -0.0496    0.5464     0.0100    0.0146   1961.5905    
 0.9 ⋯
-   coefficients[6]    0.0764    0.3670     0.0067    0.0097   1230.1250    
+   coefficients[2]    0.2972    0.6786     0.0124    0.0177   1202.9407    
+1.0 ⋯
+   coefficients[3]   -0.4004    0.3844     0.0070    0.0102   1841.9048    
+1.0 ⋯
+   coefficients[4]    0.1793    0.2916     0.0053    0.0090   1073.2772    
+1.0 ⋯
+   coefficients[5]   -0.2878    0.6884     0.0126    0.0225    843.6005    
+1.0 ⋯
+   coefficients[6]    0.0486    0.3624     0.0066    0.0115    965.4994    
+1.0 ⋯
+   coefficients[7]    0.0188    0.3843     0.0070    0.0092   1591.1263    
 0.9 ⋯
-   coefficients[7]    0.0123    0.3945     0.0072    0.0116   1415.7843    
+   coefficients[8]    0.1671    0.3145     0.0057    0.0102    943.6644    
 1.0 ⋯
-   coefficients[8]    0.1782    0.3127     0.0057    0.0092   1075.5653    
+   coefficients[9]    0.1144    0.2820     0.0051    0.0082   1035.0391    
 1.0 ⋯
-   coefficients[9]    0.1111    0.2862     0.0052    0.0085   1007.7045    
-1.0 ⋯
-  coefficients[10]   -0.2593    0.4142     0.0076    0.0145    795.1212    
+  coefficients[10]   -0.2687    0.3960     0.0072    0.0128    872.5561    
 1.0 ⋯
                                                                2 columns om
 itted
@@ -228,18 +228,18 @@ Quantiles
         parameters      2.5%     25.0%     50.0%     75.0%     97.5%
             Symbol   Float64   Float64   Float64   Float64   Float64
 
-                σ²    0.1182    0.1931    0.2658    0.3720    0.7957
-         intercept   -0.2377   -0.0717    0.0011    0.0687    0.2204
-   coefficients[1]   -1.1493   -0.3834   -0.0425    0.2987    1.0444
-   coefficients[2]   -1.1663   -0.1402    0.3273    0.7817    1.7194
-   coefficients[3]   -1.1710   -0.6219   -0.3953   -0.1528    0.4414
-   coefficients[4]   -0.4003   -0.0161    0.1712    0.3494    0.7630
-   coefficients[5]   -1.7905   -0.8004   -0.3388    0.1256    1.0998
-   coefficients[6]   -0.6517   -0.1630    0.0670    0.3126    0.8036
-   coefficients[7]   -0.8004   -0.2296    0.0193    0.2623    0.8055
-   coefficients[8]   -0.4758   -0.0140    0.1837    0.3747    0.8049
-   coefficients[9]   -0.4626   -0.0696    0.1075    0.2929    0.6702
-  coefficients[10]   -1.1081   -0.5109   -0.2541   -0.0036    0.5771
+                σ²    0.1180    0.1937    0.2610    0.3609    0.7672
+         intercept   -0.2271   -0.0756   -0.0010    0.0787    0.2493
+   coefficients[1]   -1.1763   -0.3901   -0.0547    0.2896    1.0421
+   coefficients[2]   -1.0452   -0.1446    0.3001    0.7274    1.6562
+   coefficients[3]   -1.1796   -0.6378   -0.4081   -0.1612    0.3845
+   coefficients[4]   -0.4007    0.0008    0.1785    0.3628    0.7606
+   coefficients[5]   -1.6860   -0.7107   -0.3095    0.1449    1.0767
+   coefficients[6]   -0.6515   -0.1664    0.0513    0.2758    0.7469
+   coefficients[7]   -0.7700   -0.2280    0.0153    0.2576    0.7729
+   coefficients[8]   -0.4717   -0.0171    0.1774    0.3537    0.7728
+   coefficients[9]   -0.4332   -0.0595    0.1048    0.2852    0.6893
+  coefficients[10]   -1.0567   -0.5103   -0.2700   -0.0351    0.5352
 ```
 
 
@@ -323,16 +323,16 @@ DataFrame(; MPG=testset[!, target], Bayes=test_prediction_bayes, OLS=test_predic
  Row │ MPG      Bayes     OLS
      │ Float64  Float64   Float64
 ─────┼─────────────────────────────
-   1 │    19.2  17.9818   18.1265
-   2 │    15.0   6.67636   6.37891
-   3 │    16.4  13.8408   13.883
-   4 │    14.3  11.8707   11.7337
-   5 │    21.4  25.1902   25.1916
-   6 │    18.1  20.6603   20.672
-   7 │    19.7  15.9947   15.8408
-   8 │    15.2  18.292    18.3391
-   9 │    26.0  28.4566   28.4865
-  10 │    17.3  14.5441   14.534
+   1 │    19.2  18.2106   18.1265
+   2 │    15.0   6.69825   6.37891
+   3 │    16.4  13.9185   13.883
+   4 │    14.3  11.9218   11.7337
+   5 │    21.4  25.2874   25.1916
+   6 │    18.1  20.6958   20.672
+   7 │    19.7  16.0575   15.8408
+   8 │    15.2  18.2709   18.3391
+   9 │    26.0  28.404    28.4865
+  10 │    17.3  14.5579   14.534
 ```
 
 
@@ -365,11 +365,11 @@ println(
 
 ```
 Training set:
-	Bayes loss: 4.651083751584832
-	OLS loss: 4.648142085690521
+	Bayes loss: 4.653089617203777
+	OLS loss: 4.648142085690515
 Test set:
-	Bayes loss: 14.10580325710221
-	OLS loss: 14.796847779051523
+	Bayes loss: 13.955792935349226
+	OLS loss: 14.79684777905157
 ```
 
 
@@ -398,10 +398,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: AMD EPYC 7502 32-Core Processor
+  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -412,7 +412,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [a93c6f00] DataFrames v1.3.2
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.49
@@ -434,7 +434,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.1.0
   [80f14c24] AbstractMCMC v3.2.1
   [7a57a42e] AbstractPPL v0.2.0
