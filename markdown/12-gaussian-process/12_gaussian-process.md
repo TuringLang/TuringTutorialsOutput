@@ -20,12 +20,12 @@ Let's start by loading some dependencies.
 ```julia
 using Turing
 using AbstractGPs
-using DataFrames
 using FillArrays
+using LaTeXStrings
+using Plots
 using RDatasets
+using ReverseDiff
 using StatsBase
-using StatsPlots
-using VegaLite
 
 using LinearAlgebra
 using Random
@@ -72,7 +72,7 @@ Indeed, pPCA is basically equivalent to running the GPLVM model with an automati
 First, we re-introduce the pPCA model (see the tutorial on pPCA for details)
 
 ```julia
-@model function pPCA(x, ::Type{TV}=Array{Float64}) where {TV}
+@model function pPCA(x)
     # Dimensionality of the problem.
     N, D = size(x)
     # latent variable z
@@ -83,6 +83,7 @@ First, we re-introduce the pPCA model (see the tutorial on pPCA for details)
     for d in 1:D
         x[:, d] ~ MvNormal(mu[:, d], I)
     end
+    return nothing
 end;
 ```
 
@@ -104,8 +105,7 @@ And here is the GPLVM model.
 We create separate models for the two types of kernel.
 
 ```julia
-@model function GPLVM_linear(Y, K=4, ::Type{T}=Float64) where {T}
-
+@model function GPLVM_linear(Y, K)
     # Dimensionality of the problem.
     N, D = size(Y)
     # K is the dimension of the latent space
@@ -117,15 +117,14 @@ We create separate models for the two types of kernel.
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
 
-    kernel = linear_kernel(α)
+    gp = GP(linear_kernel(α))
+    gpz = gp(ColVecs(Z), noise)
+    Y ~ filldist(MvNormal(mu, cov(gpz)), D)
 
-    gp = GP(mu, kernel)
-    cv = cov(gp(ColVecs(Z), noise))
-    return Y ~ filldist(MvNormal(mu, cv), D)
+    return nothing
 end;
 
-@model function GPLVM(Y, K=4, ::Type{T}=Float64) where {T}
-
+@model function GPLVM(Y, K)
     # Dimensionality of the problem.
     N, D = size(Y)
     # K is the dimension of the latent space
@@ -138,11 +137,11 @@ end;
     Z ~ filldist(Normal(), K, N)
     mu ~ filldist(Normal(), N)
 
-    kernel = sekernel(α, σ)
+    gp = GP(sekernel(α, σ))
+    gpz = gp(ColVecs(Z), noise)
+    Y ~ filldist(MvNormal(mu, cov(gpz)), D)
 
-    gp = GP(mu, kernel)
-    cv = cov(gp(ColVecs(Z), noise))
-    return Y ~ filldist(MvNormal(mu, cv), D)
+    return nothing
 end;
 ```
 
@@ -159,20 +158,14 @@ ndim = 4;
 
 ```julia
 ppca = pPCA(dat[1:n_data, 1:n_features])
-chain_ppca = sample(ppca, NUTS(), 1000);
+chain_ppca = sample(ppca, NUTS{Turing.ReverseDiffAD{true}}(), 1000);
 ```
 
 
 ```julia
 # we extract the posterior mean estimates of the parameters from the chain
-w = reshape(mean(group(chain_ppca, :w))[:, 2], (n_features, n_features))
-z = reshape(mean(group(chain_ppca, :z))[:, 2], (n_features, n_data))
-X = w * z
-
-df_pre = DataFrame(z', :auto)
-rename!(df_pre, Symbol.(["z" * string(i) for i in collect(1:n_features)]))
-df_pre[!, :type] = labels[1:n_data]
-p_ppca = @vlplot(:point, x = :z1, y = :z2, color = "type:n")(df_pre)
+z_mean = reshape(mean(group(chain_ppca, :z))[:, 2], (n_features, n_data))
+scatter(z_mean[1, :], z_mean[2, :]; group=labels[1:n_data], xlabel=L"z_1", ylabel=L"z_2")
 ```
 
 ![](figures/12_gaussian-process_8_1.png)
@@ -188,41 +181,24 @@ Let's try the same with our linear kernel GPLVM model.
 
 ```julia
 gplvm_linear = GPLVM_linear(dat[1:n_data, 1:n_features], ndim)
-
-chain_linear = sample(gplvm_linear, NUTS(), 500)
-# we extract the posterior mean estimates of the parameters from the chain
-z_mean = reshape(mean(group(chain_linear, :Z))[:, 2], (n_features, n_data))
-alpha_mean = mean(group(chain_linear, :α))[:, 2]
+chain_linear = sample(gplvm_linear, NUTS{Turing.ReverseDiffAD{true}}(), 500);
 ```
-
-```
-4-element Vector{Float64}:
- 0.4573916332788623
- 0.5244420375120039
- 0.5032902616561209
- 0.4548029438488051
-```
-
 
 
 ```julia
-df_gplvm_linear = DataFrame(z_mean', :auto)
-rename!(df_gplvm_linear, Symbol.(["z" * string(i) for i in collect(1:ndim)]))
-df_gplvm_linear[!, :sample] = 1:n_data
-df_gplvm_linear[!, :labels] = labels[1:n_data]
-alpha_indices = sortperm(alpha_mean; rev=true)[1:2]
-println(alpha_indices)
-df_gplvm_linear[!, :ard1] = z_mean[alpha_indices[1], :]
-df_gplvm_linear[!, :ard2] = z_mean[alpha_indices[2], :]
+# we extract the posterior mean estimates of the parameters from the chain
+z_mean = reshape(mean(group(chain_linear, :Z))[:, 2], (n_features, n_data))
+alpha_mean = mean(group(chain_linear, :α))[:, 2]
 
-p_linear = @vlplot(:point, x = :ard1, y = :ard2, color = "labels:n")(df_gplvm_linear)
-p_linear
+alpha1, alpha2 = partialsortperm(alpha_mean, 1:2; rev=true)
+scatter(
+    z_mean[alpha1, :],
+    z_mean[alpha2, :];
+    group=labels[1:n_data],
+    xlabel=L"z_{\mathrm{ard}_1}",
+    ylabel=L"z_{\mathrm{ard}_2}",
+)
 ```
-
-```
-[2, 3]
-```
-
 
 ![](figures/12_gaussian-process_10_1.png)
 
@@ -235,41 +211,24 @@ Finally, we demonstrate that by changing the kernel to a non-linear function, we
 
 ```julia
 gplvm = GPLVM(dat[1:n_data, 1:n_features], ndim)
-
-chain_gplvm = sample(gplvm, NUTS(), 500)
-# we extract the posterior mean estimates of the parameters from the chain
-z_mean = reshape(mean(group(chain_gplvm, :Z))[:, 2], (ndim, n_data))
-alpha_mean = mean(group(chain_gplvm, :α))[:, 2]
+chain_gplvm = sample(gplvm, NUTS{Turing.ReverseDiffAD{true}}(), 500);
 ```
-
-```
-4-element Vector{Float64}:
- 0.15699922659921323
- 0.7887930375112809
- 0.17187239953779038
- 0.15627072713559162
-```
-
 
 
 ```julia
-df_gplvm = DataFrame(z_mean', :auto)
-rename!(df_gplvm, Symbol.(["z" * string(i) for i in collect(1:ndim)]))
-df_gplvm[!, :sample] = 1:n_data
-df_gplvm[!, :labels] = labels[1:n_data]
-alpha_indices = sortperm(alpha_mean; rev=true)[1:2]
-println(alpha_indices)
-df_gplvm[!, :ard1] = z_mean[alpha_indices[1], :]
-df_gplvm[!, :ard2] = z_mean[alpha_indices[2], :]
+# we extract the posterior mean estimates of the parameters from the chain
+z_mean = reshape(mean(group(chain_gplvm, :Z))[:, 2], (ndim, n_data))
+alpha_mean = mean(group(chain_gplvm, :α))[:, 2]
 
-p_gplvm = @vlplot(:point, x = :ard1, y = :ard2, color = "labels:n")(df_gplvm)
-p_gplvm
+alpha1, alpha2 = partialsortperm(alpha_mean, 1:2; rev=true)
+scatter(
+    z_mean[alpha1, :],
+    z_mean[alpha2, :];
+    group=labels[1:n_data],
+    xlabel=L"z_{\mathrm{ard}_1}",
+    ylabel=L"z_{\mathrm{ard}_2}",
+)
 ```
-
-```
-[2, 3]
-```
-
 
 ![](figures/12_gaussian-process_12_1.png)
 
@@ -277,101 +236,6 @@ p_gplvm
 
 
 Now, the split between the two groups is visible again.
-
-### Speeding up inference
-
-Gaussian processes tend to be slow, as they naively require operations in the order of $O(n^3)$.
-Here, we demonstrate a simple speedup using the Stheno library.
-Speeding up Gaussian process inference is an active area of research.
-
-```julia
-using Stheno
-@model function GPLVM_sparse(Y, K, ::Type{T}=Float64) where {T}
-
-    # Dimensionality of the problem.
-    N, D = size(Y)
-    # dimension of latent space
-    @assert K <= D
-    # number of inducing points
-    n_inducing = 25
-    noise = 1e-3
-
-    # Priors
-    α ~ MvLogNormal(MvNormal(Zeros(K), I))
-    σ ~ LogNormal(1.0, 1.0)
-    Z ~ filldist(Normal(), K, N)
-    mu ~ filldist(Normal(), N)
-
-    kernel = σ * SqExponentialKernel() ∘ ARDTransform(α)
-
-    ## Standard
-    # gpc = GPC()
-    # f = atomic(GP(kernel), gpc)
-    # gp = f(ColVecs(Z), noise)
-    # Y ~ filldist(gp, D)
-
-    ## SPARSE GP
-    #  xu = reshape(repeat(locations, K), :, K) # inducing points
-    #  xu = reshape(repeat(collect(range(-2.0, 2.0; length=20)), K), :, K) # inducing points
-    lbound = minimum(Y) + 1e-6
-    ubound = maximum(Y) - 1e-6
-    #  locations ~ filldist(Uniform(lbound, ubound), n_inducing)
-    #  locations = [-2., -1.5 -1., -0.5, -0.25, 0.25, 0.5, 1., 2.]
-    #  locations = collect(LinRange(lbound, ubound, n_inducing))
-    locations = quantile(vec(Y), LinRange(0.01, 0.99, n_inducing))
-    xu = reshape(locations, 1, :)
-    gp = atomic(GP(kernel), GPC())
-    fobs = gp(ColVecs(Z), noise)
-    finducing = gp(xu, 1e-12)
-    sfgp = SparseFiniteGP(fobs, finducing)
-    cv = cov(sfgp.fobs)
-    return Y ~ filldist(MvNormal(mu, cv), D)
-end
-```
-
-```
-GPLVM_sparse (generic function with 3 methods)
-```
-
-
-
-```julia
-n_data = 50
-gplvm_sparse = GPLVM_sparse(dat[1:n_data, :], ndim)
-
-chain_gplvm_sparse = sample(gplvm_sparse, NUTS(), 500)
-# we extract the posterior mean estimates of the parameters from the chain
-z_mean = reshape(mean(group(chain_gplvm_sparse, :Z))[:, 2], (ndim, n_data))
-alpha_mean = mean(group(chain_gplvm_sparse, :α))[:, 2]
-```
-
-```
-4-element Vector{Float64}:
- 0.1347245321913309
- 0.1886553362408269
- 0.6090443132588738
- 0.28379259049979433
-```
-
-
-
-```julia
-df_gplvm_sparse = DataFrame(z_mean', :auto)
-rename!(df_gplvm_sparse, Symbol.(["z" * string(i) for i in collect(1:ndim)]))
-df_gplvm_sparse[!, :sample] = 1:n_data
-df_gplvm_sparse[!, :labels] = labels[1:n_data]
-alpha_indices = sortperm(alpha_mean; rev=true)[1:2]
-df_gplvm_sparse[!, :ard1] = z_mean[alpha_indices[1], :]
-df_gplvm_sparse[!, :ard2] = z_mean[alpha_indices[2], :]
-p_sparse = @vlplot(:point, x = :ard1, y = :ard2, color = "labels:n")(df_gplvm_sparse)
-p_sparse
-```
-
-![](figures/12_gaussian-process_16_1.png)
-
-
-
-Comparing the runtime, between the two versions, we can observe a clear speed-up with the sparse version.
 
 
 ## Appendix
@@ -397,7 +261,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -406,16 +270,15 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
-  [99985d1d] AbstractGPs v0.5.12
-  [a93c6f00] DataFrames v1.3.3
-  [1a297f60] FillArrays v0.13.2
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+  [99985d1d] AbstractGPs v0.5.13
+  [1a297f60] FillArrays v0.13.6
+  [b964fa9f] LaTeXStrings v1.3.0
+  [91a5bcdd] Plots v1.38.0
   [ce6b1742] RDatasets v0.7.7
-  [2913bbd2] StatsBase v0.33.16
-  [f3b207a7] StatsPlots v0.14.33
-  [8188c328] Stheno v0.8.1
-  [fce5fe82] Turing v0.21.1
-  [112f6efa] VegaLite v2.6.0
+  [37e2e3b7] ReverseDiff v1.14.4
+  [2913bbd2] StatsBase v0.33.21
+  [fce5fe82] Turing v0.22.0
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
@@ -423,200 +286,198 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
-  [621f4979] AbstractFFTs v1.1.0
-  [99985d1d] AbstractGPs v0.5.12
-  [80f14c24] AbstractMCMC v4.0.0
+      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+  [621f4979] AbstractFFTs v1.2.1
+  [99985d1d] AbstractGPs v0.5.13
+  [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
-  [1520ce14] AbstractTrees v0.3.4
-  [79e6a3ab] Adapt v3.3.3
-  [0bf59076] AdvancedHMC v0.3.4
-  [5b7e9947] AdvancedMH v0.6.7
-  [576499cb] AdvancedPS v0.3.7
-  [b5ca4192] AdvancedVI v0.1.4
+  [1520ce14] AbstractTrees v0.4.3
+  [79e6a3ab] Adapt v3.4.0
+  [0bf59076] AdvancedHMC v0.3.6
+  [5b7e9947] AdvancedMH v0.6.8
+  [576499cb] AdvancedPS v0.3.8
+  [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
-  [7d9fca2a] Arpack v0.5.3
-  [4fba245c] ArrayInterface v5.0.7
-  [4c555306] ArrayLayouts v0.8.6
+  [30b0a656] ArrayInterfaceCore v0.1.27
+  [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
-  [39de3d68] AxisArrays v0.4.5
-  [198e06fe] BangBang v0.3.36
+  [39de3d68] AxisArrays v0.4.6
+  [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.9.11
-  [8e7c35d0] BlockArrays v0.16.16
-  [336ed68f] CSV v0.10.4
-  [324d7699] CategoricalArrays v0.10.5
-  [082447d4] ChainRules v1.28.3
-  [d360d2e6] ChainRulesCore v1.14.0
-  [9e997f8a] ChangesOfVariables v0.1.2
-  [aaaa29a8] Clustering v0.14.2
+  [76274a88] Bijectors v0.10.6
+  [d1d4a3ce] BitFlags v0.1.7
+  [336ed68f] CSV v0.10.8
+  [49dc2e85] Calculus v0.5.1
+  [324d7699] CategoricalArrays v0.10.7
+  [082447d4] ChainRules v1.46.0
+  [d360d2e6] ChainRulesCore v1.15.6
+  [9e997f8a] ChangesOfVariables v0.1.4
   [944b1d66] CodecZlib v0.7.0
-  [35d6a980] ColorSchemes v3.17.1
-  [3da002f7] ColorTypes v0.11.0
-  [5ae59095] Colors v0.12.8
+  [35d6a980] ColorSchemes v3.20.0
+  [3da002f7] ColorTypes v0.11.4
+  [c3611d14] ColorVectorSpace v0.9.9
+  [5ae59095] Colors v0.12.10
   [861a8166] Combinatorics v1.0.2
-  [38540f10] CommonSolve v0.2.0
+  [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.43.0
+  [34da2185] Compat v4.5.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
-  [187b0558] ConstructionBase v1.3.0
-  [d38c429a] Contour v0.5.7
+  [187b0558] ConstructionBase v1.4.1
+  [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
-  [9a962f9c] DataAPI v1.10.0
-  [a93c6f00] DataFrames v1.3.3
-  [864edb3b] DataStructures v0.18.11
+  [9a962f9c] DataAPI v1.14.0
+  [a93c6f00] DataFrames v1.4.4
+  [864edb3b] DataStructures v0.18.13
   [e2d170a0] DataValueInterfaces v1.0.0
-  [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
   [b429d917] DensityInterface v0.4.0
-  [163ba53b] DiffResults v1.0.3
-  [b552c78f] DiffRules v1.10.0
+  [163ba53b] DiffResults v1.1.0
+  [b552c78f] DiffRules v1.12.2
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.53
-  [ced4e74d] DistributionsAD v0.6.38
-  [ffbed154] DocStringExtensions v0.8.6
-  [366bfd00] DynamicPPL v0.19.1
-  [cad2338a] EllipticalSliceSampling v0.5.0
+  [31c24e10] Distributions v0.25.79
+  [ced4e74d] DistributionsAD v0.6.43
+  [ffbed154] DocStringExtensions v0.9.3
+  [fa6b7ba4] DualNumbers v0.6.8
+  [366bfd00] DynamicPPL v0.21.3
+  [cad2338a] EllipticalSliceSampling v1.0.0
+  [4e289a0a] EnumX v1.0.4
   [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.4.6
-  [5789e2e9] FileIO v1.13.0
-  [8fc22ac5] FilePaths v0.8.3
-  [48062228] FilePathsBase v0.9.18
-  [1a297f60] FillArrays v0.13.2
+  [7a1cc6ca] FFTW v1.5.0
+  [5789e2e9] FileIO v1.16.0
+  [48062228] FilePathsBase v0.9.20
+  [1a297f60] FillArrays v0.13.6
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
-  [f6369f11] ForwardDiff v0.10.26
-  [d9f16b24] Functors v0.2.8
-  [28b8d3ca] GR v0.64.2
-  [5c1252a2] GeometryBasics v0.4.2
+  [f6369f11] ForwardDiff v0.10.34
+  [069b7b12] FunctionWrappers v1.1.3
+  [77dc65aa] FunctionWrappersWrappers v0.1.1
+  [d9f16b24] Functors v0.3.0
+  [46192b85] GPUArraysCore v0.1.2
+  [28b8d3ca] GR v0.71.2
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v0.9.17
-  [7869d1d1] IRTools v0.4.5
-  [615f187c] IfElse v0.1.1
+  [cd3eb016] HTTP v1.6.2
+  [34004b35] HypergeometricFunctions v0.3.11
+  [7869d1d1] IRTools v0.4.7
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
-  [842dd82b] InlineStrings v1.1.2
+  [842dd82b] InlineStrings v1.3.2
   [505f98c9] InplaceOps v0.3.0
-  [a98d9a8b] Interpolations v0.13.6
-  [8197267c] IntervalSets v0.6.1
-  [3587e190] InverseFunctions v0.1.3
-  [41ab1584] InvertedIndices v1.1.0
+  [a98d9a8b] Interpolations v0.14.7
+  [8197267c] IntervalSets v0.7.4
+  [3587e190] InverseFunctions v0.1.8
+  [41ab1584] InvertedIndices v1.2.0
   [92d709cd] IrrationalConstants v0.1.1
   [c8e1da08] IterTools v1.4.0
   [82899510] IteratorInterfaceExtensions v1.0.0
+  [1019f520] JLFzf v0.1.5
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
-  [7d188eb4] JSONSchema v0.3.4
-  [5ab0869b] KernelDensity v0.6.3
-  [ec8451be] KernelFunctions v0.10.38
-  [8ac3fa9e] LRUCache v1.3.0
+  [5ab0869b] KernelDensity v0.6.5
+  [ec8451be] KernelFunctions v0.10.51
+  [8ac3fa9e] LRUCache v1.4.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.14
-  [1d6d02ad] LeftChildRightSiblingTrees v0.1.3
+  [23fbe1c1] Latexify v0.15.17
+  [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
-  [2ab3a3ac] LogExpFunctions v0.3.12
-  [e6f89c97] LoggingExtras v0.4.7
-  [c7f686f2] MCMCChains v5.1.1
-  [be115224] MCMCDiagnosticTools v0.1.3
-  [e80e1ace] MLJModelInterface v1.4.2
-  [1914dd2f] MacroTools v0.5.9
+  [6fdf6af0] LogDensityProblems v1.0.3
+  [2ab3a3ac] LogExpFunctions v0.3.19
+  [e6f89c97] LoggingExtras v0.4.9
+  [c7f686f2] MCMCChains v5.6.1
+  [be115224] MCMCDiagnosticTools v0.2.1
+  [e80e1ace] MLJModelInterface v1.8.0
+  [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
-  [739be429] MbedTLS v1.0.3
-  [442fdcdd] Measures v0.3.1
-  [128add7d] MicroCollections v0.1.2
-  [e1d29d7a] Missings v1.0.2
-  [78c3b35d] Mocking v0.7.3
-  [6f286f6a] MultivariateStats v0.9.1
-  [872c559c] NNlib v0.8.4
-  [77ba4419] NaNMath v1.0.0
+  [739be429] MbedTLS v1.1.7
+  [442fdcdd] Measures v0.3.2
+  [128add7d] MicroCollections v0.1.3
+  [e1d29d7a] Missings v1.1.0
+  [78c3b35d] Mocking v0.7.5
+  [872c559c] NNlib v0.8.11
+  [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [b8a86587] NearestNeighbors v0.4.10
-  [2bd173c7] NodeJS v1.3.0
-  [510215fc] Observables v0.4.0
-  [6fe1bfb0] OffsetArrays v1.10.8
+  [6fe1bfb0] OffsetArrays v1.12.8
+  [4d8831e6] OpenSSL v1.3.2
+  [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.7
-  [69de0a69] Parsers v2.3.0
-  [ccf2f8ad] PlotThemes v3.0.0
-  [995b91a9] PlotUtils v1.2.0
-  [91a5bcdd] Plots v1.27.6
-  [2dfb63ee] PooledArrays v1.4.1
+  [90014a1f] PDMats v0.11.16
+  [69de0a69] Parsers v2.5.2
+  [b98c9c47] Pipe v1.3.0
+  [ccf2f8ad] PlotThemes v3.1.0
+  [995b91a9] PlotUtils v1.3.2
+  [91a5bcdd] Plots v1.38.0
+  [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
-  [08abe8d2] PrettyTables v1.3.1
+  [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
-  [1fd47b50] QuadGK v2.4.2
+  [1fd47b50] QuadGK v2.6.0
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
-  [3cdcf5f2] RecipesBase v1.2.1
-  [01d81517] RecipesPipeline v0.5.2
-  [731186ca] RecursiveArrayTools v2.26.3
+  [3cdcf5f2] RecipesBase v1.3.2
+  [01d81517] RecipesPipeline v0.6.11
+  [731186ca] RecursiveArrayTools v2.34.1
   [189a3867] Reexport v1.2.2
-  [05181044] RelocatableFolders v0.1.3
+  [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
+  [37e2e3b7] ReverseDiff v1.14.4
   [79098fc4] Rmath v0.7.0
-  [f2b01f46] Roots v1.4.1
-  [0bca4576] SciMLBase v1.31.0
+  [f2b01f46] Roots v2.0.8
+  [7e49a35a] RuntimeGeneratedFunctions v0.5.5
+  [0bca4576] SciMLBase v1.80.0
   [30f210dd] ScientificTypesBase v3.0.0
-  [6c6a2e73] Scratch v1.1.0
-  [91c51154] SentinelArrays v1.3.12
-  [efcf1570] Setfield v0.7.1
+  [6c6a2e73] Scratch v1.1.1
+  [91c51154] SentinelArrays v1.3.16
+  [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
-  [a2af1166] SortingAlgorithms v1.0.1
-  [276daf66] SpecialFunctions v2.1.4
-  [171d559e] SplittablesBase v0.1.14
-  [aedffcd0] Static v0.6.1
-  [90137ffa] StaticArrays v1.4.4
-  [64bff920] StatisticalTraits v3.0.0
-  [82ae8749] StatsAPI v1.2.2
-  [2913bbd2] StatsBase v0.33.16
-  [4c63d2b9] StatsFuns v0.9.18
-  [f3b207a7] StatsPlots v0.14.33
-  [8188c328] Stheno v0.8.1
-  [09ab397b] StructArrays v0.6.5
-  [ab02a1b2] TableOperations v1.2.0
+  [777ac1f9] SimpleBufferStream v1.1.0
+  [66db9d55] SnoopPrecompile v1.0.1
+  [a2af1166] SortingAlgorithms v1.1.0
+  [276daf66] SpecialFunctions v2.1.7
+  [171d559e] SplittablesBase v0.1.15
+  [90137ffa] StaticArrays v1.5.11
+  [1e83bf80] StaticArraysCore v1.4.0
+  [64bff920] StatisticalTraits v3.2.0
+  [82ae8749] StatsAPI v1.5.0
+  [2913bbd2] StatsBase v0.33.21
+  [4c63d2b9] StatsFuns v1.1.1
+  [892a3eda] StringManipulation v0.3.0
+  [09ab397b] StructArrays v0.6.14
+  [2efcf032] SymbolicIndexingInterface v0.2.1
   [3783bdb8] TableTraits v1.0.1
-  [382cd787] TableTraitsUtils v1.0.2
-  [bd369af6] Tables v1.7.0
+  [bd369af6] Tables v1.10.0
   [62fd8b95] TensorCore v0.1.1
-  [5d786b92] TerminalLoggers v0.1.5
-  [f269a46b] TimeZones v1.7.3
-  [9f7883ad] Tracker v0.2.20
-  [3bb67fe8] TranscodingStreams v0.9.6
-  [28d57a85] Transducers v0.4.73
-  [a2a6695c] TreeViews v0.3.0
-  [fce5fe82] Turing v0.21.1
-  [30578b45] URIParser v0.4.1
-  [5c2747f8] URIs v1.3.0
+  [5d786b92] TerminalLoggers v0.1.6
+  [f269a46b] TimeZones v1.9.1
+  [9f7883ad] Tracker v0.2.22
+  [3bb67fe8] TranscodingStreams v0.9.10
+  [28d57a85] Transducers v0.4.75
+  [fce5fe82] Turing v0.22.0
+  [5c2747f8] URIs v1.4.1
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
-  [239c3e63] Vega v2.3.0
-  [112f6efa] VegaLite v2.6.0
   [ea10d353] WeakRefStrings v1.4.2
-  [cc8bc4a8] Widgets v0.6.5
   [efce3f68] WoodburyMatrices v0.5.5
+  [76eceee3] WorkerUtilities v1.6.1
   [700de1a5] ZygoteRules v0.2.2
-  [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
-  [5ae413db] EarCut_jll v2.2.3+0
   [2e619515] Expat_jll v2.4.8+0
-  [b22a6f82] FFMPEG_jll v4.4.0+0
+  [b22a6f82] FFMPEG_jll v4.4.2+2
   [f5851436] FFTW_jll v3.3.10+0
   [a3f928ae] Fontconfig_jll v2.13.93+0
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
-  [0656b61e] GLFW_jll v3.3.6+0
-  [d2c73de3] GR_jll v0.64.2+0
+  [0656b61e] GLFW_jll v3.3.8+0
+  [d2c73de3] GR_jll v0.71.2+0
   [78b55507] Gettext_jll v0.21.0+0
-  [7746bdde] Glib_jll v2.68.3+2
+  [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
   [2e76f6c2] HarfBuzz_jll v2.8.1+1
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
@@ -626,24 +487,23 @@ And the full manifest:
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
-  [7e76a0d4] Libglvnd_jll v1.3.0+3
+  [7e76a0d4] Libglvnd_jll v1.6.0+0
   [7add5ba3] Libgpg_error_jll v1.42.0+0
-  [94ce4f54] Libiconv_jll v1.16.1+1
+  [94ce4f54] Libiconv_jll v1.16.1+2
   [4b2f31a3] Libmount_jll v2.35.0+0
-  [89763e89] Libtiff_jll v4.3.0+1
+  [89763e89] Libtiff_jll v4.4.0+0
   [38a345b3] Libuuid_jll v2.36.0+0
-  [856f044c] MKL_jll v2022.0.0+0
+  [856f044c] MKL_jll v2022.2.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
-  [458c3c95] OpenSSL_jll v1.1.14+0
+  [458c3c95] OpenSSL_jll v1.1.19+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
-  [2f80f16e] PCRE_jll v8.44.0+0
   [30392449] Pixman_jll v0.40.1+0
-  [ea2cea3b] Qt5Base_jll v5.15.3+1
+  [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
   [a2964d1f] Wayland_jll v1.19.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
-  [02c8fc9c] XML2_jll v2.9.12+0
+  [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
   [4f6342f7] Xorg_libX11_jll v1.6.9+4
   [0c0b7dd1] Xorg_libXau_jll v1.0.9+4
@@ -667,13 +527,15 @@ And the full manifest:
   [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
   [c5fb5394] Xorg_xtrans_jll v1.4.0+3
   [3161d3a3] Zstd_jll v1.5.2+0
+  [214eeab7] fzf_jll v0.29.0+0
+  [a4ae2306] libaom_jll v3.4.0+0
   [0ac62f75] libass_jll v0.15.1+0
   [f638f0a6] libfdk_aac_jll v2.0.2+0
   [b53b4c65] libpng_jll v1.6.38+0
   [f27f6e37] libvorbis_jll v1.3.7+1
   [1270edf5] x264_jll v2021.5.5+0
   [dfaa095f] x265_jll v3.5.0+0
-  [d8fb68d0] xkbcommon_jll v0.9.1+5
+  [d8fb68d0] xkbcommon_jll v1.4.1+0
   [0dad84c5] ArgTools
   [56f22d72] Artifacts
   [2a0f44e3] Base64
@@ -713,8 +575,8 @@ And the full manifest:
   [29816b5a] LibSSH2_jll
   [c8ffd9c3] MbedTLS_jll
   [14a3606d] MozillaCACerts_jll
-  [4536629a] OpenBLAS_jll
   [05823500] OpenLibm_jll
+  [efcefdf7] PCRE2_jll
   [83775a58] Zlib_jll
   [8e850ede] nghttp2_jll
   [3f19e933] p7zip_jll
