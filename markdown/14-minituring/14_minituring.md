@@ -311,17 +311,17 @@ at
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64
 
-           a    0.9771    0.8995     0.0009    0.0030    81388.8517    1.00
+           a    0.9759    0.8991     0.0009    0.0032    81402.0443    1.00
 00
-           b    2.8793    0.4883     0.0005    0.0012   173495.3183    1.00
+           b    2.8806    0.4877     0.0005    0.0012   171593.3412    1.00
 00
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7860    0.3711    0.9770    1.5840    2.7423
-           b    1.9282    2.5495    2.8778    3.2088    3.8367
+           a   -0.7842    0.3667    0.9740    1.5834    2.7374
+           b    1.9229    2.5516    2.8805    3.2102    3.8369
 ```
 
 
@@ -350,8 +350,8 @@ Chains MCMC chain (1000000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 6.17 seconds
-Compute duration  = 6.17 seconds
+Wall duration     = 6.2 seconds
+Compute duration  = 6.2 seconds
 parameters        = a, b
 internals         = lp
 
@@ -361,9 +361,9 @@ at  ⋯
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64  ⋯
 
-           a    0.9834    0.8997     0.0009    0.0032    78359.2909    1.00
+           a    0.9778    0.9002     0.0009    0.0032    81302.5246    1.00
 00  ⋯
-           b    2.8830    0.4885     0.0005    0.0012   170038.3172    1.00
+           b    2.8802    0.4882     0.0005    0.0012   171859.3612    1.00
 00  ⋯
                                                                 1 column om
 itted
@@ -372,8 +372,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7747    0.3751    0.9818    1.5902    2.7462
-           b    1.9255    2.5533    2.8845    3.2125    3.8390
+           a   -0.7844    0.3699    0.9743    1.5867    2.7371
+           b    1.9225    2.5524    2.8800    3.2095    3.8363
 ```
 
 
