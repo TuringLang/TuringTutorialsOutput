@@ -182,8 +182,8 @@ Chains MCMC chain (3000×24×1 Array{Float64, 3}):
 Iterations        = 1001:1:4000
 Number of chains  = 1
 Samples per chain = 3000
-Wall duration     = 5.61 seconds
-Compute duration  = 5.61 seconds
+Wall duration     = 4.97 seconds
+Compute duration  = 4.97 seconds
 parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
 cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
 7], coefficients[8], coefficients[9], coefficients[10]
@@ -403,7 +403,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 96
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -412,7 +412,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
+      Status `/cache/build/default-aws-vms-1/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [a93c6f00] DataFrames v1.4.4
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.79
@@ -421,7 +421,7 @@ Package Information:
   [38e38edf] GLM v1.8.1
   [c7f686f2] MCMCChains v5.6.1
   [cc2ba9b6] MLDataUtils v0.5.4
-  [872c559c] NNlib v0.8.11
+  [872c559c] NNlib v0.8.12
   [91a5bcdd] Plots v1.38.0
   [ce6b1742] RDatasets v0.7.7
   [4c63d2b9] StatsFuns v1.1.1
@@ -434,7 +434,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-aws-vms-1/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
@@ -446,7 +446,7 @@ And the full manifest:
   [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.4
-  [30b0a656] ArrayInterfaceCore v0.1.27
+  [30b0a656] ArrayInterfaceCore v0.1.28
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
@@ -546,10 +546,10 @@ And the full manifest:
   [739be429] MbedTLS v1.1.7
   [442fdcdd] Measures v0.3.2
   [128add7d] MicroCollections v0.1.3
-  [e1d29d7a] Missings v1.0.2
+  [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
   [6f286f6a] MultivariateStats v0.10.0
-  [872c559c] NNlib v0.8.11
+  [872c559c] NNlib v0.8.12
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
@@ -578,14 +578,14 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.2
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.34.0
+  [731186ca] RecursiveArrayTools v2.34.1
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.79.0
+  [0bca4576] SciMLBase v1.81.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [91c51154] SentinelArrays v1.3.16
@@ -597,7 +597,7 @@ And the full manifest:
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.11
+  [90137ffa] StaticArrays v1.5.12
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -663,7 +663,7 @@ And the full manifest:
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
-  [a2964d1f] Wayland_jll v1.19.0+0
+  [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
