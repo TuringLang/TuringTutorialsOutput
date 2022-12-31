@@ -300,7 +300,7 @@ And the full manifest:
   [576499cb] AdvancedPS v0.3.8
   [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
-  [30b0a656] ArrayInterfaceCore v0.1.27
+  [30b0a656] ArrayInterfaceCore v0.1.28
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
@@ -308,14 +308,12 @@ And the full manifest:
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.10.6
-  [d1d4a3ce] BitFlags v0.1.7
   [fa961155] CEnum v0.4.2
   [052768ef] CUDA v3.12.0
   [49dc2e85] Calculus v0.5.1
   [082447d4] ChainRules v1.46.0
   [d360d2e6] ChainRulesCore v1.15.6
   [9e997f8a] ChangesOfVariables v0.1.4
-  [944b1d66] CodecZlib v0.7.0
   [35d6a980] ColorSchemes v3.20.0
   [3da002f7] ColorTypes v0.11.4
   [c3611d14] ColorVectorSpace v0.9.9
@@ -323,7 +321,7 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v4.5.0
+  [34da2185] Compat v3.46.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -363,7 +361,7 @@ And the full manifest:
   [61eb1bfa] GPUCompiler v0.16.7
   [28b8d3ca] GR v0.71.2
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v1.6.2
+  [cd3eb016] HTTP v0.8.19
   [34004b35] HypergeometricFunctions v0.3.11
   [7869d1d1] IRTools v0.4.7
   [83e8ac13] IniFile v0.5.1
@@ -400,16 +398,15 @@ And the full manifest:
   [739be429] MbedTLS v1.1.7
   [442fdcdd] Measures v0.3.2
   [128add7d] MicroCollections v0.1.3
-  [e1d29d7a] Missings v1.0.2
-  [872c559c] NNlib v0.8.11
+  [e1d29d7a] Missings v1.1.0
+  [872c559c] NNlib v0.8.12
   [a00861dc] NNlibCUDA v0.2.4
   [77ba4419] NaNMath v1.0.1
   [71a1bf82] NameResolution v0.1.5
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [6fe1bfb0] OffsetArrays v1.12.8
-  [0b1bfda6] OneHotArrays v0.2.1
-  [4d8831e6] OpenSSL v1.3.2
+  [0b1bfda6] OneHotArrays v0.2.0
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
@@ -420,7 +417,7 @@ And the full manifest:
   [91a5bcdd] Plots v1.38.0
   [21216c6a] Preferences v1.3.0
   [8162dcfd] PrettyPrint v0.2.0
-  [08abe8d2] PrettyTables v2.2.2
+  [08abe8d2] PrettyTables v1.3.1
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.6.0
@@ -431,7 +428,7 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.2
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.34.0
+  [731186ca] RecursiveArrayTools v2.34.1
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
@@ -439,25 +436,23 @@ And the full manifest:
   [79098fc4] Rmath v0.7.0
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.79.0
+  [0bca4576] SciMLBase v1.81.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [efcf1570] Setfield v0.8.2
   [605ecd9f] ShowCases v0.1.0
   [992d4aef] Showoff v1.0.3
-  [777ac1f9] SimpleBufferStream v1.1.0
   [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.11
+  [90137ffa] StaticArrays v1.5.12
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
   [2913bbd2] StatsBase v0.33.21
   [4c63d2b9] StatsFuns v1.1.1
-  [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.14
   [2efcf032] SymbolicIndexingInterface v0.2.1
   [3783bdb8] TableTraits v1.0.1
@@ -466,10 +461,8 @@ And the full manifest:
   [5d786b92] TerminalLoggers v0.1.6
   [a759f4b9] TimerOutputs v0.5.22
   [9f7883ad] Tracker v0.2.22
-  [3bb67fe8] TranscodingStreams v0.9.10
   [28d57a85] Transducers v0.4.75
   [fce5fe82] Turing v0.22.0
-  [5c2747f8] URIs v1.4.1
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
@@ -512,7 +505,7 @@ And the full manifest:
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
-  [a2964d1f] Wayland_jll v1.19.0+0
+  [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
