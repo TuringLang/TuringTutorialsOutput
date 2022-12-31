@@ -1321,9 +1321,9 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.10.6
-  [b0b7db55] ComponentArrays v0.13.4
+  [b0b7db55] ComponentArrays v0.13.5
   [1a297f60] FillArrays v0.13.6
   [38e38edf] GLM v1.8.1
   [b964fa9f] LaTeXStrings v1.3.0
@@ -1338,7 +1338,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
@@ -1351,7 +1351,7 @@ And the full manifest:
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.4
   [4fba245c] ArrayInterface v6.0.24
-  [30b0a656] ArrayInterfaceCore v0.1.27
+  [30b0a656] ArrayInterfaceCore v0.1.28
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
@@ -1375,7 +1375,7 @@ And the full manifest:
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
   [34da2185] Compat v4.5.0
-  [b0b7db55] ComponentArrays v0.13.4
+  [b0b7db55] ComponentArrays v0.13.5
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -1452,7 +1452,7 @@ And the full manifest:
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
   [6f286f6a] MultivariateStats v0.10.0
-  [872c559c] NNlib v0.8.11
+  [872c559c] NNlib v0.8.12
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
@@ -1481,14 +1481,14 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.2
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.34.0
+  [731186ca] RecursiveArrayTools v2.34.1
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.0
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.80.0
+  [0bca4576] SciMLBase v1.81.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [91c51154] SentinelArrays v1.3.16
@@ -1501,7 +1501,7 @@ And the full manifest:
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
   [aedffcd0] Static v0.8.3
-  [90137ffa] StaticArrays v1.5.11
+  [90137ffa] StaticArrays v1.5.12
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -1567,7 +1567,7 @@ And the full manifest:
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
-  [a2964d1f] Wayland_jll v1.19.0+0
+  [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
