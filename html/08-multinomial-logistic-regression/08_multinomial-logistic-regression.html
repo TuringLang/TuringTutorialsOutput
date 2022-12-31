@@ -810,8 +810,8 @@ Chains MCMC chain &#40;1500×19×3 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:1500
 Number of chains  &#61; 3
 Samples per chain &#61; 1500
-Wall duration     &#61; 20.03 seconds
-Compute duration  &#61; 17.6 seconds
+Wall duration     &#61; 21.13 seconds
+Compute duration  &#61; 18.7 seconds
 parameters        &#61; intercept_versicolor, intercept_virginica, coefficients
 _versicolor&#91;1&#93;, coefficients_versicolor&#91;2&#93;, coefficients_versicolor&#91;3&#93;, coe
 fficients_versicolor&#91;4&#93;, coefficients_virginica&#91;1&#93;, coefficients_virginica&#91;
@@ -1020,7 +1020,7 @@ Environment:
 <div class="markdown"><pre><code>      Status &#96;/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
   &#91;1a297f60&#93; FillArrays v0.13.6
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
-  &#91;872c559c&#93; NNlib v0.8.11
+  &#91;872c559c&#93; NNlib v0.8.12
   &#91;ce6b1742&#93; RDatasets v0.7.7
   &#91;f3b207a7&#93; StatsPlots v0.15.4
   &#91;fce5fe82&#93; Turing v0.22.0
@@ -1039,7 +1039,7 @@ Environment:
   &#91;b5ca4192&#93; AdvancedVI v0.1.6
   &#91;dce04be8&#93; ArgCheck v2.3.0
   &#91;7d9fca2a&#93; Arpack v0.5.4
-  &#91;30b0a656&#93; ArrayInterfaceCore v0.1.27
+  &#91;30b0a656&#93; ArrayInterfaceCore v0.1.28
   &#91;dd5226c6&#93; ArrayInterfaceStaticArraysCore v0.1.3
   &#91;13072b0f&#93; AxisAlgorithms v1.0.1
   &#91;39de3d68&#93; AxisArrays v0.4.6
@@ -1138,10 +1138,10 @@ Environment:
   &#91;739be429&#93; MbedTLS v1.1.7
   &#91;442fdcdd&#93; Measures v0.3.2
   &#91;128add7d&#93; MicroCollections v0.1.3
-  &#91;e1d29d7a&#93; Missings v1.0.2
+  &#91;e1d29d7a&#93; Missings v1.1.0
   &#91;78c3b35d&#93; Mocking v0.7.5
   &#91;6f286f6a&#93; MultivariateStats v0.10.0
-  &#91;872c559c&#93; NNlib v0.8.11
+  &#91;872c559c&#93; NNlib v0.8.12
   &#91;77ba4419&#93; NaNMath v1.0.1
   &#91;86f7a689&#93; NamedArrays v0.9.6
   &#91;c020b1a1&#93; NaturalSort v1.0.0
@@ -1170,14 +1170,14 @@ Environment:
   &#91;c1ae055f&#93; RealDot v0.1.0
   &#91;3cdcf5f2&#93; RecipesBase v1.3.2
   &#91;01d81517&#93; RecipesPipeline v0.6.11
-  &#91;731186ca&#93; RecursiveArrayTools v2.34.0
+  &#91;731186ca&#93; RecursiveArrayTools v2.34.1
   &#91;189a3867&#93; Reexport v1.2.2
   &#91;05181044&#93; RelocatableFolders v1.0.0
   &#91;ae029012&#93; Requires v1.3.0
   &#91;79098fc4&#93; Rmath v0.7.0
   &#91;f2b01f46&#93; Roots v2.0.8
   &#91;7e49a35a&#93; RuntimeGeneratedFunctions v0.5.5
-  &#91;0bca4576&#93; SciMLBase v1.79.0
+  &#91;0bca4576&#93; SciMLBase v1.81.0
   &#91;30f210dd&#93; ScientificTypesBase v3.0.0
   &#91;6c6a2e73&#93; Scratch v1.1.1
   &#91;91c51154&#93; SentinelArrays v1.3.16
@@ -1188,7 +1188,7 @@ Environment:
   &#91;a2af1166&#93; SortingAlgorithms v1.1.0
   &#91;276daf66&#93; SpecialFunctions v2.1.7
   &#91;171d559e&#93; SplittablesBase v0.1.15
-  &#91;90137ffa&#93; StaticArrays v1.5.11
+  &#91;90137ffa&#93; StaticArrays v1.5.12
   &#91;1e83bf80&#93; StaticArraysCore v1.4.0
   &#91;64bff920&#93; StatisticalTraits v3.2.0
   &#91;82ae8749&#93; StatsAPI v1.5.0
@@ -1253,7 +1253,7 @@ Environment:
   &#91;30392449&#93; Pixman_jll v0.40.1&#43;0
   &#91;ea2cea3b&#93; Qt5Base_jll v5.15.3&#43;2
   &#91;f50d1b31&#93; Rmath_jll v0.3.0&#43;0
-  &#91;a2964d1f&#93; Wayland_jll v1.19.0&#43;0
+  &#91;a2964d1f&#93; Wayland_jll v1.21.0&#43;0
   &#91;2381bf8a&#93; Wayland_protocols_jll v1.25.0&#43;0
   &#91;02c8fc9c&#93; XML2_jll v2.10.3&#43;0
   &#91;aed1982a&#93; XSLT_jll v1.1.34&#43;0
@@ -1340,7 +1340,7 @@ Environment:
         <div class="footer">
           <p>
             Published from <a href="08_multinomial-logistic-regression.jmd">08_multinomial-logistic-regression.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.11 on 2022-12-24.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.11 on 2022-12-31.
           </p>
         </div>
       </div>
