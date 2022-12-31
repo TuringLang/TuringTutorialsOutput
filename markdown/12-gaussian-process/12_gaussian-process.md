@@ -270,7 +270,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.13
   [1a297f60] FillArrays v0.13.6
   [b964fa9f] LaTeXStrings v1.3.0
@@ -286,7 +286,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [99985d1d] AbstractGPs v0.5.13
   [80f14c24] AbstractMCMC v4.2.0
@@ -298,15 +298,14 @@ And the full manifest:
   [576499cb] AdvancedPS v0.3.8
   [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
-  [30b0a656] ArrayInterfaceCore v0.1.27
+  [30b0a656] ArrayInterfaceCore v0.1.28
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.10.6
-  [d1d4a3ce] BitFlags v0.1.7
-  [336ed68f] CSV v0.10.8
+  [336ed68f] CSV v0.10.7
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
   [082447d4] ChainRules v1.46.0
@@ -357,7 +356,7 @@ And the full manifest:
   [46192b85] GPUArraysCore v0.1.2
   [28b8d3ca] GR v0.71.2
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v1.6.2
+  [cd3eb016] HTTP v0.8.19
   [34004b35] HypergeometricFunctions v0.3.11
   [7869d1d1] IRTools v0.4.7
   [83e8ac13] IniFile v0.5.1
@@ -394,12 +393,11 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.3
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
-  [872c559c] NNlib v0.8.11
+  [872c559c] NNlib v0.8.12
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [6fe1bfb0] OffsetArrays v1.12.8
-  [4d8831e6] OpenSSL v1.3.2
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
@@ -429,18 +427,17 @@ And the full manifest:
   [79098fc4] Rmath v0.7.0
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.80.0
+  [0bca4576] SciMLBase v1.81.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [91c51154] SentinelArrays v1.3.16
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
-  [777ac1f9] SimpleBufferStream v1.1.0
   [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.11
+  [90137ffa] StaticArrays v1.5.12
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -458,13 +455,11 @@ And the full manifest:
   [3bb67fe8] TranscodingStreams v0.9.10
   [28d57a85] Transducers v0.4.75
   [fce5fe82] Turing v0.22.0
-  [5c2747f8] URIs v1.4.1
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
   [ea10d353] WeakRefStrings v1.4.2
   [efce3f68] WoodburyMatrices v0.5.5
-  [76eceee3] WorkerUtilities v1.6.1
   [700de1a5] ZygoteRules v0.2.2
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
@@ -501,7 +496,7 @@ And the full manifest:
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
-  [a2964d1f] Wayland_jll v1.19.0+0
+  [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
