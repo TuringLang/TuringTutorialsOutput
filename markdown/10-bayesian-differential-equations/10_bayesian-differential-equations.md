@@ -130,8 +130,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 75.4 seconds
-Compute duration  = 75.02 seconds
+Wall duration     = 77.59 seconds
+Compute duration  = 77.13 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -245,8 +245,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 59.31 seconds
-Compute duration  = 58.8 seconds
+Wall duration     = 58.72 seconds
+Compute duration  = 58.26 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -403,8 +403,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 28.84 seconds
-Compute duration  = 28.47 seconds
+Wall duration     = 28.6 seconds
+Compute duration  = 28.22 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -509,8 +509,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 539.02 seconds
-Compute duration  = 539.02 seconds
+Wall duration     = 568.67 seconds
+Compute duration  = 568.67 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -587,8 +587,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 979.27 seconds
-Compute duration  = 979.27 seconds
+Wall duration     = 1018.94 seconds
+Compute duration  = 1018.94 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -741,7 +741,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 96
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -750,7 +750,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-aws-vms-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [0c46a032] DifferentialEquations v7.6.0
   [1ed8b502] SciMLSensitivity v7.11.1
   [f3b207a7] StatsPlots v0.15.4
@@ -763,7 +763,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-aws-vms-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
@@ -777,7 +777,7 @@ And the full manifest:
   [ec485272] ArnoldiMethod v0.2.0
   [7d9fca2a] Arpack v0.5.4
   [4fba245c] ArrayInterface v6.0.24
-  [30b0a656] ArrayInterfaceCore v0.1.27
+  [30b0a656] ArrayInterfaceCore v0.1.28
   [6ba088a2] ArrayInterfaceGPUArrays v0.2.2
   [015c0d05] ArrayInterfaceOffsetArrays v0.1.7
   [b0d46f97] ArrayInterfaceStaticArrays v0.1.5
@@ -792,7 +792,7 @@ And the full manifest:
   [76274a88] Bijectors v0.10.6
   [d1d4a3ce] BitFlags v0.1.7
   [62783981] BitTwiddlingConvenienceFunctions v0.1.5
-  [764a87c0] BoundaryValueDiffEq v2.10.0
+  [764a87c0] BoundaryValueDiffEq v2.11.0
   [fa961155] CEnum v0.4.2
   [2a0fbf3d] CPUSummary v0.1.30
   [49dc2e85] Calculus v0.5.1
@@ -822,24 +822,24 @@ And the full manifest:
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
-  [bcd4f6db] DelayDiffEq v5.40.4
+  [bcd4f6db] DelayDiffEq v5.40.5
   [b429d917] DensityInterface v0.4.0
   [2b5f629d] DiffEqBase v6.108.0
   [459566f4] DiffEqCallbacks v2.24.3
-  [77a26b50] DiffEqNoiseProcess v5.14.2
+  [77a26b50] DiffEqNoiseProcess v5.15.0
   [163ba53b] DiffResults v1.1.0
   [b552c78f] DiffRules v1.12.2
   [0c46a032] DifferentialEquations v7.6.0
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.79
   [ced4e74d] DistributionsAD v0.6.43
-  [ffbed154] DocStringExtensions v0.9.3
+  [ffbed154] DocStringExtensions v0.8.6
   [fa6b7ba4] DualNumbers v0.6.8
   [366bfd00] DynamicPPL v0.21.3
   [da5c29d0] EllipsisNotation v1.6.0
   [cad2338a] EllipticalSliceSampling v1.0.0
   [4e289a0a] EnumX v1.0.4
-  [7da242da] Enzyme v0.10.12
+  [7da242da] Enzyme v0.10.13
   [f151be2c] EnzymeCore v0.1.0
   [d4d017d3] ExponentialUtilities v1.22.0
   [e2ba6199] ExprTools v0.1.8
@@ -858,7 +858,7 @@ And the full manifest:
   [d9f16b24] Functors v0.3.0
   [0c68f7d7] GPUArrays v8.5.0
   [46192b85] GPUArraysCore v0.1.2
-  [61eb1bfa] GPUCompiler v0.16.7
+  [61eb1bfa] GPUCompiler v0.17.0
   [28b8d3ca] GR v0.71.2
   [c145ed77] GenericSchur v0.5.3
   [86223c79] Graphs v1.7.4
@@ -873,7 +873,7 @@ And the full manifest:
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.14.7
-  [8197267c] IntervalSets v0.7.4
+  [8197267c] IntervalSets v0.7.3
   [3587e190] InverseFunctions v0.1.8
   [41ab1584] InvertedIndices v1.2.0
   [92d709cd] IrrationalConstants v0.1.1
@@ -897,11 +897,11 @@ And the full manifest:
   [2d8b4e74] LevyArea v1.0.0
   [6f1fad26] Libtask v0.7.0
   [d3d80556] LineSearches v7.2.0
-  [7ed4a6bd] LinearSolve v1.31.0
+  [7ed4a6bd] LinearSolve v1.32.1
   [6fdf6af0] LogDensityProblems v1.0.3
   [2ab3a3ac] LogExpFunctions v0.3.19
   [e6f89c97] LoggingExtras v0.4.9
-  [bdcacae8] LoopVectorization v0.12.142
+  [bdcacae8] LoopVectorization v0.12.143
   [c7f686f2] MCMCChains v5.6.1
   [be115224] MCMCDiagnosticTools v0.2.1
   [e80e1ace] MLJModelInterface v1.8.0
@@ -911,12 +911,12 @@ And the full manifest:
   [739be429] MbedTLS v1.1.7
   [442fdcdd] Measures v0.3.2
   [128add7d] MicroCollections v0.1.3
-  [e1d29d7a] Missings v1.0.2
+  [e1d29d7a] Missings v1.1.0
   [46d2c3a1] MuladdMacro v0.2.4
   [6f286f6a] MultivariateStats v0.10.0
   [d41bc354] NLSolversBase v7.8.3
   [2774e3e8] NLsolve v4.5.1
-  [872c559c] NNlib v0.8.11
+  [872c559c] NNlib v0.8.12
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
@@ -937,10 +937,10 @@ And the full manifest:
   [995b91a9] PlotUtils v1.3.2
   [91a5bcdd] Plots v1.38.0
   [e409e4f3] PoissonRandom v0.4.3
-  [f517fe37] Polyester v0.6.18
+  [f517fe37] Polyester v0.6.19
   [1d0040c9] PolyesterWeave v0.1.11
   [85a6dd25] PositiveFactorizations v0.2.4
-  [d236fae5] PreallocationTools v0.4.6
+  [d236fae5] PreallocationTools v0.4.8
   [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
@@ -953,7 +953,7 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.2
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.34.0
+  [731186ca] RecursiveArrayTools v2.32.3
   [f2c3362d] RecursiveFactorization v0.2.13
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
@@ -966,7 +966,7 @@ And the full manifest:
   [3cdde19b] SIMDDualNumbers v0.1.1
   [94e857df] SIMDTypes v0.1.0
   [476501e8] SLEEFPirates v0.6.37
-  [0bca4576] SciMLBase v1.79.0
+  [0bca4576] SciMLBase v1.81.0
   [1ed8b502] SciMLSensitivity v7.11.1
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
@@ -974,29 +974,29 @@ And the full manifest:
   [efcf1570] Setfield v0.8.2
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
-  [727e6d20] SimpleNonlinearSolve v0.1.3
+  [727e6d20] SimpleNonlinearSolve v0.1.4
   [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.1.0
   [47a9eef4] SparseDiffTools v1.30.0
+  [e56a9233] Sparspak v0.3.2
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
   [aedffcd0] Static v0.8.3
-  [90137ffa] StaticArrays v1.5.11
+  [90137ffa] StaticArrays v1.5.12
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
   [2913bbd2] StatsBase v0.33.21
   [4c63d2b9] StatsFuns v1.1.1
   [f3b207a7] StatsPlots v0.15.4
-  [9672c7b4] SteadyStateDiffEq v1.10.1
-  [789caeaf] StochasticDiffEq v6.57.3
+  [9672c7b4] SteadyStateDiffEq v1.11.0
+  [789caeaf] StochasticDiffEq v6.57.4
   [7792a7ef] StrideArraysCore v0.4.4
   [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.14
   [53d494c1] StructIO v0.3.0
   [c3572dad] Sundials v4.11.4
-  [2efcf032] SymbolicIndexingInterface v0.2.1
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
   [bd369af6] Tables v1.10.0
@@ -1024,7 +1024,7 @@ And the full manifest:
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
-  [7cc45869] Enzyme_jll v0.0.43+0
+  [7cc45869] Enzyme_jll v0.0.47+0
   [2e619515] Expat_jll v2.4.8+0
   [b22a6f82] FFMPEG_jll v4.4.2+2
   [f5851436] FFTW_jll v3.3.10+0
@@ -1060,7 +1060,7 @@ And the full manifest:
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.3.0+0
   [fb77eaff] Sundials_jll v5.2.0+1
-  [a2964d1f] Wayland_jll v1.19.0+0
+  [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
   [aed1982a] XSLT_jll v1.1.34+0
