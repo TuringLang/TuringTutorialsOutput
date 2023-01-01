@@ -12,45 +12,44 @@ Turing is powerful when applied to complex hierarchical models, but it can also 
 We begin by importing all the necessary libraries.
 
 ```julia
-# Import Turing and Distributions.
-using Turing, Distributions
+# Import Turing.
+using Turing
 
-# Import RDatasets.
+# Package for loading the data set.
 using RDatasets
 
-# Import MCMCChains, Plots, and StatPlots for visualizations and diagnostics.
-using MCMCChains, Plots, StatsPlots
+# Package for visualization.
+using StatsPlots
 
-# Functionality for splitting and normalizing the data.
-using MLDataUtils: shuffleobs, splitobs, rescale!
-
-# Functionality for evaluating the model predictions.
-using Distances
+# Functionality for splitting the data.
+using MLUtils: splitobs
 
 # Functionality for constructing arrays with identical elements efficiently.
 using FillArrays
+
+# Functionality for normalizing the data and evaluating the model predictions.
+using StatsBase
 
 # Functionality for working with scaled identity matrices.
 using LinearAlgebra
 
 # Set a seed for reproducibility.
 using Random
-Random.seed!(0)
-
-# Hide the progress prompt while sampling.
-Turing.setprogress!(false);
+Random.seed!(0);
 ```
 
 
 
 
-We will use the `mtcars` dataset from the [RDatasets](https://github.com/johnmyleswhite/RDatasets.jl) package. `mtcars` contains a variety of statistics on different car models, including their miles per gallon, number of cylinders, and horsepower, among others.
+We will use the `mtcars` dataset from the [RDatasets](https://github.com/JuliaStats/RDatasets.jl) package.
+`mtcars` contains a variety of statistics on different car models, including their miles per gallon, number of cylinders, and horsepower, among others.
 
-We want to know if we can construct a Bayesian linear regression model to predict the miles per gallon of a car, given the other statistics it has. Lets take a look at the data we have.
+We want to know if we can construct a Bayesian linear regression model to predict the miles per gallon of a car, given the other statistics it has.
+Let us take a look at the data we have.
 
 ```julia
-# Import the "Default" dataset.
-data = RDatasets.dataset("datasets", "mtcars");
+# Load the dataset.
+data = RDatasets.dataset("datasets", "mtcars")
 
 # Show the first six rows of the dataset.
 first(data, 6)
@@ -97,7 +96,7 @@ The next step is to get our data ready for testing. We'll split the `mtcars` dat
 select!(data, Not(:Model))
 
 # Split our dataset 70%/30% into training/test sets.
-trainset, testset = splitobs(shuffleobs(data), 0.7)
+trainset, testset = map(DataFrame, splitobs(data; at=0.7, shuffle=true))
 
 # Turing requires data in matrix form.
 target = :MPG
@@ -107,12 +106,14 @@ train_target = trainset[:, target]
 test_target = testset[:, target]
 
 # Standardize the features.
-μ, σ = rescale!(train; obsdim=1)
-rescale!(test, μ, σ; obsdim=1)
+dt_features = fit(ZScoreTransform, train; dims=1)
+StatsBase.transform!(dt_features, train)
+StatsBase.transform!(dt_features, test)
 
 # Standardize the targets.
-μtarget, σtarget = rescale!(train_target; obsdim=1)
-rescale!(test_target, μtarget, σtarget; obsdim=1);
+dt_targets = fit(ZScoreTransform, train_target)
+StatsBase.transform!(dt_targets, train_target)
+StatsBase.transform!(dt_targets, test_target);
 ```
 
 
@@ -182,8 +183,8 @@ Chains MCMC chain (3000×24×1 Array{Float64, 3}):
 Iterations        = 1001:1:4000
 Number of chains  = 1
 Samples per chain = 3000
-Wall duration     = 4.97 seconds
-Compute duration  = 4.97 seconds
+Wall duration     = 5.71 seconds
+Compute duration  = 5.71 seconds
 parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
 cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
 7], coefficients[8], coefficients[9], coefficients[10]
@@ -197,29 +198,29 @@ Summary Statistics
             Symbol   Float64   Float64    Float64   Float64     Float64   F
 loa ⋯
 
-                σ²    0.3043    0.1874     0.0034    0.0062    774.3650    
+                σ²    0.3042    0.1702     0.0031    0.0055    983.1863    
 0.9 ⋯
-         intercept    0.0027    0.1188     0.0022    0.0023   3316.7858    
+         intercept    0.0005    0.1110     0.0020    0.0017   3265.5138    
 1.0 ⋯
-   coefficients[1]   -0.0495    0.5466     0.0100    0.0141   1939.1864    
+   coefficients[1]   -0.0354    0.5528     0.0101    0.0113   1965.4175    
+1.0 ⋯
+   coefficients[2]    0.3191    0.6970     0.0127    0.0190   1282.4040    
+1.0 ⋯
+   coefficients[3]   -0.3910    0.3858     0.0070    0.0107   1841.2579    
 0.9 ⋯
-   coefficients[2]    0.2968    0.6791     0.0124    0.0181   1211.4382    
+   coefficients[4]    0.1715    0.2882     0.0053    0.0072   1246.6869    
 1.0 ⋯
-   coefficients[3]   -0.4004    0.3844     0.0070    0.0102   1832.9662    
+   coefficients[5]   -0.3248    0.7026     0.0128    0.0225    920.4941    
 1.0 ⋯
-   coefficients[4]    0.1793    0.2916     0.0053    0.0088   1074.9961    
+   coefficients[6]    0.0782    0.3628     0.0066    0.0099   1288.9335    
 1.0 ⋯
-   coefficients[5]   -0.2876    0.6885     0.0126    0.0226    846.6438    
+   coefficients[7]    0.0263    0.3821     0.0070    0.0083   1904.7965    
 1.0 ⋯
-   coefficients[6]    0.0487    0.3623     0.0066    0.0115    963.8978    
+   coefficients[8]    0.1818    0.3110     0.0057    0.0076   1421.6225    
 1.0 ⋯
-   coefficients[7]    0.0186    0.3840     0.0070    0.0093   1583.8693    
-0.9 ⋯
-   coefficients[8]    0.1669    0.3143     0.0057    0.0103    942.9528    
+   coefficients[9]    0.1059    0.2793     0.0051    0.0077   1312.5452    
 1.0 ⋯
-   coefficients[9]    0.1147    0.2819     0.0051    0.0082   1036.4577    
-1.0 ⋯
-  coefficients[10]   -0.2688    0.3960     0.0072    0.0128    874.6295    
+  coefficients[10]   -0.2526    0.3990     0.0073    0.0124    889.0997    
 1.0 ⋯
                                                                2 columns om
 itted
@@ -228,18 +229,18 @@ Quantiles
         parameters      2.5%     25.0%     50.0%     75.0%     97.5%
             Symbol   Float64   Float64   Float64   Float64   Float64
 
-                σ²    0.1180    0.1937    0.2610    0.3604    0.7672
-         intercept   -0.2271   -0.0756   -0.0010    0.0787    0.2500
-   coefficients[1]   -1.1763   -0.3901   -0.0547    0.2896    1.0421
-   coefficients[2]   -1.0589   -0.1448    0.3001    0.7274    1.6562
-   coefficients[3]   -1.1796   -0.6378   -0.4077   -0.1612    0.3845
-   coefficients[4]   -0.4007    0.0008    0.1784    0.3628    0.7606
-   coefficients[5]   -1.6860   -0.7107   -0.3095    0.1459    1.0767
-   coefficients[6]   -0.6515   -0.1663    0.0516    0.2758    0.7469
-   coefficients[7]   -0.7700   -0.2280    0.0152    0.2570    0.7703
-   coefficients[8]   -0.4717   -0.0171    0.1773    0.3532    0.7728
-   coefficients[9]   -0.4332   -0.0594    0.1050    0.2859    0.6893
-  coefficients[10]   -1.0567   -0.5103   -0.2702   -0.0351    0.5352
+                σ²    0.1168    0.1939    0.2618    0.3648    0.7266
+         intercept   -0.2145   -0.0723    0.0013    0.0740    0.2207
+   coefficients[1]   -1.1329   -0.3978   -0.0284    0.3297    1.0594
+   coefficients[2]   -1.1316   -0.1120    0.3345    0.7618    1.6467
+   coefficients[3]   -1.1467   -0.6372   -0.3917   -0.1457    0.3890
+   coefficients[4]   -0.4075   -0.0189    0.1781    0.3622    0.7220
+   coefficients[5]   -1.7503   -0.7651   -0.3270    0.1186    1.0623
+   coefficients[6]   -0.6320   -0.1448    0.0745    0.2963    0.8286
+   coefficients[7]   -0.7294   -0.2039    0.0136    0.2691    0.7611
+   coefficients[8]   -0.4277   -0.0153    0.1833    0.3688    0.8168
+   coefficients[9]   -0.4450   -0.0647    0.1026    0.2829    0.6561
+  coefficients[10]   -1.0417   -0.5007   -0.2516    0.0034    0.5200
 ```
 
 
@@ -270,16 +271,14 @@ using GLM
 train_with_intercept = hcat(ones(size(train, 1)), train)
 ols = lm(train_with_intercept, train_target)
 
-# Compute predictions on the training data set
-# and unstandardize them.
-p = GLM.predict(ols)
-train_prediction_ols = μtarget .+ σtarget .* p
+# Compute predictions on the training data set and unstandardize them.
+train_prediction_ols = GLM.predict(ols)
+StatsBase.reconstruct!(dt_targets, train_prediction_ols)
 
-# Compute predictions on the test data set
-# and unstandardize them.
+# Compute predictions on the test data set and unstandardize them.
 test_with_intercept = hcat(ones(size(test, 1)), test)
-p = GLM.predict(ols, test_with_intercept)
-test_prediction_ols = μtarget .+ σtarget .* p;
+test_prediction_ols = GLM.predict(ols, test_with_intercept)
+StatsBase.reconstruct!(dt_targets, test_prediction_ols);
 ```
 
 
@@ -307,12 +306,11 @@ prediction (generic function with 1 method)
 When we make predictions, we unstandardize them so they are more understandable.
 
 ```julia
-# Calculate the predictions for the training and testing sets
-# and unstandardize them.
-p = prediction(chain, train)
-train_prediction_bayes = μtarget .+ σtarget .* p
-p = prediction(chain, test)
-test_prediction_bayes = μtarget .+ σtarget .* p
+# Calculate the predictions for the training and testing sets and unstandardize them.
+train_prediction_bayes = prediction(chain, train)
+StatsBase.reconstruct!(dt_targets, train_prediction_bayes)
+test_prediction_bayes = prediction(chain, test)
+StatsBase.reconstruct!(dt_targets, test_prediction_bayes)
 
 # Show the predictions on the test data set.
 DataFrame(; MPG=testset[!, target], Bayes=test_prediction_bayes, OLS=test_prediction_ols)
@@ -323,16 +321,16 @@ DataFrame(; MPG=testset[!, target], Bayes=test_prediction_bayes, OLS=test_predic
  Row │ MPG      Bayes     OLS
      │ Float64  Float64   Float64
 ─────┼─────────────────────────────
-   1 │    19.2  18.2144   18.1265
-   2 │    15.0   6.70298   6.37891
-   3 │    16.4  13.9214   13.883
-   4 │    14.3  11.9237   11.7337
-   5 │    21.4  25.2874   25.1916
-   6 │    18.1  20.6974   20.672
-   7 │    19.7  16.0617   15.8408
-   8 │    15.2  18.2726   18.3391
-   9 │    26.0  28.4024   28.4865
-  10 │    17.3  14.5608   14.534
+   1 │    19.2  18.135    18.1265
+   2 │    15.0   6.96463   6.37891
+   3 │    16.4  13.8194   13.883
+   4 │    14.3  11.946    11.7337
+   5 │    21.4  25.2296   25.1916
+   6 │    18.1  20.8032   20.672
+   7 │    19.7  16.0137   15.8408
+   8 │    15.2  18.2007   18.3391
+   9 │    26.0  28.0004   28.4865
+  10 │    17.3  14.544    14.534
 ```
 
 
@@ -365,11 +363,11 @@ println(
 
 ```
 Training set:
-	Bayes loss: 4.6531854807143125
-	OLS loss: 4.648142085690515
+	Bayes loss: 4.65286928090515
+	OLS loss: 4.648142085690519
 Test set:
-	Bayes loss: 13.94137251362228
-	OLS loss: 14.79684777905157
+	Bayes loss: 13.406514390335929
+	OLS loss: 14.796847779051593
 ```
 
 
@@ -403,7 +401,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -412,19 +410,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-vms-1/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
-  [a93c6f00] DataFrames v1.4.4
-  [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.79
-  [5789e2e9] FileIO v1.16.0
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [1a297f60] FillArrays v0.13.6
   [38e38edf] GLM v1.8.1
-  [c7f686f2] MCMCChains v5.6.1
-  [cc2ba9b6] MLDataUtils v0.5.4
-  [872c559c] NNlib v0.8.12
-  [91a5bcdd] Plots v1.38.0
+  [f1d291b0] MLUtils v0.4.0
   [ce6b1742] RDatasets v0.7.7
-  [4c63d2b9] StatsFuns v1.1.1
+  [2913bbd2] StatsBase v0.33.21
   [f3b207a7] StatsPlots v0.15.4
   [fce5fe82] Turing v0.22.0
   [37e2e46d] LinearAlgebra
@@ -434,11 +425,12 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-vms-1/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
   [1520ce14] AbstractTrees v0.4.3
+  [7d9f7c33] Accessors v0.1.23
   [79e6a3ab] Adapt v3.4.0
   [0bf59076] AdvancedHMC v0.3.6
   [5b7e9947] AdvancedMH v0.6.8
@@ -454,7 +446,7 @@ And the full manifest:
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.10.6
   [d1d4a3ce] BitFlags v0.1.7
-  [336ed68f] CSV v0.10.8
+  [336ed68f] CSV v0.10.7
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
   [082447d4] ChainRules v1.46.0
@@ -473,6 +465,7 @@ And the full manifest:
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
+  [6add18c4] ContextVariablesX v0.1.3
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.14.0
@@ -495,10 +488,13 @@ And the full manifest:
   [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
   [7a1cc6ca] FFTW v1.5.0
+  [cc61a311] FLoops v0.2.1
+  [b9860ae5] FLoopsBase v0.1.1
   [5789e2e9] FileIO v1.16.0
   [48062228] FilePathsBase v0.9.20
   [1a297f60] FillArrays v0.13.6
   [53c48c17] FixedPointNumbers v0.8.4
+  [9c68100b] FoldsThreads v0.1.1
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.34
   [069b7b12] FunctionWrappers v1.1.3
@@ -525,11 +521,11 @@ And the full manifest:
   [1019f520] JLFzf v0.1.5
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
+  [b14d175d] JuliaVariables v0.2.4
   [5ab0869b] KernelDensity v0.6.5
   [8ac3fa9e] LRUCache v1.4.0
   [b964fa9f] LaTeXStrings v1.3.0
   [23fbe1c1] Latexify v0.15.17
-  [7f8f8fb0] LearnBase v0.3.0
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
   [6fdf6af0] LogDensityProblems v1.0.3
@@ -537,10 +533,9 @@ And the full manifest:
   [e6f89c97] LoggingExtras v0.4.9
   [c7f686f2] MCMCChains v5.6.1
   [be115224] MCMCDiagnosticTools v0.2.1
-  [9920b226] MLDataPattern v0.5.4
-  [cc2ba9b6] MLDataUtils v0.5.4
   [e80e1ace] MLJModelInterface v1.8.0
-  [66a33bbf] MLLabelUtils v0.5.7
+  [d8e11817] MLStyle v0.4.16
+  [f1d291b0] MLUtils v0.4.0
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
@@ -551,6 +546,7 @@ And the full manifest:
   [6f286f6a] MultivariateStats v0.10.0
   [872c559c] NNlib v0.8.12
   [77ba4419] NaNMath v1.0.1
+  [71a1bf82] NameResolution v0.1.5
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [b8a86587] NearestNeighbors v0.4.13
@@ -567,6 +563,7 @@ And the full manifest:
   [91a5bcdd] Plots v1.38.0
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
+  [8162dcfd] PrettyPrint v0.2.0
   [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
@@ -591,8 +588,10 @@ And the full manifest:
   [91c51154] SentinelArrays v1.3.16
   [efcf1570] Setfield v0.8.2
   [1277b4bf] ShiftedArrays v2.0.0
+  [605ecd9f] ShowCases v0.1.0
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
+  [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
@@ -625,7 +624,6 @@ And the full manifest:
   [ea10d353] WeakRefStrings v1.4.2
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
-  [76eceee3] WorkerUtilities v1.6.1
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
