@@ -19,9 +19,6 @@ using ReverseDiff
 using LinearAlgebra
 using Random
 
-# Hide sampling progress.
-Turing.setprogress!(false)
-
 # Use reverse_diff due to the number of parameters in neural networks.
 Turing.setadbackend(:reversediff)
 ```
@@ -273,7 +270,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
+      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
   [b5ca4192] AdvancedVI v0.1.6
   [76274a88] Bijectors v0.10.6
   [1a297f60] FillArrays v0.13.6
@@ -288,7 +285,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
