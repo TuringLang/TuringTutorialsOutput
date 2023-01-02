@@ -9,9 +9,6 @@ using MCMCChains, Plots, StatsPlots
 using Random
 Random.seed!(12);
 
-# Turn off progress monitor.
-Turing.setprogress!(false)
-
 
 theta_noalcohol_meds = 1    # no alcohol, took medicine
 theta_alcohol_meds = 3      # alcohol, took medicine
