@@ -15,9 +15,6 @@ Let's load the libraries we'll need. We also set a random seed (for reproducibil
 # Load libraries.
 using Turing, StatsPlots, Random
 
-# Turn off progress monitor.
-Turing.setprogress!(false);
-
 # Set a random seed and use the forward_diff AD mode.
 Random.seed!(12345678);
 ```
@@ -265,7 +262,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -274,7 +271,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/04-hidden-markov-model/Project.toml`
   [91a5bcdd] Plots v1.38.0
   [f3b207a7] StatsPlots v0.15.4
   [fce5fe82] Turing v0.22.0
@@ -284,7 +281,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/04-hidden-markov-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2

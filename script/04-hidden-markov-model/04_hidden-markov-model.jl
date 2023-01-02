@@ -2,9 +2,6 @@
 # Load libraries.
 using Turing, StatsPlots, Random
 
-# Turn off progress monitor.
-Turing.setprogress!(false);
-
 # Set a random seed and use the forward_diff AD mode.
 Random.seed!(12345678);
 
