@@ -35,10 +35,7 @@ using LinearAlgebra
 
 # Set a seed for reproducibility.
 using Random
-Random.seed!(0)
-
-# Hide the progress prompt while sampling.
-Turing.setprogress!(false);
+Random.seed!(0);
 ```
 
 
@@ -199,8 +196,8 @@ Chains MCMC chain (1500×19×3 Array{Float64, 3}):
 Iterations        = 1:1:1500
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 10.92 seconds
-Compute duration  = 10.36 seconds
+Wall duration     = 10.96 seconds
+Compute duration  = 10.38 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[

@@ -22,10 +22,7 @@ using LinearAlgebra
 
 # Set a seed for reproducibility.
 using Random
-Random.seed!(0)
-
-# Hide the progress prompt while sampling.
-Turing.setprogress!(false);
+Random.seed!(0);
 
 
 # Import the "iris" dataset.
