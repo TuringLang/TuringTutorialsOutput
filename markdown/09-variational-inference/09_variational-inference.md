@@ -354,9 +354,6 @@ using FillArrays
 using RDatasets
 
 using LinearAlgebra
-
-# Hide the progress prompt while sampling.
-Turing.setprogress!(false);
 ```
 
 
@@ -1321,7 +1318,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.10.6
   [b0b7db55] ComponentArrays v0.13.5
   [1a297f60] FillArrays v0.13.6
@@ -1338,7 +1335,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2

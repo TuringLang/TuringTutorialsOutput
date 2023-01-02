@@ -147,9 +147,6 @@ using RDatasets
 
 using LinearAlgebra
 
-# Hide the progress prompt while sampling.
-Turing.setprogress!(false);
-
 
 # Import the "Default" dataset.
 data = RDatasets.dataset("datasets", "mtcars");
