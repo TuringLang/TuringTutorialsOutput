@@ -18,9 +18,6 @@ using MLDataUtils: shuffleobs, stratifiedobs, rescale!
 using Random
 Random.seed!(0);
 
-# Turn off progress monitor.
-Turing.setprogress!(false)
-
 
 # Import the "Default" dataset.
 data = RDatasets.dataset("ISLR", "Default");
