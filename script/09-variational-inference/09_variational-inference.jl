@@ -315,7 +315,7 @@ plot_variational_marginals(z, sym2range)
 chain = sample(m, NUTS(0.65), 10_000);
 
 
-plot(chain; margin=2.00mm)
+plot(chain; margin=12.00mm)
 
 
 vi_mean = vec(mean(z; dims=2))[[
