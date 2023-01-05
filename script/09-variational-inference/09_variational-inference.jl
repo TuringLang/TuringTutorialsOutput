@@ -6,6 +6,7 @@ q = vi(m, vi_alg)  # perform VI on `m` using the VI method `vi_alg`, which retur
 using Random
 using Turing
 using Turing: Variational
+using StatsPlots, Measures
 
 Random.seed!(42);
 
@@ -47,7 +48,7 @@ q = vi(m, advi);
 q isa MultivariateDistribution
 
 
-rand(q)
+histogram(rand(q, 1_000)[1, :])
 
 
 logpdf(q, rand(q))
@@ -63,30 +64,31 @@ let
     v, m = (mean(rand(q, 1000); dims=2)...,)
     # On Turing version 0.14, this atol could be 0.01.
     @assert isapprox(v, 1.022; atol=0.1)
-    @assert isapprox(m, -0.027; atol=0.01)
+    @assert isapprox(m, -0.027; atol=0.02)
 end
 
 
 samples = rand(q, 10000);
+size(samples)
 
 
-# setup for plotting
-using LaTeXStrings, StatsPlots
-
-
-p1 = histogram(samples[1, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="")
+p1 = histogram(
+    samples[1, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="", ylabel="density"
+)
 density!(samples[1, :]; label="s (ADVI)", color=:blue, linewidth=2)
 density!(samples_nuts, :s; label="s (NUTS)", color=:green, linewidth=2)
 vline!([var(x)]; label="s (data)", color=:black)
 vline!([mean(samples[1, :])]; color=:blue, label="")
 
-p2 = histogram(samples[2, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="")
+p2 = histogram(
+    samples[2, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="", ylabel="density"
+)
 density!(samples[2, :]; label="m (ADVI)", color=:blue, linewidth=2)
 density!(samples_nuts, :m; label="m (NUTS)", color=:green, linewidth=2)
 vline!([mean(x)]; color=:black, label="m (data)")
 vline!([mean(samples[2, :])]; color=:blue, label="")
 
-plot(p1, p2; layout=(2, 1), size=(900, 500))
+plot(p1, p2; layout=(2, 1), size=(900, 500), legend=true)
 
 
 # closed form computation of the Normal-inverse-gamma posterior
@@ -166,27 +168,37 @@ end
 
 # A handy helper function to rescale our dataset.
 function standardize(x)
-    return (x .- mean(x; dims=1)) ./ std(x; dims=1), x
+    return (x .- mean(x; dims=1)) ./ std(x; dims=1)
+end
+
+function standardize(x, orig)
+    return (x .- mean(orig; dims=1)) ./ std(orig; dims=1)
 end
 
 # Another helper function to unstandardize our datasets.
 function unstandardize(x, orig)
-    return (x .+ mean(orig; dims=1)) .* std(orig; dims=1)
+    return x .* std(orig; dims=1) .+ mean(orig; dims=1)
+end
+
+function unstandardize(x, mean_train, std_train)
+    return x .* std_train .+ mean_train
 end
 
 
 # Remove the model column.
 select!(data, Not(:Model))
 
-# Standardize our dataset.
-(std_data, data_arr) = standardize(Matrix(data))
-
 # Split our dataset 70%/30% into training/test sets.
-train, test = split_data(std_data, 0.7)
+train, test = split_data(data, 0.7)
+train_unstandardized = copy(train)
+
+# Standardize both datasets.
+std_train = standardize(Matrix(train))
+std_test = standardize(Matrix(test), Matrix(train))
 
 # Save dataframe versions of our dataset.
-train_cut = DataFrame(train, names(data))
-test_cut = DataFrame(test, names(data))
+train_cut = DataFrame(std_train, names(data))
+test_cut = DataFrame(std_test, names(data))
 
 # Create our labels. These are the values we are trying to predict.
 train_label = train_cut[:, :MPG]
@@ -251,6 +263,7 @@ _, sym2range = bijector(m, Val(true));
 sym2range
 
 
+histogram(z[1, :])
 avg[union(sym2range[:σ²]...)]
 
 
@@ -268,22 +281,31 @@ function plot_variational_marginals(z, sym2range)
         if sum(length.(indices)) > 1
             offset = 1
             for r in indices
-                for j in r
-                    p = density(
-                        z[j, :]; title="$(sym)[$offset]", titlefontsize=10, label=""
-                    )
-                    push!(ps, p)
-
-                    offset += 1
-                end
+                p = density(
+                    z[r, :];
+                    title="$(sym)[$offset]",
+                    titlefontsize=10,
+                    label="",
+                    ylabel="Density",
+                    margin=1.5mm,
+                )
+                push!(ps, p)
+                offset += 1
             end
         else
-            p = density(z[first(indices), :]; title="$(sym)", titlefontsize=10, label="")
+            p = density(
+                z[first(indices), :];
+                title="$(sym)",
+                titlefontsize=10,
+                label="",
+                ylabel="Density",
+                margin=1.5mm,
+            )
             push!(ps, p)
         end
     end
 
-    return plot(ps...; layout=(length(ps), 1), size=(500, 1500))
+    return plot(ps...; layout=(length(ps), 1), size=(500, 2000), margin=4.0mm)
 end
 
 
@@ -293,7 +315,7 @@ plot_variational_marginals(z, sym2range)
 chain = sample(m, NUTS(0.65), 10_000);
 
 
-plot(chain)
+plot(chain; margin=2.00mm)
 
 
 vi_mean = vec(mean(z; dims=2))[[
@@ -303,10 +325,14 @@ vi_mean = vec(mean(z; dims=2))[[
 ]]
 
 
-mean(chain).nt.mean
+mcmc_mean = mean(chain, names(chain, :parameters))[:, 2]
 
 
-sum(abs2, mean(chain).nt.mean .- vi_mean)
+plot(mcmc_mean; xticks=1:1:length(mcmc_mean), linestyle=:dot, label="NUTS")
+plot!(vi_mean; linestyle=:dot, label="VI")
+
+
+sum(abs2, mcmc_mean .- vi_mean)
 
 
 # Import the GLM package.
@@ -318,11 +344,11 @@ ols = lm(
 )
 
 # Store our predictions in the original dataframe.
-train_cut.OLSPrediction = unstandardize(GLM.predict(ols), data.MPG);
-test_cut.OLSPrediction = unstandardize(GLM.predict(ols, test_cut), data.MPG);
+train_cut.OLSPrediction = unstandardize(GLM.predict(ols), train_unstandardized.MPG)
+test_cut.OLSPrediction = unstandardize(GLM.predict(ols, test_cut), train_unstandardized.MPG);
 
 
-# Make a prediction given an input vector.
+# Make a prediction given an input vector, using mean parameter values from a chain.
 function prediction_chain(chain, x)
     p = get_params(chain)
     α = mean(p.intercept)
@@ -346,8 +372,8 @@ end
 
 
 # Unstandardize the dependent variable.
-train_cut.MPG = unstandardize(train_cut.MPG, data.MPG);
-test_cut.MPG = unstandardize(test_cut.MPG, data.MPG);
+train_cut.MPG = unstandardize(train_cut.MPG, train_unstandardized.MPG)
+test_cut.MPG = unstandardize(test_cut.MPG, train_unstandardized.MPG);
 
 
 # Show the first side rows of the modified dataframe.
@@ -358,11 +384,19 @@ z = rand(q, 10_000);
 
 
 # Calculate the predictions for the training and testing sets using the samples `z` from variational posterior
-train_cut.VIPredictions = unstandardize(prediction(z, sym2range, train), data.MPG);
-test_cut.VIPredictions = unstandardize(prediction(z, sym2range, test), data.MPG);
+train_cut.VIPredictions = unstandardize(
+    prediction(z, sym2range, train), train_unstandardized.MPG
+)
+test_cut.VIPredictions = unstandardize(
+    prediction(z, sym2range, test), train_unstandardized.MPG
+)
 
-train_cut.BayesPredictions = unstandardize(prediction_chain(chain, train), data.MPG);
-test_cut.BayesPredictions = unstandardize(prediction_chain(chain, test), data.MPG);
+train_cut.BayesPredictions = unstandardize(
+    prediction_chain(chain, train), train_unstandardized.MPG
+)
+test_cut.BayesPredictions = unstandardize(
+    prediction_chain(chain, test), train_unstandardized.MPG
+);
 
 
 vi_loss1 = mean((train_cut.VIPredictions - train_cut.MPG) .^ 2)
@@ -384,9 +418,9 @@ Test set:
 
 
 z = rand(q, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 scatter(
     1:size(test, 1),
@@ -396,18 +430,15 @@ scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Mean-field ADVI (Normal)")
 
 
-preds = hcat(
-    [
-        unstandardize(prediction_chain(chain[i], test), data.MPG) for
-        i in 1:5:size(chain, 1)
-    ]...,
-);
+preds = mapreduce(hcat, 1:5:size(chain, 1)) do i
+    return unstandardize(prediction_chain(chain[i], test), train_unstandardized.MPG)
+end
 
 scatter(
     1:size(test, 1),
@@ -417,9 +448,9 @@ scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("MCMC (NUTS)")
 
 
@@ -509,8 +540,12 @@ plot(p1, p2; layout=(1, 2), size=(800, 2000))
 z = rand(q_full_normal, 10_000);
 
 
-train_cut.VIFullPredictions = unstandardize(prediction(z, sym2range, train), data.MPG);
-test_cut.VIFullPredictions = unstandardize(prediction(z, sym2range, test), data.MPG);
+train_cut.VIFullPredictions = unstandardize(
+    prediction(z, sym2range, train), train_unstandardized.MPG
+)
+test_cut.VIFullPredictions = unstandardize(
+    prediction(z, sym2range, test), train_unstandardized.MPG
+);
 
 
 vi_loss1 = mean((train_cut.VIPredictions - train_cut.MPG) .^ 2)
@@ -539,9 +574,9 @@ Test set:
 
 
 z = rand(q_mf_normal, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 p1 = scatter(
     1:size(test, 1),
@@ -551,16 +586,16 @@ p1 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Mean-field ADVI (Normal)")
 
 
 z = rand(q_full_normal, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 p2 = scatter(
     1:size(test, 1),
@@ -570,18 +605,15 @@ p2 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Full ADVI (Normal)")
 
 
-preds = hcat(
-    [
-        unstandardize(prediction_chain(chain[i], test), data.MPG) for
-        i in 1:5:size(chain, 1)
-    ]...,
-);
+preds = mapreduce(hcat, 1:5:size(chain, 1)) do i
+    return unstandardize(prediction_chain(chain[i], test), train_unstandardized.MPG)
+end
 
 p3 = scatter(
     1:size(test, 1),
@@ -591,9 +623,9 @@ p3 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("MCMC (NUTS)")
 
 

@@ -22,12 +22,13 @@ Thus it's no more work than standard MCMC sampling in Turing.
 
 To get a bit more into what we can do with `vi`, we'll first have a look at a simple example and then we'll reproduce the [tutorial on Bayesian linear regression](../../tutorials/5-linearregression) using VI instead of MCMC. Finally we'll look at some of the different parameters of `vi` and how you for example can use your own custom variational family.
 
-## Setup
+We first import the packages to be used:
 
 ```julia
 using Random
 using Turing
 using Turing: Variational
+using StatsPlots, Measures
 
 Random.seed!(42);
 ```
@@ -187,16 +188,10 @@ true
 This means that we can call `rand` to sample from the variational posterior `q`
 
 ```julia
-rand(q)
+histogram(rand(q, 1_000)[1, :])
 ```
 
-```
-2-element Vector{Float64}:
-  1.0312135435942902
- -0.02372106581291155
-```
-
-
+![](figures/09_variational-inference_12_1.png)
 
 
 
@@ -207,7 +202,7 @@ logpdf(q, rand(q))
 ```
 
 ```
-5.297478597460531
+4.970108687579248
 ```
 
 
@@ -231,7 +226,7 @@ var(x), mean(x)
 ```
 
 ```
-(1.009382360828239, -0.03402793212123509)
+(1.0113321822239738, -0.03373130291430519)
 ```
 
 
@@ -246,32 +241,36 @@ For that we need samples:
 
 ```julia
 samples = rand(q, 10000);
+size(samples)
+```
+
+```
+(2, 10000)
 ```
 
 
-```julia
-# setup for plotting
-using LaTeXStrings, StatsPlots
-```
-
 
 ```julia
-p1 = histogram(samples[1, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="")
+p1 = histogram(
+    samples[1, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="", ylabel="density"
+)
 density!(samples[1, :]; label="s (ADVI)", color=:blue, linewidth=2)
 density!(samples_nuts, :s; label="s (NUTS)", color=:green, linewidth=2)
 vline!([var(x)]; label="s (data)", color=:black)
 vline!([mean(samples[1, :])]; color=:blue, label="")
 
-p2 = histogram(samples[2, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="")
+p2 = histogram(
+    samples[2, :]; bins=100, normed=true, alpha=0.2, color=:blue, label="", ylabel="density"
+)
 density!(samples[2, :]; label="m (ADVI)", color=:blue, linewidth=2)
 density!(samples_nuts, :m; label="m (NUTS)", color=:green, linewidth=2)
 vline!([mean(x)]; color=:black, label="m (data)")
 vline!([mean(samples[2, :])]; color=:blue, label="")
 
-plot(p1, p2; layout=(2, 1), size=(900, 500))
+plot(p1, p2; layout=(2, 1), size=(900, 500), legend=true)
 ```
 
-![](figures/09_variational-inference_19_1.png)
+![](figures/09_variational-inference_18_1.png)
 
 
 
@@ -330,17 +329,15 @@ xlims!(-0.25, 0.25)
 plot(p1, p2; layout=(2, 1), size=(900, 500))
 ```
 
-![](figures/09_variational-inference_20_1.png)
+![](figures/09_variational-inference_19_1.png)
 
 
 
-# Bayesian linear regression example using `ADVI`
+## Bayesian linear regression example using ADVI
 
 This is simply a duplication of the tutorial [5. Linear regression](../regression/02_linear-regression) but now with the addition of an approximate posterior obtained using `ADVI`.
 
 As we'll see, there is really no additional work required to apply variational inference to a more complex `Model`.
-
-## Copy-paste from [5. Linear regression](../regression/02_linear-regression)
 
 This section is basically copy-pasting the code from the [linear regression tutorial](../regression/02_linear-regression).
 
@@ -399,17 +396,25 @@ end
 
 # A handy helper function to rescale our dataset.
 function standardize(x)
-    return (x .- mean(x; dims=1)) ./ std(x; dims=1), x
+    return (x .- mean(x; dims=1)) ./ std(x; dims=1)
+end
+
+function standardize(x, orig)
+    return (x .- mean(orig; dims=1)) ./ std(orig; dims=1)
 end
 
 # Another helper function to unstandardize our datasets.
 function unstandardize(x, orig)
-    return (x .+ mean(orig; dims=1)) .* std(orig; dims=1)
+    return x .* std(orig; dims=1) .+ mean(orig; dims=1)
+end
+
+function unstandardize(x, mean_train, std_train)
+    return x .* std_train .+ mean_train
 end
 ```
 
 ```
-unstandardize (generic function with 1 method)
+unstandardize (generic function with 2 methods)
 ```
 
 
@@ -418,15 +423,17 @@ unstandardize (generic function with 1 method)
 # Remove the model column.
 select!(data, Not(:Model))
 
-# Standardize our dataset.
-(std_data, data_arr) = standardize(Matrix(data))
-
 # Split our dataset 70%/30% into training/test sets.
-train, test = split_data(std_data, 0.7)
+train, test = split_data(data, 0.7)
+train_unstandardized = copy(train)
+
+# Standardize both datasets.
+std_train = standardize(Matrix(train))
+std_test = standardize(Matrix(test), Matrix(train))
 
 # Save dataframe versions of our dataset.
-train_cut = DataFrame(train, names(data))
-test_cut = DataFrame(test, names(data))
+train_cut = DataFrame(std_train, names(data))
+test_cut = DataFrame(std_test, names(data))
 
 # Create our labels. These are the values we are trying to predict.
 train_label = train_cut[:, :MPG]
@@ -574,19 +581,19 @@ avg = vec(mean(z; dims=2))
 
 ```
 13-element Vector{Float64}:
-  0.00048143714208167887
-  0.0005353323885300111
-  1.0010504689703281
-  2.0403034827716084e-5
-  0.002009485580615322
-  0.0015565021927057888
- -0.0027603379198602516
- -0.0019466198535029356
- -0.0011363456032940505
-  0.00011734999166796385
-  9.333492830302478e-5
-  0.0007743539902890211
-  0.0028121425805020766
+  0.0005348573782368643
+ -0.0007107133115371601
+  1.001549605244164
+ -0.000822416837589571
+  0.002068944603221032
+  0.0009260459042537673
+ -0.003049874653206747
+ -0.001970983591350559
+ -0.0013635386276336628
+  0.00027151815125768216
+ -0.0002771814260512821
+ -0.0005587371560734245
+  0.0026587877714410726
 ```
 
 
@@ -607,13 +614,18 @@ s = UnitRange{Int64}[3:13])
 
 
 
+
+
+For example, we can check the sample distribution and mean value of `σ²`:
+
 ```julia
+histogram(z[1, :])
 avg[union(sym2range[:σ²]...)]
 ```
 
 ```
 1-element Vector{Float64}:
- 0.00048143714208167887
+ 0.0005348573782368643
 ```
 
 
@@ -624,7 +636,7 @@ avg[union(sym2range[:intercept]...)]
 
 ```
 1-element Vector{Float64}:
- 0.0005353323885300111
+ -0.0007107133115371601
 ```
 
 
@@ -635,17 +647,17 @@ avg[union(sym2range[:coefficients]...)]
 
 ```
 11-element Vector{Float64}:
-  1.0010504689703281
-  2.0403034827716084e-5
-  0.002009485580615322
-  0.0015565021927057888
- -0.0027603379198602516
- -0.0019466198535029356
- -0.0011363456032940505
-  0.00011734999166796385
-  9.333492830302478e-5
-  0.0007743539902890211
-  0.0028121425805020766
+  1.001549605244164
+ -0.000822416837589571
+  0.002068944603221032
+  0.0009260459042537673
+ -0.003049874653206747
+ -0.001970983591350559
+ -0.0013635386276336628
+  0.00027151815125768216
+ -0.0002771814260512821
+ -0.0005587371560734245
+  0.0026587877714410726
 ```
 
 
@@ -665,22 +677,31 @@ function plot_variational_marginals(z, sym2range)
         if sum(length.(indices)) > 1
             offset = 1
             for r in indices
-                for j in r
-                    p = density(
-                        z[j, :]; title="$(sym)[$offset]", titlefontsize=10, label=""
-                    )
-                    push!(ps, p)
-
-                    offset += 1
-                end
+                p = density(
+                    z[r, :];
+                    title="$(sym)[$offset]",
+                    titlefontsize=10,
+                    label="",
+                    ylabel="Density",
+                    margin=1.5mm,
+                )
+                push!(ps, p)
+                offset += 1
             end
         else
-            p = density(z[first(indices), :]; title="$(sym)", titlefontsize=10, label="")
+            p = density(
+                z[first(indices), :];
+                title="$(sym)",
+                titlefontsize=10,
+                label="",
+                ylabel="Density",
+                margin=1.5mm,
+            )
             push!(ps, p)
         end
     end
 
-    return plot(ps...; layout=(length(ps), 1), size=(500, 1500))
+    return plot(ps...; layout=(length(ps), 1), size=(500, 2000), margin=4.0mm)
 end
 ```
 
@@ -694,7 +715,7 @@ plot_variational_marginals (generic function with 1 method)
 plot_variational_marginals(z, sym2range)
 ```
 
-![](figures/09_variational-inference_40_1.png)
+![](figures/09_variational-inference_39_1.png)
 
 
 
@@ -706,10 +727,10 @@ chain = sample(m, NUTS(0.65), 10_000);
 
 
 ```julia
-plot(chain)
+plot(chain; margin=2.00mm)
 ```
 
-![](figures/09_variational-inference_42_1.png)
+![](figures/09_variational-inference_41_1.png)
 
 ```julia
 vi_mean = vec(mean(z; dims=2))[[
@@ -721,56 +742,63 @@ vi_mean = vec(mean(z; dims=2))[[
 
 ```
 13-element Vector{Float64}:
-  1.0010504689703281
-  2.0403034827716084e-5
-  0.002009485580615322
-  0.0015565021927057888
- -0.0027603379198602516
- -0.0019466198535029356
- -0.0011363456032940505
-  0.00011734999166796385
-  9.333492830302478e-5
-  0.0007743539902890211
-  0.0028121425805020766
-  0.0005353323885300111
-  0.00048143714208167887
+  1.001549605244164
+ -0.000822416837589571
+  0.002068944603221032
+  0.0009260459042537673
+ -0.003049874653206747
+ -0.001970983591350559
+ -0.0013635386276336628
+  0.00027151815125768216
+ -0.0002771814260512821
+ -0.0005587371560734245
+  0.0026587877714410726
+ -0.0007107133115371601
+  0.0005348573782368643
 ```
 
 
 
 ```julia
-mean(chain).nt.mean
+mcmc_mean = mean(chain, names(chain, :parameters))[:, 2]
 ```
 
 ```
 13-element Vector{Float64}:
-  4.17691954784384e-12
-  9.859424918858789e-9
-  1.000000020342745
-  1.97532046094638e-8
-  1.0220314572762125e-8
- -6.885933017970133e-9
-  7.2626321587988695e-9
-  2.46509530494001e-9
- -3.0669791010063713e-9
- -1.1471069514953448e-8
- -1.38920381070204e-8
-  2.7492493113533703e-8
- -1.787212014435879e-8
+  2.7456840546374237e-12
+ -9.781355120127035e-10
+  1.000000004803561
+  1.404936059302003e-8
+  2.4760479918533597e-9
+  9.706122119572177e-9
+ -1.1795178578382252e-8
+ -1.867693980772801e-8
+  1.3056208577350096e-8
+  7.869906970960945e-9
+  9.356403118145117e-9
+ -5.732997531173712e-9
+  1.4303554561510382e-8
 ```
 
 
+
+```julia
+plot(mcmc_mean; xticks=1:1:length(mcmc_mean), linestyle=:dot, label="NUTS")
+plot!(vi_mean; linestyle=:dot, label="VI")
+```
+
+![](figures/09_variational-inference_44_1.png)
 
 
 
 One thing we can look at is simply the squared error between the means:
 
 ```julia
-sum(abs2, mean(chain).nt.mean .- vi_mean)
+sum(abs2, mcmc_mean .- vi_mean)
 ```
 
 ```
-1.9981113207659351
+1.998992915375234
 ```
 
 
@@ -793,13 +821,13 @@ ols = lm(
 )
 
 # Store our predictions in the original dataframe.
-train_cut.OLSPrediction = unstandardize(GLM.predict(ols), data.MPG);
-test_cut.OLSPrediction = unstandardize(GLM.predict(ols, test_cut), data.MPG);
+train_cut.OLSPrediction = unstandardize(GLM.predict(ols), train_unstandardized.MPG)
+test_cut.OLSPrediction = unstandardize(GLM.predict(ols, test_cut), train_unstandardized.MPG);
 ```
 
 
 ```julia
-# Make a prediction given an input vector.
+# Make a prediction given an input vector, using mean parameter values from a chain.
 function prediction_chain(chain, x)
     p = get_params(chain)
     α = mean(p.intercept)
@@ -837,8 +865,8 @@ prediction (generic function with 2 methods)
 
 ```julia
 # Unstandardize the dependent variable.
-train_cut.MPG = unstandardize(train_cut.MPG, data.MPG);
-test_cut.MPG = unstandardize(test_cut.MPG, data.MPG);
+train_cut.MPG = unstandardize(train_cut.MPG, train_unstandardized.MPG)
+test_cut.MPG = unstandardize(test_cut.MPG, train_unstandardized.MPG);
 ```
 
 
@@ -849,24 +877,24 @@ first(test_cut, 6)
 
 ```
 6×12 DataFrame
- Row │ MPG      Cyl       Disp       HP          DRat       WT         QSec
+ Row │ MPG      Cyl       Disp       HP         DRat       WT          QSec
     ⋯
-     │ Float64  Float64   Float64    Float64     Float64    Float64    Floa
+     │ Float64  Float64   Float64    Float64    Float64    Float64     Floa
 t64 ⋯
 ─────┼─────────────────────────────────────────────────────────────────────
 ─────
-   1 │ 116.195   1.01488   0.591245   0.0483133  -0.835198   0.222544  -0.3
-070 ⋯
-   2 │ 114.295   1.01488   0.962396   1.4339      0.249566   0.636461  -1.3
-647
-   3 │ 120.195   1.01488   1.36582    0.412942   -0.966118   0.641571  -0.4
-469
-   4 │ 128.295  -1.22486  -1.22417   -1.17684     0.904164  -1.31048    0.5
-882
-   5 │ 126.995  -1.22486  -0.890939  -0.812211    1.55876   -1.10097   -0.6
-428 ⋯
-   6 │ 131.395  -1.22486  -1.09427   -0.491337    0.324377  -1.74177   -0.5
-309
+   1 │    15.2   1.04746   0.565102   0.258882  -0.652405   0.0714991  -0.7
+167 ⋯
+   2 │    13.3   1.04746   0.929057   1.90345    0.380435   0.465717   -1.9
+040
+   3 │    19.2   1.04746   1.32466    0.691663  -0.777058   0.470584   -0.8
+737
+   4 │    27.3  -1.25696  -1.21511   -1.19526    1.0037    -1.38857     0.2
+884
+   5 │    26.0  -1.25696  -0.888346  -0.762482   1.62697   -1.18903    -1.0
+936 ⋯
+   6 │    30.4  -1.25696  -1.08773   -0.381634   0.451665  -1.79933    -0.9
+680
                                                                6 columns om
 itted
 ```
@@ -880,11 +908,19 @@ z = rand(q, 10_000);
 
 ```julia
 # Calculate the predictions for the training and testing sets using the samples `z` from variational posterior
-train_cut.VIPredictions = unstandardize(prediction(z, sym2range, train), data.MPG);
-test_cut.VIPredictions = unstandardize(prediction(z, sym2range, test), data.MPG);
+train_cut.VIPredictions = unstandardize(
+    prediction(z, sym2range, train), train_unstandardized.MPG
+)
+test_cut.VIPredictions = unstandardize(
+    prediction(z, sym2range, test), train_unstandardized.MPG
+)
 
-train_cut.BayesPredictions = unstandardize(prediction_chain(chain, train), data.MPG);
-test_cut.BayesPredictions = unstandardize(prediction_chain(chain, test), data.MPG);
+train_cut.BayesPredictions = unstandardize(
+    prediction_chain(chain, train), train_unstandardized.MPG
+)
+test_cut.BayesPredictions = unstandardize(
+    prediction_chain(chain, test), train_unstandardized.MPG
+);
 ```
 
 
@@ -909,13 +945,13 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007829128391356015
-    Bayes loss: 8.941462314434796e-15
-    OLS loss: 3.070926124893025
+    VI loss: 0.0007223660489426346
+    Bayes loss: 4.018997509521007e-15
+    OLS loss: 3.07092612489301
 Test set: 
-    VI loss: 0.002035849386545754
-    Bayes loss: 4.16732890091234e-14
-    OLS loss: 27.094813070760495
+    VI loss: 0.0013811515219123373
+    Bayes loss: 2.6966014373128642e-14
+    OLS loss: 27.094813070760562
 ```
 
 
@@ -926,9 +962,9 @@ Interestingly the squared difference between true- and mean-prediction on the te
 
 ```julia
 z = rand(q, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 scatter(
     1:size(test, 1),
@@ -938,21 +974,18 @@ scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Mean-field ADVI (Normal)")
 ```
 
 ![](figures/09_variational-inference_54_1.png)
 
 ```julia
-preds = hcat(
-    [
-        unstandardize(prediction_chain(chain[i], test), data.MPG) for
-        i in 1:5:size(chain, 1)
-    ]...,
-);
+preds = mapreduce(hcat, 1:5:size(chain, 1)) do i
+    return unstandardize(prediction_chain(chain[i], test), train_unstandardized.MPG)
+end
 
 scatter(
     1:size(test, 1),
@@ -962,9 +995,9 @@ scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("MCMC (NUTS)")
 ```
 
@@ -974,7 +1007,7 @@ title!("MCMC (NUTS)")
 
 Indeed we see that the MCMC approach generally provides better uncertainty estimates than the mean-field ADVI approach! Good. So all the work we've done to make MCMC fast isn't for nothing.
 
-## Alternative: provide parameter-to-distribution instead of `q` with`update` implemented
+## Alternative: provide parameter-to-distribution instead of $q$ with `update` implemented
 
 As mentioned earlier, it's also possible to just provide the mapping $\theta \mapsto q_{\theta}$ rather than the variational family / initial variational posterior `q`, i.e. use the interface `vi(m, advi, getq, θ_init)` where `getq` is the mapping $\theta \mapsto q_{\theta}$
 
@@ -1115,19 +1148,19 @@ A = q_full_normal.transform.ts[1].a
 
 ```
 13×13 LinearAlgebra.LowerTriangular{Float64, Matrix{Float64}}:
-  0.292137       ⋅          …    ⋅            ⋅           ⋅ 
-  0.00332223    0.0292506        ⋅            ⋅           ⋅ 
- -0.00846696   -0.00790954       ⋅            ⋅           ⋅ 
-  0.00511907   -0.00273967       ⋅            ⋅           ⋅ 
- -0.00942593    0.00745025       ⋅            ⋅           ⋅ 
-  0.00200569    0.0365982   …    ⋅            ⋅           ⋅ 
-  0.00971125   -0.00436171       ⋅            ⋅           ⋅ 
-  0.00947551   -0.00713083       ⋅            ⋅           ⋅ 
- -0.000554125  -0.00689415       ⋅            ⋅           ⋅ 
- -0.00254561   -0.00336399       ⋅            ⋅           ⋅ 
- -0.00374072   -0.00857134  …   0.023598      ⋅           ⋅ 
-  0.00651178    0.0584602      -0.025308     0.0201546    ⋅ 
- -0.0141253    -0.0318448       0.00683636  -0.00324315  0.0193161
+  0.307054       ⋅             ⋅          …    ⋅            ⋅ 
+  0.00423234    0.0164652      ⋅               ⋅            ⋅ 
+ -0.00254538   -0.00625386    0.0602679        ⋅            ⋅ 
+  0.00144585    0.00150604   -0.0202934        ⋅            ⋅ 
+  0.0025644    -0.0029564     0.0137292        ⋅            ⋅ 
+  0.00221978    0.000338877   0.0079664   …    ⋅            ⋅ 
+ -0.0089608     0.00278426   -0.0438164        ⋅            ⋅ 
+  0.00121275    0.00427217    0.00190743       ⋅            ⋅ 
+  0.000709834  -6.23446e-5   -0.00689877       ⋅            ⋅ 
+ -0.0018969    -0.00313727   -0.00132222       ⋅            ⋅ 
+ -0.0033372    -0.00345037   -0.00869092  …    ⋅            ⋅ 
+ -0.00788994    0.00531727   -0.00995455      0.0174625     ⋅ 
+  0.00561118   -0.00688851    0.0420229      -0.000722985  0.0165826
 ```
 
 
@@ -1165,8 +1198,12 @@ z = rand(q_full_normal, 10_000);
 
 
 ```julia
-train_cut.VIFullPredictions = unstandardize(prediction(z, sym2range, train), data.MPG);
-test_cut.VIFullPredictions = unstandardize(prediction(z, sym2range, test), data.MPG);
+train_cut.VIFullPredictions = unstandardize(
+    prediction(z, sym2range, train), train_unstandardized.MPG
+)
+test_cut.VIFullPredictions = unstandardize(
+    prediction(z, sym2range, test), train_unstandardized.MPG
+);
 ```
 
 
@@ -1193,13 +1230,13 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007829128391356015
-    Bayes loss: 8.941462314434796e-15
-    OLS loss: 3.070926124893025
+    VI loss: 0.0007223660489426346
+    Bayes loss: 4.018997509521007e-15
+    OLS loss: 3.07092612489301
 Test set: 
-    VI loss: 0.002035849386545754
-    Bayes loss: 4.16732890091234e-14
-    OLS loss: 27.094813070760495
+    VI loss: 0.0013811515219123373
+    Bayes loss: 2.6966014373128642e-14
+    OLS loss: 27.094813070760562
 ```
 
 
@@ -1207,9 +1244,9 @@ Test set:
 
 ```julia
 z = rand(q_mf_normal, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 p1 = scatter(
     1:size(test, 1),
@@ -1219,9 +1256,9 @@ p1 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Mean-field ADVI (Normal)")
 ```
 
@@ -1229,9 +1266,9 @@ title!("Mean-field ADVI (Normal)")
 
 ```julia
 z = rand(q_full_normal, 1000);
-preds = hcat(
-    [unstandardize(prediction(z[:, i], sym2range, test), data.MPG) for i in 1:size(z, 2)]...
-);
+preds = mapreduce(hcat, eachcol(z)) do zi
+    return unstandardize(prediction(zi, sym2range, test), train_unstandardized.MPG)
+end
 
 p2 = scatter(
     1:size(test, 1),
@@ -1241,21 +1278,18 @@ p2 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("Full ADVI (Normal)")
 ```
 
 ![](figures/09_variational-inference_76_1.png)
 
 ```julia
-preds = hcat(
-    [
-        unstandardize(prediction_chain(chain[i], test), data.MPG) for
-        i in 1:5:size(chain, 1)
-    ]...,
-);
+preds = mapreduce(hcat, 1:5:size(chain, 1)) do i
+    return unstandardize(prediction_chain(chain[i], test), train_unstandardized.MPG)
+end
 
 p3 = scatter(
     1:size(test, 1),
@@ -1265,9 +1299,9 @@ p3 = scatter(
     size=(900, 500),
     markersize=8,
 )
-scatter!(1:size(test, 1), unstandardize(test_label, data.MPG); label="true")
+scatter!(1:size(test, 1), unstandardize(test_label, train_unstandardized.MPG); label="true")
 xaxis!(1:size(test, 1))
-ylims!(95, 140)
+ylims!(10, 40)
 title!("MCMC (NUTS)")
 ```
 
@@ -1318,12 +1352,13 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.10.6
   [b0b7db55] ComponentArrays v0.13.5
   [1a297f60] FillArrays v0.13.6
+  [587475ba] Flux v0.13.10
   [38e38edf] GLM v1.8.1
-  [b964fa9f] LaTeXStrings v1.3.0
+  [442fdcdd] Measures v0.3.2
   [ce6b1742] RDatasets v0.7.7
   [f3b207a7] StatsPlots v0.15.4
   [fce5fe82] Turing v0.22.0
@@ -1335,11 +1370,12 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-5/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
   [1520ce14] AbstractTrees v0.4.3
+  [7d9f7c33] Accessors v0.1.23
   [79e6a3ab] Adapt v3.4.0
   [0bf59076] AdvancedHMC v0.3.6
   [5b7e9947] AdvancedMH v0.6.8
@@ -1352,11 +1388,14 @@ And the full manifest:
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
+  [ab4f0b2a] BFloat16s v0.2.0
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.10.6
   [d1d4a3ce] BitFlags v0.1.7
+  [fa961155] CEnum v0.4.2
   [336ed68f] CSV v0.10.8
+  [052768ef] CUDA v3.12.0
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
   [082447d4] ChainRules v1.46.0
@@ -1366,7 +1405,7 @@ And the full manifest:
   [944b1d66] CodecZlib v0.7.0
   [35d6a980] ColorSchemes v3.20.0
   [3da002f7] ColorTypes v0.11.4
-  [c3611d14] ColorVectorSpace v0.9.9
+  [c3611d14] ColorVectorSpace v0.9.10
   [5ae59095] Colors v0.12.10
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
@@ -1376,6 +1415,7 @@ And the full manifest:
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
+  [6add18c4] ContextVariablesX v0.1.3
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.14.0
@@ -1398,17 +1438,23 @@ And the full manifest:
   [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
   [7a1cc6ca] FFTW v1.5.0
+  [cc61a311] FLoops v0.2.1
+  [b9860ae5] FLoopsBase v0.1.1
   [5789e2e9] FileIO v1.16.0
   [48062228] FilePathsBase v0.9.20
   [1a297f60] FillArrays v0.13.6
   [53c48c17] FixedPointNumbers v0.8.4
+  [587475ba] Flux v0.13.10
+  [9c68100b] FoldsThreads v0.1.1
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.34
   [069b7b12] FunctionWrappers v1.1.3
   [77dc65aa] FunctionWrappersWrappers v0.1.1
   [d9f16b24] Functors v0.3.0
   [38e38edf] GLM v1.8.1
+  [0c68f7d7] GPUArrays v8.5.0
   [46192b85] GPUArraysCore v0.1.2
+  [61eb1bfa] GPUCompiler v0.16.7
   [28b8d3ca] GR v0.71.2
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v1.6.2
@@ -1429,7 +1475,9 @@ And the full manifest:
   [1019f520] JLFzf v0.1.5
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.3
+  [b14d175d] JuliaVariables v0.2.4
   [5ab0869b] KernelDensity v0.6.5
+  [929cbde3] LLVM v4.14.1
   [8ac3fa9e] LRUCache v1.4.0
   [b964fa9f] LaTeXStrings v1.3.0
   [23fbe1c1] Latexify v0.15.17
@@ -1441,6 +1489,8 @@ And the full manifest:
   [c7f686f2] MCMCChains v5.6.1
   [be115224] MCMCDiagnosticTools v0.2.1
   [e80e1ace] MLJModelInterface v1.8.0
+  [d8e11817] MLStyle v0.4.16
+  [f1d291b0] MLUtils v0.3.1
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
@@ -1449,13 +1499,16 @@ And the full manifest:
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
   [6f286f6a] MultivariateStats v0.10.0
-  [872c559c] NNlib v0.8.12
+  [872c559c] NNlib v0.8.13
+  [a00861dc] NNlibCUDA v0.2.4
   [77ba4419] NaNMath v1.0.1
+  [71a1bf82] NameResolution v0.1.5
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [b8a86587] NearestNeighbors v0.4.13
   [510215fc] Observables v0.5.4
   [6fe1bfb0] OffsetArrays v1.12.8
+  [0b1bfda6] OneHotArrays v0.2.2
   [4d8831e6] OpenSSL v1.3.2
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
@@ -1467,12 +1520,15 @@ And the full manifest:
   [91a5bcdd] Plots v1.38.0
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
+  [8162dcfd] PrettyPrint v0.2.0
   [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.6.0
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
+  [74087812] Random123 v1.6.0
+  [e6cf234a] RandomNumbers v1.5.3
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
@@ -1491,8 +1547,10 @@ And the full manifest:
   [91c51154] SentinelArrays v1.3.16
   [efcf1570] Setfield v0.8.2
   [1277b4bf] ShiftedArrays v2.0.0
+  [605ecd9f] ShowCases v0.1.0
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
+  [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.1
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
@@ -1515,6 +1573,7 @@ And the full manifest:
   [62fd8b95] TensorCore v0.1.1
   [5d786b92] TerminalLoggers v0.1.6
   [f269a46b] TimeZones v1.9.1
+  [a759f4b9] TimerOutputs v0.5.22
   [9f7883ad] Tracker v0.2.22
   [3bb67fe8] TranscodingStreams v0.9.10
   [28d57a85] Transducers v0.4.75
@@ -1527,6 +1586,7 @@ And the full manifest:
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
   [76eceee3] WorkerUtilities v1.6.1
+  [e88e6eb3] Zygote v0.6.51
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
@@ -1547,6 +1607,7 @@ And the full manifest:
   [aacddb02] JpegTurbo_jll v2.1.2+0
   [c1c5ebd0] LAME_jll v3.100.1+0
   [88015f11] LERC_jll v3.0.0+1
+  [dad2f222] LLVMExtra_jll v0.0.16+0
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
