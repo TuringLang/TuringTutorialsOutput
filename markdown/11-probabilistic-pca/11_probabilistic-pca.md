@@ -1,6 +1,7 @@
 ---
+mathjax: true
 title: "Probabilistic Principal Component Analysis (p-PCA)"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
