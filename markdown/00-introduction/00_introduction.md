@@ -1,7 +1,7 @@
 ---
 redirect_from: "tutorials/0-introduction/"
 title: "Introduction to Turing"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
@@ -231,7 +231,7 @@ rand(coinflip(; N))
 
 
 The model can be conditioned on some observations with `|`.
-See the [documentation of the `condition` syntax](https://beta.turing.ml/DynamicPPL.jl/stable/api/#Condition-and-decondition) in DynamicPPL.jl for more details.
+See the [documentation of the `condition` syntax](https://turinglang.github.io/DynamicPPL.jl/stable/api/#Condition-and-decondition) in DynamicPPL.jl for more details.
 In the conditioned `model` the observations `y` are fixed to `data`.
 
 ```julia
@@ -333,7 +333,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -342,7 +342,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.79
   [c7f686f2] MCMCChains v5.6.1
   [f3b207a7] StatsPlots v0.15.4
@@ -353,7 +353,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
