@@ -1,7 +1,7 @@
 ---
 redirect_from: "tutorials/8-multinomiallogisticregression/"
 title: "Bayesian Multinomial Logistic Regression"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
@@ -187,50 +187,51 @@ Now we can run our sampler. This time we'll use [`HMC`](http://turing.ml/docs/li
 
 ```julia
 m = logistic_regression(train_features, train_target, 1)
-chain = sample(m, HMC(0.05, 10), MCMCThreads(), 1_500, 3)
+chain = sample(m, NUTS(), MCMCThreads(), 1_500, 3)
 ```
 
 ```
-Chains MCMC chain (1500×19×3 Array{Float64, 3}):
+Chains MCMC chain (1500×22×3 Array{Float64, 3}):
 
-Iterations        = 1:1:1500
+Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 10.96 seconds
-Compute duration  = 10.38 seconds
+Wall duration     = 21.82 seconds
+Compute duration  = 21.06 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
 2], coefficients_virginica[3], coefficients_virginica[4]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size
 
 Summary Statistics
                   parameters      mean       std   naive_se      mcse      
-  e ⋯
-                      Symbol   Float64   Float64    Float64   Float64    Fl
-oat ⋯
+    ⋯
+                      Symbol   Float64   Float64    Float64   Float64     F
+loa ⋯
 
-        intercept_versicolor    0.9354    0.5238     0.0078    0.0227   542
-.78 ⋯
-         intercept_virginica   -0.6837    0.6685     0.0100    0.0317   481
-.34 ⋯
-  coefficients_versicolor[1]    1.0630    0.6406     0.0096    0.0293   497
-.97 ⋯
-  coefficients_versicolor[2]   -1.4800    0.5730     0.0085    0.0248   632
-.34 ⋯
-  coefficients_versicolor[3]    1.0131    0.7155     0.0107    0.0330   449
-.34 ⋯
-  coefficients_versicolor[4]    0.3243    0.7044     0.0105    0.0364   357
-.08 ⋯
-   coefficients_virginica[1]    0.9780    0.6766     0.0101    0.0284   512
-.07 ⋯
-   coefficients_virginica[2]   -0.7076    0.6770     0.0101    0.0289   520
-.45 ⋯
-   coefficients_virginica[3]    2.1067    0.8158     0.0122    0.0379   388
-.54 ⋯
-   coefficients_virginica[4]    2.6082    0.7995     0.0119    0.0462   255
-.90 ⋯
+        intercept_versicolor    0.9494    0.5083     0.0076    0.0071   494
+3.4 ⋯
+         intercept_virginica   -0.6518    0.6739     0.0100    0.0108   498
+5.8 ⋯
+  coefficients_versicolor[1]    1.0556    0.6479     0.0097    0.0081   463
+8.5 ⋯
+  coefficients_versicolor[2]   -1.4733    0.5602     0.0084    0.0073   480
+0.9 ⋯
+  coefficients_versicolor[3]    1.0303    0.7435     0.0111    0.0108   480
+2.3 ⋯
+  coefficients_versicolor[4]    0.3132    0.7089     0.0106    0.0114   401
+7.8 ⋯
+   coefficients_virginica[1]    0.9615    0.6790     0.0101    0.0100   443
+6.3 ⋯
+   coefficients_virginica[2]   -0.7004    0.6586     0.0098    0.0076   503
+0.9 ⋯
+   coefficients_virginica[3]    2.1020    0.8220     0.0123    0.0109   563
+8.4 ⋯
+   coefficients_virginica[4]    2.6179    0.7548     0.0113    0.0126   502
+4.8 ⋯
                                                                3 columns om
 itted
 
@@ -240,26 +241,26 @@ Quantiles
                       Symbol   Float64   Float64   Float64   Float64   Floa
 t64 ⋯
 
-        intercept_versicolor   -0.0782    0.5827    0.9308    1.2831    1.9
-832 ⋯
-         intercept_virginica   -2.0133   -1.1248   -0.6926   -0.2305    0.6
-289 ⋯
-  coefficients_versicolor[1]   -0.1748    0.6246    1.0593    1.4983    2.3
-599 ⋯
-  coefficients_versicolor[2]   -2.6648   -1.8507   -1.4605   -1.0870   -0.4
-017 ⋯
-  coefficients_versicolor[3]   -0.3586    0.5081    1.0048    1.4892    2.4
-542 ⋯
-  coefficients_versicolor[4]   -1.0370   -0.1608    0.3164    0.8088    1.7
-027 ⋯
-   coefficients_virginica[1]   -0.3566    0.5259    0.9830    1.4316    2.2
-932 ⋯
-   coefficients_virginica[2]   -2.0652   -1.1573   -0.6868   -0.2362    0.5
-693 ⋯
-   coefficients_virginica[3]    0.4721    1.5736    2.1018    2.6520    3.6
-780 ⋯
-   coefficients_virginica[4]    1.1115    2.0559    2.6021    3.1349    4.2
-297 ⋯
+        intercept_versicolor   -0.0378    0.6028    0.9550    1.2954    1.9
+344 ⋯
+         intercept_virginica   -1.9762   -1.1062   -0.6404   -0.1784    0.6
+174 ⋯
+  coefficients_versicolor[1]   -0.1816    0.6108    1.0546    1.4951    2.3
+514 ⋯
+  coefficients_versicolor[2]   -2.6360   -1.8418   -1.4428   -1.0772   -0.4
+581 ⋯
+  coefficients_versicolor[3]   -0.4193    0.5419    1.0388    1.5370    2.4
+867 ⋯
+  coefficients_versicolor[4]   -1.0839   -0.1781    0.3063    0.7932    1.7
+102 ⋯
+   coefficients_virginica[1]   -0.3369    0.4910    0.9540    1.4167    2.3
+063 ⋯
+   coefficients_virginica[2]   -2.0041   -1.1445   -0.6911   -0.2484    0.5
+600 ⋯
+   coefficients_virginica[3]    0.5236    1.5549    2.0865    2.6542    3.7
+392 ⋯
+   coefficients_virginica[4]    1.1253    2.1225    2.6243    3.1309    4.0
+841 ⋯
 ```
 
 
@@ -403,12 +404,12 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 128
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -417,7 +418,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
   [1a297f60] FillArrays v0.13.6
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.12
@@ -431,7 +432,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-exclusive0-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2

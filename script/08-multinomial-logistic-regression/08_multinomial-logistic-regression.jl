@@ -82,7 +82,7 @@ end;
 
 
 m = logistic_regression(train_features, train_target, 1)
-chain = sample(m, HMC(0.05, 10), MCMCThreads(), 1_500, 3)
+chain = sample(m, NUTS(), MCMCThreads(), 1_500, 3)
 
 
 plot(chain)
