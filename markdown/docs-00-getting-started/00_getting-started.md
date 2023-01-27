@@ -65,20 +65,21 @@ gdemo (generic function with 2 methods)
 Then we can run a sampler to collect results. In this case, it is a Hamiltonian Monte Carlo sampler
 
 ```julia
-chn = sample(gdemo(1.5, 2), HMC(0.1, 5), 1000)
+chn = sample(gdemo(1.5, 2), NUTS(), 1000)
 ```
 
 ```
-Chains MCMC chain (1000×11×1 Array{Float64, 3}):
+Chains MCMC chain (1000×14×1 Array{Float64, 3}):
 
-Iterations        = 1:1:1000
+Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1.11 seconds
-Compute duration  = 1.11 seconds
+Wall duration     = 2.04 seconds
+Compute duration  = 2.04 seconds
 parameters        = s², m
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size
 
 Summary Statistics
   parameters      mean       std   naive_se      mcse        ess      rhat 
@@ -86,9 +87,9 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-          s²    1.8625    1.2531     0.0396    0.0886   188.0547    0.9997 
+          s²    2.2864    4.5372     0.1435    0.2348   379.5611    1.0020 
     ⋯
-           m    1.1388    0.7478     0.0236    0.0724    97.4532    0.9993 
+           m    1.1878    0.8823     0.0279    0.0398   377.9693    1.0003 
     ⋯
                                                                 1 column om
 itted
@@ -97,8 +98,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5789    1.0040    1.5422    2.2206    5.5778
-           m   -0.4464    0.6752    1.1688    1.6470    2.5086
+          s²    0.5595    1.0434    1.6061    2.5556    6.8911
+           m   -0.4990    0.6393    1.1683    1.7228    2.8665
 ```
 
 

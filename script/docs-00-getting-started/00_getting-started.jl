@@ -15,7 +15,7 @@ using StatsPlots
 end
 
 
-chn = sample(gdemo(1.5, 2), HMC(0.1, 5), 1000)
+chn = sample(gdemo(1.5, 2), NUTS(), 1000)
 
 
 plot(chn)
