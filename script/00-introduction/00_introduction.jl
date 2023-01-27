@@ -77,7 +77,7 @@ coinflip(y::AbstractVector{<:Real}) = coinflip(; N=length(y)) | (; y)
 model = coinflip(data);
 
 
-sampler = HMC(0.05, 10);
+sampler = NUTS();
 
 
 chain = sample(model, sampler, 1_000; progress=false);
