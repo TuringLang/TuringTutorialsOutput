@@ -93,7 +93,7 @@ n, _ = size(data)
 
 num_chains = 4
 m = poisson_regression(data, data_labels, n, 10)
-chain = sample(m, NUTS(200, 0.65), MCMCThreads(), 2_500, num_chains; discard_adapt=false)
+chain = sample(m, NUTS(), MCMCThreads(), 2_500, num_chains; discard_adapt=false)
 
 
 gelmandiag(chain)

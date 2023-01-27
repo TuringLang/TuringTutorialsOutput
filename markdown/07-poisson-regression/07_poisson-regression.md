@@ -1,13 +1,15 @@
 ---
 redirect_from: "tutorials/7-poissonregression/"
 title: "Bayesian Poisson Regression"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
 This notebook is ported from the [example notebook](https://docs.pymc.io/notebooks/GLM-poisson-regression.html) of PyMC3 on Poisson Regression.
 
-[Poisson Regression](https://en.wikipedia.org/wiki/Poisson_regression) is a technique commonly used to model count data. Some of the applications include predicting the number of people defaulting on their loans or the number of cars running on a highway on a given day. This example describes a method to implement the Bayesian version of this technique using Turing.
+[Poisson Regression](https://en.wikipedia.org/wiki/Poisson_regression) is a technique commonly used to model count data.
+Some of the applications include predicting the number of people defaulting on their loans or the number of cars running on a highway on a given day.
+This example describes a method to implement the Bayesian version of this technique using Turing.
 
 We will generate the dataset that we will be working on which describes the relationship between number of times a person sneezes during the day with his alcohol consumption and medicinal intake.
 
@@ -233,7 +235,7 @@ n, _ = size(data)
 
 num_chains = 4
 m = poisson_regression(data, data_labels, n, 10)
-chain = sample(m, NUTS(200, 0.65), MCMCThreads(), 2_500, num_chains; discard_adapt=false)
+chain = sample(m, NUTS(), MCMCThreads(), 2_500, num_chains; discard_adapt=false)
 ```
 
 ```
@@ -242,8 +244,8 @@ Chains MCMC chain (2500×16×4 Array{Float64, 3}):
 Iterations        = 1:1:2500
 Number of chains  = 4
 Samples per chain = 2500
-Wall duration     = 9.46 seconds
-Compute duration  = 9.13 seconds
+Wall duration     = 10.19 seconds
+Compute duration  = 9.8 seconds
 parameters        = b0, b1, b2, b3
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -255,13 +257,13 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-          b0    1.6313    0.1518     0.0015    0.0088   235.7648    1.0115 
+          b0    1.6302    0.1518     0.0015    0.0088   236.8991    1.0122 
     ⋯
-          b1    0.5496    0.0925     0.0009    0.0052   242.8889    1.0150 
+          b1    0.5527    0.0935     0.0009    0.0052   248.1398    1.0171 
     ⋯
-          b2    0.8848    0.1099     0.0011    0.0075   162.1375    1.0208 
+          b2    0.8871    0.1106     0.0011    0.0075   163.3359    1.0241 
     ⋯
-          b3    0.2969    0.1033     0.0010    0.0050   396.4411    1.0120 
+          b3    0.2941    0.1042     0.0010    0.0051   398.5904    1.0124 
     ⋯
                                                                 1 column om
 itted
@@ -270,10 +272,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          b0    1.5770    1.6223    1.6430    1.6635    1.7028
-          b1    0.4364    0.5111    0.5491    0.5869    0.6730
-          b2    0.7732    0.8429    0.8783    0.9144    0.9950
-          b3    0.1831    0.2587    0.2934    0.3300    0.4003
+          b0    1.5721    1.6208    1.6422    1.6632    1.7018
+          b1    0.4333    0.5120    0.5525    0.5921    0.6785
+          b2    0.7688    0.8449    0.8806    0.9188    0.9982
+          b3    0.1781    0.2538    0.2911    0.3281    0.4007
 ```
 
 
@@ -295,10 +297,10 @@ Gelman, Rubin, and Brooks diagnostic
   parameters      psrf    psrfci
       Symbol   Float64   Float64
 
-          b0    1.1787    1.2356
-          b1    1.0343    1.0574
-          b2    1.1943    1.3218
-          b3    1.0813    1.1067
+          b0    1.1783    1.2337
+          b1    1.0362    1.0684
+          b2    1.1916    1.3356
+          b3    1.0816    1.1166
 ```
 
 
@@ -329,10 +331,10 @@ print("The posterior distributions obtained after sampling can be visualised as 
 
 ```
 The exponent of the meaned values of the weights (or coefficients are): 
-b0: 5.162963380481074
-b1: 1.729974010078183
-b2: 2.408331691827242
-b3: 1.343819380971721
+b0: 5.159083470728208
+b1: 1.7317855622786964
+b2: 2.4077636136917384
+b3: 1.343669221541723
 The posterior distributions obtained after sampling can be visualised as :
 ```
 
@@ -372,8 +374,8 @@ Chains MCMC chain (2300×16×4 Array{Float64, 3}):
 Iterations        = 201:1:2500
 Number of chains  = 4
 Samples per chain = 2300
-Wall duration     = 9.46 seconds
-Compute duration  = 9.13 seconds
+Wall duration     = 10.19 seconds
+Compute duration  = 9.8 seconds
 parameters        = b0, b1, b2, b3
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -385,13 +387,13 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64
     ⋯
 
-          b0    1.6434    0.0301     0.0003    0.0005   3383.8935    1.0003
+          b0    1.6422    0.0310     0.0003    0.0005   2871.6766    1.0000
     ⋯
-          b1    0.5488    0.0560     0.0006    0.0011   2305.7218    1.0014
+          b1    0.5522    0.0577     0.0006    0.0012   2168.9660    1.0013
     ⋯
-          b2    0.8789    0.0523     0.0005    0.0010   2380.5917    1.0016
+          b2    0.8814    0.0543     0.0006    0.0012   2045.0952    1.0009
     ⋯
-          b3    0.2937    0.0518     0.0005    0.0010   2301.1872    1.0015
+          b3    0.2907    0.0535     0.0006    0.0012   2104.4778    1.0014
     ⋯
                                                                 1 column om
 itted
@@ -400,10 +402,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          b0    1.5846    1.6233    1.6435    1.6636    1.7021
-          b1    0.4407    0.5112    0.5485    0.5853    0.6603
-          b2    0.7796    0.8430    0.8778    0.9131    0.9850
-          b3    0.1900    0.2596    0.2938    0.3296    0.3938
+          b0    1.5800    1.6216    1.6426    1.6632    1.7012
+          b1    0.4411    0.5121    0.5521    0.5910    0.6676
+          b2    0.7760    0.8450    0.8802    0.9179    0.9904
+          b3    0.1845    0.2546    0.2913    0.3277    0.3926
 ```
 
 
@@ -437,10 +439,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -451,7 +453,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/07-poisson-regression/Project.toml`
   [a93c6f00] DataFrames v1.4.4
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.79
@@ -470,7 +472,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-1/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/07-poisson-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
