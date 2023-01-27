@@ -1,11 +1,12 @@
 ---
 redirect_from: "tutorials/5-linearregression/"
 title: "Linear Regression"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name"
 ---
 
 
-Turing is powerful when applied to complex hierarchical models, but it can also be put to task at common statistical procedures, like [linear regression](https://en.wikipedia.org/wiki/Linear_regression). This tutorial covers how to implement a linear regression model in Turing.
+Turing is powerful when applied to complex hierarchical models, but it can also be put to task at common statistical procedures, like [linear regression](https://en.wikipedia.org/wiki/Linear_regression).
+This tutorial covers how to implement a linear regression model in Turing.
 
 ## Set Up
 
@@ -174,7 +175,7 @@ With our model specified, we can call the sampler. We will use the No U-Turn Sam
 
 ```julia
 model = linear_regression(train, train_target)
-chain = sample(model, NUTS(0.65), 3_000)
+chain = sample(model, NUTS(), 3_000)
 ```
 
 ```
@@ -183,8 +184,8 @@ Chains MCMC chain (3000×24×1 Array{Float64, 3}):
 Iterations        = 1001:1:4000
 Number of chains  = 1
 Samples per chain = 3000
-Wall duration     = 5.71 seconds
-Compute duration  = 5.71 seconds
+Wall duration     = 6.3 seconds
+Compute duration  = 6.3 seconds
 parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
 cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
 7], coefficients[8], coefficients[9], coefficients[10]
@@ -198,30 +199,30 @@ Summary Statistics
             Symbol   Float64   Float64    Float64   Float64     Float64   F
 loa ⋯
 
-                σ²    0.3042    0.1702     0.0031    0.0055    983.1863    
+                σ²    0.3084    0.1750     0.0032    0.0056    936.9845    
+1.0 ⋯
+         intercept    0.0011    0.1210     0.0022    0.0024   2862.7607    
+1.0 ⋯
+   coefficients[1]   -0.0237    0.5481     0.0100    0.0137   1913.8968    
 0.9 ⋯
-         intercept    0.0005    0.1110     0.0020    0.0017   3265.5138    
-1.0 ⋯
-   coefficients[1]   -0.0354    0.5528     0.0101    0.0113   1965.4175    
-1.0 ⋯
-   coefficients[2]    0.3191    0.6970     0.0127    0.0190   1282.4040    
-1.0 ⋯
-   coefficients[3]   -0.3910    0.3858     0.0070    0.0107   1841.2579    
+   coefficients[2]    0.2714    0.7075     0.0129    0.0209   1182.7612    
 0.9 ⋯
-   coefficients[4]    0.1715    0.2882     0.0053    0.0072   1246.6869    
+   coefficients[3]   -0.3893    0.3975     0.0073    0.0084   2214.2387    
 1.0 ⋯
-   coefficients[5]   -0.3248    0.7026     0.0128    0.0225    920.4941    
+   coefficients[4]    0.1784    0.2921     0.0053    0.0094   1453.8611    
+0.9 ⋯
+   coefficients[5]   -0.2860    0.7084     0.0129    0.0247    966.3908    
+0.9 ⋯
+   coefficients[6]    0.0646    0.3607     0.0066    0.0107   1335.2545    
+0.9 ⋯
+   coefficients[7]    0.0068    0.3856     0.0070    0.0091   1374.3643    
+0.9 ⋯
+   coefficients[8]    0.1726    0.3034     0.0055    0.0082   1487.6034    
 1.0 ⋯
-   coefficients[6]    0.0782    0.3628     0.0066    0.0099   1288.9335    
-1.0 ⋯
-   coefficients[7]    0.0263    0.3821     0.0070    0.0083   1904.7965    
-1.0 ⋯
-   coefficients[8]    0.1818    0.3110     0.0057    0.0076   1421.6225    
-1.0 ⋯
-   coefficients[9]    0.1059    0.2793     0.0051    0.0077   1312.5452    
-1.0 ⋯
-  coefficients[10]   -0.2526    0.3990     0.0073    0.0124    889.0997    
-1.0 ⋯
+   coefficients[9]    0.1200    0.2795     0.0051    0.0070   1413.0061    
+0.9 ⋯
+  coefficients[10]   -0.2817    0.4036     0.0074    0.0141    880.8778    
+0.9 ⋯
                                                                2 columns om
 itted
 
@@ -229,18 +230,18 @@ Quantiles
         parameters      2.5%     25.0%     50.0%     75.0%     97.5%
             Symbol   Float64   Float64   Float64   Float64   Float64
 
-                σ²    0.1168    0.1939    0.2618    0.3648    0.7266
-         intercept   -0.2145   -0.0723    0.0013    0.0740    0.2207
-   coefficients[1]   -1.1329   -0.3978   -0.0284    0.3297    1.0594
-   coefficients[2]   -1.1316   -0.1120    0.3345    0.7618    1.6467
-   coefficients[3]   -1.1467   -0.6372   -0.3917   -0.1457    0.3890
-   coefficients[4]   -0.4075   -0.0189    0.1781    0.3622    0.7220
-   coefficients[5]   -1.7503   -0.7651   -0.3270    0.1186    1.0623
-   coefficients[6]   -0.6320   -0.1448    0.0745    0.2963    0.8286
-   coefficients[7]   -0.7294   -0.2039    0.0136    0.2691    0.7611
-   coefficients[8]   -0.4277   -0.0153    0.1833    0.3688    0.8168
-   coefficients[9]   -0.4450   -0.0647    0.1026    0.2829    0.6561
-  coefficients[10]   -1.0417   -0.5007   -0.2516    0.0034    0.5200
+                σ²    0.1095    0.1949    0.2625    0.3677    0.7854
+         intercept   -0.2377   -0.0722    0.0021    0.0739    0.2433
+   coefficients[1]   -1.1069   -0.3709   -0.0245    0.3130    1.0966
+   coefficients[2]   -1.1437   -0.1643    0.2667    0.7141    1.6685
+   coefficients[3]   -1.1653   -0.6434   -0.3810   -0.1447    0.4003
+   coefficients[4]   -0.4171    0.0025    0.1815    0.3652    0.7569
+   coefficients[5]   -1.6252   -0.7339   -0.2902    0.1601    1.1150
+   coefficients[6]   -0.6262   -0.1639    0.0666    0.2854    0.7863
+   coefficients[7]   -0.7833   -0.2342    0.0076    0.2481    0.7665
+   coefficients[8]   -0.4022   -0.0276    0.1627    0.3602    0.8012
+   coefficients[9]   -0.4292   -0.0568    0.1225    0.2935    0.6880
+  coefficients[10]   -1.0792   -0.5369   -0.2774   -0.0299    0.5264
 ```
 
 
@@ -318,19 +319,19 @@ DataFrame(; MPG=testset[!, target], Bayes=test_prediction_bayes, OLS=test_predic
 
 ```
 10×3 DataFrame
- Row │ MPG      Bayes     OLS
-     │ Float64  Float64   Float64
-─────┼─────────────────────────────
-   1 │    19.2  18.135    18.1265
-   2 │    15.0   6.96463   6.37891
-   3 │    16.4  13.8194   13.883
-   4 │    14.3  11.946    11.7337
-   5 │    21.4  25.2296   25.1916
-   6 │    18.1  20.8032   20.672
-   7 │    19.7  16.0137   15.8408
-   8 │    15.2  18.2007   18.3391
-   9 │    26.0  28.0004   28.4865
-  10 │    17.3  14.544    14.534
+ Row │ MPG      Bayes    OLS
+     │ Float64  Float64  Float64
+─────┼────────────────────────────
+   1 │    19.2  18.1121  18.1265
+   2 │    15.0   6.4727   6.37891
+   3 │    16.4  14.034   13.883
+   4 │    14.3  11.7826  11.7337
+   5 │    21.4  25.2335  25.1916
+   6 │    18.1  20.7122  20.672
+   7 │    19.7  15.9436  15.8408
+   8 │    15.2  18.3863  18.3391
+   9 │    26.0  28.5231  28.4865
+  10 │    17.3  14.6567  14.534
 ```
 
 
@@ -363,11 +364,11 @@ println(
 
 ```
 Training set:
-	Bayes loss: 4.65286928090515
-	OLS loss: 4.648142085690519
+	Bayes loss: 4.65052654134636
+	OLS loss: 4.648142085690516
 Test set:
-	Bayes loss: 13.406514390335929
-	OLS loss: 14.796847779051593
+	Bayes loss: 14.496894318145872
+	OLS loss: 14.796847779051504
 ```
 
 
@@ -396,10 +397,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -410,7 +411,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [1a297f60] FillArrays v0.13.6
   [38e38edf] GLM v1.8.1
   [f1d291b0] MLUtils v0.4.0
@@ -425,7 +426,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-2/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
