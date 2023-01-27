@@ -77,9 +77,7 @@ end;
 
 # Perform inference.
 N = 5000
-ch = sample(
-    bayes_nn(hcat(xs...), ts, length(parameters_initial), reconstruct), HMC(0.05, 4), N
-);
+ch = sample(bayes_nn(hcat(xs...), ts, length(parameters_initial), reconstruct), NUTS(), N);
 
 
 # Extract all weight and bias parameters.

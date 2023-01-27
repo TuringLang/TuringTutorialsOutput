@@ -1,7 +1,7 @@
 ---
 redirect_from: "tutorials/3-bayesnn/"
 title: "Bayesian Neural Networks"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
@@ -31,7 +31,8 @@ Turing.setadbackend(:reversediff)
 
 
 
-Our goal here is to use a Bayesian neural network to classify points in an artificial dataset. The code below generates data points arranged in a box-like pattern and displays a graph of the dataset we'll be working with.
+Our goal here is to use a Bayesian neural network to classify points in an artificial dataset.
+The code below generates data points arranged in a box-like pattern and displays a graph of the dataset we will be working with.
 
 ```julia
 # Number of points to generate.
@@ -128,14 +129,12 @@ end;
 
 
 
-Inference can now be performed by calling `sample`. We use the `HMC` sampler here.
+Inference can now be performed by calling `sample`. We use the `NUTS` Hamiltonian Monte Carlo sampler here.
 
 ```julia
 # Perform inference.
 N = 5000
-ch = sample(
-    bayes_nn(hcat(xs...), ts, length(parameters_initial), reconstruct), HMC(0.05, 4), N
-);
+ch = sample(bayes_nn(hcat(xs...), ts, length(parameters_initial), reconstruct), NUTS(), N);
 ```
 
 
@@ -256,10 +255,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -270,7 +269,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
   [b5ca4192] AdvancedVI v0.1.6
   [76274a88] Bijectors v0.10.6
   [1a297f60] FillArrays v0.13.6
@@ -285,7 +284,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-4/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
+      Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
