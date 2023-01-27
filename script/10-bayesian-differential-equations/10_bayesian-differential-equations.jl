@@ -67,7 +67,7 @@ end
 model = fitlv(odedata, prob)
 
 # Sample 3 independent chains with forward-mode automatic differentiation (the default).
-chain = sample(model, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
+chain = sample(model, NUTS(), MCMCSerial(), 1000, 3; progress=false)
 
 
 plot(chain)
@@ -171,7 +171,7 @@ end
 model_dde = fitlv_dde(ddedata, prob_dde)
 
 # Sample 3 independent chains.
-chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 300, 3; progress=false)
+chain_dde = sample(model_dde, NUTS(), MCMCSerial(), 300, 3; progress=false)
 
 
 plot(chain_dde)
@@ -193,7 +193,7 @@ using Zygote, SciMLSensitivity
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)
-sample(model, NUTS(0.65), 1000; progress=false)
+sample(model, NUTS(), 1000; progress=false)
 
 
 @model function fitlv_sensealg(data, prob)
@@ -220,7 +220,7 @@ model_sensealg = fitlv_sensealg(odedata, prob)
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)
-sample(model_sensealg, NUTS(0.65), 1000; progress=false)
+sample(model_sensealg, NUTS(), 1000; progress=false)
 
 
 u0 = [1.0, 1.0]

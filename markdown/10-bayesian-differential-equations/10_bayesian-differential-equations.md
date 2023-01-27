@@ -1,11 +1,13 @@
 ---
 redirect_from: "tutorials/10-bayesiandiffeq/"
 title: "Bayesian Estimation of Differential Equations"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
-Most of the scientific community deals with the basic problem of trying to mathematically model the reality around them and this often involves dynamical systems. The general trend to model these complex dynamical systems is through the use of differential equations. Differential equation models often have non-measurable parameters. The popular “forward-problem” of simulation consists of solving the differential equations for a given set of parameters, the “inverse problem” to simulation, known as parameter estimation, is the process of utilizing data to determine these model parameters.
+Most of the scientific community deals with the basic problem of trying to mathematically model the reality around them and this often involves dynamical systems. The general trend to model these complex dynamical systems is through the use of differential equations.
+Differential equation models often have non-measurable parameters.
+The popular “forward-problem” of simulation consists of solving the differential equations for a given set of parameters, the “inverse problem” to simulation, known as parameter estimation, is the process of utilizing data to determine these model parameters.
 Bayesian inference provides a robust approach to parameter estimation with quantified uncertainty.
 
 ```julia
@@ -121,7 +123,7 @@ end
 model = fitlv(odedata, prob)
 
 # Sample 3 independent chains with forward-mode automatic differentiation (the default).
-chain = sample(model, NUTS(0.65), MCMCSerial(), 1000, 3; progress=false)
+chain = sample(model, NUTS(), MCMCSerial(), 1000, 3; progress=false)
 ```
 
 ```
@@ -130,8 +132,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 77.59 seconds
-Compute duration  = 77.13 seconds
+Wall duration     = 76.93 seconds
+Compute duration  = 76.46 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -245,8 +247,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 58.72 seconds
-Compute duration  = 58.26 seconds
+Wall duration     = 71.09 seconds
+Compute duration  = 70.54 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -258,15 +260,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8150    0.0575     0.0005    0.0040    85.7566    1.1270 
+           σ    0.8228    0.0582     0.0005    0.0033   170.0700    1.0351 
     ⋯
-           α    1.5503    0.1715     0.0014    0.0112   122.6994    1.0285 
+           α    1.5517    0.1840     0.0015    0.0091   305.3414    1.0084 
     ⋯
-           β    1.1151    0.1348     0.0011    0.0085   143.8851    1.0205 
+           β    1.1143    0.1492     0.0012    0.0072   323.7839    1.0075 
     ⋯
-           γ    2.9906    0.2941     0.0024    0.0192   120.1756    1.0320 
+           γ    2.9782    0.2999     0.0024    0.0149   289.3999    1.0116 
     ⋯
-           δ    0.9575    0.2374     0.0019    0.0156   123.8625    1.0323 
+           δ    0.9639    0.2504     0.0020    0.0123   296.9284    1.0092 
     ⋯
                                                                 1 column om
 itted
@@ -275,11 +277,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7144    0.7733    0.8123    0.8523    0.9338
-           α    1.2281    1.4348    1.5433    1.6669    1.9137
-           β    0.8634    1.0245    1.1115    1.2055    1.3896
-           γ    2.4738    2.7813    2.9664    3.1803    3.6377
-           δ    0.5557    0.7841    0.9378    1.1001    1.4958
+           σ    0.7205    0.7824    0.8183    0.8598    0.9509
+           α    1.2373    1.4241    1.5384    1.6665    1.9604
+           β    0.8611    1.0078    1.1003    1.2120    1.4427
+           γ    2.4140    2.7778    2.9628    3.1706    3.5998
+           δ    0.5245    0.7828    0.9457    1.1211    1.4948
 ```
 
 
@@ -394,7 +396,7 @@ end
 model_dde = fitlv_dde(ddedata, prob_dde)
 
 # Sample 3 independent chains.
-chain_dde = sample(model_dde, NUTS(0.65), MCMCSerial(), 300, 3; progress=false)
+chain_dde = sample(model_dde, NUTS(), MCMCSerial(), 300, 3; progress=false)
 ```
 
 ```
@@ -403,8 +405,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 28.6 seconds
-Compute duration  = 28.22 seconds
+Wall duration     = 29.6 seconds
+Compute duration  = 29.13 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -416,15 +418,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.5593    0.0300     0.0010    0.0011   496.5861    0.9996 
+           σ    0.4949    0.0247     0.0008    0.0011   429.9468    0.9994 
     ⋯
-           α    1.5112    0.0746     0.0025    0.0055   185.5665    1.0303 
+           α    1.4868    0.0655     0.0022    0.0045   221.5918    1.0188 
     ⋯
-           β    0.9523    0.0533     0.0018    0.0034   238.6015    1.0205 
+           β    1.0235    0.0553     0.0018    0.0035   275.4992    1.0117 
     ⋯
-           γ    2.9863    0.1730     0.0058    0.0131   169.7329    1.0271 
+           γ    3.0378    0.1382     0.0046    0.0099   216.0740    1.0301 
     ⋯
-           δ    0.9979    0.0601     0.0020    0.0047   167.7252    1.0276 
+           δ    1.0152    0.0489     0.0016    0.0035   206.9970    1.0289 
     ⋯
                                                                 1 column om
 itted
@@ -433,11 +435,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.5049    0.5373    0.5585    0.5793    0.6190
-           α    1.3816    1.4584    1.5050    1.5596    1.6693
-           β    0.8591    0.9113    0.9501    0.9857    1.0618
-           γ    2.6601    2.8658    2.9801    3.1035    3.3244
-           δ    0.8800    0.9549    0.9978    1.0406    1.1127
+           σ    0.4482    0.4779    0.4936    0.5114    0.5480
+           α    1.3698    1.4463    1.4840    1.5212    1.6263
+           β    0.9245    0.9907    1.0197    1.0546    1.1358
+           γ    2.7761    2.9517    3.0302    3.1216    3.3129
+           δ    0.9237    0.9846    1.0137    1.0465    1.1145
 ```
 
 
@@ -500,7 +502,7 @@ using Zygote, SciMLSensitivity
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)
-sample(model, NUTS(0.65), 1000; progress=false)
+sample(model, NUTS(), 1000; progress=false)
 ```
 
 ```
@@ -509,8 +511,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 568.67 seconds
-Compute duration  = 568.67 seconds
+Wall duration     = 994.61 seconds
+Compute duration  = 994.61 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -522,15 +524,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    2.1549    0.1051     0.0033    0.0052   495.5702    0.9993 
+           σ    0.8132    0.0403     0.0013    0.0015   519.2956    1.0067 
     ⋯
-           α    2.1211    0.1190     0.0038    0.0071   294.0138    1.0004 
+           α    1.5616    0.0531     0.0017    0.0039   183.9805    0.9992 
     ⋯
-           β    1.8756    0.1005     0.0032    0.0047   491.3525    0.9991 
+           β    1.0960    0.0519     0.0016    0.0032   247.6342    1.0013 
     ⋯
-           γ    3.5868    0.2395     0.0076    0.0143   316.1149    1.0000 
+           γ    2.8648    0.1391     0.0044    0.0102   186.8802    0.9993 
     ⋯
-           δ    1.7088    0.1312     0.0041    0.0074   345.2672    1.0022 
+           δ    0.9333    0.0499     0.0016    0.0037   186.9087    0.9990 
     ⋯
                                                                 1 column om
 itted
@@ -539,11 +541,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    1.9603    2.0791    2.1535    2.2224    2.3770
-           α    1.9278    2.0330    2.1092    2.1979    2.3876
-           β    1.6365    1.8197    1.9007    1.9544    1.9974
-           γ    3.1247    3.4021    3.6011    3.7715    3.9808
-           δ    1.4412    1.6151    1.7127    1.7999    1.9533
+           σ    0.7353    0.7861    0.8131    0.8401    0.8916
+           α    1.4662    1.5251    1.5586    1.5957    1.6633
+           β    1.0047    1.0599    1.0942    1.1281    1.2051
+           γ    2.6095    2.7725    2.8612    2.9594    3.1293
+           δ    0.8425    0.8989    0.9325    0.9659    1.0297
 ```
 
 
@@ -578,7 +580,7 @@ model_sensealg = fitlv_sensealg(odedata, prob)
 
 # Sample a single chain with 1000 samples using Zygote.
 setadbackend(:zygote)
-sample(model_sensealg, NUTS(0.65), 1000; progress=false)
+sample(model_sensealg, NUTS(), 1000; progress=false)
 ```
 
 ```
@@ -587,8 +589,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1018.94 seconds
-Compute duration  = 1018.94 seconds
+Wall duration     = 1167.98 seconds
+Compute duration  = 1167.98 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -600,15 +602,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8129    0.0398     0.0013    0.0019   587.8157    0.9991 
+           σ    0.8128    0.0394     0.0012    0.0019   472.6523    1.0003 
     ⋯
-           α    1.5556    0.0499     0.0016    0.0033   184.8587    0.9994 
+           α    1.5577    0.0503     0.0016    0.0028   355.8089    1.0037 
     ⋯
-           β    1.0916    0.0511     0.0016    0.0026   245.9823    0.9990 
+           β    1.0930    0.0546     0.0017    0.0026   409.6718    1.0074 
     ⋯
-           γ    2.8815    0.1343     0.0042    0.0089   193.6139    0.9997 
+           γ    2.8746    0.1325     0.0042    0.0070   367.8213    1.0024 
     ⋯
-           δ    0.9380    0.0482     0.0015    0.0031   188.1541    0.9992 
+           δ    0.9364    0.0471     0.0015    0.0026   372.1754    1.0034 
     ⋯
                                                                 1 column om
 itted
@@ -617,11 +619,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7436    0.7847    0.8106    0.8363    0.8996
-           α    1.4630    1.5181    1.5568    1.5914    1.6446
-           β    0.9929    1.0561    1.0926    1.1253    1.1902
-           γ    2.6478    2.7817    2.8754    2.9730    3.1466
-           δ    0.8594    0.9041    0.9341    0.9726    1.0348
+           σ    0.7410    0.7838    0.8107    0.8403    0.8923
+           α    1.4665    1.5229    1.5535    1.5918    1.6583
+           β    0.9970    1.0549    1.0894    1.1276    1.2053
+           γ    2.6226    2.7832    2.8771    2.9618    3.1311
+           δ    0.8442    0.9020    0.9379    0.9679    1.0293
 ```
 
 
@@ -736,12 +738,12 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 96
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -750,7 +752,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-vms-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [0c46a032] DifferentialEquations v7.6.0
   [1ed8b502] SciMLSensitivity v7.11.1
   [f3b207a7] StatsPlots v0.15.4
@@ -763,7 +765,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-vms-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
