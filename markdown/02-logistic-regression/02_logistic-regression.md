@@ -1,11 +1,13 @@
 ---
 redirect_from: "tutorials/2-logisticregression/"
 title: "Bayesian Logistic Regression"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
-[Bayesian logistic regression](https://en.wikipedia.org/wiki/Logistic_regression#Bayesian) is the Bayesian counterpart to a common tool in machine learning, logistic regression. The goal of logistic regression is to predict a one or a zero for a given training item. An example might be predicting whether someone is sick or ill given their symptoms and personal information.
+[Bayesian logistic regression](https://en.wikipedia.org/wiki/Logistic_regression#Bayesian) is the Bayesian counterpart to a common tool in machine learning, logistic regression.
+The goal of logistic regression is to predict a one or a zero for a given training item.
+An example might be predicting whether someone is sick or ill given their symptoms and personal information.
 
 In our example, we'll be working to predict whether someone is likely to default with a synthetic dataset found in the `RDatasets` package. This dataset, `Defaults`, comes from R's [ISLR](https://cran.r-project.org/web/packages/ISLR/index.html) package and contains information on borrowers.
 
@@ -169,20 +171,21 @@ n, _ = size(train)
 
 # Sample using HMC.
 m = logistic_regression(train, train_label, n, 1)
-chain = sample(m, HMC(0.05, 10), MCMCThreads(), 1_500, 3)
+chain = sample(m, NUTS(), MCMCThreads(), 1_500, 3)
 ```
 
 ```
-Chains MCMC chain (1500×13×3 Array{Float64, 3}):
+Chains MCMC chain (1500×16×3 Array{Float64, 3}):
 
-Iterations        = 1:1:1500
+Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 2.88 seconds
-Compute duration  = 2.54 seconds
+Wall duration     = 4.34 seconds
+Compute duration  = 3.9 seconds
 parameters        = intercept, student, balance, income
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size
 
 Summary Statistics
   parameters      mean       std   naive_se      mcse         ess      rhat
@@ -190,13 +193,13 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64
     ⋯
 
-   intercept   -3.8134    0.4469     0.0067    0.0128   1300.8182    1.0009
+   intercept   -3.8086    0.3761     0.0056    0.0067   3240.8699    1.0008
     ⋯
-     student   -1.8813    0.6183     0.0092    0.0182    765.6952    1.0031
+     student   -1.8896    0.6208     0.0093    0.0100   3124.3883    0.9999
     ⋯
-     balance    1.6466    0.2938     0.0044    0.0073   1824.3353    1.0013
+     balance    1.6504    0.2624     0.0039    0.0047   3060.4459    1.0004
     ⋯
-      income   -0.5267    0.3384     0.0050    0.0070   1645.2522    1.0004
+      income   -0.5279    0.3206     0.0048    0.0054   3093.5474    1.0005
     ⋯
                                                                 1 column om
 itted
@@ -205,10 +208,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-   intercept   -4.6138   -4.0549   -3.7916   -3.5396   -3.1080
-     student   -3.0908   -2.2857   -1.8758   -1.4509   -0.6814
-     balance    1.1393    1.4685    1.6436    1.8165    2.1741
-      income   -1.1955   -0.7445   -0.5200   -0.3011    0.1072
+   intercept   -4.5795   -4.0591   -3.7979   -3.5426   -3.1068
+     student   -3.1229   -2.2891   -1.8957   -1.4682   -0.6898
+     balance    1.1424    1.4737    1.6443    1.8256    2.1642
+      income   -1.1619   -0.7435   -0.5226   -0.3092    0.0867
 ```
 
 
@@ -296,7 +299,7 @@ loss = sum((predictions - test_label) .^ 2) / length(test_label)
 ```
 
 ```
-0.1171578947368421
+0.11821052631578947
 ```
 
 
@@ -326,8 +329,8 @@ Defaults: 316.0
     Predictions: 265
     Percentage defaults correct 0.8386075949367089
 Not defaults: 9184.0
-    Predictions: 8122
-    Percentage non-defaults correct 0.8843641114982579
+    Predictions: 8112
+    Percentage non-defaults correct 0.8832752613240418
 ```
 
 
@@ -358,10 +361,10 @@ Julia Version 1.6.7
 Commit 3b76b25b64 (2022-07-19 15:11 UTC)
 Platform Info:
   OS: Linux (x86_64-pc-linux-gnu)
-  CPU: Intel(R) Xeon(R) Platinum 8275CL CPU @ 3.00GHz
+  CPU: AMD EPYC 7502 32-Core Processor
   WORD_SIZE: 64
   LIBM: libopenlibm
-  LLVM: libLLVM-11.0.1 (ORCJIT, cascadelake)
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
   JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
@@ -372,7 +375,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
+      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
   [a93c6f00] DataFrames v1.4.4
   [b4f34e82] Distances v0.10.7
   [31c24e10] Distributions v0.25.79
@@ -392,7 +395,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-aws-shared0-3/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2
