@@ -1,15 +1,17 @@
 ---
 redirect_from: "tutorials/9-variationalinference/"
 title: "Variational inference (VI) in Turing.jl"
-permalink: "/:collection/:name/"
+permalink: "/tutorials/:name/"
 ---
 
 
 In this post we'll have a look at what's know as **variational inference (VI)**, a family of _approximate_ Bayesian inference methods, and how to use it in Turing.jl as an alternative to other approaches such as MCMC. In particular, we will focus on one of the more standard VI methods called **Automatic Differentation Variational Inference (ADVI)**.
 
-Here we will focus on how to use VI in Turing and not much on the theory underlying VI. If you're interested in understanding the mathematics you can checkout [our write-up](../../docs/for-developers/variational_inference) or any other resource online (there a lot of great ones).
+Here we will focus on how to use VI in Turing and not much on the theory underlying VI.
+If you are interested in understanding the mathematics you can checkout [our write-up](../../docs/for-developers/variational_inference) or any other resource online (there a lot of great ones).
 
-Using VI in Turing.jl is very straight forward. If `model` denotes a definition of a `Turing.Model`, performing VI is as simple as
+Using VI in Turing.jl is very straight forward.
+If `model` denotes a definition of a `Turing.Model`, performing VI is as simple as
 
 ```julia
 m = model(data...) # instantiate model on the data
@@ -82,7 +84,7 @@ We'll produce 10 000 samples with 200 steps used for adaptation and a target acc
 If you don't understand what "adaptation" or "target acceptance rate" refers to, all you really need to know is that `NUTS` is known to be one of the most accurate and efficient samplers (when applicable) while requiring little to no hand-tuning to work well.
 
 ```julia
-samples_nuts = sample(m, NUTS(200, 0.65), 10_000);
+samples_nuts = sample(m, NUTS(), 10_000);
 ```
 
 
@@ -202,7 +204,7 @@ logpdf(q, rand(q))
 ```
 
 ```
-4.970108687579248
+4.155802034535141
 ```
 
 
@@ -226,7 +228,7 @@ var(x), mean(x)
 ```
 
 ```
-(1.0113321822239738, -0.03373130291430519)
+(1.016013270975557, -0.02028877033823731)
 ```
 
 
@@ -722,7 +724,7 @@ plot_variational_marginals(z, sym2range)
 And let's compare this to using the `NUTS` sampler:
 
 ```julia
-chain = sample(m, NUTS(0.65), 10_000);
+chain = sample(m, NUTS(), 10_000);
 ```
 
 
@@ -1343,7 +1345,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -1352,7 +1354,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.10.6
   [b0b7db55] ComponentArrays v0.13.5
   [1a297f60] FillArrays v0.13.6
@@ -1370,7 +1372,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.2

@@ -28,7 +28,7 @@ end;
 m = model(x);
 
 
-samples_nuts = sample(m, NUTS(200, 0.65), 10_000);
+samples_nuts = sample(m, NUTS(), 10_000);
 
 
 @doc(Variational.vi)
@@ -312,7 +312,7 @@ end
 plot_variational_marginals(z, sym2range)
 
 
-chain = sample(m, NUTS(0.65), 10_000);
+chain = sample(m, NUTS(), 10_000);
 
 
 plot(chain; margin=12.00mm)
