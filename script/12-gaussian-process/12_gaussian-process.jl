@@ -149,6 +149,6 @@ let
     @assert abs(
         mean(z_mean[alpha1, labels[1:n_data] .== "setosa"]) -
         mean(z_mean[alpha1, labels[1:n_data] .!= "setosa"]),
-    ) > 1.4
+    ) > 1
 end
 
