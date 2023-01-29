@@ -807,8 +807,8 @@ Chains MCMC chain &#40;1500×22×3 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 751:1:2250
 Number of chains  &#61; 3
 Samples per chain &#61; 1500
-Wall duration     &#61; 35.89 seconds
-Compute duration  &#61; 33.03 seconds
+Wall duration     &#61; 32.25 seconds
+Compute duration  &#61; 29.36 seconds
 parameters        &#61; intercept_versicolor, intercept_virginica, coefficients
 _versicolor&#91;1&#93;, coefficients_versicolor&#91;2&#93;, coefficients_versicolor&#91;3&#93;, coe
 fficients_versicolor&#91;4&#93;, coefficients_virginica&#91;1&#93;, coefficients_virginica&#91;
@@ -823,26 +823,26 @@ Summary Statistics
                       Symbol   Float64   Float64    Float64   Float64     F
 loa ⋯
 
-        intercept_versicolor    0.9494    0.5083     0.0076    0.0071   494
-3.4 ⋯
-         intercept_virginica   -0.6518    0.6739     0.0100    0.0108   498
-5.8 ⋯
+        intercept_versicolor    0.9494    0.5083     0.0076    0.0071   483
+6.9 ⋯
+         intercept_virginica   -0.6518    0.6739     0.0100    0.0108   495
+0.5 ⋯
   coefficients_versicolor&#91;1&#93;    1.0556    0.6479     0.0097    0.0081   463
-8.5 ⋯
+2.4 ⋯
   coefficients_versicolor&#91;2&#93;   -1.4733    0.5602     0.0084    0.0073   480
-0.9 ⋯
-  coefficients_versicolor&#91;3&#93;    1.0303    0.7435     0.0111    0.0108   480
-2.3 ⋯
-  coefficients_versicolor&#91;4&#93;    0.3132    0.7089     0.0106    0.0114   401
+0.5 ⋯
+  coefficients_versicolor&#91;3&#93;    1.0303    0.7435     0.0111    0.0108   469
 7.8 ⋯
+  coefficients_versicolor&#91;4&#93;    0.3132    0.7089     0.0106    0.0114   401
+8.2 ⋯
    coefficients_virginica&#91;1&#93;    0.9615    0.6790     0.0101    0.0100   443
-6.3 ⋯
-   coefficients_virginica&#91;2&#93;   -0.7004    0.6586     0.0098    0.0076   503
-0.9 ⋯
+5.7 ⋯
+   coefficients_virginica&#91;2&#93;   -0.7004    0.6586     0.0098    0.0076   486
+2.8 ⋯
    coefficients_virginica&#91;3&#93;    2.1020    0.8220     0.0123    0.0109   563
-8.4 ⋯
-   coefficients_virginica&#91;4&#93;    2.6179    0.7548     0.0113    0.0126   502
-4.8 ⋯
+6.6 ⋯
+   coefficients_virginica&#91;4&#93;    2.6179    0.7548     0.0113    0.0126   501
+1.5 ⋯
                                                                3 columns om
 itted
 
@@ -1008,36 +1008,36 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 &#40;ORCJIT, znver2&#41;
 Environment:
-  JULIA_CPU_THREADS &#61; 128
+  JULIA_CPU_THREADS &#61; 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR &#61; /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH &#61; /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 </code></pre>
 </div>
 <div class="markdown"><p>Package Information:</p>
 </div>
-<div class="markdown"><pre><code>      Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
-  &#91;1a297f60&#93; FillArrays v0.13.6
+<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
+  &#91;1a297f60&#93; FillArrays v0.13.7
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
-  &#91;872c559c&#93; NNlib v0.8.12
+  &#91;872c559c&#93; NNlib v0.8.16
   &#91;ce6b1742&#93; RDatasets v0.7.7
   &#91;f3b207a7&#93; StatsPlots v0.15.4
   &#91;fce5fe82&#93; Turing v0.22.0
   &#91;37e2e46d&#93; LinearAlgebra
   &#91;9a3f8284&#93; Random</code></pre>
 <p>And the full manifest:</p>
-<pre><code>      Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
+<pre><code>      Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
   &#91;621f4979&#93; AbstractFFTs v1.2.1
   &#91;80f14c24&#93; AbstractMCMC v4.2.0
-  &#91;7a57a42e&#93; AbstractPPL v0.5.2
-  &#91;1520ce14&#93; AbstractTrees v0.4.3
-  &#91;79e6a3ab&#93; Adapt v3.4.0
+  &#91;7a57a42e&#93; AbstractPPL v0.5.3
+  &#91;1520ce14&#93; AbstractTrees v0.4.4
+  &#91;79e6a3ab&#93; Adapt v3.5.0
   &#91;0bf59076&#93; AdvancedHMC v0.3.6
   &#91;5b7e9947&#93; AdvancedMH v0.6.8
   &#91;576499cb&#93; AdvancedPS v0.3.8
   &#91;b5ca4192&#93; AdvancedVI v0.1.6
   &#91;dce04be8&#93; ArgCheck v2.3.0
   &#91;7d9fca2a&#93; Arpack v0.5.4
-  &#91;30b0a656&#93; ArrayInterfaceCore v0.1.28
+  &#91;30b0a656&#93; ArrayInterfaceCore v0.1.29
   &#91;dd5226c6&#93; ArrayInterfaceStaticArraysCore v0.1.3
   &#91;13072b0f&#93; AxisAlgorithms v1.0.1
   &#91;39de3d68&#93; AxisArrays v0.4.6
@@ -1045,17 +1045,17 @@ Environment:
   &#91;9718e550&#93; Baselet v0.1.1
   &#91;76274a88&#93; Bijectors v0.10.6
   &#91;d1d4a3ce&#93; BitFlags v0.1.7
-  &#91;336ed68f&#93; CSV v0.10.8
+  &#91;336ed68f&#93; CSV v0.10.9
   &#91;49dc2e85&#93; Calculus v0.5.1
   &#91;324d7699&#93; CategoricalArrays v0.10.7
-  &#91;082447d4&#93; ChainRules v1.46.0
-  &#91;d360d2e6&#93; ChainRulesCore v1.15.6
-  &#91;9e997f8a&#93; ChangesOfVariables v0.1.4
+  &#91;082447d4&#93; ChainRules v1.46.1
+  &#91;d360d2e6&#93; ChainRulesCore v1.15.7
+  &#91;9e997f8a&#93; ChangesOfVariables v0.1.5
   &#91;aaaa29a8&#93; Clustering v0.14.3
-  &#91;944b1d66&#93; CodecZlib v0.7.0
+  &#91;944b1d66&#93; CodecZlib v0.7.1
   &#91;35d6a980&#93; ColorSchemes v3.20.0
   &#91;3da002f7&#93; ColorTypes v0.11.4
-  &#91;c3611d14&#93; ColorVectorSpace v0.9.9
+  &#91;c3611d14&#93; ColorVectorSpace v0.9.10
   &#91;5ae59095&#93; Colors v0.12.10
   &#91;861a8166&#93; Combinatorics v1.0.2
   &#91;38540f10&#93; CommonSolve v0.2.3
@@ -1076,11 +1076,11 @@ Environment:
   &#91;163ba53b&#93; DiffResults v1.1.0
   &#91;b552c78f&#93; DiffRules v1.12.2
   &#91;b4f34e82&#93; Distances v0.10.7
-  &#91;31c24e10&#93; Distributions v0.25.79
+  &#91;31c24e10&#93; Distributions v0.25.80
   &#91;ced4e74d&#93; DistributionsAD v0.6.43
   &#91;ffbed154&#93; DocStringExtensions v0.9.3
   &#91;fa6b7ba4&#93; DualNumbers v0.6.8
-  &#91;366bfd00&#93; DynamicPPL v0.21.3
+  &#91;366bfd00&#93; DynamicPPL v0.21.4
   &#91;cad2338a&#93; EllipticalSliceSampling v1.0.0
   &#91;4e289a0a&#93; EnumX v1.0.4
   &#91;e2ba6199&#93; ExprTools v0.1.8
@@ -1088,22 +1088,22 @@ Environment:
   &#91;7a1cc6ca&#93; FFTW v1.5.0
   &#91;5789e2e9&#93; FileIO v1.16.0
   &#91;48062228&#93; FilePathsBase v0.9.20
-  &#91;1a297f60&#93; FillArrays v0.13.6
+  &#91;1a297f60&#93; FillArrays v0.13.7
   &#91;53c48c17&#93; FixedPointNumbers v0.8.4
   &#91;59287772&#93; Formatting v0.4.2
   &#91;f6369f11&#93; ForwardDiff v0.10.34
   &#91;069b7b12&#93; FunctionWrappers v1.1.3
   &#91;77dc65aa&#93; FunctionWrappersWrappers v0.1.1
   &#91;d9f16b24&#93; Functors v0.3.0
-  &#91;46192b85&#93; GPUArraysCore v0.1.2
-  &#91;28b8d3ca&#93; GR v0.71.2
+  &#91;46192b85&#93; GPUArraysCore v0.1.3
+  &#91;28b8d3ca&#93; GR v0.71.5
   &#91;42e2da0e&#93; Grisu v1.0.2
-  &#91;cd3eb016&#93; HTTP v1.6.2
+  &#91;cd3eb016&#93; HTTP v1.7.4
   &#91;34004b35&#93; HypergeometricFunctions v0.3.11
   &#91;7869d1d1&#93; IRTools v0.4.7
   &#91;83e8ac13&#93; IniFile v0.5.1
   &#91;22cec73e&#93; InitialValues v0.3.1
-  &#91;842dd82b&#93; InlineStrings v1.3.2
+  &#91;842dd82b&#93; InlineStrings v1.4.0
   &#91;505f98c9&#93; InplaceOps v0.3.0
   &#91;a98d9a8b&#93; Interpolations v0.14.7
   &#91;8197267c&#93; IntervalSets v0.7.4
@@ -1118,15 +1118,15 @@ Environment:
   &#91;5ab0869b&#93; KernelDensity v0.6.5
   &#91;8ac3fa9e&#93; LRUCache v1.4.0
   &#91;b964fa9f&#93; LaTeXStrings v1.3.0
-  &#91;23fbe1c1&#93; Latexify v0.15.17
+  &#91;23fbe1c1&#93; Latexify v0.15.18
   &#91;7f8f8fb0&#93; LearnBase v0.3.0
   &#91;1d6d02ad&#93; LeftChildRightSiblingTrees v0.2.0
   &#91;6f1fad26&#93; Libtask v0.7.0
   &#91;6fdf6af0&#93; LogDensityProblems v1.0.3
-  &#91;2ab3a3ac&#93; LogExpFunctions v0.3.19
+  &#91;2ab3a3ac&#93; LogExpFunctions v0.3.20
   &#91;e6f89c97&#93; LoggingExtras v0.4.9
   &#91;c7f686f2&#93; MCMCChains v5.6.1
-  &#91;be115224&#93; MCMCDiagnosticTools v0.2.1
+  &#91;be115224&#93; MCMCDiagnosticTools v0.2.6
   &#91;9920b226&#93; MLDataPattern v0.5.4
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
   &#91;e80e1ace&#93; MLJModelInterface v1.8.0
@@ -1139,50 +1139,50 @@ Environment:
   &#91;e1d29d7a&#93; Missings v1.1.0
   &#91;78c3b35d&#93; Mocking v0.7.5
   &#91;6f286f6a&#93; MultivariateStats v0.10.0
-  &#91;872c559c&#93; NNlib v0.8.12
+  &#91;872c559c&#93; NNlib v0.8.16
   &#91;77ba4419&#93; NaNMath v1.0.1
   &#91;86f7a689&#93; NamedArrays v0.9.6
   &#91;c020b1a1&#93; NaturalSort v1.0.0
   &#91;b8a86587&#93; NearestNeighbors v0.4.13
   &#91;510215fc&#93; Observables v0.5.4
   &#91;6fe1bfb0&#93; OffsetArrays v1.12.8
-  &#91;4d8831e6&#93; OpenSSL v1.3.2
+  &#91;4d8831e6&#93; OpenSSL v1.3.3
   &#91;3bd65402&#93; Optimisers v0.2.14
   &#91;bac558e1&#93; OrderedCollections v1.4.1
   &#91;90014a1f&#93; PDMats v0.11.16
-  &#91;69de0a69&#93; Parsers v2.5.2
+  &#91;69de0a69&#93; Parsers v2.5.3
   &#91;b98c9c47&#93; Pipe v1.3.0
   &#91;ccf2f8ad&#93; PlotThemes v3.1.0
-  &#91;995b91a9&#93; PlotUtils v1.3.2
-  &#91;91a5bcdd&#93; Plots v1.38.0
+  &#91;995b91a9&#93; PlotUtils v1.3.4
+  &#91;91a5bcdd&#93; Plots v1.38.3
   &#91;2dfb63ee&#93; PooledArrays v1.4.2
   &#91;21216c6a&#93; Preferences v1.3.0
   &#91;08abe8d2&#93; PrettyTables v2.2.2
   &#91;33c8b6b6&#93; ProgressLogging v0.1.4
   &#91;92933f4c&#93; ProgressMeter v1.7.2
-  &#91;1fd47b50&#93; QuadGK v2.6.0
+  &#91;1fd47b50&#93; QuadGK v2.7.0
   &#91;df47a6cb&#93; RData v0.8.3
   &#91;ce6b1742&#93; RDatasets v0.7.7
   &#91;b3c3ace0&#93; RangeArrays v0.3.2
   &#91;c84ed2f1&#93; Ratios v0.4.3
   &#91;c1ae055f&#93; RealDot v0.1.0
-  &#91;3cdcf5f2&#93; RecipesBase v1.3.2
+  &#91;3cdcf5f2&#93; RecipesBase v1.3.3
   &#91;01d81517&#93; RecipesPipeline v0.6.11
-  &#91;731186ca&#93; RecursiveArrayTools v2.34.1
+  &#91;731186ca&#93; RecursiveArrayTools v2.36.0
   &#91;189a3867&#93; Reexport v1.2.2
   &#91;05181044&#93; RelocatableFolders v1.0.0
   &#91;ae029012&#93; Requires v1.3.0
-  &#91;79098fc4&#93; Rmath v0.7.0
+  &#91;79098fc4&#93; Rmath v0.7.1
   &#91;f2b01f46&#93; Roots v2.0.8
   &#91;7e49a35a&#93; RuntimeGeneratedFunctions v0.5.5
-  &#91;0bca4576&#93; SciMLBase v1.81.0
+  &#91;0bca4576&#93; SciMLBase v1.81.1
   &#91;30f210dd&#93; ScientificTypesBase v3.0.0
   &#91;6c6a2e73&#93; Scratch v1.1.1
-  &#91;91c51154&#93; SentinelArrays v1.3.16
-  &#91;efcf1570&#93; Setfield v0.8.2
+  &#91;91c51154&#93; SentinelArrays v1.3.17
+  &#91;efcf1570&#93; Setfield v1.1.1
   &#91;992d4aef&#93; Showoff v1.0.3
   &#91;777ac1f9&#93; SimpleBufferStream v1.1.0
-  &#91;66db9d55&#93; SnoopPrecompile v1.0.1
+  &#91;66db9d55&#93; SnoopPrecompile v1.0.3
   &#91;a2af1166&#93; SortingAlgorithms v1.1.0
   &#91;276daf66&#93; SpecialFunctions v2.1.7
   &#91;171d559e&#93; SplittablesBase v0.1.15
@@ -1202,8 +1202,8 @@ Environment:
   &#91;62fd8b95&#93; TensorCore v0.1.1
   &#91;5d786b92&#93; TerminalLoggers v0.1.6
   &#91;f269a46b&#93; TimeZones v1.9.1
-  &#91;9f7883ad&#93; Tracker v0.2.22
-  &#91;3bb67fe8&#93; TranscodingStreams v0.9.10
+  &#91;9f7883ad&#93; Tracker v0.2.23
+  &#91;3bb67fe8&#93; TranscodingStreams v0.9.11
   &#91;28d57a85&#93; Transducers v0.4.75
   &#91;fce5fe82&#93; Turing v0.22.0
   &#91;5c2747f8&#93; URIs v1.4.1
@@ -1225,7 +1225,7 @@ Environment:
   &#91;d7e528f0&#93; FreeType2_jll v2.10.4&#43;0
   &#91;559328eb&#93; FriBidi_jll v1.0.10&#43;0
   &#91;0656b61e&#93; GLFW_jll v3.3.8&#43;0
-  &#91;d2c73de3&#93; GR_jll v0.71.2&#43;0
+  &#91;d2c73de3&#93; GR_jll v0.71.5&#43;0
   &#91;78b55507&#93; Gettext_jll v0.21.0&#43;0
   &#91;7746bdde&#93; Glib_jll v2.74.0&#43;2
   &#91;3b182d85&#93; Graphite2_jll v1.3.14&#43;0
@@ -1250,7 +1250,7 @@ Environment:
   &#91;91d4177d&#93; Opus_jll v1.3.2&#43;0
   &#91;30392449&#93; Pixman_jll v0.40.1&#43;0
   &#91;ea2cea3b&#93; Qt5Base_jll v5.15.3&#43;2
-  &#91;f50d1b31&#93; Rmath_jll v0.3.0&#43;0
+  &#91;f50d1b31&#93; Rmath_jll v0.4.0&#43;0
   &#91;a2964d1f&#93; Wayland_jll v1.21.0&#43;0
   &#91;2381bf8a&#93; Wayland_protocols_jll v1.25.0&#43;0
   &#91;02c8fc9c&#93; XML2_jll v2.10.3&#43;0
@@ -1338,7 +1338,7 @@ Environment:
         <div class="footer">
           <p>
             Published from <a href="08_multinomial-logistic-regression.jmd">08_multinomial-logistic-regression.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.11 on 2023-01-27.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.11 on 2023-01-28.
           </p>
         </div>
       </div>
