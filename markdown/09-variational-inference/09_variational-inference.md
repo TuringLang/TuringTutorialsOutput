@@ -1345,7 +1345,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 128
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -1354,11 +1354,11 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
   [76274a88] Bijectors v0.10.6
-  [b0b7db55] ComponentArrays v0.13.5
-  [1a297f60] FillArrays v0.13.6
-  [587475ba] Flux v0.13.10
+  [b0b7db55] ComponentArrays v0.13.6
+  [1a297f60] FillArrays v0.13.7
+  [587475ba] Flux v0.13.11
   [38e38edf] GLM v1.8.1
   [442fdcdd] Measures v0.3.2
   [ce6b1742] RDatasets v0.7.7
@@ -1372,21 +1372,21 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/exclusive-amdci1-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
-  [7a57a42e] AbstractPPL v0.5.2
-  [1520ce14] AbstractTrees v0.4.3
-  [7d9f7c33] Accessors v0.1.23
-  [79e6a3ab] Adapt v3.4.0
+  [7a57a42e] AbstractPPL v0.5.3
+  [1520ce14] AbstractTrees v0.4.4
+  [7d9f7c33] Accessors v0.1.25
+  [79e6a3ab] Adapt v3.5.0
   [0bf59076] AdvancedHMC v0.3.6
   [5b7e9947] AdvancedMH v0.6.8
   [576499cb] AdvancedPS v0.3.8
   [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.4
-  [4fba245c] ArrayInterface v6.0.24
-  [30b0a656] ArrayInterfaceCore v0.1.28
+  [4fba245c] ArrayInterface v6.0.25
+  [30b0a656] ArrayInterfaceCore v0.1.29
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.6
@@ -1396,15 +1396,15 @@ And the full manifest:
   [76274a88] Bijectors v0.10.6
   [d1d4a3ce] BitFlags v0.1.7
   [fa961155] CEnum v0.4.2
-  [336ed68f] CSV v0.10.8
-  [052768ef] CUDA v3.12.0
+  [336ed68f] CSV v0.10.9
+  [052768ef] CUDA v3.13.1
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
-  [082447d4] ChainRules v1.46.0
-  [d360d2e6] ChainRulesCore v1.15.6
-  [9e997f8a] ChangesOfVariables v0.1.4
+  [082447d4] ChainRules v1.46.1
+  [d360d2e6] ChainRulesCore v1.15.7
+  [9e997f8a] ChangesOfVariables v0.1.5
   [aaaa29a8] Clustering v0.14.3
-  [944b1d66] CodecZlib v0.7.0
+  [944b1d66] CodecZlib v0.7.1
   [35d6a980] ColorSchemes v3.20.0
   [3da002f7] ColorTypes v0.11.4
   [c3611d14] ColorVectorSpace v0.9.10
@@ -1413,7 +1413,7 @@ And the full manifest:
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
   [34da2185] Compat v4.5.0
-  [b0b7db55] ComponentArrays v0.13.5
+  [b0b7db55] ComponentArrays v0.13.6
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -1430,11 +1430,11 @@ And the full manifest:
   [163ba53b] DiffResults v1.1.0
   [b552c78f] DiffRules v1.12.2
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.79
+  [31c24e10] Distributions v0.25.80
   [ced4e74d] DistributionsAD v0.6.43
   [ffbed154] DocStringExtensions v0.9.3
   [fa6b7ba4] DualNumbers v0.6.8
-  [366bfd00] DynamicPPL v0.21.3
+  [366bfd00] DynamicPPL v0.21.4
   [cad2338a] EllipticalSliceSampling v1.0.0
   [4e289a0a] EnumX v1.0.4
   [e2ba6199] ExprTools v0.1.8
@@ -1444,9 +1444,9 @@ And the full manifest:
   [b9860ae5] FLoopsBase v0.1.1
   [5789e2e9] FileIO v1.16.0
   [48062228] FilePathsBase v0.9.20
-  [1a297f60] FillArrays v0.13.6
+  [1a297f60] FillArrays v0.13.7
   [53c48c17] FixedPointNumbers v0.8.4
-  [587475ba] Flux v0.13.10
+  [587475ba] Flux v0.13.11
   [9c68100b] FoldsThreads v0.1.1
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.34
@@ -1454,18 +1454,18 @@ And the full manifest:
   [77dc65aa] FunctionWrappersWrappers v0.1.1
   [d9f16b24] Functors v0.3.0
   [38e38edf] GLM v1.8.1
-  [0c68f7d7] GPUArrays v8.5.0
-  [46192b85] GPUArraysCore v0.1.2
-  [61eb1bfa] GPUCompiler v0.16.7
-  [28b8d3ca] GR v0.71.2
+  [0c68f7d7] GPUArrays v8.6.1
+  [46192b85] GPUArraysCore v0.1.3
+  [61eb1bfa] GPUCompiler v0.17.1
+  [28b8d3ca] GR v0.71.5
   [42e2da0e] Grisu v1.0.2
-  [cd3eb016] HTTP v1.6.2
+  [cd3eb016] HTTP v1.7.4
   [34004b35] HypergeometricFunctions v0.3.11
   [7869d1d1] IRTools v0.4.7
   [615f187c] IfElse v0.1.1
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
-  [842dd82b] InlineStrings v1.3.2
+  [842dd82b] InlineStrings v1.4.0
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.14.7
   [8197267c] IntervalSets v0.7.4
@@ -1479,20 +1479,20 @@ And the full manifest:
   [682c06a0] JSON v0.21.3
   [b14d175d] JuliaVariables v0.2.4
   [5ab0869b] KernelDensity v0.6.5
-  [929cbde3] LLVM v4.14.1
+  [929cbde3] LLVM v4.15.0
   [8ac3fa9e] LRUCache v1.4.0
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.15.17
+  [23fbe1c1] Latexify v0.15.18
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
   [6fdf6af0] LogDensityProblems v1.0.3
-  [2ab3a3ac] LogExpFunctions v0.3.19
+  [2ab3a3ac] LogExpFunctions v0.3.20
   [e6f89c97] LoggingExtras v0.4.9
   [c7f686f2] MCMCChains v5.6.1
-  [be115224] MCMCDiagnosticTools v0.2.1
+  [be115224] MCMCDiagnosticTools v0.2.6
   [e80e1ace] MLJModelInterface v1.8.0
   [d8e11817] MLStyle v0.4.16
-  [f1d291b0] MLUtils v0.3.1
+  [f1d291b0] MLUtils v0.4.0
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
@@ -1501,8 +1501,8 @@ And the full manifest:
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
   [6f286f6a] MultivariateStats v0.10.0
-  [872c559c] NNlib v0.8.13
-  [a00861dc] NNlibCUDA v0.2.4
+  [872c559c] NNlib v0.8.16
+  [a00861dc] NNlibCUDA v0.2.6
   [77ba4419] NaNMath v1.0.1
   [71a1bf82] NameResolution v0.1.5
   [86f7a689] NamedArrays v0.9.6
@@ -1510,23 +1510,23 @@ And the full manifest:
   [b8a86587] NearestNeighbors v0.4.13
   [510215fc] Observables v0.5.4
   [6fe1bfb0] OffsetArrays v1.12.8
-  [0b1bfda6] OneHotArrays v0.2.2
-  [4d8831e6] OpenSSL v1.3.2
+  [0b1bfda6] OneHotArrays v0.2.3
+  [4d8831e6] OpenSSL v1.3.3
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
-  [69de0a69] Parsers v2.5.2
+  [69de0a69] Parsers v2.5.3
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
-  [995b91a9] PlotUtils v1.3.2
-  [91a5bcdd] Plots v1.38.0
+  [995b91a9] PlotUtils v1.3.4
+  [91a5bcdd] Plots v1.38.3
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
   [8162dcfd] PrettyPrint v0.2.0
   [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
-  [1fd47b50] QuadGK v2.6.0
+  [1fd47b50] QuadGK v2.7.0
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
   [74087812] Random123 v1.6.0
@@ -1534,26 +1534,26 @@ And the full manifest:
   [b3c3ace0] RangeArrays v0.3.2
   [c84ed2f1] Ratios v0.4.3
   [c1ae055f] RealDot v0.1.0
-  [3cdcf5f2] RecipesBase v1.3.2
+  [3cdcf5f2] RecipesBase v1.3.3
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.34.1
+  [731186ca] RecursiveArrayTools v2.36.0
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
-  [79098fc4] Rmath v0.7.0
+  [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.81.0
+  [0bca4576] SciMLBase v1.81.1
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
-  [91c51154] SentinelArrays v1.3.16
-  [efcf1570] Setfield v0.8.2
+  [91c51154] SentinelArrays v1.3.17
+  [efcf1570] Setfield v1.1.1
   [1277b4bf] ShiftedArrays v2.0.0
   [605ecd9f] ShowCases v0.1.0
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
   [699a6c99] SimpleTraits v0.9.4
-  [66db9d55] SnoopPrecompile v1.0.1
+  [66db9d55] SnoopPrecompile v1.0.3
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
@@ -1576,8 +1576,8 @@ And the full manifest:
   [5d786b92] TerminalLoggers v0.1.6
   [f269a46b] TimeZones v1.9.1
   [a759f4b9] TimerOutputs v0.5.22
-  [9f7883ad] Tracker v0.2.22
-  [3bb67fe8] TranscodingStreams v0.9.10
+  [9f7883ad] Tracker v0.2.23
+  [3bb67fe8] TranscodingStreams v0.9.11
   [28d57a85] Transducers v0.4.75
   [fce5fe82] Turing v0.22.0
   [5c2747f8] URIs v1.4.1
@@ -1588,7 +1588,7 @@ And the full manifest:
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
   [76eceee3] WorkerUtilities v1.6.1
-  [e88e6eb3] Zygote v0.6.51
+  [e88e6eb3] Zygote v0.6.55
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
@@ -1600,7 +1600,7 @@ And the full manifest:
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.71.2+0
+  [d2c73de3] GR_jll v0.71.5+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
@@ -1626,7 +1626,7 @@ And the full manifest:
   [91d4177d] Opus_jll v1.3.2+0
   [30392449] Pixman_jll v0.40.1+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
-  [f50d1b31] Rmath_jll v0.3.0+0
+  [f50d1b31] Rmath_jll v0.4.0+0
   [a2964d1f] Wayland_jll v1.21.0+0
   [2381bf8a] Wayland_protocols_jll v1.25.0+0
   [02c8fc9c] XML2_jll v2.10.3+0
