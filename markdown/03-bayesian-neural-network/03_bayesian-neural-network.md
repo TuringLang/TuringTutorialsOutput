@@ -260,7 +260,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 16
+  JULIA_CPU_THREADS = 128
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -269,12 +269,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Project.toml`
   [b5ca4192] AdvancedVI v0.1.6
   [76274a88] Bijectors v0.10.6
   [1a297f60] FillArrays v0.13.7
   [587475ba] Flux v0.13.11
-  [91a5bcdd] Plots v1.38.3
+  [91a5bcdd] Plots v1.38.4
   [37e2e3b7] ReverseDiff v1.14.4
   [fce5fe82] Turing v0.22.0
   [37e2e46d] LinearAlgebra
@@ -284,7 +284,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
+      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/03-bayesian-neural-network/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.3
@@ -317,7 +317,7 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.46.0
+  [34da2185] Compat v4.6.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -352,7 +352,7 @@ And the full manifest:
   [069b7b12] FunctionWrappers v1.1.3
   [77dc65aa] FunctionWrappersWrappers v0.1.1
   [d9f16b24] Functors v0.3.0
-  [0c68f7d7] GPUArrays v8.6.1
+  [0c68f7d7] GPUArrays v8.6.2
   [46192b85] GPUArraysCore v0.1.3
   [61eb1bfa] GPUCompiler v0.17.1
   [28b8d3ca] GR v0.71.5
@@ -384,11 +384,11 @@ And the full manifest:
   [6fdf6af0] LogDensityProblems v1.0.3
   [2ab3a3ac] LogExpFunctions v0.3.20
   [e6f89c97] LoggingExtras v0.4.9
-  [c7f686f2] MCMCChains v5.6.1
+  [c7f686f2] MCMCChains v5.7.1
   [be115224] MCMCDiagnosticTools v0.2.6
   [e80e1ace] MLJModelInterface v1.8.0
   [d8e11817] MLStyle v0.4.16
-  [f1d291b0] MLUtils v0.3.1
+  [f1d291b0] MLUtils v0.4.0
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
@@ -401,19 +401,19 @@ And the full manifest:
   [71a1bf82] NameResolution v0.1.5
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [6fe1bfb0] OffsetArrays v1.12.8
-  [0b1bfda6] OneHotArrays v0.2.0
+  [6fe1bfb0] OffsetArrays v1.12.9
+  [0b1bfda6] OneHotArrays v0.2.3
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
-  [69de0a69] Parsers v2.5.3
+  [69de0a69] Parsers v2.5.4
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.3
+  [91a5bcdd] Plots v1.38.4
   [21216c6a] Preferences v1.3.0
   [8162dcfd] PrettyPrint v0.2.0
-  [08abe8d2] PrettyTables v1.3.1
+  [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.7.0
@@ -449,6 +449,7 @@ And the full manifest:
   [82ae8749] StatsAPI v1.5.0
   [2913bbd2] StatsBase v0.33.21
   [4c63d2b9] StatsFuns v1.1.1
+  [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.14
   [2efcf032] SymbolicIndexingInterface v0.2.1
   [3783bdb8] TableTraits v1.0.1
