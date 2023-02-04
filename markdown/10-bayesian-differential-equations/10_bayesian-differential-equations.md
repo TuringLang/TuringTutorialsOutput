@@ -132,8 +132,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 62.94 seconds
-Compute duration  = 62.46 seconds
+Wall duration     = 65.15 seconds
+Compute duration  = 64.67 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -145,15 +145,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64     Float64   Float64
     ⋯
 
-           σ    0.8120    0.0411     0.0008    0.0011   1723.1688    1.0008
+           σ    0.8119    0.0399     0.0007    0.0008   1836.3444    1.0001
     ⋯
-           α    1.5540    0.0538     0.0010    0.0020    793.5296    1.0012
+           α    1.5549    0.0530     0.0010    0.0020    778.5469    1.0014
     ⋯
-           β    1.0903    0.0534     0.0010    0.0018    915.2240    1.0013
+           β    1.0914    0.0529     0.0010    0.0019    928.9854    1.0022
     ⋯
-           γ    2.8852    0.1426     0.0026    0.0053    816.3460    1.0010
+           γ    2.8832    0.1415     0.0026    0.0053    816.5251    1.0008
     ⋯
-           δ    0.9404    0.0506     0.0009    0.0019    805.8379    1.0011
+           δ    0.9395    0.0500     0.0009    0.0019    801.1950    1.0014
     ⋯
                                                                 1 column om
 itted
@@ -162,11 +162,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7342    0.7853    0.8099    0.8380    0.8962
-           α    1.4551    1.5168    1.5509    1.5888    1.6645
-           β    0.9930    1.0532    1.0881    1.1247    1.2030
-           γ    2.6111    2.7872    2.8859    2.9821    3.1675
-           δ    0.8422    0.9053    0.9405    0.9736    1.0395
+           σ    0.7407    0.7834    0.8099    0.8385    0.8969
+           α    1.4589    1.5169    1.5537    1.5911    1.6599
+           β    0.9950    1.0539    1.0884    1.1256    1.2050
+           γ    2.6179    2.7829    2.8804    2.9799    3.1561
+           δ    0.8459    0.9051    0.9371    0.9741    1.0384
 ```
 
 
@@ -247,8 +247,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 70.81 seconds
-Compute duration  = 70.21 seconds
+Wall duration     = 61.63 seconds
+Compute duration  = 61.02 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -260,15 +260,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8228    0.0582     0.0005    0.0033   170.0309    1.0351 
+           σ    0.8061    0.0546     0.0004    0.0036   104.8103    1.0446 
     ⋯
-           α    1.5517    0.1840     0.0015    0.0091   305.4503    1.0084 
+           α    1.5659    0.1732     0.0014    0.0115   109.6744    1.0143 
     ⋯
-           β    1.1143    0.1492     0.0012    0.0072   323.8996    1.0075 
+           β    1.1279    0.1421     0.0012    0.0095   108.6439    1.0158 
     ⋯
-           γ    2.9782    0.2999     0.0024    0.0149   289.5001    1.0116 
+           γ    2.9587    0.2684     0.0022    0.0170   133.6164    1.0080 
     ⋯
-           δ    0.9639    0.2504     0.0020    0.0123   297.0337    1.0092 
+           δ    0.9372    0.2247     0.0018    0.0149   111.6417    1.0108 
     ⋯
                                                                 1 column om
 itted
@@ -277,11 +277,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7205    0.7824    0.8183    0.8598    0.9509
-           α    1.2373    1.4241    1.5384    1.6665    1.9604
-           β    0.8611    1.0078    1.1003    1.2120    1.4427
-           γ    2.4140    2.7778    2.9628    3.1706    3.5998
-           δ    0.5245    0.7828    0.9457    1.1211    1.4948
+           σ    0.7200    0.7669    0.7996    0.8353    0.9334
+           α    1.2682    1.4481    1.5358    1.6610    1.9502
+           β    0.8860    1.0324    1.1095    1.2055    1.4556
+           γ    2.4434    2.7795    2.9648    3.1379    3.5000
+           δ    0.5184    0.7853    0.9411    1.0792    1.4290
 ```
 
 
@@ -405,8 +405,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 23.3 seconds
-Compute duration  = 22.82 seconds
+Wall duration     = 24.78 seconds
+Compute duration  = 24.31 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -418,15 +418,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.4949    0.0247     0.0008    0.0011   431.4732    0.9994 
+           σ    0.5174    0.0260     0.0009    0.0010   621.0925    0.9992 
     ⋯
-           α    1.4868    0.0655     0.0022    0.0045   222.4689    1.0188 
+           α    1.4883    0.0662     0.0022    0.0035   323.4620    1.0103 
     ⋯
-           β    1.0235    0.0553     0.0018    0.0035   275.2404    1.0117 
+           β    1.0044    0.0494     0.0016    0.0022   458.8757    1.0069 
     ⋯
-           γ    3.0378    0.1382     0.0046    0.0099   215.9345    1.0301 
+           γ    3.0052    0.1608     0.0054    0.0093   323.8611    1.0087 
     ⋯
-           δ    1.0152    0.0489     0.0016    0.0035   205.6517    1.0289 
+           δ    1.0089    0.0564     0.0019    0.0034   310.8306    1.0085 
     ⋯
                                                                 1 column om
 itted
@@ -435,11 +435,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.4482    0.4779    0.4936    0.5114    0.5480
-           α    1.3698    1.4463    1.4840    1.5212    1.6263
-           β    0.9245    0.9907    1.0197    1.0546    1.1358
-           γ    2.7761    2.9517    3.0302    3.1216    3.3129
-           δ    0.9237    0.9846    1.0137    1.0465    1.1145
+           σ    0.4720    0.4996    0.5153    0.5347    0.5731
+           α    1.3686    1.4416    1.4863    1.5332    1.6224
+           β    0.9152    0.9693    1.0022    1.0368    1.1056
+           γ    2.7290    2.8951    2.9963    3.1113    3.3356
+           δ    0.9053    0.9699    1.0049    1.0456    1.1246
 ```
 
 
@@ -511,8 +511,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 907.79 seconds
-Compute duration  = 907.79 seconds
+Wall duration     = 955.71 seconds
+Compute duration  = 955.71 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -524,15 +524,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    0.8133    0.0422     0.0013    0.0022   408.7241    1.0012 
+           σ    0.8121    0.0397     0.0013    0.0015   563.2553    1.0003 
     ⋯
-           α    1.5614    0.0531     0.0017    0.0036   190.2972    1.0049 
+           α    1.5592    0.0531     0.0017    0.0041   139.7578    1.0020 
     ⋯
-           β    1.0971    0.0571     0.0018    0.0034   220.7059    1.0066 
+           β    1.0928    0.0533     0.0017    0.0034   277.5483    1.0003 
     ⋯
-           γ    2.8659    0.1402     0.0044    0.0097   188.9211    1.0053 
+           γ    2.8701    0.1415     0.0045    0.0109   126.3609    1.0025 
     ⋯
-           δ    0.9335    0.0494     0.0016    0.0034   199.1561    1.0040 
+           δ    0.9354    0.0501     0.0016    0.0038   125.7076    1.0014 
     ⋯
                                                                 1 column om
 itted
@@ -541,11 +541,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    0.7352    0.7853    0.8100    0.8390    0.9008
-           α    1.4616    1.5271    1.5580    1.5941    1.6728
-           β    0.9945    1.0603    1.0947    1.1294    1.2252
-           γ    2.5920    2.7745    2.8649    2.9540    3.1679
-           δ    0.8361    0.9000    0.9344    0.9641    1.0329
+           σ    0.7412    0.7843    0.8108    0.8348    0.8947
+           α    1.4563    1.5226    1.5583    1.5961    1.6710
+           β    0.9968    1.0550    1.0895    1.1278    1.2085
+           γ    2.6021    2.7743    2.8695    2.9635    3.1607
+           δ    0.8395    0.9012    0.9332    0.9671    1.0415
 ```
 
 
@@ -589,8 +589,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 677.45 seconds
-Compute duration  = 677.45 seconds
+Wall duration     = 550.87 seconds
+Compute duration  = 550.87 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -602,15 +602,15 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-           σ    2.0622    0.1055     0.0033    0.0039   539.0503    1.0042 
+           σ    2.0615    0.1065     0.0034    0.0054   502.4238    1.0015 
     ⋯
-           α    1.2276    0.1160     0.0037    0.0096   121.7436    1.0058 
+           α    1.2245    0.1116     0.0035    0.0114   110.7464    1.0145 
     ⋯
-           β    0.8665    0.1210     0.0038    0.0066   340.7551    0.9997 
+           β    0.8641    0.1158     0.0037    0.0075   295.5736    0.9992 
     ⋯
-           γ    1.1302    0.1607     0.0051    0.0141   107.8448    1.0055 
+           γ    1.1335    0.1491     0.0047    0.0165    82.4062    1.0279 
     ⋯
-           δ    0.5595    0.0930     0.0029    0.0077   120.5152    1.0048 
+           δ    0.5621    0.0936     0.0030    0.0110    79.5056    1.0279 
     ⋯
                                                                 1 column om
 itted
@@ -619,11 +619,11 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           σ    1.8662    1.9905    2.0585    2.1293    2.2777
-           α    0.9510    1.1748    1.2486    1.3095    1.3886
-           β    0.6697    0.7818    0.8511    0.9349    1.1488
-           γ    1.0014    1.0292    1.0693    1.1732    1.5439
-           δ    0.4570    0.5032    0.5349    0.5916    0.8113
+           σ    1.8764    1.9857    2.0540    2.1247    2.2900
+           α    0.9352    1.1769    1.2457    1.3028    1.3843
+           β    0.6716    0.7813    0.8589    0.9346    1.1142
+           γ    1.0032    1.0343    1.0819    1.1773    1.5629
+           δ    0.4551    0.5043    0.5395    0.5882    0.8304
 ```
 
 
@@ -743,7 +743,7 @@ Platform Info:
   LIBM: libopenlibm
   LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
 Environment:
-  JULIA_CPU_THREADS = 128
+  JULIA_CPU_THREADS = 16
   BUILDKITE_PLUGIN_JULIA_CACHE_DIR = /cache/julia-buildkite-plugin
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
 
@@ -752,9 +752,9 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [0c46a032] DifferentialEquations v7.6.0
-  [1ed8b502] SciMLSensitivity v7.18.0
+  [1ed8b502] SciMLSensitivity v7.19.0
   [f3b207a7] StatsPlots v0.15.4
   [fce5fe82] Turing v0.22.0
   [e88e6eb3] Zygote v0.6.55
@@ -765,7 +765,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.3
@@ -812,7 +812,7 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v4.5.0
+  [34da2185] Compat v4.6.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -824,7 +824,7 @@ And the full manifest:
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
-  [bcd4f6db] DelayDiffEq v5.40.5
+  [bcd4f6db] DelayDiffEq v5.40.6
   [b429d917] DensityInterface v0.4.0
   [2b5f629d] DiffEqBase v6.114.2
   [459566f4] DiffEqCallbacks v2.24.3
@@ -841,7 +841,7 @@ And the full manifest:
   [da5c29d0] EllipsisNotation v1.6.0
   [cad2338a] EllipticalSliceSampling v1.0.0
   [4e289a0a] EnumX v1.0.4
-  [7da242da] Enzyme v0.10.15
+  [7da242da] Enzyme v0.10.16
   [f151be2c] EnzymeCore v0.1.0
   [d4d017d3] ExponentialUtilities v1.22.0
   [e2ba6199] ExprTools v0.1.8
@@ -858,7 +858,7 @@ And the full manifest:
   [069b7b12] FunctionWrappers v1.1.3
   [77dc65aa] FunctionWrappersWrappers v0.1.1
   [d9f16b24] Functors v0.3.0
-  [0c68f7d7] GPUArrays v8.6.1
+  [0c68f7d7] GPUArrays v8.6.2
   [46192b85] GPUArraysCore v0.1.3
   [61eb1bfa] GPUCompiler v0.17.1
   [28b8d3ca] GR v0.71.5
@@ -903,8 +903,8 @@ And the full manifest:
   [6fdf6af0] LogDensityProblems v1.0.3
   [2ab3a3ac] LogExpFunctions v0.3.20
   [e6f89c97] LoggingExtras v0.4.9
-  [bdcacae8] LoopVectorization v0.12.148
-  [c7f686f2] MCMCChains v5.6.1
+  [bdcacae8] LoopVectorization v0.12.149
+  [c7f686f2] MCMCChains v5.7.1
   [be115224] MCMCDiagnosticTools v0.2.6
   [e80e1ace] MLJModelInterface v1.8.0
   [1914dd2f] MacroTools v0.5.10
@@ -926,19 +926,19 @@ And the full manifest:
   [8913a72c] NonlinearSolve v1.3.0
   [d8793406] ObjectFile v0.3.7
   [510215fc] Observables v0.5.4
-  [6fe1bfb0] OffsetArrays v1.12.8
+  [6fe1bfb0] OffsetArrays v1.12.9
   [4d8831e6] OpenSSL v1.3.3
   [429524aa] Optim v1.7.4
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
-  [1dea7af3] OrdinaryDiffEq v6.40.1
+  [1dea7af3] OrdinaryDiffEq v6.41.0
   [90014a1f] PDMats v0.11.16
   [d96e819e] Parameters v0.12.3
-  [69de0a69] Parsers v2.5.3
+  [69de0a69] Parsers v2.5.4
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.3
+  [91a5bcdd] Plots v1.38.4
   [e409e4f3] PoissonRandom v0.4.3
   [f517fe37] Polyester v0.7.2
   [1d0040c9] PolyesterWeave v0.2.1
@@ -971,14 +971,14 @@ And the full manifest:
   [476501e8] SLEEFPirates v0.6.38
   [0bca4576] SciMLBase v1.81.1
   [e9a6253c] SciMLNLSolve v0.1.3
-  [1ed8b502] SciMLSensitivity v7.18.0
+  [1ed8b502] SciMLSensitivity v7.19.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [91c51154] SentinelArrays v1.3.17
   [efcf1570] Setfield v1.1.1
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
-  [727e6d20] SimpleNonlinearSolve v0.1.8
+  [727e6d20] SimpleNonlinearSolve v0.1.9
   [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.3
   [a2af1166] SortingAlgorithms v1.1.0
@@ -1000,7 +1000,7 @@ And the full manifest:
   [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.14
   [53d494c1] StructIO v0.3.0
-  [c3572dad] Sundials v4.12.0
+  [c3572dad] Sundials v4.13.0
   [2efcf032] SymbolicIndexingInterface v0.2.1
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
