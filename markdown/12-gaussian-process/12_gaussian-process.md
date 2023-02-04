@@ -270,11 +270,11 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.13
   [1a297f60] FillArrays v0.13.7
   [b964fa9f] LaTeXStrings v1.3.0
-  [91a5bcdd] Plots v1.38.3
+  [91a5bcdd] Plots v1.38.4
   [ce6b1742] RDatasets v0.7.7
   [37e2e3b7] ReverseDiff v1.14.4
   [2913bbd2] StatsBase v0.33.21
@@ -286,7 +286,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [99985d1d] AbstractGPs v0.5.13
   [80f14c24] AbstractMCMC v4.2.0
@@ -305,7 +305,7 @@ And the full manifest:
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
   [76274a88] Bijectors v0.10.6
-  [336ed68f] CSV v0.10.9
+  [336ed68f] CSV v0.10.7
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
   [082447d4] ChainRules v1.46.1
@@ -319,7 +319,7 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v4.5.0
+  [34da2185] Compat v4.6.0
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.4.1
@@ -383,7 +383,7 @@ And the full manifest:
   [6fdf6af0] LogDensityProblems v1.0.3
   [2ab3a3ac] LogExpFunctions v0.3.20
   [e6f89c97] LoggingExtras v0.4.9
-  [c7f686f2] MCMCChains v5.6.1
+  [c7f686f2] MCMCChains v5.7.1
   [be115224] MCMCDiagnosticTools v0.2.6
   [e80e1ace] MLJModelInterface v1.8.0
   [1914dd2f] MacroTools v0.5.10
@@ -397,15 +397,15 @@ And the full manifest:
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
-  [6fe1bfb0] OffsetArrays v1.12.8
+  [6fe1bfb0] OffsetArrays v1.12.9
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
-  [69de0a69] Parsers v2.5.3
+  [69de0a69] Parsers v2.5.4
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.3
+  [91a5bcdd] Plots v1.38.4
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v2.2.2
@@ -460,7 +460,6 @@ And the full manifest:
   [41fe7b60] Unzip v0.1.2
   [ea10d353] WeakRefStrings v1.4.2
   [efce3f68] WoodburyMatrices v0.5.5
-  [76eceee3] WorkerUtilities v1.6.1
   [700de1a5] ZygoteRules v0.2.2
   [6e34b625] Bzip2_jll v1.0.8+0
   [83423d85] Cairo_jll v1.16.1+1
