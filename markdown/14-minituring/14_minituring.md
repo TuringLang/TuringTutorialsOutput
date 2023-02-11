@@ -311,17 +311,17 @@ at
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64
 
-           a    0.9782    0.8986     0.0009    0.0032    80646.9411    1.00
-00
-           b    2.8812    0.4874     0.0005    0.0012   171857.5268    1.00
+           a    0.9759    0.8940     0.0009    0.0031    81963.8940    1.00
+01
+           b    2.8798    0.4877     0.0005    0.0012   172567.4419    1.00
 00
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7813    0.3720    0.9789    1.5825    2.7395
-           b    1.9259    2.5530    2.8812    3.2106    3.8346
+           a   -0.7785    0.3744    0.9769    1.5785    2.7321
+           b    1.9243    2.5510    2.8792    3.2082    3.8360
 ```
 
 
@@ -350,8 +350,8 @@ Chains MCMC chain (1000000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 6.37 seconds
-Compute duration  = 6.37 seconds
+Wall duration     = 6.58 seconds
+Compute duration  = 6.58 seconds
 parameters        = a, b
 internals         = lp
 
@@ -361,9 +361,9 @@ at  ⋯
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64  ⋯
 
-           a    0.9745    0.9022     0.0009    0.0031    81236.0784    1.00
+           a    0.9793    0.8993     0.0009    0.0031    80453.6883    1.00
 00  ⋯
-           b    2.8812    0.4888     0.0005    0.0012   173631.6136    1.00
+           b    2.8808    0.4887     0.0005    0.0012   171332.5791    1.00
 00  ⋯
                                                                 1 column om
 itted
@@ -372,8 +372,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7924    0.3647    0.9757    1.5832    2.7393
-           b    1.9262    2.5506    2.8816    3.2116    3.8386
+           a   -0.7866    0.3730    0.9788    1.5851    2.7482
+           b    1.9208    2.5509    2.8818    3.2106    3.8388
 ```
 
 
