@@ -270,11 +270,11 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.13
   [1a297f60] FillArrays v0.13.7
   [b964fa9f] LaTeXStrings v1.3.0
-  [91a5bcdd] Plots v1.38.4
+  [91a5bcdd] Plots v1.38.5
   [ce6b1742] RDatasets v0.7.7
   [37e2e3b7] ReverseDiff v1.14.4
   [2913bbd2] StatsBase v0.33.21
@@ -286,7 +286,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [99985d1d] AbstractGPs v0.5.13
   [80f14c24] AbstractMCMC v4.2.0
@@ -308,7 +308,7 @@ And the full manifest:
   [336ed68f] CSV v0.10.7
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
-  [082447d4] ChainRules v1.46.1
+  [082447d4] ChainRules v1.47.0
   [d360d2e6] ChainRulesCore v1.15.7
   [9e997f8a] ChangesOfVariables v0.1.5
   [944b1d66] CodecZlib v0.7.1
@@ -354,7 +354,7 @@ And the full manifest:
   [77dc65aa] FunctionWrappersWrappers v0.1.1
   [d9f16b24] Functors v0.3.0
   [46192b85] GPUArraysCore v0.1.3
-  [28b8d3ca] GR v0.71.5
+  [28b8d3ca] GR v0.71.6
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v0.8.19
   [34004b35] HypergeometricFunctions v0.3.11
@@ -378,10 +378,11 @@ And the full manifest:
   [8ac3fa9e] LRUCache v1.4.0
   [b964fa9f] LaTeXStrings v1.3.0
   [23fbe1c1] Latexify v0.15.18
+  [50d2b5c4] Lazy v0.15.1
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
   [6fdf6af0] LogDensityProblems v1.0.3
-  [2ab3a3ac] LogExpFunctions v0.3.20
+  [2ab3a3ac] LogExpFunctions v0.3.21
   [e6f89c97] LoggingExtras v0.4.9
   [c7f686f2] MCMCChains v5.7.1
   [be115224] MCMCDiagnosticTools v0.2.6
@@ -393,7 +394,7 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.3
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
-  [872c559c] NNlib v0.8.16
+  [872c559c] NNlib v0.8.17
   [77ba4419] NaNMath v1.0.1
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
@@ -401,17 +402,17 @@ And the full manifest:
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
-  [69de0a69] Parsers v2.5.4
+  [69de0a69] Parsers v2.5.6
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.4
+  [91a5bcdd] Plots v1.38.5
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
   [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
-  [1fd47b50] QuadGK v2.7.0
+  [1fd47b50] QuadGK v2.8.1
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
   [b3c3ace0] RangeArrays v0.3.2
@@ -419,7 +420,7 @@ And the full manifest:
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.3
   [01d81517] RecipesPipeline v0.6.11
-  [731186ca] RecursiveArrayTools v2.36.0
+  [731186ca] RecursiveArrayTools v2.37.0
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
@@ -427,7 +428,8 @@ And the full manifest:
   [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.81.1
+  [0bca4576] SciMLBase v1.84.0
+  [c0aeaf25] SciMLOperators v0.1.21
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
   [91c51154] SentinelArrays v1.3.17
@@ -437,7 +439,7 @@ And the full manifest:
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.12
+  [90137ffa] StaticArrays v1.5.14
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -454,6 +456,7 @@ And the full manifest:
   [9f7883ad] Tracker v0.2.23
   [3bb67fe8] TranscodingStreams v0.9.11
   [28d57a85] Transducers v0.4.75
+  [410a4b4d] Tricks v0.1.6
   [fce5fe82] Turing v0.22.0
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
@@ -470,7 +473,7 @@ And the full manifest:
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.71.5+0
+  [d2c73de3] GR_jll v0.71.6+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
@@ -490,7 +493,7 @@ And the full manifest:
   [38a345b3] Libuuid_jll v2.36.0+0
   [856f044c] MKL_jll v2022.2.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
-  [458c3c95] OpenSSL_jll v1.1.19+0
+  [458c3c95] OpenSSL_jll v1.1.20+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
   [30392449] Pixman_jll v0.40.1+0
