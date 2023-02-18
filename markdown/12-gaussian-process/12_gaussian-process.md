@@ -270,7 +270,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Project.toml`
   [99985d1d] AbstractGPs v0.5.13
   [1a297f60] FillArrays v0.13.7
   [b964fa9f] LaTeXStrings v1.3.0
@@ -286,7 +286,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/12-gaussian-process/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [99985d1d] AbstractGPs v0.5.13
   [80f14c24] AbstractMCMC v4.2.0
@@ -326,7 +326,7 @@ And the full manifest:
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.14.0
-  [a93c6f00] DataFrames v1.4.4
+  [a93c6f00] DataFrames v1.5.0
   [864edb3b] DataStructures v0.18.13
   [e2d170a0] DataValueInterfaces v1.0.0
   [244e2a9f] DefineSingletons v0.1.2
@@ -351,14 +351,14 @@ And the full manifest:
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.34
   [069b7b12] FunctionWrappers v1.1.3
-  [77dc65aa] FunctionWrappersWrappers v0.1.1
+  [77dc65aa] FunctionWrappersWrappers v0.1.3
   [d9f16b24] Functors v0.3.0
-  [46192b85] GPUArraysCore v0.1.3
-  [28b8d3ca] GR v0.71.6
+  [46192b85] GPUArraysCore v0.1.4
+  [28b8d3ca] GR v0.71.7
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v0.8.19
   [34004b35] HypergeometricFunctions v0.3.11
-  [7869d1d1] IRTools v0.4.7
+  [7869d1d1] IRTools v0.4.8
   [83e8ac13] IniFile v0.5.1
   [22cec73e] InitialValues v0.3.1
   [842dd82b] InlineStrings v1.4.0
@@ -394,15 +394,15 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.3
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
-  [872c559c] NNlib v0.8.17
-  [77ba4419] NaNMath v1.0.1
+  [872c559c] NNlib v0.8.18
+  [77ba4419] NaNMath v1.0.2
   [86f7a689] NamedArrays v0.9.6
   [c020b1a1] NaturalSort v1.0.0
   [6fe1bfb0] OffsetArrays v1.12.9
   [3bd65402] Optimisers v0.2.14
   [bac558e1] OrderedCollections v1.4.1
   [90014a1f] PDMats v0.11.16
-  [69de0a69] Parsers v2.5.6
+  [69de0a69] Parsers v2.5.7
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
@@ -428,7 +428,7 @@ And the full manifest:
   [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.8
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.84.0
+  [0bca4576] SciMLBase v1.84.1
   [c0aeaf25] SciMLOperators v0.1.21
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
@@ -439,7 +439,7 @@ And the full manifest:
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.1.7
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.14
+  [90137ffa] StaticArrays v1.5.15
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -473,7 +473,7 @@ And the full manifest:
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.71.6+0
+  [d2c73de3] GR_jll v0.71.7+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
@@ -524,7 +524,7 @@ And the full manifest:
   [35661453] Xorg_xkbcomp_jll v1.4.2+4
   [33bec58e] Xorg_xkeyboard_config_jll v2.27.0+4
   [c5fb5394] Xorg_xtrans_jll v1.4.0+3
-  [3161d3a3] Zstd_jll v1.5.2+0
+  [3161d3a3] Zstd_jll v1.5.4+0
   [214eeab7] fzf_jll v0.29.0+0
   [a4ae2306] libaom_jll v3.4.0+0
   [0ac62f75] libass_jll v0.15.1+0
