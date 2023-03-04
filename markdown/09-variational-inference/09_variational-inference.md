@@ -204,7 +204,7 @@ logpdf(q, rand(q))
 ```
 
 ```
-4.155802034535141
+5.175607551862831
 ```
 
 
@@ -228,7 +228,7 @@ var(x), mean(x)
 ```
 
 ```
-(1.016013270975557, -0.02028877033823731)
+(1.0166331695234854, -0.02063562045151621)
 ```
 
 
@@ -583,19 +583,19 @@ avg = vec(mean(z; dims=2))
 
 ```
 13-element Vector{Float64}:
-  0.0005348573782368673
- -0.0007107133115371489
-  1.001549605244163
- -0.0008224168375894216
-  0.002068944603221043
-  0.0009260459042537679
- -0.0030498746532064244
- -0.0019709835913506364
- -0.0013635386276335912
-  0.0002715181512576484
- -0.0002771814260512373
- -0.0005587371560732877
-  0.002658787771440755
+  0.0005350545238934559
+ -0.0008135365069472977
+  1.0015523412905114
+ -0.0009126978807879137
+  0.0021597630352901014
+  0.0009049826709099784
+ -0.0031479280243483588
+ -0.0020332393740695974
+ -0.001276358603668492
+  0.0003629987092139663
+ -0.0002843656451937193
+ -0.000525550043077333
+  0.002739324522866989
 ```
 
 
@@ -627,7 +627,7 @@ avg[union(sym2range[:σ²]...)]
 
 ```
 1-element Vector{Float64}:
- 0.0005348573782368673
+ 0.0005350545238934559
 ```
 
 
@@ -638,7 +638,7 @@ avg[union(sym2range[:intercept]...)]
 
 ```
 1-element Vector{Float64}:
- -0.0007107133115371489
+ -0.0008135365069472977
 ```
 
 
@@ -649,17 +649,17 @@ avg[union(sym2range[:coefficients]...)]
 
 ```
 11-element Vector{Float64}:
-  1.001549605244163
- -0.0008224168375894216
-  0.002068944603221043
-  0.0009260459042537679
- -0.0030498746532064244
- -0.0019709835913506364
- -0.0013635386276335912
-  0.0002715181512576484
- -0.0002771814260512373
- -0.0005587371560732877
-  0.002658787771440755
+  1.0015523412905114
+ -0.0009126978807879137
+  0.0021597630352901014
+  0.0009049826709099784
+ -0.0031479280243483588
+ -0.0020332393740695974
+ -0.001276358603668492
+  0.0003629987092139663
+ -0.0002843656451937193
+ -0.000525550043077333
+  0.002739324522866989
 ```
 
 
@@ -744,19 +744,19 @@ vi_mean = vec(mean(z; dims=2))[[
 
 ```
 13-element Vector{Float64}:
-  1.001549605244163
- -0.0008224168375894216
-  0.002068944603221043
-  0.0009260459042537679
- -0.0030498746532064244
- -0.0019709835913506364
- -0.0013635386276335912
-  0.0002715181512576484
- -0.0002771814260512373
- -0.0005587371560732877
-  0.002658787771440755
- -0.0007107133115371489
-  0.0005348573782368673
+  1.0015523412905114
+ -0.0009126978807879137
+  0.0021597630352901014
+  0.0009049826709099784
+ -0.0031479280243483588
+ -0.0020332393740695974
+ -0.001276358603668492
+  0.0003629987092139663
+ -0.0002843656451937193
+ -0.000525550043077333
+  0.002739324522866989
+ -0.0008135365069472977
+  0.0005350545238934559
 ```
 
 
@@ -767,19 +767,19 @@ mcmc_mean = mean(chain, names(chain, :parameters))[:, 2]
 
 ```
 13-element Vector{Float64}:
-  3.1320225721322223e-12
- -2.304767910618122e-9
-  0.9999999844508267
- -2.4795111257301898e-9
- -1.702397331613762e-8
-  1.0403609558769285e-8
-  1.9507453567820756e-9
-  2.048922498642947e-8
-  2.624419034008522e-10
- -1.2526254003888238e-8
- -7.056881622604288e-9
-  2.6846796405522794e-8
- -2.0861410476127218e-8
+  5.732706037579716e-12
+ -2.556022081637006e-9
+  0.9999999814980293
+  3.0802377071399787e-8
+ -5.1838020679090385e-8
+  2.3696412508411026e-9
+  6.130915423856005e-8
+  8.232734157670126e-8
+ -2.399389898268805e-8
+ -2.4730963638189145e-8
+ -1.0031499850652666e-8
+  2.1293919013467664e-8
+ -7.342046410350066e-8
 ```
 
 
@@ -800,7 +800,7 @@ sum(abs2, mcmc_mean .- vi_mean)
 ```
 
 ```
-1.998992874822981
+1.998818459237037
 ```
 
 
@@ -947,12 +947,12 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007376991500340871
-    Bayes loss: 8.153919812954846e-15
+    VI loss: 0.000781547968746938
+    Bayes loss: 2.0859665717821778e-14
     OLS loss: 3.0709261248930093
 Test set: 
-    VI loss: 0.001352012097627546
-    Bayes loss: 4.505525038640781e-14
+    VI loss: 0.0014552351708031945
+    Bayes loss: 2.414747877429496e-13
     OLS loss: 27.094813070760562
 ```
 
@@ -1150,19 +1150,19 @@ A = q_full_normal.transform.ts[1].a
 
 ```
 13×13 LinearAlgebra.LowerTriangular{Float64, Matrix{Float64}}:
-  0.305089      ⋅           …    ⋅            ⋅           ⋅ 
- -0.00431915   0.0166244         ⋅            ⋅           ⋅ 
- -0.00998994  -0.00431989        ⋅            ⋅           ⋅ 
-  0.00572792   0.0029716         ⋅            ⋅           ⋅ 
- -0.00545461   3.35391e-5        ⋅            ⋅           ⋅ 
-  0.00391359   0.00575375   …    ⋅            ⋅           ⋅ 
-  0.00939115   0.00100242        ⋅            ⋅           ⋅ 
-  0.00901805   0.000877165       ⋅            ⋅           ⋅ 
- -0.00517287  -0.00209112        ⋅            ⋅           ⋅ 
- -0.00661439  -0.00217886        ⋅            ⋅           ⋅ 
- -0.00077362  -0.00302863   …   0.0230702     ⋅           ⋅ 
-  0.00487153   0.010404        -0.0184626    0.0167992    ⋅ 
- -0.0154079   -0.00501654       0.00502159  -0.00101724  0.0166174
+  0.315351       ⋅          …    ⋅            ⋅           ⋅ 
+  0.000804197   0.0161241        ⋅            ⋅           ⋅ 
+ -0.00904934    0.00770531       ⋅            ⋅           ⋅ 
+  0.00103201   -0.00716426       ⋅            ⋅           ⋅ 
+  0.00293685   -0.00564296       ⋅            ⋅           ⋅ 
+  0.00587384   -0.0104423   …    ⋅            ⋅           ⋅ 
+  0.00793358    0.00389553       ⋅            ⋅           ⋅ 
+  0.00144795   -0.0043923        ⋅            ⋅           ⋅ 
+ -0.00244058    0.00571685       ⋅            ⋅           ⋅ 
+ -0.0056704     0.00614071       ⋅            ⋅           ⋅ 
+ -0.00322689    0.00837616  …   0.0225989     ⋅           ⋅ 
+  0.0155249    -0.0321327      -0.0180487    0.0160955    ⋅ 
+ -0.0173572     0.0265413       0.00392911  -0.00621344  0.0158986
 ```
 
 
@@ -1232,12 +1232,12 @@ Test set:
 
 ```
 Training set:
-    VI loss: 0.0007376991500340871
-    Bayes loss: 8.153919812954846e-15
+    VI loss: 0.000781547968746938
+    Bayes loss: 2.0859665717821778e-14
     OLS loss: 3.0709261248930093
 Test set: 
-    VI loss: 0.001352012097627546
-    Bayes loss: 4.505525038640781e-14
+    VI loss: 0.0014552351708031945
+    Bayes loss: 2.414747877429496e-13
     OLS loss: 27.094813070760562
 ```
 
@@ -1354,11 +1354,11 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
-  [76274a88] Bijectors v0.10.6
-  [b0b7db55] ComponentArrays v0.13.7
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+  [76274a88] Bijectors v0.10.7
+  [b0b7db55] ComponentArrays v0.13.8
   [1a297f60] FillArrays v0.13.7
-  [587475ba] Flux v0.13.12
+  [587475ba] Flux v0.13.13
   [38e38edf] GLM v1.8.1
   [442fdcdd] Measures v0.3.2
   [ce6b1742] RDatasets v0.7.7
@@ -1372,20 +1372,20 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [621f4979] AbstractFFTs v1.2.1
   [80f14c24] AbstractMCMC v4.2.0
-  [7a57a42e] AbstractPPL v0.5.3
+  [7a57a42e] AbstractPPL v0.5.4
   [1520ce14] AbstractTrees v0.4.4
-  [7d9f7c33] Accessors v0.1.26
-  [79e6a3ab] Adapt v3.5.0
+  [7d9f7c33] Accessors v0.1.28
+  [79e6a3ab] Adapt v3.6.1
   [0bf59076] AdvancedHMC v0.3.6
   [5b7e9947] AdvancedMH v0.6.8
   [576499cb] AdvancedPS v0.3.8
   [b5ca4192] AdvancedVI v0.1.6
   [dce04be8] ArgCheck v2.3.0
   [7d9fca2a] Arpack v0.5.4
-  [4fba245c] ArrayInterface v6.0.25
+  [4fba245c] ArrayInterface v7.2.0
   [30b0a656] ArrayInterfaceCore v0.1.29
   [dd5226c6] ArrayInterfaceStaticArraysCore v0.1.3
   [13072b0f] AxisAlgorithms v1.0.1
@@ -1393,16 +1393,16 @@ And the full manifest:
   [ab4f0b2a] BFloat16s v0.4.2
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.10.6
+  [76274a88] Bijectors v0.10.7
   [fa961155] CEnum v0.4.2
   [336ed68f] CSV v0.10.9
   [052768ef] CUDA v4.0.1
   [1af6417a] CUDA_Runtime_Discovery v0.1.1
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.7
-  [082447d4] ChainRules v1.47.0
+  [082447d4] ChainRules v1.48.0
   [d360d2e6] ChainRulesCore v1.15.7
-  [9e997f8a] ChangesOfVariables v0.1.5
+  [9e997f8a] ChangesOfVariables v0.1.6
   [aaaa29a8] Clustering v0.14.3
   [944b1d66] CodecZlib v0.7.1
   [35d6a980] ColorSchemes v3.20.0
@@ -1412,30 +1412,30 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v3.46.0
-  [b0b7db55] ComponentArrays v0.13.7
+  [34da2185] Compat v4.6.0
+  [b0b7db55] ComponentArrays v0.13.8
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
-  [187b0558] ConstructionBase v1.4.1
+  [187b0558] ConstructionBase v1.5.1
   [6add18c4] ContextVariablesX v0.1.3
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.14.0
-  [a93c6f00] DataFrames v1.3.6
+  [a93c6f00] DataFrames v1.5.0
   [864edb3b] DataStructures v0.18.13
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
   [b429d917] DensityInterface v0.4.0
   [163ba53b] DiffResults v1.1.0
-  [b552c78f] DiffRules v1.12.2
+  [b552c78f] DiffRules v1.13.0
   [b4f34e82] Distances v0.10.7
-  [31c24e10] Distributions v0.25.80
+  [31c24e10] Distributions v0.25.86
   [ced4e74d] DistributionsAD v0.6.43
   [ffbed154] DocStringExtensions v0.8.6
   [fa6b7ba4] DualNumbers v0.6.8
   [366bfd00] DynamicPPL v0.21.4
-  [cad2338a] EllipticalSliceSampling v1.0.0
+  [cad2338a] EllipticalSliceSampling v1.1.0
   [4e289a0a] EnumX v1.0.4
   [e2ba6199] ExprTools v0.1.8
   [c87230d0] FFMPEG v0.4.1
@@ -1446,10 +1446,10 @@ And the full manifest:
   [48062228] FilePathsBase v0.9.20
   [1a297f60] FillArrays v0.13.7
   [53c48c17] FixedPointNumbers v0.8.4
-  [587475ba] Flux v0.13.12
+  [587475ba] Flux v0.13.13
   [9c68100b] FoldsThreads v0.1.1
   [59287772] Formatting v0.4.2
-  [f6369f11] ForwardDiff v0.10.34
+  [f6369f11] ForwardDiff v0.10.35
   [069b7b12] FunctionWrappers v1.1.3
   [77dc65aa] FunctionWrappersWrappers v0.1.3
   [d9f16b24] Functors v0.3.0
@@ -1486,13 +1486,13 @@ And the full manifest:
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
   [6fdf6af0] LogDensityProblems v1.0.3
-  [2ab3a3ac] LogExpFunctions v0.3.21
+  [2ab3a3ac] LogExpFunctions v0.3.23
   [e6f89c97] LoggingExtras v0.4.9
   [c7f686f2] MCMCChains v5.7.1
   [be115224] MCMCDiagnosticTools v0.2.6
   [e80e1ace] MLJModelInterface v1.8.0
   [d8e11817] MLStyle v0.4.17
-  [f1d291b0] MLUtils v0.3.1
+  [f1d291b0] MLUtils v0.4.1
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
@@ -1501,7 +1501,7 @@ And the full manifest:
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.5
   [6f286f6a] MultivariateStats v0.10.1
-  [872c559c] NNlib v0.8.18
+  [872c559c] NNlib v0.8.19
   [a00861dc] NNlibCUDA v0.2.7
   [77ba4419] NaNMath v1.0.2
   [71a1bf82] NameResolution v0.1.5
@@ -1510,19 +1510,19 @@ And the full manifest:
   [b8a86587] NearestNeighbors v0.4.13
   [510215fc] Observables v0.5.4
   [6fe1bfb0] OffsetArrays v1.12.9
-  [0b1bfda6] OneHotArrays v0.2.0
-  [3bd65402] Optimisers v0.2.14
+  [0b1bfda6] OneHotArrays v0.2.3
+  [3bd65402] Optimisers v0.2.15
   [bac558e1] OrderedCollections v1.4.1
-  [90014a1f] PDMats v0.11.16
+  [90014a1f] PDMats v0.11.17
   [69de0a69] Parsers v2.5.7
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.5
+  [91a5bcdd] Plots v1.38.6
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
   [8162dcfd] PrettyPrint v0.2.0
-  [08abe8d2] PrettyTables v1.3.1
+  [08abe8d2] PrettyTables v2.2.2
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.8.1
@@ -1540,12 +1540,12 @@ And the full manifest:
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.1
-  [f2b01f46] Roots v2.0.8
+  [f2b01f46] Roots v2.0.9
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
   [0bca4576] SciMLBase v1.81.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.1.1
-  [91c51154] SentinelArrays v1.3.17
+  [91c51154] SentinelArrays v1.3.18
   [efcf1570] Setfield v1.1.1
   [1277b4bf] ShiftedArrays v2.0.0
   [605ecd9f] ShowCases v0.1.0
@@ -1553,17 +1553,19 @@ And the full manifest:
   [699a6c99] SimpleTraits v0.9.4
   [66db9d55] SnoopPrecompile v1.0.3
   [a2af1166] SortingAlgorithms v1.1.0
-  [276daf66] SpecialFunctions v2.1.7
+  [276daf66] SpecialFunctions v2.2.0
   [171d559e] SplittablesBase v0.1.15
-  [aedffcd0] Static v0.8.3
-  [90137ffa] StaticArrays v1.5.15
+  [aedffcd0] Static v0.8.4
+  [0d7ed370] StaticArrayInterface v1.2.1
+  [90137ffa] StaticArrays v1.5.16
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
   [2913bbd2] StatsBase v0.33.21
-  [4c63d2b9] StatsFuns v1.1.1
+  [4c63d2b9] StatsFuns v1.3.0
   [3eaba693] StatsModels v0.6.33
   [f3b207a7] StatsPlots v0.15.4
+  [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.14
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
@@ -1605,10 +1607,10 @@ And the full manifest:
   [3b182d85] Graphite2_jll v1.3.14+0
   [2e76f6c2] HarfBuzz_jll v2.8.1+1
   [1d5cc7b8] IntelOpenMP_jll v2018.0.3+2
-  [aacddb02] JpegTurbo_jll v2.1.2+0
+  [aacddb02] JpegTurbo_jll v2.1.91+0
   [c1c5ebd0] LAME_jll v3.100.1+0
   [88015f11] LERC_jll v3.0.0+1
-  [dad2f222] LLVMExtra_jll v0.0.16+0
+  [dad2f222] LLVMExtra_jll v0.0.16+2
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
