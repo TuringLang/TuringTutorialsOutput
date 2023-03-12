@@ -74,8 +74,8 @@ Chains MCMC chain (1000×14×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1.9 seconds
-Compute duration  = 1.9 seconds
+Wall duration     = 2.12 seconds
+Compute duration  = 2.12 seconds
 parameters        = s², m
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -87,9 +87,9 @@ Summary Statistics
       Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
     ⋯
 
-          s²    2.1180    2.0170     0.0638    0.0931   467.0192    0.9990 
+          s²    2.1386    2.1923     0.0693    0.1217   340.8337    1.0046 
     ⋯
-           m    1.1634    0.8141     0.0257    0.0424   369.0597    1.0058 
+           m    1.2155    0.8100     0.0256    0.0408   345.6587    1.0073 
     ⋯
                                                                 1 column om
 itted
@@ -98,8 +98,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5694    1.0533    1.6166    2.4438    6.8689
-           m   -0.4536    0.7034    1.1391    1.6381    2.8121
+          s²    0.5807    1.0667    1.5420    2.4293    6.9370
+           m   -0.2881    0.7069    1.2107    1.6726    2.8696
 ```
 
 
