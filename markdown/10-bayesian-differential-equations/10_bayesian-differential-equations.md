@@ -132,8 +132,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 68.21 seconds
-Compute duration  = 67.73 seconds
+Wall duration     = 67.19 seconds
+Compute duration  = 66.71 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -247,8 +247,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 60.69 seconds
-Compute duration  = 60.13 seconds
+Wall duration     = 60.08 seconds
+Compute duration  = 59.47 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -405,8 +405,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 24.11 seconds
-Compute duration  = 23.63 seconds
+Wall duration     = 23.8 seconds
+Compute duration  = 23.32 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -511,8 +511,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1170.28 seconds
-Compute duration  = 1170.28 seconds
+Wall duration     = 1134.98 seconds
+Compute duration  = 1134.98 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -589,8 +589,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 572.08 seconds
-Compute duration  = 572.08 seconds
+Wall duration     = 551.74 seconds
+Compute duration  = 551.74 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -752,12 +752,12 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [0c46a032] DifferentialEquations v7.7.0
-  [1ed8b502] SciMLSensitivity v7.24.0
+  [1ed8b502] SciMLSensitivity v7.25.0
   [f3b207a7] StatsPlots v0.15.4
   [fce5fe82] Turing v0.22.0
-  [e88e6eb3] Zygote v0.6.55
+  [e88e6eb3] Zygote v0.6.56
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
@@ -765,8 +765,8 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
-  [621f4979] AbstractFFTs v1.2.1
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+  [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.4
   [1520ce14] AbstractTrees v0.4.4
@@ -778,7 +778,7 @@ And the full manifest:
   [dce04be8] ArgCheck v2.3.0
   [ec485272] ArnoldiMethod v0.2.0
   [7d9fca2a] Arpack v0.5.4
-  [4fba245c] ArrayInterface v7.2.0
+  [4fba245c] ArrayInterface v7.2.1
   [30b0a656] ArrayInterfaceCore v0.1.29
   [4c555306] ArrayLayouts v0.8.18
   [13072b0f] AxisAlgorithms v1.0.1
@@ -807,7 +807,7 @@ And the full manifest:
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.3
   [bbf7d656] CommonSubexpressions v0.3.0
-  [34da2185] Compat v4.6.0
+  [34da2185] Compat v4.6.1
   [a33af91c] CompositionsBase v0.1.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
   [187b0558] ConstructionBase v1.5.1
@@ -819,15 +819,15 @@ And the full manifest:
   [e2d170a0] DataValueInterfaces v1.0.0
   [e7dc6d0d] DataValues v0.4.13
   [244e2a9f] DefineSingletons v0.1.2
-  [bcd4f6db] DelayDiffEq v5.41.0
+  [bcd4f6db] DelayDiffEq v5.41.1
   [b429d917] DensityInterface v0.4.0
-  [2b5f629d] DiffEqBase v6.121.1
+  [2b5f629d] DiffEqBase v6.122.1
   [459566f4] DiffEqCallbacks v2.26.0
   [77a26b50] DiffEqNoiseProcess v5.16.0
   [163ba53b] DiffResults v1.1.0
   [b552c78f] DiffRules v1.13.0
   [0c46a032] DifferentialEquations v7.7.0
-  [b4f34e82] Distances v0.10.7
+  [b4f34e82] Distances v0.10.8
   [31c24e10] Distributions v0.25.86
   [ced4e74d] DistributionsAD v0.6.43
   [ffbed154] DocStringExtensions v0.9.3
@@ -839,9 +839,9 @@ And the full manifest:
   [7da242da] Enzyme v0.10.18
   [f151be2c] EnzymeCore v0.1.0
   [d4d017d3] ExponentialUtilities v1.24.0
-  [e2ba6199] ExprTools v0.1.8
+  [e2ba6199] ExprTools v0.1.9
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.5.0
+  [7a1cc6ca] FFTW v1.6.0
   [7034ab61] FastBroadcast v0.2.5
   [9aa1b823] FastClosures v0.3.2
   [29a986be] FastLapackInterface v1.2.9
@@ -855,7 +855,7 @@ And the full manifest:
   [d9f16b24] Functors v0.3.0
   [0c68f7d7] GPUArrays v8.6.3
   [46192b85] GPUArraysCore v0.1.4
-  [61eb1bfa] GPUCompiler v0.17.2
+  [61eb1bfa] GPUCompiler v0.17.3
   [28b8d3ca] GR v0.71.7
   [c145ed77] GenericSchur v0.5.3
   [86223c79] Graphs v1.8.0
@@ -895,7 +895,7 @@ And the full manifest:
   [2d8b4e74] LevyArea v1.0.0
   [6f1fad26] Libtask v0.7.0
   [d3d80556] LineSearches v7.2.0
-  [7ed4a6bd] LinearSolve v1.37.0
+  [7ed4a6bd] LinearSolve v1.38.0
   [6fdf6af0] LogDensityProblems v1.0.3
   [2ab3a3ac] LogExpFunctions v0.3.23
   [e6f89c97] LoggingExtras v0.4.9
@@ -927,14 +927,14 @@ And the full manifest:
   [429524aa] Optim v1.7.4
   [3bd65402] Optimisers v0.2.15
   [bac558e1] OrderedCollections v1.4.1
-  [1dea7af3] OrdinaryDiffEq v6.48.2
+  [1dea7af3] OrdinaryDiffEq v6.49.0
   [90014a1f] PDMats v0.11.17
   [d96e819e] Parameters v0.12.3
-  [69de0a69] Parsers v2.5.7
+  [69de0a69] Parsers v2.5.8
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.6
+  [91a5bcdd] Plots v1.38.7
   [e409e4f3] PoissonRandom v0.4.3
   [f517fe37] Polyester v0.7.3
   [1d0040c9] PolyesterWeave v0.2.1
@@ -960,22 +960,23 @@ And the full manifest:
   [ae5879a3] ResettableStacks v1.1.1
   [37e2e3b7] ReverseDiff v1.14.4
   [79098fc4] Rmath v0.7.1
-  [f2b01f46] Roots v2.0.9
+  [f2b01f46] Roots v2.0.10
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
   [94e857df] SIMDTypes v0.1.0
   [476501e8] SLEEFPirates v0.6.38
-  [0bca4576] SciMLBase v1.88.0
+  [0bca4576] SciMLBase v1.90.0
   [e9a6253c] SciMLNLSolve v0.1.3
-  [c0aeaf25] SciMLOperators v0.1.22
-  [1ed8b502] SciMLSensitivity v7.24.0
+  [c0aeaf25] SciMLOperators v0.2.0
+  [1ed8b502] SciMLSensitivity v7.25.0
   [30f210dd] ScientificTypesBase v3.0.0
-  [6c6a2e73] Scratch v1.1.1
+  [6c6a2e73] Scratch v1.2.0
   [91c51154] SentinelArrays v1.3.18
   [efcf1570] Setfield v1.1.1
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
-  [727e6d20] SimpleNonlinearSolve v0.1.13
+  [727e6d20] SimpleNonlinearSolve v0.1.14
   [699a6c99] SimpleTraits v0.9.4
+  [ce78b400] SimpleUnPack v1.1.0
   [66db9d55] SnoopPrecompile v1.0.3
   [a2af1166] SortingAlgorithms v1.1.0
   [47a9eef4] SparseDiffTools v1.31.0
@@ -983,7 +984,7 @@ And the full manifest:
   [276daf66] SpecialFunctions v2.2.0
   [171d559e] SplittablesBase v0.1.15
   [aedffcd0] Static v0.8.4
-  [0d7ed370] StaticArrayInterface v1.2.1
+  [0d7ed370] StaticArrayInterface v1.3.0
   [90137ffa] StaticArrays v1.5.16
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
@@ -1012,17 +1013,17 @@ And the full manifest:
   [a2a6695c] TreeViews v0.3.0
   [d5829a12] TriangularSolve v0.1.19
   [410a4b4d] Tricks v0.1.6
-  [781d530d] TruncatedStacktraces v1.0.1
+  [781d530d] TruncatedStacktraces v1.1.0
   [fce5fe82] Turing v0.22.0
   [5c2747f8] URIs v1.4.2
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
   [41fe7b60] Unzip v0.1.2
-  [3d5dd08c] VectorizationBase v0.21.60
+  [3d5dd08c] VectorizationBase v0.21.61
   [19fa3120] VertexSafeGraphs v0.2.0
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
-  [e88e6eb3] Zygote v0.6.55
+  [e88e6eb3] Zygote v0.6.56
   [700de1a5] ZygoteRules v0.2.2
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
