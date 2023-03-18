@@ -196,8 +196,8 @@ Chains MCMC chain (1500×22×3 Array{Float64, 3}):
 Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 16.03 seconds
-Compute duration  = 15.26 seconds
+Wall duration     = 16.02 seconds
+Compute duration  = 15.23 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
@@ -419,7 +419,7 @@ Package Information:
 
 ```
       Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
-  [1a297f60] FillArrays v0.13.7
+  [1a297f60] FillArrays v0.13.8
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.19
   [ce6b1742] RDatasets v0.7.7
@@ -449,7 +449,7 @@ And the full manifest:
   [39de3d68] AxisArrays v0.4.6
   [198e06fe] BangBang v0.3.37
   [9718e550] Baselet v0.1.1
-  [76274a88] Bijectors v0.10.7
+  [76274a88] Bijectors v0.10.8
   [d1d4a3ce] BitFlags v0.1.7
   [336ed68f] CSV v0.10.9
   [49dc2e85] Calculus v0.5.1
@@ -494,7 +494,7 @@ And the full manifest:
   [7a1cc6ca] FFTW v1.6.0
   [5789e2e9] FileIO v1.16.0
   [48062228] FilePathsBase v0.9.20
-  [1a297f60] FillArrays v0.13.7
+  [1a297f60] FillArrays v0.13.8
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.35
@@ -502,7 +502,7 @@ And the full manifest:
   [77dc65aa] FunctionWrappersWrappers v0.1.3
   [d9f16b24] Functors v0.3.0
   [46192b85] GPUArraysCore v0.1.4
-  [28b8d3ca] GR v0.71.7
+  [28b8d3ca] GR v0.71.8
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v1.7.4
   [34004b35] HypergeometricFunctions v0.3.11
@@ -514,8 +514,8 @@ And the full manifest:
   [a98d9a8b] Interpolations v0.14.7
   [8197267c] IntervalSets v0.7.4
   [3587e190] InverseFunctions v0.1.8
-  [41ab1584] InvertedIndices v1.2.0
-  [92d709cd] IrrationalConstants v0.1.1
+  [41ab1584] InvertedIndices v1.3.0
+  [92d709cd] IrrationalConstants v0.2.2
   [c8e1da08] IterTools v1.4.0
   [82899510] IteratorInterfaceExtensions v1.0.0
   [1019f520] JLFzf v0.1.5
@@ -542,7 +542,7 @@ And the full manifest:
   [dbb5928d] MappedArrays v0.4.1
   [739be429] MbedTLS v1.1.7
   [442fdcdd] Measures v0.3.2
-  [128add7d] MicroCollections v0.1.3
+  [128add7d] MicroCollections v0.1.4
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.6
   [6f286f6a] MultivariateStats v0.10.1
@@ -561,13 +561,13 @@ And the full manifest:
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.4
-  [91a5bcdd] Plots v1.38.7
+  [91a5bcdd] Plots v1.38.8
   [2dfb63ee] PooledArrays v1.4.2
   [21216c6a] Preferences v1.3.0
-  [08abe8d2] PrettyTables v2.2.2
+  [08abe8d2] PrettyTables v2.2.3
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
-  [1fd47b50] QuadGK v2.8.1
+  [1fd47b50] QuadGK v2.8.2
   [df47a6cb] RData v0.8.3
   [ce6b1742] RDatasets v0.7.7
   [b3c3ace0] RangeArrays v0.3.2
@@ -582,7 +582,7 @@ And the full manifest:
   [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.10
   [7e49a35a] RuntimeGeneratedFunctions v0.5.5
-  [0bca4576] SciMLBase v1.90.0
+  [0bca4576] SciMLBase v1.91.1
   [c0aeaf25] SciMLOperators v0.2.0
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.2.0
@@ -594,7 +594,7 @@ And the full manifest:
   [a2af1166] SortingAlgorithms v1.1.0
   [276daf66] SpecialFunctions v2.2.0
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.16
+  [90137ffa] StaticArrays v1.5.17
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.5.0
@@ -602,11 +602,11 @@ And the full manifest:
   [4c63d2b9] StatsFuns v1.3.0
   [f3b207a7] StatsPlots v0.15.4
   [892a3eda] StringManipulation v0.3.0
-  [09ab397b] StructArrays v0.6.14
+  [09ab397b] StructArrays v0.6.15
   [2efcf032] SymbolicIndexingInterface v0.2.2
   [ab02a1b2] TableOperations v1.2.0
   [3783bdb8] TableTraits v1.0.1
-  [bd369af6] Tables v1.10.0
+  [bd369af6] Tables v1.10.1
   [62fd8b95] TensorCore v0.1.1
   [5d786b92] TerminalLoggers v0.1.6
   [f269a46b] TimeZones v1.9.1
@@ -614,7 +614,7 @@ And the full manifest:
   [3bb67fe8] TranscodingStreams v0.9.11
   [28d57a85] Transducers v0.4.75
   [410a4b4d] Tricks v0.1.6
-  [781d530d] TruncatedStacktraces v1.1.0
+  [781d530d] TruncatedStacktraces v1.2.0
   [fce5fe82] Turing v0.22.0
   [5c2747f8] URIs v1.4.2
   [3a884ed6] UnPack v1.0.2
@@ -635,7 +635,7 @@ And the full manifest:
   [d7e528f0] FreeType2_jll v2.10.4+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.71.7+0
+  [d2c73de3] GR_jll v0.71.8+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
