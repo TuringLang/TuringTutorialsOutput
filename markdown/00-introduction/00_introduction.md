@@ -342,7 +342,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.95
   [c7f686f2] MCMCChains v5.7.1
   [f3b207a7] StatsPlots v0.15.1
@@ -353,7 +353,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.4
@@ -377,7 +377,7 @@ And the full manifest:
   [d1d4a3ce] BitFlags v0.1.7
   [fa961155] CEnum v0.4.2
   [49dc2e85] Calculus v0.5.1
-  [082447d4] ChainRules v1.50.0
+  [082447d4] ChainRules v1.51.0
   [d360d2e6] ChainRulesCore v1.16.0
   [9e997f8a] ChangesOfVariables v0.1.7
   [aaaa29a8] Clustering v0.14.4
@@ -406,7 +406,7 @@ And the full manifest:
   [b552c78f] DiffRules v1.15.1
   [b4f34e82] Distances v0.10.8
   [31c24e10] Distributions v0.25.95
-  [ced4e74d] DistributionsAD v0.6.47
+  [ced4e74d] DistributionsAD v0.6.49
   [ffbed154] DocStringExtensions v0.8.6
   [fa6b7ba4] DualNumbers v0.6.8
   [366bfd00] DynamicPPL v0.21.4
@@ -414,7 +414,7 @@ And the full manifest:
   [4e289a0a] EnumX v1.0.4
   [e2ba6199] ExprTools v0.1.9
   [c87230d0] FFMPEG v0.4.1
-  [7a1cc6ca] FFTW v1.6.0
+  [7a1cc6ca] FFTW v1.7.0
   [1a297f60] FillArrays v0.13.11
   [53c48c17] FixedPointNumbers v0.8.4
   [59287772] Formatting v0.4.2
@@ -445,7 +445,7 @@ And the full manifest:
   [929cbde3] LLVM v5.2.0
   [8ac3fa9e] LRUCache v1.4.1
   [b964fa9f] LaTeXStrings v1.3.0
-  [23fbe1c1] Latexify v0.16.0
+  [23fbe1c1] Latexify v0.16.1
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.7.0
   [6fdf6af0] LogDensityProblems v1.0.3
@@ -461,7 +461,7 @@ And the full manifest:
   [128add7d] MicroCollections v0.1.4
   [e1d29d7a] Missings v1.1.0
   [6f286f6a] MultivariateStats v0.9.0
-  [872c559c] NNlib v0.8.20
+  [872c559c] NNlib v0.8.21
   [77ba4419] NaNMath v0.3.7
   [86f7a689] NamedArrays v0.9.8
   [c020b1a1] NaturalSort v1.0.0
@@ -471,11 +471,11 @@ And the full manifest:
   [4d8831e6] OpenSSL v1.4.1
   [bac558e1] OrderedCollections v1.6.0
   [90014a1f] PDMats v0.11.17
-  [69de0a69] Parsers v2.5.10
+  [69de0a69] Parsers v2.7.0
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.5
-  [91a5bcdd] Plots v1.38.15
+  [91a5bcdd] Plots v1.38.16
   [aea7be01] PrecompileTools v1.1.2
   [21216c6a] Preferences v1.4.0
   [08abe8d2] PrettyTables v2.2.4
@@ -502,10 +502,10 @@ And the full manifest:
   [992d4aef] Showoff v1.0.3
   [777ac1f9] SimpleBufferStream v1.1.0
   [66db9d55] SnoopPrecompile v1.0.3
-  [a2af1166] SortingAlgorithms v1.1.0
+  [a2af1166] SortingAlgorithms v1.1.1
   [276daf66] SpecialFunctions v2.2.0
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.5.25
+  [90137ffa] StaticArrays v1.5.26
   [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.6.0
@@ -554,6 +554,7 @@ And the full manifest:
   [c1c5ebd0] LAME_jll v3.100.1+0
   [88015f11] LERC_jll v3.0.0+1
   [dad2f222] LLVMExtra_jll v0.0.22+0
+  [1d63c593] LLVMOpenMP_jll v15.0.4+0
   [dd4b983a] LZO_jll v2.10.1+0
   [e9f186c6] Libffi_jll v3.2.2+1
   [d4300ac3] Libgcrypt_jll v1.8.7+0
@@ -568,7 +569,7 @@ And the full manifest:
   [458c3c95] OpenSSL_jll v1.1.21+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
-  [30392449] Pixman_jll v0.40.1+0
+  [30392449] Pixman_jll v0.42.2+0
   [ea2cea3b] Qt5Base_jll v5.15.3+2
   [f50d1b31] Rmath_jll v0.4.0+0
   [a2964d1f] Wayland_jll v1.21.0+0
