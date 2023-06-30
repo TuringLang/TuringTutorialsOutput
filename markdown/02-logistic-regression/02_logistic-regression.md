@@ -163,7 +163,7 @@ end;
 
 ## Sampling
 
-Now we can run our sampler. This time we'll use [`HMC`](http://turing.ml/docs/library/#Turing.HMC) to sample from our posterior.
+Now we can run our sampler. This time we'll use [`NUTS`](https://turinglang.org/stable/docs/library/#Turing.Inference.NUTS) to sample from our posterior.
 
 ```julia
 # Retrieve the number of observations.
@@ -180,8 +180,8 @@ Chains MCMC chain (1500×16×3 Array{Float64, 3}):
 Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 4.37 seconds
-Compute duration  = 3.92 seconds
+Wall duration     = 4.27 seconds
+Compute duration  = 3.81 seconds
 parameters        = intercept, student, balance, income
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -375,7 +375,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/02-logistic-regression/Project.toml`
   [a93c6f00] DataFrames v1.5.0
   [b4f34e82] Distances v0.10.8
   [31c24e10] Distributions v0.25.95
@@ -395,7 +395,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/02-logistic-regression/Manifest.toml`
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.4
