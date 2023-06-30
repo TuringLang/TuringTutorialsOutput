@@ -792,7 +792,7 @@ div.title {text-align: center;}
 
 
 <h2>Sampling</h2>
-<p>Now we can run our sampler. This time we&#39;ll use <a href="http://turing.ml/docs/library/#Turing.HMC"><code>HMC</code></a> to sample from our posterior.</p>
+<p>Now we can run our sampler. This time we&#39;ll use <a href="https://turinglang.org/stable/docs/library/#Turing.Inference.NUTS"><code>NUTS</code></a> to sample from our posterior.</p>
 
 
 <pre class='hljl'>
@@ -807,8 +807,8 @@ Chains MCMC chain &#40;1500×22×3 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 751:1:2250
 Number of chains  &#61; 3
 Samples per chain &#61; 1500
-Wall duration     &#61; 31.46 seconds
-Compute duration  &#61; 28.54 seconds
+Wall duration     &#61; 31.64 seconds
+Compute duration  &#61; 28.6 seconds
 parameters        &#61; intercept_versicolor, intercept_virginica, coefficients
 _versicolor&#91;1&#93;, coefficients_versicolor&#91;2&#93;, coefficients_versicolor&#91;3&#93;, coe
 fficients_versicolor&#91;4&#93;, coefficients_virginica&#91;1&#93;, coefficients_virginica&#91;
@@ -1015,7 +1015,7 @@ Environment:
 </div>
 <div class="markdown"><p>Package Information:</p>
 </div>
-<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
+<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
   &#91;1a297f60&#93; FillArrays v1.2.0
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
   &#91;872c559c&#93; NNlib v0.8.21
@@ -1025,7 +1025,7 @@ Environment:
   &#91;37e2e46d&#93; LinearAlgebra
   &#91;9a3f8284&#93; Random</code></pre>
 <p>And the full manifest:</p>
-<pre><code>      Status &#96;/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
+<pre><code>      Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
   &#91;47edcb42&#93; ADTypes v0.1.3
   &#91;621f4979&#93; AbstractFFTs v1.3.1
   &#91;80f14c24&#93; AbstractMCMC v4.2.0
@@ -1352,7 +1352,7 @@ Environment:
         <div class="footer">
           <p>
             Published from <a href="08_multinomial-logistic-regression.jmd">08_multinomial-logistic-regression.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-06-17.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-06-25.
           </p>
         </div>
       </div>
