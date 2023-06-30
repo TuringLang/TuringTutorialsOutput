@@ -171,7 +171,7 @@ linear_regression (generic function with 2 methods)
 
 
 
-With our model specified, we can call the sampler. We will use the No U-Turn Sampler ([NUTS](http://turing.ml/docs/library/#-turingnuts--type)) here.
+With our model specified, we can call the sampler. We will use the No U-Turn Sampler ([NUTS](https://turinglang.org/stable/docs/library/#Turing.Inference.NUTS)) here.
 
 ```julia
 model = linear_regression(train, train_target)
@@ -184,8 +184,8 @@ Chains MCMC chain (3000×24×1 Array{Float64, 3}):
 Iterations        = 1001:1:4000
 Number of chains  = 1
 Samples per chain = 3000
-Wall duration     = 6.26 seconds
-Compute duration  = 6.26 seconds
+Wall duration     = 6.09 seconds
+Compute duration  = 6.09 seconds
 parameters        = σ², intercept, coefficients[1], coefficients[2], coeffi
 cients[3], coefficients[4], coefficients[5], coefficients[6], coefficients[
 7], coefficients[8], coefficients[9], coefficients[10]
@@ -411,7 +411,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/05-linear-regression/Project.toml`
   [1a297f60] FillArrays v1.2.0
   [38e38edf] GLM v1.8.3
   [f1d291b0] MLUtils v0.4.3
@@ -426,7 +426,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-3/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/05-linear-regression/Manifest.toml`
   [47edcb42] ADTypes v0.1.3
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
