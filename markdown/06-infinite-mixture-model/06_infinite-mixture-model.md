@@ -87,7 +87,7 @@ x &\sim \mathrm{Normal}(\mu_z, \Sigma)
 \end{align}
 $$
 
-which resembles the model in the [Gaussian mixture model tutorial](https://turing.ml/dev/tutorials/1-gaussianmixturemodel/) with a slightly different notation.
+which resembles the model in the [Gaussian mixture model tutorial](https://turinglang.org/stable/tutorials/01-gaussian-mixture-model/) with a slightly different notation.
 
 ## Infinite Mixture Model
 
@@ -347,7 +347,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Project.toml`
   [91a5bcdd] Plots v1.38.16
   [fce5fe82] Turing v0.22.0
   [9a3f8284] Random
@@ -356,7 +356,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/06-infinite-mixture-model/Manifest.toml`
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.4
