@@ -7,7 +7,7 @@ permalink: "/tutorials/:name/"
 
 [Multinomial logistic regression](https://en.wikipedia.org/wiki/Multinomial_logistic_regression) is an extension of logistic regression. Logistic regression is used to model problems in which there are exactly two possible discrete outcomes. Multinomial logistic regression is used to model problems in which there are two or more possible discrete outcomes.
 
-In our example, we'll be using the iris dataset. The goal of the iris multiclass problem is to predict the species of a flower given measurements (in centimeters) of sepal length and width and petal length and width. There are three possible species: Iris setosa, Iris versicolor, and Iris virginica.
+In our example, we'll be using the iris dataset. The iris multiclass problem aims to predict the species of a flower given measurements (in centimeters) of sepal length and width and petal length and width. There are three possible species: Iris setosa, Iris versicolor, and Iris virginica.
 
 To start, let's import all the libraries we'll need.
 
@@ -196,8 +196,8 @@ Chains MCMC chain (1500×22×3 Array{Float64, 3}):
 Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 15.58 seconds
-Compute duration  = 14.8 seconds
+Wall duration     = 16.45 seconds
+Compute duration  = 15.67 seconds
 parameters        = intercept_versicolor, intercept_virginica, coefficients
 _versicolor[1], coefficients_versicolor[2], coefficients_versicolor[3], coe
 fficients_versicolor[4], coefficients_virginica[1], coefficients_virginica[
@@ -418,13 +418,14 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml`
   [1a297f60] FillArrays v1.2.0
   [cc2ba9b6] MLDataUtils v0.5.4
   [872c559c] NNlib v0.8.21
   [ce6b1742] RDatasets v0.7.7
   [f3b207a7] StatsPlots v0.15.5
   [fce5fe82] Turing v0.22.0
+  [44d3d7a6] Weave v0.10.12
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
 ```
@@ -432,7 +433,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
+      Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml`
   [47edcb42] ADTypes v0.1.3
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
@@ -508,6 +509,7 @@ And the full manifest:
   [28b8d3ca] GR v0.72.7
   [42e2da0e] Grisu v1.0.2
   [cd3eb016] HTTP v1.9.6
+  [eafb193a] Highlights v0.5.2
   [34004b35] HypergeometricFunctions v0.3.17
   [7869d1d1] IRTools v0.4.10
   [22cec73e] InitialValues v0.3.1
@@ -550,6 +552,7 @@ And the full manifest:
   [e1d29d7a] Missings v1.1.0
   [78c3b35d] Mocking v0.7.7
   [6f286f6a] MultivariateStats v0.10.2
+  [ffc61752] Mustache v1.0.17
   [872c559c] NNlib v0.8.21
   [77ba4419] NaNMath v1.0.2
   [86f7a689] NamedArrays v0.9.8
@@ -606,6 +609,7 @@ And the full manifest:
   [2913bbd2] StatsBase v0.33.21
   [4c63d2b9] StatsFuns v1.3.0
   [f3b207a7] StatsPlots v0.15.5
+  [69024149] StringEncodings v0.3.6
   [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.15
   [2efcf032] SymbolicIndexingInterface v0.2.2
@@ -630,9 +634,11 @@ And the full manifest:
   [d80eeb9a] UnsafeAtomicsLLVM v0.1.2
   [41fe7b60] Unzip v0.1.2
   [ea10d353] WeakRefStrings v1.4.2
+  [44d3d7a6] Weave v0.10.12
   [cc8bc4a8] Widgets v0.6.6
   [efce3f68] WoodburyMatrices v0.5.5
   [76eceee3] WorkerUtilities v1.6.1
+  [ddb6d928] YAML v0.4.9
   [700de1a5] ZygoteRules v0.2.3
   [68821587] Arpack_jll v3.5.0+3
   [6e34b625] Bzip2_jll v1.0.8+0
