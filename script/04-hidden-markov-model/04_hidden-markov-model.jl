@@ -121,3 +121,5 @@ plot(subchain; seriestype=:traceplot, title="Persistence Probability", legend=fa
 
 heideldiag(MCMCChains.group(chn, :T))[1]
 
+
+
