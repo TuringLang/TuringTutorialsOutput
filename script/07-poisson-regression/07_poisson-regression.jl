@@ -124,8 +124,3 @@ chains_new = chain[201:end, :, :]
 
 plot(chains_new)
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
