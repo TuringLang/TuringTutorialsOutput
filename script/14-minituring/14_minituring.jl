@@ -174,3 +174,5 @@ end
 
 sample(turing_m(3.0), MH(ScalMat(2, 1.0)), 1_000_000)
 
+
+
