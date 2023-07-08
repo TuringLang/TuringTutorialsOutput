@@ -136,10 +136,3 @@ plot(k; xlabel="Iteration", ylabel="Number of clusters", label="Chain 1")
 
 histogram(k; xlabel="Number of clusters", legend=false)
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
-
-
