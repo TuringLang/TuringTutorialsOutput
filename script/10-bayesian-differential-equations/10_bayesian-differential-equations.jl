@@ -287,5 +287,3 @@ chain_sde = sample(
 )
 plot(chain_sde)
 
-
-
