@@ -129,10 +129,3 @@ anim = @gif for i in 1:n_end
     contour!(x1_range, x2_range, Z; title="Iteration $i", clim=(0, 1))
 end every 5
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
-
-
