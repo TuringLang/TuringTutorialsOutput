@@ -631,10 +631,3 @@ title!("MCMC (NUTS)")
 
 plot(p1, p2, p3; layout=(1, 3), size=(900, 250), label="")
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
-
-
