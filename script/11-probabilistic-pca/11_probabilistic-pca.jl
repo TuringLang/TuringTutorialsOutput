@@ -149,5 +149,3 @@ scatter(
     df_pro[:, 1], df_pro[:, 2]; xlabel="z1", ylabel="z2", color=df_pro[:, "type"], label=""
 )
 
-
-
