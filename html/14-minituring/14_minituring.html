@@ -952,17 +952,17 @@ at
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64
 
-           a    0.9733    0.8994     0.0009    0.0032    80922.1179    1.00
-00
-           b    2.8818    0.4883     0.0005    0.0012   173802.2558    1.00
-00
+           a    0.9751    0.8990     0.0009    0.0032    81513.3363    1.00
+01
+           b    2.8796    0.4882     0.0005    0.0011   166443.2461    1.00
+01
 
 Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7933    0.3657    0.9744    1.5807    2.7325
-           b    1.9242    2.5522    2.8827    3.2109    3.8391
+           a   -0.7862    0.3681    0.9785    1.5802    2.7384
+           b    1.9233    2.5516    2.8783    3.2080    3.8379
 </pre>
 
 
@@ -990,8 +990,8 @@ Chains MCMC chain &#40;1000000×3×1 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:1000000
 Number of chains  &#61; 1
 Samples per chain &#61; 1000000
-Wall duration     &#61; 9.68 seconds
-Compute duration  &#61; 9.68 seconds
+Wall duration     &#61; 10.23 seconds
+Compute duration  &#61; 10.23 seconds
 parameters        &#61; a, b
 internals         &#61; lp
 
@@ -1001,9 +1001,9 @@ at  ⋯
       Symbol   Float64   Float64    Float64   Float64       Float64   Float
 64  ⋯
 
-           a    0.9780    0.8995     0.0009    0.0032    82768.3926    1.00
+           a    0.9775    0.9003     0.0009    0.0032    79929.0621    1.00
 00  ⋯
-           b    2.8821    0.4893     0.0005    0.0011   171630.1168    1.00
+           b    2.8824    0.4875     0.0005    0.0012   170834.0614    1.00
 00  ⋯
                                                                 1 column om
 itted
@@ -1012,26 +1012,240 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7839    0.3714    0.9785    1.5838    2.7366
-           b    1.9212    2.5539    2.8821    3.2121    3.8417
+           a   -0.7767    0.3695    0.9754    1.5830    2.7535
+           b    1.9260    2.5541    2.8829    3.2112    3.8351
 </pre>
 
 
 <p>As you can see, with our simple probabilistic programming language and custom samplers we get similar results as Turing.</p>
 
 
-<pre class='hljl'>
-
-</pre>
-
-
+<div class="markdown"><h2>Appendix</h2>
+<p>These tutorials are a part of the TuringTutorials repository, found at: <a href="https://github.com/TuringLang/TuringTutorials">https://github.com/TuringLang/TuringTutorials</a>.</p>
+</div>
+<div class="markdown"><p>To locally run this tutorial, do the following commands:</p>
+<pre><code>using TuringTutorials
+TuringTutorials.weave&#40;&quot;14-minituring&quot;, &quot;14_minituring.jmd&quot;&#41;</code></pre>
+</div>
+<div class="markdown"><p>Computer Information:</p>
+</div>
+<div class="markdown"><pre><code>Julia Version 1.6.7
+Commit 3b76b25b64 &#40;2022-07-19 15:11 UTC&#41;
+Platform Info:
+  OS: Linux &#40;x86_64-pc-linux-gnu&#41;
+  CPU: AMD EPYC 7502 32-Core Processor
+  WORD_SIZE: 64
+  LIBM: libopenlibm
+  LLVM: libLLVM-11.0.1 &#40;ORCJIT, znver2&#41;
+Environment:
+  JULIA_CPU_THREADS &#61; 16
+  BUILDKITE_PLUGIN_JULIA_CACHE_DIR &#61; /cache/julia-buildkite-plugin
+  JULIA_DEPOT_PATH &#61; /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
+</code></pre>
+</div>
+<div class="markdown"><p>Package Information:</p>
+</div>
+<div class="markdown"><pre><code>      Status &#96;/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/14-minituring/Project.toml&#96;
+  &#91;80f14c24&#93; AbstractMCMC v4.4.1
+  &#91;31c24e10&#93; Distributions v0.25.95
+  &#91;c7f686f2&#93; MCMCChains v5.7.1
+  &#91;1914dd2f&#93; MacroTools v0.5.10
+  &#91;90014a1f&#93; PDMats v0.11.17
+  &#91;fce5fe82&#93; Turing v0.21.10
+  &#91;9a3f8284&#93; Random</code></pre>
+<p>And the full manifest:</p>
+<pre><code>      Status &#96;/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/14-minituring/Manifest.toml&#96;
+  &#91;621f4979&#93; AbstractFFTs v1.3.1
+  &#91;80f14c24&#93; AbstractMCMC v4.4.1
+  &#91;7a57a42e&#93; AbstractPPL v0.5.4
+  &#91;1520ce14&#93; AbstractTrees v0.4.4
+  &#91;79e6a3ab&#93; Adapt v3.6.2
+  &#91;0bf59076&#93; AdvancedHMC v0.3.6
+  &#91;5b7e9947&#93; AdvancedMH v0.6.8
+  &#91;576499cb&#93; AdvancedPS v0.3.8
+  &#91;b5ca4192&#93; AdvancedVI v0.1.6
+  &#91;dce04be8&#93; ArgCheck v2.3.0
+  &#91;4fba245c&#93; ArrayInterface v7.4.8
+  &#91;30b0a656&#93; ArrayInterfaceCore v0.1.29
+  &#91;dd5226c6&#93; ArrayInterfaceStaticArraysCore v0.1.4
+  &#91;a9b6321e&#93; Atomix v0.1.0
+  &#91;13072b0f&#93; AxisAlgorithms v1.0.1
+  &#91;39de3d68&#93; AxisArrays v0.4.6
+  &#91;198e06fe&#93; BangBang v0.3.39
+  &#91;9718e550&#93; Baselet v0.1.1
+  &#91;76274a88&#93; Bijectors v0.10.8
+  &#91;fa961155&#93; CEnum v0.4.2
+  &#91;49dc2e85&#93; Calculus v0.5.1
+  &#91;082447d4&#93; ChainRules v1.51.0
+  &#91;d360d2e6&#93; ChainRulesCore v1.16.0
+  &#91;9e997f8a&#93; ChangesOfVariables v0.1.7
+  &#91;861a8166&#93; Combinatorics v1.0.2
+  &#91;38540f10&#93; CommonSolve v0.2.4
+  &#91;bbf7d656&#93; CommonSubexpressions v0.3.0
+  &#91;34da2185&#93; Compat v4.6.1
+  &#91;a33af91c&#93; CompositionsBase v0.1.2
+  &#91;88cd18e8&#93; ConsoleProgressMonitor v0.1.2
+  &#91;187b0558&#93; ConstructionBase v1.5.2
+  &#91;a8cc5b0e&#93; Crayons v4.1.1
+  &#91;9a962f9c&#93; DataAPI v1.15.0
+  &#91;864edb3b&#93; DataStructures v0.18.13
+  &#91;e2d170a0&#93; DataValueInterfaces v1.0.0
+  &#91;244e2a9f&#93; DefineSingletons v0.1.2
+  &#91;b429d917&#93; DensityInterface v0.4.0
+  &#91;163ba53b&#93; DiffResults v1.1.0
+  &#91;b552c78f&#93; DiffRules v1.15.1
+  &#91;31c24e10&#93; Distributions v0.25.95
+  &#91;ced4e74d&#93; DistributionsAD v0.6.49
+  &#91;ffbed154&#93; DocStringExtensions v0.8.6
+  &#91;fa6b7ba4&#93; DualNumbers v0.6.8
+  &#91;366bfd00&#93; DynamicPPL v0.20.2
+  &#91;cad2338a&#93; EllipticalSliceSampling v1.1.0
+  &#91;4e289a0a&#93; EnumX v1.0.4
+  &#91;e2ba6199&#93; ExprTools v0.1.9
+  &#91;7a1cc6ca&#93; FFTW v1.7.0
+  &#91;1a297f60&#93; FillArrays v0.13.11
+  &#91;59287772&#93; Formatting v0.4.2
+  &#91;f6369f11&#93; ForwardDiff v0.10.35
+  &#91;069b7b12&#93; FunctionWrappers v1.1.3
+  &#91;77dc65aa&#93; FunctionWrappersWrappers v0.1.3
+  &#91;d9f16b24&#93; Functors v0.3.0
+  &#91;46192b85&#93; GPUArraysCore v0.1.5
+  &#91;34004b35&#93; HypergeometricFunctions v0.3.17
+  &#91;7869d1d1&#93; IRTools v0.4.10
+  &#91;22cec73e&#93; InitialValues v0.3.1
+  &#91;505f98c9&#93; InplaceOps v0.3.0
+  &#91;a98d9a8b&#93; Interpolations v0.14.7
+  &#91;8197267c&#93; IntervalSets v0.7.4
+  &#91;3587e190&#93; InverseFunctions v0.1.9
+  &#91;41ab1584&#93; InvertedIndices v1.3.0
+  &#91;92d709cd&#93; IrrationalConstants v0.2.2
+  &#91;c8e1da08&#93; IterTools v1.4.0
+  &#91;82899510&#93; IteratorInterfaceExtensions v1.0.0
+  &#91;692b3bcd&#93; JLLWrappers v1.4.1
+  &#91;63c18a36&#93; KernelAbstractions v0.9.4
+  &#91;5ab0869b&#93; KernelDensity v0.6.7
+  &#91;929cbde3&#93; LLVM v5.2.0
+  &#91;8ac3fa9e&#93; LRUCache v1.4.1
+  &#91;b964fa9f&#93; LaTeXStrings v1.3.0
+  &#91;1d6d02ad&#93; LeftChildRightSiblingTrees v0.2.0
+  &#91;6f1fad26&#93; Libtask v0.7.0
+  &#91;6fdf6af0&#93; LogDensityProblems v2.1.1
+  &#91;2ab3a3ac&#93; LogExpFunctions v0.3.24
+  &#91;e6f89c97&#93; LoggingExtras v1.0.0
+  &#91;c7f686f2&#93; MCMCChains v5.7.1
+  &#91;be115224&#93; MCMCDiagnosticTools v0.2.6
+  &#91;e80e1ace&#93; MLJModelInterface v1.8.0
+  &#91;1914dd2f&#93; MacroTools v0.5.10
+  &#91;dbb5928d&#93; MappedArrays v0.4.2
+  &#91;128add7d&#93; MicroCollections v0.1.4
+  &#91;e1d29d7a&#93; Missings v1.1.0
+  &#91;872c559c&#93; NNlib v0.8.21
+  &#91;77ba4419&#93; NaNMath v1.0.2
+  &#91;86f7a689&#93; NamedArrays v0.9.8
+  &#91;c020b1a1&#93; NaturalSort v1.0.0
+  &#91;6fe1bfb0&#93; OffsetArrays v1.12.9
+  &#91;3bd65402&#93; Optimisers v0.2.15
+  &#91;bac558e1&#93; OrderedCollections v1.6.0
+  &#91;90014a1f&#93; PDMats v0.11.17
+  &#91;aea7be01&#93; PrecompileTools v1.1.2
+  &#91;21216c6a&#93; Preferences v1.4.0
+  &#91;08abe8d2&#93; PrettyTables v2.2.4
+  &#91;33c8b6b6&#93; ProgressLogging v0.1.4
+  &#91;92933f4c&#93; ProgressMeter v1.7.2
+  &#91;1fd47b50&#93; QuadGK v2.8.2
+  &#91;b3c3ace0&#93; RangeArrays v0.3.2
+  &#91;c84ed2f1&#93; Ratios v0.4.5
+  &#91;c1ae055f&#93; RealDot v0.1.0
+  &#91;3cdcf5f2&#93; RecipesBase v1.3.4
+  &#91;731186ca&#93; RecursiveArrayTools v2.32.3
+  &#91;189a3867&#93; Reexport v1.2.2
+  &#91;ae029012&#93; Requires v1.3.0
+  &#91;79098fc4&#93; Rmath v0.7.1
+  &#91;f2b01f46&#93; Roots v2.0.17
+  &#91;7e49a35a&#93; RuntimeGeneratedFunctions v0.5.11
+  &#91;0bca4576&#93; SciMLBase v1.81.0
+  &#91;30f210dd&#93; ScientificTypesBase v3.0.0
+  &#91;efcf1570&#93; Setfield v0.8.2
+  &#91;66db9d55&#93; SnoopPrecompile v1.0.3
+  &#91;a2af1166&#93; SortingAlgorithms v1.1.1
+  &#91;276daf66&#93; SpecialFunctions v2.2.0
+  &#91;171d559e&#93; SplittablesBase v0.1.15
+  &#91;90137ffa&#93; StaticArrays v1.5.26
+  &#91;1e83bf80&#93; StaticArraysCore v1.4.0
+  &#91;64bff920&#93; StatisticalTraits v3.2.0
+  &#91;82ae8749&#93; StatsAPI v1.6.0
+  &#91;2913bbd2&#93; StatsBase v0.33.21
+  &#91;4c63d2b9&#93; StatsFuns v1.3.0
+  &#91;892a3eda&#93; StringManipulation v0.3.0
+  &#91;09ab397b&#93; StructArrays v0.6.15
+  &#91;3783bdb8&#93; TableTraits v1.0.1
+  &#91;bd369af6&#93; Tables v1.10.1
+  &#91;5d786b92&#93; TerminalLoggers v0.1.7
+  &#91;9f7883ad&#93; Tracker v0.2.25
+  &#91;28d57a85&#93; Transducers v0.4.76
+  &#91;fce5fe82&#93; Turing v0.21.10
+  &#91;3a884ed6&#93; UnPack v1.0.2
+  &#91;013be700&#93; UnsafeAtomics v0.2.1
+  &#91;d80eeb9a&#93; UnsafeAtomicsLLVM v0.1.2
+  &#91;efce3f68&#93; WoodburyMatrices v0.5.5
+  &#91;700de1a5&#93; ZygoteRules v0.2.3
+  &#91;f5851436&#93; FFTW_jll v3.3.10&#43;0
+  &#91;1d5cc7b8&#93; IntelOpenMP_jll v2023.1.0&#43;0
+  &#91;dad2f222&#93; LLVMExtra_jll v0.0.22&#43;0
+  &#91;856f044c&#93; MKL_jll v2022.2.0&#43;0
+  &#91;efe28fd5&#93; OpenSpecFun_jll v0.5.5&#43;0
+  &#91;f50d1b31&#93; Rmath_jll v0.4.0&#43;0
+  &#91;0dad84c5&#93; ArgTools
+  &#91;56f22d72&#93; Artifacts
+  &#91;2a0f44e3&#93; Base64
+  &#91;ade2ca70&#93; Dates
+  &#91;8bb1440f&#93; DelimitedFiles
+  &#91;8ba89e20&#93; Distributed
+  &#91;f43a241f&#93; Downloads
+  &#91;9fa8497b&#93; Future
+  &#91;b77e0a4c&#93; InteractiveUtils
+  &#91;4af54fe1&#93; LazyArtifacts
+  &#91;b27032c2&#93; LibCURL
+  &#91;76f85450&#93; LibGit2
+  &#91;8f399da3&#93; Libdl
+  &#91;37e2e46d&#93; LinearAlgebra
+  &#91;56ddb016&#93; Logging
+  &#91;d6f4376e&#93; Markdown
+  &#91;a63ad114&#93; Mmap
+  &#91;ca575930&#93; NetworkOptions
+  &#91;44cfe95a&#93; Pkg
+  &#91;de0858da&#93; Printf
+  &#91;3fa0cd96&#93; REPL
+  &#91;9a3f8284&#93; Random
+  &#91;ea8e919c&#93; SHA
+  &#91;9e88b42a&#93; Serialization
+  &#91;1a1011a3&#93; SharedArrays
+  &#91;6462fe0b&#93; Sockets
+  &#91;2f01184e&#93; SparseArrays
+  &#91;10745b16&#93; Statistics
+  &#91;4607b0f0&#93; SuiteSparse
+  &#91;fa267f1f&#93; TOML
+  &#91;a4e569a6&#93; Tar
+  &#91;8dfed614&#93; Test
+  &#91;cf7118a7&#93; UUIDs
+  &#91;4ec0a83e&#93; Unicode
+  &#91;e66e0078&#93; CompilerSupportLibraries_jll
+  &#91;deac9b47&#93; LibCURL_jll
+  &#91;29816b5a&#93; LibSSH2_jll
+  &#91;c8ffd9c3&#93; MbedTLS_jll
+  &#91;14a3606d&#93; MozillaCACerts_jll
+  &#91;05823500&#93; OpenLibm_jll
+  &#91;83775a58&#93; Zlib_jll
+  &#91;8e850ede&#93; nghttp2_jll
+  &#91;3f19e933&#93; p7zip_jll</code></pre>
+</div>
 
 
         <HR/>
         <div class="footer">
           <p>
             Published from <a href="14_minituring.jmd">14_minituring.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-06-11.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-07.
           </p>
         </div>
       </div>
