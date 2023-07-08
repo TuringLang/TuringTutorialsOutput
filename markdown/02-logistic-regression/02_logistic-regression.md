@@ -180,8 +180,8 @@ Chains MCMC chain (1500×16×3 Array{Float64, 3}):
 Iterations        = 751:1:2250
 Number of chains  = 3
 Samples per chain = 1500
-Wall duration     = 4.34 seconds
-Compute duration  = 3.87 seconds
+Wall duration     = 4.3 seconds
+Compute duration  = 3.86 seconds
 parameters        = intercept, student, balance, income
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -714,9 +714,5 @@ And the full manifest:
   [83775a58] Zlib_jll
   [8e850ede] nghttp2_jll
   [3f19e933] p7zip_jll
-```
-
-
-```julia
 ```
 
