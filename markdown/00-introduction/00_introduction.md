@@ -342,7 +342,7 @@ Environment:
 Package Information:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
   [31c24e10] Distributions v0.25.95
   [c7f686f2] MCMCChains v5.7.1
   [f3b207a7] StatsPlots v0.15.1
@@ -353,7 +353,7 @@ Package Information:
 And the full manifest:
 
 ```
-      Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+      Status `/cache/build/default-amdci4-1/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [621f4979] AbstractFFTs v1.3.1
   [80f14c24] AbstractMCMC v4.2.0
   [7a57a42e] AbstractPPL v0.5.4
