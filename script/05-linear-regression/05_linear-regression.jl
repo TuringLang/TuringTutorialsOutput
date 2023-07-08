@@ -145,10 +145,3 @@ let
     @assert isapprox(bayes_train_loss, ols_train_loss; atol=1)
 end
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
-
-
