@@ -228,10 +228,3 @@ plot(predictive_plt, decomposed_plt...; layout=(3, 1), size=(700, 1000))
 βc = Array(group(chain, :βc))
 plot_cyclic_features(βc[:, begin:num_freqs, :], βc[:, (num_freqs + 1):end, :])
 
-
-if isdefined(Main, :TuringTutorials)
-    Main.TuringTutorials.tutorial_footer(WEAVE_ARGS[:folder], WEAVE_ARGS[:file])
-end
-
-
-
