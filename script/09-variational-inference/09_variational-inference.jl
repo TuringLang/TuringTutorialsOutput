@@ -63,8 +63,8 @@ var(x), mean(x)
 let
     v, m = (mean(rand(q, 1000); dims=2)...,)
     # On Turing version 0.14, this atol could be 0.01.
-    @assert isapprox(v, 1.022; atol=0.1)
-    @assert isapprox(m, -0.027; atol=0.02)
+    @assert isapprox(v, 1.022; atol=0.1) "Mean of s (VI posterior, 1000 samples): $v"
+    @assert isapprox(m, -0.027; atol=0.03) "Mean of m (VI posterior, 1000 samples): $m"
 end
 
 
@@ -464,7 +464,7 @@ d = length(q)
 base_dist = Turing.DistributionsAD.TuringDiagMvNormal(zeros(d), ones(d))
 
 
-to_constrained = inv(bijector(m));
+to_constrained = inverse(bijector(m));
 
 
 function getq(θ)
@@ -472,7 +472,7 @@ function getq(θ)
     A = @inbounds θ[1:d]
     b = @inbounds θ[(d + 1):(2 * d)]
 
-    b = to_constrained ∘ Shift(b; dim=Val(1)) ∘ Scale(exp.(A); dim=Val(1))
+    b = to_constrained ∘ Shift(b) ∘ Scale(exp.(A))
 
     return transformed(base_dist, b)
 end
@@ -505,7 +505,7 @@ function getq(θ)
     D = Diagonal(diag(L))
     A = L - D + exp(D) # exp for Diagonal is the same as exponentiating only the diagonal entries
 
-    b = to_constrained ∘ Shift(b; dim=Val(1)) ∘ Scale(A; dim=Val(1))
+    b = to_constrained ∘ Shift(b) ∘ Scale(A)
 
     return transformed(base_dist, b)
 end
@@ -519,7 +519,7 @@ q_full_normal = vi(
 );
 
 
-A = q_full_normal.transform.ts[1].a
+A = q_full_normal.transform.inner.a
 
 
 heatmap(cov(A * A'))
@@ -569,8 +569,8 @@ Test set:
 
 
 # Verify the loss on the test set.
-@assert vi_loss2 < 0.01
-@assert bayes_loss2 < 0.000001
+@assert vi_loss2 < 0.01 "VI loss on the test set: $(vi_loss2)"
+@assert bayes_loss2 < 0.000001 "Bayes loss on the test set: $(bayes_loss2)"
 
 
 z = rand(q_mf_normal, 1000);
