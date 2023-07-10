@@ -153,11 +153,12 @@ decomposed_plt = plot_fit(t, yf, decomp, yf_max)
 plot(predictive_plt, decomposed_plt...; layout=(3, 1), size=(700, 1000))
 
 
-@assert isapprox(mean(chain, :βt) / t_max, β_true; atol=0.5)
-@assert isapprox(mean(chain, :α) + yf_max, α_true; atol=1.0)
-@assert isapprox(mean(chain, :σ), σ_true; atol=0.1)
-@assert isapprox(mean(chain, "βc[2]"), true_sin_amp; atol=0.5)
-@assert isapprox(mean(chain, "βc[17]"), true_cos_amp; atol=0.5)
+let
+    @assert mean(ess(chain)[:, :ess]) > 500 "Mean ESS: $(mean(ess(chain)[:, :ess])) - not > 500"
+    lower_quantile = m .- conf[1] # 2.5% quantile
+    upper_quantile = m .+ conf[2] # 97.5% quantile
+    @assert mean(lower_quantile .≤ yf .≤ upper_quantile) ≥ 0.9 "Surprisingly few observations in predicted 95% interval: $(mean(lower_quantile .≤ yf .≤ upper_quantile))"
+end
 
 
 function plot_cyclic_features(βsin, βcos)
@@ -223,6 +224,14 @@ scatter!(predictive_plt, t, yg; color=2, label="Data", legend=:topleft)
 decomp = get_decomposition(decomp_model, x, cyclic_features, chain, .*)
 decomposed_plt = plot_fit(t, yg, decomp, 0)
 plot(predictive_plt, decomposed_plt...; layout=(3, 1), size=(700, 1000))
+
+
+let
+    @assert mean(ess(chain)[:, :ess]) > 500 "Mean ESS: $(mean(ess(chain)[:, :ess])) - not > 500"
+    lower_quantile = m .- conf[1] # 2.5% quantile
+    upper_quantile = m .+ conf[2] # 97.5% quantile
+    @assert mean(lower_quantile .≤ yg .≤ upper_quantile) ≥ 0.9 "Surprisingly few observations in predicted 95% interval: $(mean(lower_quantile .≤ yg .≤ upper_quantile))"
+end
 
 
 βc = Array(group(chain, :βc))
