@@ -86,7 +86,7 @@ chain = sample(model, sampler, 1_000; progress=false);
 histogram(chain)
 
 
-@assert isapprox(mean(chain, :p), 0.5; atol=0.1)
+@assert isapprox(mean(chain, :p), 0.5; atol=0.1) "Estimated mean of parameter p: $(mean(chain, :p)) - not in [0.4, 0.6]!"
 
 
 # Visualize a blue density plot of the approximate posterior distribution using HMC (see Chain 1 in the legend).
