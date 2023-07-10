@@ -78,10 +78,18 @@ end
 
 
 model = linear_regression(train, train_target)
-chain = sample(model, NUTS(), 3_000)
+chain = sample(model, NUTS(), 5_000)
 
 
 plot(chain)
+
+
+let
+    ess_df = ess(chain)
+    @assert minimum(ess_df[:, :ess]) > 500 "Minimum ESS: $(minimum(ess_df[:, :ess])) - not > 700"
+    @assert mean(ess_df[:, :ess]) > 2_000 "Mean ESS: $(mean(ess_df[:, :ess])) - not > 2000"
+    @assert maximum(ess_df[:, :ess]) > 3_500 "Maximum ESS: $(maximum(ess_df[:, :ess])) - not > 3500"
+end
 
 
 # Import the GLM package.
@@ -140,8 +148,10 @@ let
     bayes_train_loss = msd(train_prediction_bayes, trainset[!, target])
     bayes_test_loss = msd(test_prediction_bayes, testset[!, target])
     ols_train_loss = msd(train_prediction_ols, trainset[!, target])
-    @assert bayes_train_loss < 5.5
-    @assert bayes_test_loss < 15.5
-    @assert isapprox(bayes_train_loss, ols_train_loss; atol=1)
+    ols_test_loss = msd(test_prediction_ols, testset[!, target])
+    @assert bayes_train_loss < bayes_test_loss "Bayesian training loss ($bayes_train_loss) >= Bayesian test loss ($bayes_test_loss)"
+    @assert ols_train_loss < ols_test_loss "OLS training loss ($ols_train_loss) >= OLS test loss ($ols_test_loss)"
+    @assert isapprox(bayes_train_loss, ols_train_loss; rtol=0.01) "Difference between Bayesian training loss ($bayes_train_loss) and OLS training loss ($ols_train_loss) unexpectedly large!"
+    @assert isapprox(bayes_test_loss, ols_test_loss; rtol=0.05) "Difference between Bayesian test loss ($bayes_test_loss) and OLS test loss ($ols_test_loss) unexpectedly large!"
 end
 
