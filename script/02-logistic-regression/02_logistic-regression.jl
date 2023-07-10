@@ -77,21 +77,30 @@ end;
 # Retrieve the number of observations.
 n, _ = size(train)
 
-# Sample using HMC.
+# Sample using NUTS.
 m = logistic_regression(train, train_label, n, 1)
 chain = sample(m, NUTS(), MCMCThreads(), 1_500, 3)
 
 
 let
-    matrix = get(chain, :student).student
-    values = Iterators.flatten(matrix)
-    actual = mean(values)
-    expected = -2
-    @assert isapprox(actual, expected; atol=1)
+    mean_params = mean(chain)
+    @assert mean_params[:student, :mean] < 0.1
+    @assert mean_params[:balance, :mean] > 1
 end
 
 
 plot(chain)
+
+
+let
+    mean_params = mapreduce(hcat, mean(chain; append_chains=false)) do df
+        return df[:, :mean]
+    end
+    for i in (2, 3)
+        @assert mean_params[:, i] != mean_params[:, 1]
+        @assert isapprox(mean_params[:, i], mean_params[:, 1]; rtol=5e-2)
+    end
+end
 
 
 # The labels to use.
