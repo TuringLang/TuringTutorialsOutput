@@ -1342,32 +1342,34 @@ Platform Info:
 Environment:
   JULIA_CPU_THREADS = 16
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
+  JULIA_IMAGE_THREADS = 1
 
 ```
 
 Package Information:
 
 ```
-Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
+Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Project.toml`
 ⌅ [76274a88] Bijectors v0.12.8
-  [b0b7db55] ComponentArrays v0.13.14
+⌃ [b0b7db55] ComponentArrays v0.13.14
 ⌅ [1a297f60] FillArrays v1.0.0
-  [587475ba] Flux v0.13.17
+⌃ [587475ba] Flux v0.13.17
   [38e38edf] GLM v1.8.3
   [442fdcdd] Measures v0.3.2
   [ce6b1742] RDatasets v0.7.7
-  [f3b207a7] StatsPlots v0.15.5
-  [fce5fe82] Turing v0.26.2
+⌃ [f3b207a7] StatsPlots v0.15.5
+⌃ [fce5fe82] Turing v0.26.2
   [3a884ed6] UnPack v1.0.2
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
-Info Packages marked with ⌅ have new versions available but compatibility constraints restrict them from upgrading. To see why use `status --outdated`
+Info Packages marked with ⌃ and ⌅ have new versions available, but those with ⌅ are restricted by compatibility constraints from upgrading. To see why use `status --outdated`
+Warning The project dependencies or compat requirements have changed since the manifest was last resolved. It is recommended to `Pkg.resolve()` or consider `Pkg.update()` if necessary.
 ```
 
 And the full manifest:
 
 ```
-Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
+Status `/cache/build/default-amdci4-7/julialang/turingtutorials/tutorials/09-variational-inference/Manifest.toml`
   [47edcb42] ADTypes v0.1.5
   [621f4979] AbstractFFTs v1.4.0
   [80f14c24] AbstractMCMC v4.4.2
@@ -1375,7 +1377,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [1520ce14] AbstractTrees v0.4.4
   [79e6a3ab] Adapt v3.6.2
   [0bf59076] AdvancedHMC v0.4.6
-  [5b7e9947] AdvancedMH v0.7.4
+⌃ [5b7e9947] AdvancedMH v0.7.4
   [576499cb] AdvancedPS v0.4.3
   [b5ca4192] AdvancedVI v0.2.4
   [dce04be8] ArgCheck v2.3.0
@@ -1395,11 +1397,11 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [1af6417a] CUDA_Runtime_Discovery v0.2.2
   [49dc2e85] Calculus v0.5.1
   [324d7699] CategoricalArrays v0.10.8
-  [082447d4] ChainRules v1.52.0
+⌃ [082447d4] ChainRules v1.52.0
   [d360d2e6] ChainRulesCore v1.16.0
   [9e997f8a] ChangesOfVariables v0.1.8
   [aaaa29a8] Clustering v0.15.3
-  [944b1d66] CodecZlib v0.7.1
+⌃ [944b1d66] CodecZlib v0.7.1
   [35d6a980] ColorSchemes v3.21.0
   [3da002f7] ColorTypes v0.11.4
   [c3611d14] ColorVectorSpace v0.9.10
@@ -1408,11 +1410,11 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [38540f10] CommonSolve v0.2.4
   [bbf7d656] CommonSubexpressions v0.3.0
   [34da2185] Compat v4.7.0
-  [b0b7db55] ComponentArrays v0.13.14
+⌃ [b0b7db55] ComponentArrays v0.13.14
   [a33af91c] CompositionsBase v0.1.2
-  [f0e56b4a] ConcurrentUtilities v2.2.0
+⌃ [f0e56b4a] ConcurrentUtilities v2.2.0
   [88cd18e8] ConsoleProgressMonitor v0.1.2
-  [187b0558] ConstructionBase v1.5.2
+⌃ [187b0558] ConstructionBase v1.5.2
   [6add18c4] ContextVariablesX v0.1.3
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
@@ -1427,7 +1429,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [b552c78f] DiffRules v1.15.1
   [b4f34e82] Distances v0.10.8
   [31c24e10] Distributions v0.25.98
-  [ced4e74d] DistributionsAD v0.6.49
+⌃ [ced4e74d] DistributionsAD v0.6.49
   [ffbed154] DocStringExtensions v0.9.3
   [fa6b7ba4] DualNumbers v0.6.8
 ⌃ [366bfd00] DynamicPPL v0.23.0
@@ -1443,7 +1445,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [48062228] FilePathsBase v0.9.20
 ⌅ [1a297f60] FillArrays v1.0.0
   [53c48c17] FixedPointNumbers v0.8.4
-  [587475ba] Flux v0.13.17
+⌃ [587475ba] Flux v0.13.17
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.35
   [069b7b12] FunctionWrappers v1.1.3
@@ -1452,11 +1454,11 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [38e38edf] GLM v1.8.3
   [0c68f7d7] GPUArrays v8.8.1
   [46192b85] GPUArraysCore v0.1.5
-  [61eb1bfa] GPUCompiler v0.21.3
-  [28b8d3ca] GR v0.72.7
+⌃ [61eb1bfa] GPUCompiler v0.21.3
+⌃ [28b8d3ca] GR v0.72.7
   [42e2da0e] Grisu v1.0.2
 ⌃ [cd3eb016] HTTP v1.9.8
-  [34004b35] HypergeometricFunctions v0.3.18
+⌃ [34004b35] HypergeometricFunctions v0.3.18
   [7869d1d1] IRTools v0.4.10
   [615f187c] IfElse v0.1.1
   [22cec73e] InitialValues v0.3.1
@@ -1464,7 +1466,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.14.7
   [8197267c] IntervalSets v0.7.4
-  [3587e190] InverseFunctions v0.1.10
+⌃ [3587e190] InverseFunctions v0.1.10
   [41ab1584] InvertedIndices v1.3.0
   [92d709cd] IrrationalConstants v0.2.2
   [c8e1da08] IterTools v1.8.0
@@ -1473,7 +1475,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [692b3bcd] JLLWrappers v1.4.1
   [682c06a0] JSON v0.21.4
   [b14d175d] JuliaVariables v0.2.4
-  [63c18a36] KernelAbstractions v0.9.6
+⌃ [63c18a36] KernelAbstractions v0.9.6
   [5ab0869b] KernelDensity v0.6.7
   [929cbde3] LLVM v6.1.0
   [8ac3fa9e] LRUCache v1.4.1
@@ -1522,7 +1524,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [aea7be01] PrecompileTools v1.1.2
   [21216c6a] Preferences v1.4.0
   [8162dcfd] PrettyPrint v0.2.0
-  [08abe8d2] PrettyTables v2.2.4
+⌃ [08abe8d2] PrettyTables v2.2.4
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.8.2
@@ -1535,14 +1537,14 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [c1ae055f] RealDot v0.1.0
   [3cdcf5f2] RecipesBase v1.3.4
   [01d81517] RecipesPipeline v0.6.12
-  [731186ca] RecursiveArrayTools v2.38.5
+⌃ [731186ca] RecursiveArrayTools v2.38.5
   [189a3867] Reexport v1.2.2
   [05181044] RelocatableFolders v1.0.0
   [ae029012] Requires v1.3.0
   [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.17
   [7e49a35a] RuntimeGeneratedFunctions v0.5.11
-  [0bca4576] SciMLBase v1.93.0
+⌃ [0bca4576] SciMLBase v1.93.0
   [c0aeaf25] SciMLOperators v0.3.3
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.2.0
@@ -1560,14 +1562,14 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [171d559e] SplittablesBase v0.1.15
   [aedffcd0] Static v0.8.7
   [0d7ed370] StaticArrayInterface v1.4.0
-  [90137ffa] StaticArrays v1.6.0
-  [1e83bf80] StaticArraysCore v1.4.0
+⌃ [90137ffa] StaticArrays v1.6.0
+⌃ [1e83bf80] StaticArraysCore v1.4.0
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.6.0
   [2913bbd2] StatsBase v0.34.0
   [4c63d2b9] StatsFuns v1.3.0
   [3eaba693] StatsModels v0.7.2
-  [f3b207a7] StatsPlots v0.15.5
+⌃ [f3b207a7] StatsPlots v0.15.5
   [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.15
   [2efcf032] SymbolicIndexingInterface v0.2.2
@@ -1583,7 +1585,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [28d57a85] Transducers v0.4.77
   [410a4b4d] Tricks v0.1.7
   [781d530d] TruncatedStacktraces v1.4.0
-  [fce5fe82] Turing v0.26.2
+⌃ [fce5fe82] Turing v0.26.2
   [5c2747f8] URIs v1.4.2
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
@@ -1612,7 +1614,7 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [d7e528f0] FreeType2_jll v2.13.1+0
   [559328eb] FriBidi_jll v1.0.10+0
   [0656b61e] GLFW_jll v3.3.8+0
-  [d2c73de3] GR_jll v0.72.7+0
+⌅ [d2c73de3] GR_jll v0.72.7+0
   [78b55507] Gettext_jll v0.21.0+0
   [7746bdde] Glib_jll v2.74.0+2
   [3b182d85] Graphite2_jll v1.3.14+0
@@ -1723,5 +1725,6 @@ Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/09-var
   [8e850ede] nghttp2_jll v1.48.0+0
   [3f19e933] p7zip_jll v17.4.0+0
 Info Packages marked with ⌃ and ⌅ have new versions available, but those with ⌅ are restricted by compatibility constraints from upgrading. To see why use `status --outdated -m`
+Warning The project dependencies or compat requirements have changed since the manifest was last resolved. It is recommended to `Pkg.resolve()` or consider `Pkg.update()` if necessary.
 ```
 
