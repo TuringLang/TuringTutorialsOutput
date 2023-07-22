@@ -311,9 +311,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64       Float64       Float64   Fl
 oat ⋯
 
-           a    0.9783    0.9014    0.0032    81440.0118   120168.8170    1
+           a    0.9749    0.9003    0.0032    80610.7103   121821.7243    1
 .00 ⋯
-           b    2.8810    0.4876    0.0012   171683.8967   216037.1285    1
+           b    2.8824    0.4881    0.0012   170629.3862   210471.2302    1
 .00 ⋯
                                                                2 columns om
 itted
@@ -322,8 +322,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7870    0.3693    0.9783    1.5866    2.7466
-           b    1.9296    2.5514    2.8806    3.2103    3.8386
+           a   -0.7937    0.3691    0.9755    1.5838    2.7322
+           b    1.9266    2.5533    2.8820    3.2123    3.8379
 ```
 
 
@@ -352,8 +352,8 @@ Chains MCMC chain (1000000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 4.83 seconds
-Compute duration  = 4.83 seconds
+Wall duration     = 4.69 seconds
+Compute duration  = 4.69 seconds
 parameters        = a, b
 internals         = lp
 
@@ -363,9 +363,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64       Float64       Float64   Fl
 oat ⋯
 
-           a    0.9751    0.9001    0.0032    80146.7674   119300.8459    1
+           a    0.9800    0.9040    0.0032    78914.0190   118910.9521    1
 .00 ⋯
-           b    2.8813    0.4869    0.0012   173846.2898   216671.5886    1
+           b    2.8820    0.4872    0.0012   174115.6610   214419.3596    1
 .00 ⋯
                                                                2 columns om
 itted
@@ -374,8 +374,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7989    0.3706    0.9767    1.5808    2.7352
-           b    1.9265    2.5547    2.8808    3.2088    3.8384
+           a   -0.7864    0.3698    0.9794    1.5915    2.7439
+           b    1.9273    2.5532    2.8821    3.2113    3.8345
 ```
 
 
@@ -418,20 +418,20 @@ Environment:
 Package Information:
 
 ```
-Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-minituring/Project.toml`
+Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/14-minituring/Project.toml`
   [80f14c24] AbstractMCMC v4.4.2
   [31c24e10] Distributions v0.25.98
   [c7f686f2] MCMCChains v6.0.3
   [1914dd2f] MacroTools v0.5.10
   [90014a1f] PDMats v0.11.17
-  [fce5fe82] Turing v0.26.5
+  [fce5fe82] Turing v0.26.6
   [9a3f8284] Random
 ```
 
 And the full manifest:
 
 ```
-Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-minituring/Manifest.toml`
+Status `/cache/build/default-amdci4-5/julialang/turingtutorials/tutorials/14-minituring/Manifest.toml`
   [47edcb42] ADTypes v0.1.5
   [621f4979] AbstractFFTs v1.4.0
   [80f14c24] AbstractMCMC v4.4.2
@@ -446,7 +446,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [4fba245c] ArrayInterface v7.4.11
   [a9b6321e] Atomix v0.1.0
   [13072b0f] AxisAlgorithms v1.0.1
-  [39de3d68] AxisArrays v0.4.6
+  [39de3d68] AxisArrays v0.4.7
   [198e06fe] BangBang v0.3.39
   [9718e550] Baselet v0.1.1
 ⌅ [76274a88] Bijectors v0.12.8
@@ -480,7 +480,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [4e289a0a] EnumX v1.0.4
   [e2ba6199] ExprTools v0.1.9
   [7a1cc6ca] FFTW v1.7.1
-  [1a297f60] FillArrays v1.4.1
+  [1a297f60] FillArrays v1.4.2
   [59287772] Formatting v0.4.2
   [f6369f11] ForwardDiff v0.10.35
   [069b7b12] FunctionWrappers v1.1.3
@@ -507,7 +507,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [1d6d02ad] LeftChildRightSiblingTrees v0.2.0
   [6f1fad26] Libtask v0.8.6
   [6fdf6af0] LogDensityProblems v2.1.1
-  [996a588d] LogDensityProblemsAD v1.5.0
+  [996a588d] LogDensityProblemsAD v1.6.0
   [2ab3a3ac] LogExpFunctions v0.3.24
   [e6f89c97] LoggingExtras v1.0.0
   [c7f686f2] MCMCChains v6.0.3
@@ -523,11 +523,11 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [c020b1a1] NaturalSort v1.0.0
   [6fe1bfb0] OffsetArrays v1.12.10
   [3bd65402] Optimisers v0.2.18
-  [bac558e1] OrderedCollections v1.6.0
+  [bac558e1] OrderedCollections v1.6.1
   [90014a1f] PDMats v0.11.17
   [aea7be01] PrecompileTools v1.1.2
   [21216c6a] Preferences v1.4.0
-  [08abe8d2] PrettyTables v2.2.5
+  [08abe8d2] PrettyTables v2.2.6
   [33c8b6b6] ProgressLogging v0.1.4
   [92933f4c] ProgressMeter v1.7.2
   [1fd47b50] QuadGK v2.8.2
@@ -543,15 +543,15 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [79098fc4] Rmath v0.7.1
   [f2b01f46] Roots v2.0.17
   [7e49a35a] RuntimeGeneratedFunctions v0.5.11
-  [0bca4576] SciMLBase v1.93.2
-  [c0aeaf25] SciMLOperators v0.3.3
+  [0bca4576] SciMLBase v1.93.4
+  [c0aeaf25] SciMLOperators v0.3.5
   [30f210dd] ScientificTypesBase v3.0.0
   [efcf1570] Setfield v1.1.1
   [ce78b400] SimpleUnPack v1.1.0
   [a2af1166] SortingAlgorithms v1.1.1
   [276daf66] SpecialFunctions v2.3.0
   [171d559e] SplittablesBase v0.1.15
-  [90137ffa] StaticArrays v1.6.1
+  [90137ffa] StaticArrays v1.6.2
   [1e83bf80] StaticArraysCore v1.4.2
   [64bff920] StatisticalTraits v3.2.0
   [82ae8749] StatsAPI v1.6.0
@@ -564,10 +564,10 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/14-min
   [bd369af6] Tables v1.10.1
   [5d786b92] TerminalLoggers v0.1.7
   [9f7883ad] Tracker v0.2.26
-  [28d57a85] Transducers v0.4.77
+  [28d57a85] Transducers v0.4.78
   [410a4b4d] Tricks v0.1.7
   [781d530d] TruncatedStacktraces v1.4.0
-  [fce5fe82] Turing v0.26.5
+  [fce5fe82] Turing v0.26.6
   [013be700] UnsafeAtomics v0.2.1
   [d80eeb9a] UnsafeAtomicsLLVM v0.1.3
   [efce3f68] WoodburyMatrices v0.5.5
