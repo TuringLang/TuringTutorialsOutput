@@ -700,7 +700,7 @@ div.title {text-align: center;}
 </pre>
 
 
-<p>where <code>rng</code> is a random number generator &#40;default: <code>Random.GLOBAL_RNG</code>&#41;, <code>varinfo</code> is a data structure that stores information about the random variables &#40;default: <code>DynamicPPL.VarInfo&#40;&#41;</code>&#41;, <code>sampler</code> is a sampling algorithm &#40;default: <code>DynamicPPL.SampleFromPrior&#40;&#41;</code>&#41;, and <code>context</code> is a sampling context that can, e.g., modify how the log probability is accumulated &#40;default: <code>DynamicPPL.DefaultContext&#40;&#41;</code>&#41;.</p>
+<p>where <code>rng</code> is a random number generator &#40;default: <code>Random.default_rng&#40;&#41;</code>&#41;, <code>varinfo</code> is a data structure that stores information about the random variables &#40;default: <code>DynamicPPL.VarInfo&#40;&#41;</code>&#41;, <code>sampler</code> is a sampling algorithm &#40;default: <code>DynamicPPL.SampleFromPrior&#40;&#41;</code>&#41;, and <code>context</code> is a sampling context that can, e.g., modify how the log probability is accumulated &#40;default: <code>DynamicPPL.DefaultContext&#40;&#41;</code>&#41;.</p>
 <p>Sampling resets the log joint probability of <code>varinfo</code> and increases the evaluation counter of <code>sampler</code>. If <code>context</code> is a <code>LikelihoodContext</code>, only the log likelihood will be accumulated. With the <code>DefaultContext</code> the log joint probability of <code>P</code> and <code>D</code> is accumulated.</p>
 <p>The <code>Model</code> struct contains the three internal fields <code>f</code>, <code>args</code> and <code>defaults</code>. When <code>model::Model</code> is called, then the internal function <code>model.f</code> is called as <code>model.f&#40;rng, varinfo, sampler, context, model.args...&#41;</code> &#40;for multithreaded sampling, instead of <code>varinfo</code> a threadsafe wrapper is passed to <code>model.f</code>&#41;. The positional and keyword arguments that were passed to the user-defined model function when the model was created are saved as a <code>NamedTuple</code> in <code>model.args</code>. The default values of the positional and keyword arguments of the user-defined model functions, if any, are saved as a <code>NamedTuple</code> in <code>model.defaults</code>. They are used for constructing model instances with different arguments by the <code>logprob</code> and <code>prob</code> string macros.</p>
 <h1>Example</h1>
@@ -945,7 +945,7 @@ div.title {text-align: center;}
         <div class="footer">
           <p>
             Published from <a href="compiler.jmd">compiler.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-06.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
           </p>
         </div>
       </div>
