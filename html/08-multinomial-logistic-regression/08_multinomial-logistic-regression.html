@@ -807,8 +807,8 @@ Chains MCMC chain &#40;1500×22×3 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 751:1:2250
 Number of chains  &#61; 3
 Samples per chain &#61; 1500
-Wall duration     &#61; 20.79 seconds
-Compute duration  &#61; 18.1 seconds
+Wall duration     &#61; 20.61 seconds
+Compute duration  &#61; 17.93 seconds
 parameters        &#61; intercept_versicolor, intercept_virginica, coefficients
 _versicolor&#91;1&#93;, coefficients_versicolor&#91;2&#93;, coefficients_versicolor&#91;3&#93;, coe
 fficients_versicolor&#91;4&#93;, coefficients_virginica&#91;1&#93;, coefficients_virginica&#91;
@@ -1007,33 +1007,33 @@ Platform Info:
   WORD_SIZE: 64
   LIBM: libopenlibm
   LLVM: libLLVM-14.0.6 &#40;ORCJIT, znver2&#41;
-  Threads: 1 on 16 virtual cores
+  Threads: 1 on 128 virtual cores
 Environment:
-  JULIA_CPU_THREADS &#61; 16
+  JULIA_CPU_THREADS &#61; 128
   JULIA_DEPOT_PATH &#61; /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
   JULIA_IMAGE_THREADS &#61; 1
 </code></pre>
 </div>
 <div class="markdown"><p>Package Information:</p>
 </div>
-<div class="markdown"><pre><code>Status &#96;/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
+<div class="markdown"><pre><code>Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Project.toml&#96;
   &#91;1a297f60&#93; FillArrays v1.5.0
   &#91;cc2ba9b6&#93; MLDataUtils v0.5.4
   &#91;872c559c&#93; NNlib v0.9.4
   &#91;ce6b1742&#93; RDatasets v0.7.7
   &#91;f3b207a7&#93; StatsPlots v0.15.6
-  &#91;fce5fe82&#93; Turing v0.27.0
+  &#91;fce5fe82&#93; Turing v0.28.0
   &#91;37e2e46d&#93; LinearAlgebra
   &#91;9a3f8284&#93; Random</code></pre>
 <p>And the full manifest:</p>
-<pre><code>Status &#96;/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
+<pre><code>Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/08-multinomial-logistic-regression/Manifest.toml&#96;
   &#91;47edcb42&#93; ADTypes v0.1.6
-  &#91;621f4979&#93; AbstractFFTs v1.4.0
+  &#91;621f4979&#93; AbstractFFTs v1.5.0
   &#91;80f14c24&#93; AbstractMCMC v4.4.2
 ⌅ &#91;7a57a42e&#93; AbstractPPL v0.5.4
   &#91;1520ce14&#93; AbstractTrees v0.4.4
   &#91;79e6a3ab&#93; Adapt v3.6.2
-⌅ &#91;0bf59076&#93; AdvancedHMC v0.4.6
+  &#91;0bf59076&#93; AdvancedHMC v0.5.3
   &#91;5b7e9947&#93; AdvancedMH v0.7.5
   &#91;576499cb&#93; AdvancedPS v0.4.3
   &#91;b5ca4192&#93; AdvancedVI v0.2.4
@@ -1109,7 +1109,7 @@ Environment:
   &#91;842dd82b&#93; InlineStrings v1.4.0
   &#91;505f98c9&#93; InplaceOps v0.3.0
   &#91;a98d9a8b&#93; Interpolations v0.14.7
-  &#91;8197267c&#93; IntervalSets v0.7.5
+  &#91;8197267c&#93; IntervalSets v0.7.7
   &#91;3587e190&#93; InverseFunctions v0.1.11
   &#91;41ab1584&#93; InvertedIndices v1.3.0
   &#91;92d709cd&#93; IrrationalConstants v0.2.2
@@ -1157,7 +1157,7 @@ Environment:
   &#91;3bd65402&#93; Optimisers v0.2.19
   &#91;bac558e1&#93; OrderedCollections v1.6.2
   &#91;90014a1f&#93; PDMats v0.11.17
-  &#91;69de0a69&#93; Parsers v2.7.1
+  &#91;69de0a69&#93; Parsers v2.7.2
   &#91;b98c9c47&#93; Pipe v1.3.0
   &#91;ccf2f8ad&#93; PlotThemes v3.1.0
   &#91;995b91a9&#93; PlotUtils v1.3.5
@@ -1218,7 +1218,7 @@ Environment:
   &#91;28d57a85&#93; Transducers v0.4.78
   &#91;410a4b4d&#93; Tricks v0.1.7
   &#91;781d530d&#93; TruncatedStacktraces v1.4.0
-  &#91;fce5fe82&#93; Turing v0.27.0
+  &#91;fce5fe82&#93; Turing v0.28.0
   &#91;5c2747f8&#93; URIs v1.4.2
   &#91;1cfade01&#93; UnicodeFun v0.4.1
   &#91;1986cc42&#93; Unitful v1.15.0
@@ -1360,7 +1360,7 @@ Info Packages marked with ⌃ and ⌅ have new versions available, but those wit
         <div class="footer">
           <p>
             Published from <a href="08_multinomial-logistic-regression.jmd">08_multinomial-logistic-regression.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-29.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
           </p>
         </div>
       </div>
