@@ -681,7 +681,8 @@ div.title {text-align: center;}
 </span><span class='hljl-k'>end</span><span class='hljl-t'>
 
 </span><span class='hljl-cs'># Pull 2,000 samples using DynamicNUTS.</span><span class='hljl-t'>
-</span><span class='hljl-n'>chn</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>2.0</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nf'>DynamicNUTS</span><span class='hljl-p'>(),</span><span class='hljl-t'> </span><span class='hljl-ni'>2000</span><span class='hljl-p'>)</span>
+</span><span class='hljl-n'>dynamic_nuts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>externalsampler</span><span class='hljl-p'>(</span><span class='hljl-n'>DynamicHMC</span><span class='hljl-oB'>.</span><span class='hljl-nf'>NUTS</span><span class='hljl-p'>())</span><span class='hljl-t'>
+</span><span class='hljl-n'>chn</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>2.0</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>dynamic_nuts</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>2000</span><span class='hljl-p'>)</span>
 </pre>
 
 
@@ -691,20 +692,20 @@ Chains MCMC chain &#40;2000×3×1 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:2000
 Number of chains  &#61; 1
 Samples per chain &#61; 2000
-Wall duration     &#61; 10.62 seconds
-Compute duration  &#61; 10.62 seconds
+Wall duration     &#61; 10.02 seconds
+Compute duration  &#61; 10.02 seconds
 parameters        &#61; s², m
 internals         &#61; lp
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse        ess      rhat 
-  e ⋯
-      Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
+  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat
+    ⋯
+      Symbol   Float64   Float64   Float64    Float64     Float64   Float64
     ⋯
 
-          s²    1.9886    1.6945     0.0379    0.0574   898.4708    1.0000 
+          s²    2.0145    1.8086    0.0623   849.3213   1038.8195    0.9997
     ⋯
-           m    1.1420    0.8138     0.0182    0.0368   630.5639    1.0007 
+           m    1.1687    0.8268    0.0279   908.5008    800.2040    1.0014
     ⋯
                                                                 1 column om
 itted
@@ -713,8 +714,8 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5313    1.0308    1.5084    2.3620    6.7069
-           m   -0.4707    0.6581    1.1582    1.6185    2.6726
+          s²    0.5837    1.0330    1.5604    2.3394    6.4562
+           m   -0.5154    0.6600    1.1639    1.6868    2.8656
 </pre>
 
 
@@ -723,7 +724,7 @@ Quantiles
         <div class="footer">
           <p>
             Published from <a href="dynamichmc.jmd">dynamichmc.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-07.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
           </p>
         </div>
       </div>

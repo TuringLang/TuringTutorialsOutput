@@ -25,7 +25,8 @@ using DynamicHMC, Turing
 end
 
 # Pull 2,000 samples using DynamicNUTS.
-chn = sample(gdemo(1.5, 2.0), DynamicNUTS(), 2000)
+dynamic_nuts = externalsampler(DynamicHMC.NUTS())
+chn = sample(gdemo(1.5, 2.0), dynamic_nuts, 2000)
 ```
 
 ```
@@ -34,20 +35,20 @@ Chains MCMC chain (2000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:2000
 Number of chains  = 1
 Samples per chain = 2000
-Wall duration     = 2.1 seconds
-Compute duration  = 2.1 seconds
+Wall duration     = 1.98 seconds
+Compute duration  = 1.98 seconds
 parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse        ess      rhat 
-  e ⋯
-      Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
+  parameters      mean       std      mcse    ess_bulk   ess_tail      rhat
+    ⋯
+      Symbol   Float64   Float64   Float64     Float64    Float64   Float64
     ⋯
 
-          s²    2.0541    1.7454     0.0390    0.0544   919.4794    1.0013 
+          s²    2.0152    1.7117    0.0635    798.4867   904.3355    1.0013
     ⋯
-           m    1.1430    0.8196     0.0183    0.0253   908.8085    1.0007 
+           m    1.1471    0.8258    0.0263   1094.2352   813.4655    1.0011
     ⋯
                                                                 1 column om
 itted
@@ -56,8 +57,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5645    1.0298    1.5365    2.4190    7.0774
-           m   -0.6683    0.6577    1.1683    1.6306    2.8000
+          s²    0.5752    1.0333    1.5093    2.3793    6.7551
+           m   -0.4628    0.6476    1.1520    1.6284    2.7110
 ```
 
 
