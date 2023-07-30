@@ -727,10 +727,10 @@ div.title {text-align: center;}
 
 
 <pre class="output">
-Bijectors.UnivariateTransformed&#123;Distributions.Gamma&#123;Float64&#125;, Bijectors.Log
-&#123;0&#125;&#125;&#40;
+Bijectors.UnivariateTransformed&#123;Distributions.Gamma&#123;Float64&#125;, Base.Fix1&#123;typ
+eof&#40;broadcast&#41;, typeof&#40;log&#41;&#125;&#125;&#40;
 dist: Distributions.Gamma&#123;Float64&#125;&#40;α&#61;2.0, θ&#61;3.0&#41;
-transform: Bijectors.Log&#123;0&#125;&#40;&#41;
+transform: Base.Fix1&#123;typeof&#40;broadcast&#41;, typeof&#40;log&#41;&#125;&#40;broadcast, log&#41;
 &#41;
 </pre>
 
@@ -821,9 +821,10 @@ demo &#40;generic function with 2 methods&#41;
 
 
 <pre class="output">
-DynamicPPL.Model&#123;typeof&#40;Main.##WeaveSandBox#275.gdemo&#41;, &#40;:x,&#41;, &#40;&#41;, &#40;&#41;, Tupl
-e&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultContext&#125;&#40;Main.##WeaveSandBox
-#275.gdemo, &#40;x &#61; &#91;1.5, 2.0&#93;,&#41;, NamedTuple&#40;&#41;, DynamicPPL.DefaultContext&#40;&#41;&#41;
+DynamicPPL.Model&#123;typeof&#40;Main.var&quot;##WeaveSandBox#292&quot;.gdemo&#41;, &#40;:x,&#41;, &#40;&#41;, &#40;&#41;,
+ Tuple&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultContext&#125;&#40;Main.var&quot;##Wea
+veSandBox#292&quot;.gdemo, &#40;x &#61; &#91;1.5, 2.0&#93;,&#41;, NamedTuple&#40;&#41;, DynamicPPL.DefaultCo
+ntext&#40;&#41;&#41;
 </pre>
 
 
@@ -858,9 +859,10 @@ e&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultCon
 
 
 <pre class="output">
-DynamicPPL.Model&#123;typeof&#40;Main.##WeaveSandBox#275.gdemo&#41;, &#40;:x,&#41;, &#40;&#41;, &#40;&#41;, Tupl
-e&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultContext&#125;&#40;Main.##WeaveSandBox
-#275.gdemo, &#40;x &#61; &#91;1.5, 2.0&#93;,&#41;, NamedTuple&#40;&#41;, DynamicPPL.DefaultContext&#40;&#41;&#41;
+DynamicPPL.Model&#123;typeof&#40;Main.var&quot;##WeaveSandBox#292&quot;.gdemo&#41;, &#40;:x,&#41;, &#40;&#41;, &#40;&#41;,
+ Tuple&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultContext&#125;&#40;Main.var&quot;##Wea
+veSandBox#292&quot;.gdemo, &#40;x &#61; &#91;1.5, 2.0&#93;,&#41;, NamedTuple&#40;&#41;, DynamicPPL.DefaultCo
+ntext&#40;&#41;&#41;
 </pre>
 
 
@@ -872,7 +874,7 @@ e&#123;Vector&#123;Float64&#125;&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultCon
         <div class="footer">
           <p>
             Published from <a href="advanced.jmd">advanced.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-06.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
           </p>
         </div>
       </div>

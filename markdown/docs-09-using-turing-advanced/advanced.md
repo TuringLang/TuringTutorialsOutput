@@ -79,10 +79,10 @@ transformed_dist = transformed(dist, b) # results in distribution with transform
 ```
 
 ```
-Bijectors.UnivariateTransformed{Distributions.Gamma{Float64}, Bijectors.Log
-{0}}(
+Bijectors.UnivariateTransformed{Distributions.Gamma{Float64}, Base.Fix1{typ
+eof(broadcast), typeof(log)}}(
 dist: Distributions.Gamma{Float64}(α=2.0, θ=3.0)
-transform: Bijectors.Log{0}()
+transform: Base.Fix1{typeof(broadcast), typeof(log)}(broadcast, log)
 )
 ```
 
@@ -187,9 +187,10 @@ model = gdemo([1.5, 2.0])
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.##WeaveSandBox#321.gdemo), (:x,), (), (), Tupl
-e{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.##WeaveSandBox
-#321.gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultContext())
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#326".gdemo), (:x,), (), (),
+ Tuple{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##Wea
+veSandBox#326".gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultCo
+ntext())
 ```
 
 
@@ -225,9 +226,10 @@ model = gdemo([1.5, 2.0])
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.##WeaveSandBox#321.gdemo), (:x,), (), (), Tupl
-e{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.##WeaveSandBox
-#321.gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultContext())
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#326".gdemo), (:x,), (), (),
+ Tuple{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##Wea
+veSandBox#326".gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultCo
+ntext())
 ```
 
 
