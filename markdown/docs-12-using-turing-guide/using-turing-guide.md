@@ -56,25 +56,25 @@ Chains MCMC chain (100000×5×1 Array{Float64, 3}):
 Iterations        = 1:1:100000
 Number of chains  = 1
 Samples per chain = 100000
-Wall duration     = 1.66 seconds
-Compute duration  = 1.66 seconds
+Wall duration     = 1.68 seconds
+Compute duration  = 1.68 seconds
 parameters        = s², m, x, y
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse          ess      rha
-t   ⋯
-      Symbol   Float64   Float64    Float64   Float64      Float64   Float6
-4   ⋯
+  parameters      mean       std      mcse     ess_bulk     ess_tail      r
+hat ⋯
+      Symbol   Float64   Float64   Float64      Float64      Float64   Floa
+t64 ⋯
 
-          s²    3.0261    6.2888     0.0199    0.0195   99002.9374    1.000
-0   ⋯
-           m   -0.0018    1.7639     0.0056    0.0056   98721.9618    1.000
-0   ⋯
-           x   -0.0151    2.4731     0.0078    0.0077   99207.4590    1.000
-0   ⋯
-           y    0.0053    2.4907     0.0079    0.0086   99075.4978    1.000
-0   ⋯
+          s²    2.9728    6.7733    0.0215   99082.0926   97424.9876    1.0
+000 ⋯
+           m   -0.0002    1.7068    0.0055   97128.5961   99672.5295    1.0
+000 ⋯
+           x    0.0016    2.4341    0.0078   97596.4500   97755.5409    1.0
+000 ⋯
+           y    0.0001    2.4399    0.0077   99420.1652   98275.7220    1.0
+000 ⋯
                                                                 1 column om
 itted
 
@@ -82,10 +82,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5379    1.1123    1.7891    3.1432   12.5743
-           m   -3.4223   -0.9100   -0.0034    0.9090    3.4032
-           x   -4.8675   -1.2918   -0.0083    1.2637    4.7786
-           y   -4.8447   -1.2809    0.0006    1.2877    4.8690
+          s²    0.5375    1.1164    1.7932    3.1320   12.0203
+           m   -3.3790   -0.9049    0.0078    0.9007    3.3762
+           x   -4.7960   -1.2786    0.0068    1.2910    4.8080
+           y   -4.8022   -1.2841    0.0002    1.2908    4.8054
 ```
 
 
@@ -110,22 +110,22 @@ Chains MCMC chain (1000×14×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1.73 seconds
-Compute duration  = 1.73 seconds
+Wall duration     = 1.49 seconds
+Compute duration  = 1.49 seconds
 parameters        = s², m
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
 tree_depth, numerical_error, step_size, nom_step_size
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse        ess      rhat 
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
   e ⋯
-      Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    2.1603    2.4839     0.0785    0.1300   290.0775    0.9990 
+          s²    2.0397    1.7662    0.0859   531.3216   491.2213    1.0048 
     ⋯
-           m    1.1260    0.8596     0.0272    0.0374   481.1441    1.0021 
+           m    1.2301    0.8823    0.0422   485.3409   391.2064    1.0064 
     ⋯
                                                                 1 column om
 itted
@@ -134,8 +134,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.6173    1.0502    1.5500    2.3169    7.6331
-           m   -0.8561    0.6701    1.1782    1.6306    2.6784
+          s²    0.5988    1.0658    1.5238    2.4005    6.8234
+           m   -0.4014    0.6941    1.2179    1.6803    3.1833
 ```
 
 
@@ -217,22 +217,22 @@ sample(model_function(10), SMC(), 100)
 ```
 Chains MCMC chain (100×3×1 Array{Float64, 3}):
 
-Log evidence      = -13.513060838734296
+Log evidence      = -22.42198736156986
 Iterations        = 1:1:100
 Number of chains  = 1
 Samples per chain = 100
-Wall duration     = 1.94 seconds
-Compute duration  = 1.94 seconds
+Wall duration     = 1.57 seconds
+Compute duration  = 1.57 seconds
 parameters        = s
 internals         = lp, weight
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse        ess      rhat 
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
   e ⋯
-      Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-           s    5.9900    0.1000     0.0100    0.0100   100.0801    1.0000 
+           s    4.0000    0.0000       NaN        NaN        NaN       NaN 
     ⋯
                                                                 1 column om
 itted
@@ -241,7 +241,7 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           s    6.0000    6.0000    6.0000    6.0000    6.0000
+           s    4.0000    4.0000    4.0000    4.0000    4.0000
 ```
 
 
@@ -387,7 +387,7 @@ g_prior_sample()
 ```
 
 ```
-(0.056822491268192776, -0.1320914410048931)
+(1.424367069367373, 3.003479965217019)
 ```
 
 
@@ -419,30 +419,31 @@ c = sample(model, HMC(0.01, 5), 500)
 ```
 
 ```
-Chains MCMC chain (500×13×1 Array{Float64, 3}):
+Chains MCMC chain (500×14×1 Array{Float64, 3}):
 
 Iterations        = 1:1:500
 Number of chains  = 1
 Samples per chain = 500
-Wall duration     = 1.73 seconds
-Compute duration  = 1.73 seconds
+Wall duration     = 1.45 seconds
+Compute duration  = 1.45 seconds
 parameters        = s², m, x[1], x[2]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
+m_step_size
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse       ess      rhat  
- es ⋯
-      Symbol   Float64   Float64    Float64   Float64   Float64   Float64  
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    1.0363    0.4943     0.0221    0.1056    1.1527    3.0610  
+          s²    1.4841    0.5872    0.5196     1.3937    14.5628    1.9815 
     ⋯
-           m   -0.2421    0.3372     0.0151    0.0713    2.0260    1.4927  
+           m    0.3016    0.7009    0.3406     5.4932    26.8660    1.5385 
     ⋯
-        x[1]    0.8023    0.4553     0.0204    0.0905    1.4740    1.8506  
+        x[1]   -2.0716    0.2818    0.1486     3.7332    35.3529    1.2796 
     ⋯
-        x[2]   -1.5542    0.2339     0.0105    0.0423    4.9708    1.1465  
+        x[2]    1.4212    0.2639    0.2061     1.7507    25.3903    1.7222 
     ⋯
                                                                 1 column om
 itted
@@ -451,10 +452,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.3489    0.6092    0.8893    1.4929    1.8723
-           m   -0.9782   -0.4754   -0.2418   -0.0047    0.3561
-        x[1]    0.1204    0.4094    0.7760    1.0924    1.8124
-        x[2]   -2.1047   -1.6893   -1.5718   -1.3940   -1.0970
+          s²    0.7974    0.9800    1.2421    2.0632    2.5473
+           m   -0.6914   -0.2862    0.2233    0.8933    1.5261
+        x[1]   -2.5907   -2.2938   -2.0206   -1.8332   -1.6389
+        x[2]    0.9478    1.2203    1.4080    1.6339    1.8582
 ```
 
 
@@ -480,28 +481,29 @@ c = sample(model, HMC(0.01, 5), 500)
 ```
 
 ```
-Chains MCMC chain (500×12×1 Array{Float64, 3}):
+Chains MCMC chain (500×13×1 Array{Float64, 3}):
 
 Iterations        = 1:1:500
 Number of chains  = 1
 Samples per chain = 500
-Wall duration     = 1.73 seconds
-Compute duration  = 1.73 seconds
+Wall duration     = 1.42 seconds
+Compute duration  = 1.42 seconds
 parameters        = s², m, x[1]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
+m_step_size
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse       ess      rhat  
- es ⋯
-      Symbol   Float64   Float64    Float64   Float64   Float64   Float64  
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    1.2533    0.6694     0.0299    0.1450    5.4073    1.0175  
+          s²    1.1230    0.3472    0.1335     6.9907    10.8719    1.0359 
     ⋯
-           m    0.8676    0.3972     0.0178    0.0855    1.4497    1.8998  
+           m    0.1349    0.6552    0.6013     1.3225    13.2450    2.1213 
     ⋯
-        x[1]    0.2052    0.5516     0.0247    0.1178    1.2524    2.3306  
+        x[1]    0.5820    0.3162    0.2279     1.9218    10.9251    1.6032 
     ⋯
                                                                 1 column om
 itted
@@ -510,9 +512,9 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.2602    0.7019    1.1472    1.8920    2.2969
-           m   -0.1504    0.6559    0.9539    1.1910    1.3828
-        x[1]   -0.6899   -0.3760    0.2731    0.6544    1.0961
+          s²    0.4181    0.8808    1.0698    1.3711    1.7972
+           m   -0.9705   -0.4591    0.1176    0.7942    1.1362
+        x[1]    0.0183    0.3350    0.5956    0.7499    1.3055
 ```
 
 
@@ -544,47 +546,48 @@ chain = sample(m, HMC(0.01, 5), 1000)
 ```
 
 ```
-Chains MCMC chain (1000×21×1 Array{Float64, 3}):
+Chains MCMC chain (1000×22×1 Array{Float64, 3}):
 
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 3.35 seconds
-Compute duration  = 3.35 seconds
+Wall duration     = 2.8 seconds
+Compute duration  = 2.8 seconds
 parameters        = s², m, x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], 
 x[9], x[10]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
-amiltonian_energy, hamiltonian_energy_error, step_size, nom_step_size
+amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
+m_step_size
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse       ess      rhat  
- es ⋯
-      Symbol   Float64   Float64    Float64   Float64   Float64   Float64  
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    1.7174    0.5911     0.0187    0.0983    4.8314    1.3538  
+          s²    1.2103    0.4511    0.1629     8.8689    37.6435    1.0473 
     ⋯
-           m    0.6863    0.3736     0.0118    0.0644    4.6182    1.2768  
+           m    0.3292    0.3237    0.1471     5.4416    43.5081    1.1725 
     ⋯
-        x[1]    0.4000    0.7388     0.0234    0.1313    2.4383    2.2401  
+        x[1]    0.4638    0.5204    0.1875     7.4796    12.5130    1.1440 
     ⋯
-        x[2]   -1.8459    0.6460     0.0204    0.1109    7.2387    1.0287  
+        x[2]   -0.7873    0.3293    0.0849    15.3988    35.6929    1.0061 
     ⋯
-        x[3]    1.9571    0.6107     0.0193    0.1083    6.1071    0.9990  
+        x[3]    1.5962    0.7247    0.4604     2.6722    12.3062    1.8817 
     ⋯
-        x[4]    1.4804    0.5014     0.0159    0.0876    3.4088    1.5903  
+        x[4]    0.9138    0.3870    0.1471     6.9785    26.7546    1.4994 
     ⋯
-        x[5]   -0.0873    0.7789     0.0246    0.1383    2.4048    2.2076  
+        x[5]    0.8944    0.2940    0.1019     9.0672    27.5149    1.1420 
     ⋯
-        x[6]   -0.5023    0.4688     0.0148    0.0822    2.5204    1.9823  
+        x[6]    1.7526    0.4939    0.2503     5.7895    27.0196    1.3247 
     ⋯
-        x[7]    2.3577    0.4511     0.0143    0.0762    2.9363    1.6033  
+        x[7]   -0.8302    0.4666    0.1972     6.1731    21.8240    1.1059 
     ⋯
-        x[8]    0.0868    0.6660     0.0211    0.1184    2.1726    3.5043  
+        x[8]    1.7535    0.8162    0.5297     2.5565    22.8628    2.0097 
     ⋯
-        x[9]    1.0934    0.9337     0.0295    0.1636    2.6575    1.6923  
+        x[9]   -0.0266    0.2855    0.0967     9.3657    46.8213    1.0797 
     ⋯
-       x[10]    2.3220    0.3826     0.0121    0.0660    4.7649    1.3005  
+       x[10]   -0.2617    0.6340    0.2868     6.6579    12.9094    1.3287 
     ⋯
                                                                 1 column om
 itted
@@ -593,18 +596,18 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.9126    1.3118    1.5528    1.9967    3.1706
-           m    0.0967    0.3372    0.7163    1.0075    1.3329
-        x[1]   -1.0211   -0.2005    0.5783    1.0204    1.3624
-        x[2]   -2.7472   -2.3430   -1.9736   -1.4943   -0.2586
-        x[3]    0.6690    1.4915    1.9900    2.3747    3.0665
-        x[4]    0.1824    1.3115    1.5481    1.8105    2.2641
-        x[5]   -1.3000   -0.7204   -0.3552    0.7194    1.2121
-        x[6]   -1.6800   -0.7626   -0.3935   -0.1553    0.1545
-        x[7]    1.5318    1.9936    2.4281    2.6960    3.1333
-        x[8]   -0.9294   -0.5658    0.1673    0.7233    1.0562
-        x[9]   -0.9250    0.3214    1.5730    1.7580    2.1455
-       x[10]    1.2188    2.1847    2.4036    2.5576    2.8593
+          s²    0.6697    0.8465    1.0449    1.5525    2.2243
+           m   -0.2358    0.0968    0.2913    0.5521    0.9172
+        x[1]   -0.4878    0.2462    0.3997    0.6444    1.7393
+        x[2]   -1.4133   -1.0394   -0.7683   -0.5944   -0.1195
+        x[3]    0.4012    0.9821    1.6638    2.2251    2.8739
+        x[4]    0.1795    0.6453    0.8945    1.2279    1.5946
+        x[5]    0.3176    0.6861    0.9226    1.1255    1.3966
+        x[6]    0.7824    1.3397    1.9731    2.1355    2.4090
+        x[7]   -1.7211   -1.2149   -0.7250   -0.4308   -0.1922
+        x[8]    0.2539    1.0981    1.9474    2.3652    3.1192
+        x[9]   -0.6308   -0.1768   -0.0199    0.1729    0.4617
+       x[10]   -1.7023   -0.7197   -0.0673    0.2073    0.5731
 ```
 
 
@@ -653,9 +656,9 @@ model10 = gdemo0(10)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.##WeaveSandBox#514.gdemo0), (:x,), (), (), Tup
-le{Int64}, Tuple{}, DynamicPPL.DefaultContext}(Main.##WeaveSandBox#514.gdem
-o0, (x = 10,), NamedTuple(), DynamicPPL.DefaultContext())
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#501".gdemo0), (:x,), (), ()
+, Tuple{Int64}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##WeaveSandBox
+#501".gdemo0, (x = 10,), NamedTuple(), DynamicPPL.DefaultContext())
 ```
 
 
@@ -725,10 +728,10 @@ model = gdemo(2.0, 4.0)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.##WeaveSandBox#514.gdemo), (:x, :y), (), (), T
-uple{Float64, Float64}, Tuple{}, DynamicPPL.DefaultContext}(Main.##WeaveSan
-dBox#514.gdemo, (x = 2.0, y = 4.0), NamedTuple(), DynamicPPL.DefaultContext
-())
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#501".gdemo), (:x, :y), (), 
+(), Tuple{Float64, Float64}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"#
+#WeaveSandBox#501".gdemo, (x = 2.0, y = 4.0), NamedTuple(), DynamicPPL.Defa
+ultContext())
 ```
 
 
@@ -790,9 +793,10 @@ model = gdemo(data)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.##WeaveSandBox#514.gdemo), (:x,), (), (), Tupl
-e{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.##WeaveSandBox
-#514.gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultContext())
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#501".gdemo), (:x,), (), (),
+ Tuple{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##Wea
+veSandBox#501".gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultCo
+ntext())
 ```
 
 
@@ -811,7 +815,7 @@ map_estimate = optimize(model, MAP())
 
 ```
 ModeResult with maximized lp of -4.62
-[0.907407407353463, 1.166666666637336]
+[0.9074074074074423, 1.1666666666667456]
 ```
 
 
@@ -923,20 +927,20 @@ Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 22.4 seconds
-Compute duration  = 22.4 seconds
+Wall duration     = 16.44 seconds
+Compute duration  = 16.44 seconds
 parameters        = p, z
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std   naive_se      mcse        ess      rhat 
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
   e ⋯
-      Symbol   Float64   Float64    Float64   Float64    Float64   Float64 
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-           p    0.4087    0.2095     0.0066    0.0208    28.8122    1.0588 
+           p    0.4026    0.2068    0.0201   105.3306   131.0926    1.0046 
     ⋯
-           z    0.1000    0.3002     0.0095    0.0129   787.1278    0.9997 
+           z    0.1710    0.3767    0.0208   328.0747        NaN    1.0021 
     ⋯
                                                                 1 column om
 itted
@@ -945,7 +949,7 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           p    0.0661    0.2347    0.4074    0.5647    0.8182
+           p    0.0661    0.2429    0.3803    0.5477    0.8590
            z    0.0000    0.0000    0.0000    0.0000    1.0000
 ```
 
