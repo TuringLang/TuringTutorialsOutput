@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<HTML lang = "en">
+<HEAD>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>How Turing implements AbstractMCMC</title>
+  
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  
+<style>
+pre.hljl {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    overflow-x: auto;
+    color: rgb(68,68,68); background-color: rgb(251,251,251); }
+pre.hljl > span.hljl-t { }
+pre.hljl > span.hljl-w { }
+pre.hljl > span.hljl-e { }
+pre.hljl > span.hljl-eB { }
+pre.hljl > span.hljl-o { }
+pre.hljl > span.hljl-k { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kc { color: rgb(59,151,46); font-style: italic; }
+pre.hljl > span.hljl-kd { color: rgb(214,102,97); font-style: italic; }
+pre.hljl > span.hljl-kn { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kp { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kr { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kt { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-n { }
+pre.hljl > span.hljl-na { }
+pre.hljl > span.hljl-nb { }
+pre.hljl > span.hljl-nbp { }
+pre.hljl > span.hljl-nc { }
+pre.hljl > span.hljl-ncB { }
+pre.hljl > span.hljl-nd { color: rgb(214,102,97); }
+pre.hljl > span.hljl-ne { }
+pre.hljl > span.hljl-neB { }
+pre.hljl > span.hljl-nf { color: rgb(66,102,213); }
+pre.hljl > span.hljl-nfm { color: rgb(66,102,213); }
+pre.hljl > span.hljl-np { }
+pre.hljl > span.hljl-nl { }
+pre.hljl > span.hljl-nn { }
+pre.hljl > span.hljl-no { }
+pre.hljl > span.hljl-nt { }
+pre.hljl > span.hljl-nv { }
+pre.hljl > span.hljl-nvc { }
+pre.hljl > span.hljl-nvg { }
+pre.hljl > span.hljl-nvi { }
+pre.hljl > span.hljl-nvm { }
+pre.hljl > span.hljl-l { }
+pre.hljl > span.hljl-ld { color: rgb(148,91,176); font-style: italic; }
+pre.hljl > span.hljl-s { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sa { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sb { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sc { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sd { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdC { color: rgb(201,61,57); }
+pre.hljl > span.hljl-se { color: rgb(59,151,46); }
+pre.hljl > span.hljl-sh { color: rgb(201,61,57); }
+pre.hljl > span.hljl-si { }
+pre.hljl > span.hljl-so { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sr { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ss { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ssB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-nB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nbB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nfB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nh { color: rgb(59,151,46); }
+pre.hljl > span.hljl-ni { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nil { color: rgb(59,151,46); }
+pre.hljl > span.hljl-noB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-oB { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-ow { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-p { }
+pre.hljl > span.hljl-c { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-ch { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cm { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cp { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cpB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cs { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-csB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-g { }
+pre.hljl > span.hljl-gd { }
+pre.hljl > span.hljl-ge { }
+pre.hljl > span.hljl-geB { }
+pre.hljl > span.hljl-gh { }
+pre.hljl > span.hljl-gi { }
+pre.hljl > span.hljl-go { }
+pre.hljl > span.hljl-gp { }
+pre.hljl > span.hljl-gs { }
+pre.hljl > span.hljl-gsB { }
+pre.hljl > span.hljl-gt { }
+</style>
+
+
+
+  <style type="text/css">
+  @font-face {
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 600;
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  font-family: monospace, monospace;
+  font-size : 0.8em;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+thead th {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+tr:nth-child(odd){
+  background-color: rgb(248,248,248);
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle; }
+ol {
+  list-style: decimal; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li > p {margin : 0;}
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 1.0rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+pre.hljl {
+  margin: 0 0 10px;
+  display: block;
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding : 5px;
+}
+
+pre.output {
+  background: #ffffff;
+}
+
+pre.code {
+  background: #ffffff;
+}
+
+pre.julia-error {
+  color : red
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+div.title {text-align: center;}
+
+  </style>
+</HEAD>
+
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">How Turing implements AbstractMCMC</h1>
+          
+          
+        </div>
+
+        <h1>How Turing implements AbstractMCMC</h1>
+<p>Prerequisite: <a href="https://turinglang.org/dev/docs/for-developers/interface">Interface guide</a>.</p>
+<h2>Introduction</h2>
+<p>Consider the following Turing, code block:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Turing</span><span class='hljl-t'>
+
+</span><span class='hljl-nd'>@model</span><span class='hljl-t'> </span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-n'>s²</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>InverseGamma</span><span class='hljl-p'>(</span><span class='hljl-ni'>2</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-n'>m</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-ni'>0</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>sqrt</span><span class='hljl-p'>(</span><span class='hljl-n'>s²</span><span class='hljl-p'>))</span><span class='hljl-t'>
+    </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>sqrt</span><span class='hljl-p'>(</span><span class='hljl-n'>s²</span><span class='hljl-p'>))</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>y</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-n'>m</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>sqrt</span><span class='hljl-p'>(</span><span class='hljl-n'>s²</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>mod</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-n'>alg</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>IS</span><span class='hljl-p'>()</span><span class='hljl-t'>
+</span><span class='hljl-n'>n_samples</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1000</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>chn</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>mod</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>alg</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>n_samples</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Chains MCMC chain &#40;1000×3×1 Array&#123;Float64, 3&#125;&#41;:
+
+Log evidence      &#61; -3.7626715008521536
+Iterations        &#61; 1:1:1000
+Number of chains  &#61; 1
+Samples per chain &#61; 1000
+Wall duration     &#61; 4.22 seconds
+Compute duration  &#61; 4.22 seconds
+parameters        &#61; s², m
+internals         &#61; lp
+
+Summary Statistics
+  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat
+    ⋯
+      Symbol   Float64   Float64   Float64    Float64     Float64   Float64
+    ⋯
+
+          s²    2.9084    3.9865    0.1373   939.3319    864.3195    0.9995
+    ⋯
+           m   -0.0448    1.6779    0.0543   933.8347   1025.7469    0.9995
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+          s²    0.5033    1.0963    1.8132    3.0921   12.5418
+           m   -3.5873   -0.8665    0.0246    0.8747    3.2106
+</pre>
+
+
+<p>The function <code>sample</code> is part of the AbstractMCMC interface. As explained in the <a href="https://turinglang.org/dev/docs/for-developers/interface">interface guide</a>, building a a sampling method that can be used by <code>sample</code> consists in overloading the structs and functions in <code>AbstractMCMC</code>. The interface guide also gives a standalone example of their implementation, <a href=""><code>AdvancedMH.jl</code></a>.</p>
+<p>Turing sampling methods &#40;most of which are written <a href="https://github.com/TuringLang/Turing.jl/tree/master/src/inference">here</a>&#41; also implement <code>AbstractMCMC</code>. Turing defines a particular architecture for <code>AbstractMCMC</code> implementations, that enables working with models defined by the <code>@model</code> macro, and uses DynamicPPL as a backend. The goal of this page is to describe this architecture, and how you would go about implementing your own sampling method in Turing, using Importance Sampling as an example. I don&#39;t go into all the details: for instance, I don&#39;t address selectors or parallelism.</p>
+<p>First, we explain how Importance Sampling works in the abstract. Consider the model defined in the first code block. Mathematically, it can be written:</p>
+<p class="math">\[
+\begin{align*}
+s &\sim \text{InverseGamma}(2, 3), \\\\
+m &\sim \text{Normal}(0, \sqrt{s}), \\\\
+x &\sim \text{Normal}(m, \sqrt{s}), \\\\
+y &\sim \text{Normal}(m, \sqrt{s}).
+\end{align*}
+\]</p>
+<p>The <strong>latent</strong> variables are <span class="math">$s$</span> and <span class="math">$m$</span>, the <strong>observed</strong> variables are <span class="math">$x$</span> and <span class="math">$y$</span>. The model <strong>joint</strong> distribution <span class="math">$p(s,m,x,y)$</span> decomposes into the <strong>prior</strong> <span class="math">$p(s,m)$</span> and the <strong>likelihood</strong> <span class="math">$p(x,y \mid s,m).$</span> Since <span class="math">$x = 1.5$</span> and <span class="math">$y = 2$</span> are observed, the goal is to infer the <strong>posterior</strong> distribution <span class="math">$p(s,m \mid x,y).$</span></p>
+<p>Importance Sampling produces independent samples <span class="math">$(s_i, m_i)$</span> from the prior distribution. It also outputs unnormalized weights</p>
+<p class="math">\[
+w_i = \frac {p(x,y,s_i,m_i)} {p(s_i, m_i)} = p(x,y \mid s_i, m_i)
+\]</p>
+<p>such that the empirical distribution</p>
+<p class="math">\[
+\frac{1}{N} \sum_{i =1}^N \frac {w_i} {\sum_{j=1}^N w_j} \delta_{(s_i, m_i)}
+\]</p>
+<p>is a good approximation of the posterior.</p>
+<h2>1. Define a Sampler</h2>
+<p>Recall the last line of the above code block:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>chn</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>mod</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>alg</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>n_samples</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Chains MCMC chain &#40;1000×3×1 Array&#123;Float64, 3&#125;&#41;:
+
+Log evidence      &#61; -3.6032989597585794
+Iterations        &#61; 1:1:1000
+Number of chains  &#61; 1
+Samples per chain &#61; 1000
+Wall duration     &#61; 0.05 seconds
+Compute duration  &#61; 0.05 seconds
+parameters        &#61; s², m
+internals         &#61; lp
+
+Summary Statistics
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+    ⋯
+
+          s²    3.0917    5.6080    0.1804   767.4036   677.7016    0.9994 
+    ⋯
+           m    0.0231    1.8155    0.0647   900.4216   865.6998    1.0029 
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+          s²    0.5312    1.1233    1.7815    3.1105   11.4817
+           m   -3.7259   -0.9184    0.0669    1.0232    3.2843
+</pre>
+
+
+<p>Here <code>sample</code> takes as arguments a <strong>model</strong> <code>mod</code>, an <strong>algorithm</strong> <code>alg</code>, and a <strong>number of samples</strong> <code>n_samples</code>, and returns an instance <code>chn</code> of <code>Chains</code> which can be analysed using the functions in <code>MCMCChains</code>.</p>
+<h3>Models</h3>
+<p>To define a <strong>model</strong>, you declare a joint distribution on variables in the <code>@model</code> macro, and specify which variables are observed and which should be inferred, as well as the value of the observed variables. Thus, when implementing Importance Sampling,</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>mod</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+DynamicPPL.Model&#123;typeof&#40;Main.var&quot;##WeaveSandBox#292&quot;.gdemo&#41;, &#40;:x, :y&#41;, &#40;&#41;, 
+&#40;&#41;, Tuple&#123;Float64, Int64&#125;, Tuple&#123;&#125;, DynamicPPL.DefaultContext&#125;&#40;Main.var&quot;##W
+eaveSandBox#292&quot;.gdemo, &#40;x &#61; 1.5, y &#61; 2&#41;, NamedTuple&#40;&#41;, DynamicPPL.DefaultC
+ontext&#40;&#41;&#41;
+</pre>
+
+
+<p>creates an instance <code>mod</code> of the struct <code>Model</code>, which corresponds to the observations of a value of <code>1.5</code> for <code>x</code>, and a value of <code>2</code> for <code>y</code>.</p>
+<p>This is all handled by DynamicPPL, more specifically <a href="https://github.com/TuringLang/DynamicPPL.jl/blob/master/src/model.jl">here</a>. I will return to how models are used to inform sampling algorithms <a href="#assumeobserve">below</a>.</p>
+<h3>Algorithms</h3>
+<p>An <strong>algorithm</strong> is just a sampling method: in Turing, it is a subtype of the abstract type <code>InferenceAlgorithm</code>. Defining an algorithm may require specifying a few high-level parameters. For example, &quot;Hamiltonian Monte-Carlo&quot; may be too vague, but &quot;Hamiltonian Monte Carlo with  10 leapfrog steps per proposal and a stepsize of 0.01&quot; is an algorithm. &quot;Metropolis-Hastings&quot; may be too vague, but &quot;Metropolis-Hastings with proposal distribution <code>p</code>&quot; is an algorithm. Thus</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>stepsize</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.01</span><span class='hljl-t'>
+</span><span class='hljl-n'>L</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>10</span><span class='hljl-t'>
+</span><span class='hljl-n'>alg</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>HMC</span><span class='hljl-p'>(</span><span class='hljl-n'>stepsize</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>L</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Turing.Inference.HMC&#123;Turing.Essential.ForwardDiffAD&#123;0&#125;, &#40;&#41;, AdvancedHMC.Uni
+tEuclideanMetric&#125;&#40;0.01, 10&#41;
+</pre>
+
+
+<p>defines a Hamiltonian Monte-Carlo algorithm, an instance of <code>HMC</code>, which is a subtype of <code>InferenceAlgorithm</code>.</p>
+<p>In the case of Importance Sampling, there is no need to specify additional parameters:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>alg</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>IS</span><span class='hljl-p'>()</span>
+</pre>
+
+
+<pre class="output">
+Turing.Inference.IS&#123;&#40;&#41;&#125;&#40;&#41;
+</pre>
+
+
+<p>defines an Importance Sampling algorithm, an instance of <code>IS</code> which is a subtype of <code>InferenceAlgorithm</code>.</p>
+<p>When creating your own Turing sampling method, you must therefore build a subtype of <code>InferenceAlgorithm</code> corresponding to your method.</p>
+<h3>Samplers</h3>
+<p>Samplers are <strong>not</strong> the same as algorithms. An algorithm is a generic sampling method, a sampler is an object that stores information about how algorithm and model interact during sampling, and is modified as sampling progresses. The <code>Sampler</code> struct is defined in DynamicPPL.</p>
+<p>Turing implements <code>AbstractMCMC</code>&#39;s <code>AbstractSampler</code> with the <code>Sampler</code> struct defined in <code>DynamicPPL</code>. The most important attributes of an instance <code>spl</code> of <code>Sampler</code> are:</p>
+<ul>
+<li><p><code>spl.alg</code>: the sampling method used, an instance of a subtype of <code>InferenceAlgorithm</code></p>
+</li>
+<li><p><code>spl.state</code>: information about the sampling process, see <a href="#States">below</a></p>
+</li>
+</ul>
+<p>When you call <code>sample&#40;mod, alg, n_samples&#41;</code>, Turing first uses <code>model</code> and <code>alg</code> to build an instance <code>spl</code> of <code>Sampler</code> , then calls the native <code>AbstractMCMC</code> function <code>sample&#40;mod, spl, n_samples&#41;</code>.</p>
+<p>When you define your own Turing sampling method, you must therefore build:</p>
+<ul>
+<li><p>a <strong>sampler constructor</strong> that uses a model and an algorithm to initialize an instance of <code>Sampler</code>. For Importance Sampling:</p>
+</li>
+</ul>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>Sampler</span><span class='hljl-p'>(</span><span class='hljl-n'>alg</span><span class='hljl-oB'>::</span><span class='hljl-n'>IS</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>Model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>s</span><span class='hljl-oB'>::</span><span class='hljl-n'>Selector</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-n'>info</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Dict</span><span class='hljl-p'>{</span><span class='hljl-n'>Symbol</span><span class='hljl-p'>,</span><span class='hljl-n'>Any</span><span class='hljl-p'>}()</span><span class='hljl-t'>
+    </span><span class='hljl-n'>state</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>ISState</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>Sampler</span><span class='hljl-p'>(</span><span class='hljl-n'>alg</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>info</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>s</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>state</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<ul>
+<li><p>a <strong>state</strong> struct implementing <code>AbstractSamplerState</code> corresponding to your method: we cover this in the following paragraph.</p>
+</li>
+</ul>
+<h3>States</h3>
+<p>The <code>vi</code> field contains all the important information about sampling: first and foremost, the values of all the samples, but also the distributions from which they are sampled, the names of model parameters, and other metadata. As we will see below, many important steps during sampling correspond to queries or updates to <code>spl.state.vi</code>.</p>
+<p>By default, you can use <code>SamplerState</code>, a concrete type defined in <code>inference/Inference.jl</code>, which extends <code>AbstractSamplerState</code> and has no field except for <code>vi</code>:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>mutable struct</span><span class='hljl-t'> </span><span class='hljl-nf'>SamplerState</span><span class='hljl-p'>{</span><span class='hljl-n'>VIType</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>VarInfo</span><span class='hljl-p'>}</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;:</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractSamplerState</span><span class='hljl-t'>
+    </span><span class='hljl-n'>vi</span><span class='hljl-oB'>::</span><span class='hljl-n'>VIType</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>When doing Importance Sampling, we care not only about the values of the samples but also their weights. We will see below that the weight of each sample is also added to <code>spl.state.vi</code>. Moreover, the average</p>
+<p class="math">\[
+\frac 1 N \sum_{j=1}^N w_i = \frac 1 N \sum_{j=1}^N p(x,y \mid s_i, m_i)
+\]</p>
+<p>of the sample weights is a particularly important quantity:</p>
+<ul>
+<li><p>it is used to <strong>normalize</strong> the <strong>empirical approximation</strong> of the posterior distribution</p>
+</li>
+<li><p>its logarithm is the importance sampling <strong>estimate</strong> of the <strong>log evidence</strong> <span class="math">$\log p(x, y)$</span></p>
+</li>
+</ul>
+<p>To avoid having to compute it over and over again, <code>is.jl</code>defines an IS-specific concrete type <code>ISState</code> for sampler states, with an additional field <code>final_logevidence</code> containing</p>
+<p class="math">\[
+\log \frac 1 N \sum_{j=1}^N w_i.
+\]</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>mutable struct</span><span class='hljl-t'> </span><span class='hljl-nf'>ISState</span><span class='hljl-p'>{</span><span class='hljl-n'>V</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>VarInfo</span><span class='hljl-p'>,</span><span class='hljl-n'>F</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>AbstractFloat</span><span class='hljl-p'>}</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;:</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractSamplerState</span><span class='hljl-t'>
+    </span><span class='hljl-n'>vi</span><span class='hljl-oB'>::</span><span class='hljl-n'>V</span><span class='hljl-t'>
+    </span><span class='hljl-n'>final_logevidence</span><span class='hljl-oB'>::</span><span class='hljl-n'>F</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># additional constructor</span><span class='hljl-t'>
+</span><span class='hljl-nf'>ISState</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>Model</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>ISState</span><span class='hljl-p'>(</span><span class='hljl-nf'>VarInfo</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.0</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<p>The following diagram summarizes the hierarchy presented above.</p>
+<p><img src="how_turing_implements_abstractmcmc_files/hierarchy.png" alt="hierarchy" /></p>
+<h2>2. Overload the functions used inside mcmcsample</h2>
+<p>A lot of the things here are method-specific. However Turing also has some functions that make it easier for you to implement these functions, for examples .</p>
+<h3>Transitions</h3>
+<p><code>AbstractMCMC</code> stores information corresponding to each individual sample in objects called <code>transition</code>, but does not specify what the structure of these objects could be. You could decide to implement a type <code>MyTransition</code> for transitions corresponding to the specifics of your methods. However, there are many situations in which the only information you need for each sample is:</p>
+<ul>
+<li><p>its value: <span class="math">$\theta$</span></p>
+</li>
+<li><p>log of the joint probability of the observed data and this sample: <code>lp</code></p>
+</li>
+</ul>
+<p><code>Inference.jl</code> <a href="https://github.com/TuringLang/Turing.jl/blob/master/src/inference/Inference.jl#L103">defines</a> a struct <code>Transition</code>, which corresponds to this default situation</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-n'>F</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>AbstractFloat</span><span class='hljl-p'>}</span><span class='hljl-t'>
+    </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>T</span><span class='hljl-t'>
+    </span><span class='hljl-n'>lp</span><span class='hljl-oB'>::</span><span class='hljl-n'>F</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>It also <a href="https://github.com/TuringLang/Turing.jl/blob/master/src/inference/Inference.jl#L108">contains</a> a constructor that builds an instance of <code>Transition</code> from an instance <code>spl</code> of <code>Sampler</code>: <span class="math">$\theta$</span> is <code>spl.state.vi</code> converted to a <code>namedtuple</code>, and <code>lp</code> is <code>getlogp&#40;spl.state.vi&#41;</code>. <code>is.jl</code> uses this default constructor at the end of the <code>step&#33;</code> function <a href="https://github.com/TuringLang/Turing.jl/blob/master/src/inference/is.jl#L58">here</a>.</p>
+<h3>How <code>sample</code> works</h3>
+<p>A crude summary, which ignores things like parallelism, is the following:</p>
+<p><code>sample</code> calls <code>mcmcsample</code>, which calls</p>
+<ul>
+<li><p><code>sample_init&#33;</code> to set things up</p>
+</li>
+<li><p><code>step&#33;</code> repeatedly to produce multiple new transitions</p>
+</li>
+<li><p><code>sample_end&#33;</code> to perform operations once all samples have been obtained</p>
+</li>
+<li><p><code>bundle_samples</code> to convert a vector of transitions into a more palatable type, for instance a <code>Chain</code>.</p>
+</li>
+</ul>
+<p>You can of course implement all of these functions, but <code>AbstractMCMC</code> as well as Turing also provide default implementations for simple cases. For instance, importance sampling uses the default implementations of <code>sample_init&#33;</code> and <code>bundle_samples</code>, which is why you don&#39;t see code for them inside <code>is.jl</code>.</p>
+<h2>3. Overload assume and observe</h2>
+<p>The functions mentioned above, such as <code>sample_init&#33;</code>, <code>step&#33;</code>, etc.,  must of course use information about the model in order to generate samples&#33; In particular, these functions may need <strong>samples from distributions</strong> defined in the model, or to <strong>evaluate the density of these distributions</strong> at some values of the corresponding parameters or observations.</p>
+<p>For an example of the former, consider <strong>Importance Sampling</strong> as defined in <code>is.jl</code>. This implementation of Importance Sampling uses the model prior distribution as a proposal distribution, and therefore requires <strong>samples from the prior distribution</strong> of the model. Another example is <strong>Approximate Bayesian Computation</strong>, which requires multiple <strong>samples from the model prior and likelihood distributions</strong> in order to generate a single sample.</p>
+<p>An example of the latter is the <strong>Metropolis-Hastings</strong> algorithm. At every step of sampling from a target posterior</p>
+<p class="math">\[
+p(\theta \mid x_{\text{obs}}),
+\]</p>
+<p>in order to compute the acceptance ratio, you need to <strong>evaluate the model joint density</strong></p>
+<p class="math">\[
+p\left(\theta_{\text{prop}}, x_{\text{obs}}\right)
+\]</p>
+<p>with <span class="math">$\theta_{\text{prop}}$</span> a sample from the proposal and <span class="math">$x_{\text{obs}}$</span> the observed data.</p>
+<p>This begs the question: how can these functions access model information during sampling? Recall that the model is stored as an instance <code>m</code> of <code>Model</code>. One of the attributes of <code>m</code> is the model evaluation function <code>m.f</code>, which is built by compiling the <code>@model</code> macro. Executing <code>f</code> runs the tilde statements of the model in order, and adds model information to the sampler &#40;the instance of <code>Sampler</code> that stores information about the ongoing sampling process&#41; at each step &#40;see <a href="https://turinglang.org/dev/docs/for-developers/compiler">here</a> for more information about how the <code>@model</code> macro is compiled&#41;. The DynamicPPL functions <code>assume</code> and <code>observe</code> determine what kind of information to add to the sampler for every tilde statement.</p>
+<p>Consider an instance <code>m</code> of <code>Model</code> and a sampler <code>spl</code>, with associated <code>VarInfo</code> <code>vi &#61; spl.state.vi</code>. At some point during the sampling process, an AbstractMCMC function such as <code>step&#33;</code> calls  <code>m&#40;vi, ...&#41;</code>, which calls the model evaluation function <code>m.f&#40;vi, ...&#41;</code>.</p>
+<ul>
+<li><p>for every tilde statement in the <code>@model</code> macro, <code>m.f&#40;vi, ...&#41;</code> returns model-related information &#40;samples, value of the model density, etc.&#41;, and adds it to <code>vi</code>. How does it do that?</p>
+<ul>
+<li><p>recall that the code for <code>m.f&#40;vi, ...&#41;</code> is automatically generated by compilation of the <code>@model</code> macro</p>
+</li>
+<li><p>for every tilde statement in the <code>@model</code> declaration, this code contains a call to <code>assume&#40;vi, ...&#41;</code> if the variable on the LHS of the tilde is a <strong>model parameter to infer</strong>, and <code>observe&#40;vi, ...&#41;</code> if the variable on the LHS of the tilde is an <strong>observation</strong></p>
+</li>
+<li><p>in the file corresponding to your sampling method &#40;ie in <code>Turing.jl/src/inference/&lt;your_method&gt;.jl</code>&#41;, you have <strong>overloaded</strong> <code>assume</code> and <code>observe</code>, so that they can modify <code>vi</code> to include the information and samples that you care about&#33;</p>
+</li>
+<li><p>at a minimum, <code>assume</code> and <code>observe</code> return the log density <code>lp</code> of the sample or observation. the model evaluation function then immediately calls <code>acclogp&#33;&#33;&#40;vi, lp&#41;</code>, which adds <code>lp</code> to the value of the log joint density stored in <code>vi</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Here&#39;s what <code>assume</code> looks like for Importance Sampling:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-n'>DynamicPPL</span><span class='hljl-oB'>.</span><span class='hljl-nf'>assume</span><span class='hljl-p'>(</span><span class='hljl-n'>rng</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Sampler</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>IS</span><span class='hljl-p'>},</span><span class='hljl-t'> </span><span class='hljl-n'>dist</span><span class='hljl-oB'>::</span><span class='hljl-n'>Distribution</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>vn</span><span class='hljl-oB'>::</span><span class='hljl-n'>VarName</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>vi</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-n'>r</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-n'>rng</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>dist</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>vi</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>vn</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>dist</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>spl</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>r</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>0</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>The function first generates a sample <code>r</code> from the distribution <code>dist</code> &#40;the right hand side of the tilde statement&#41;. It then adds <code>r</code> to <code>vi</code>, and returns <code>r</code> and 0.</p>
+<p>The <code>observe</code> function is even simpler:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-n'>DynamicPPL</span><span class='hljl-oB'>.</span><span class='hljl-nf'>observe</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Sampler</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>IS</span><span class='hljl-p'>},</span><span class='hljl-t'> </span><span class='hljl-n'>dist</span><span class='hljl-oB'>::</span><span class='hljl-n'>Distribution</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>value</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>vi</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>logpdf</span><span class='hljl-p'>(</span><span class='hljl-n'>dist</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>value</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>It simply returns the density &#40;in the discrete case, the probability&#41; of the observed value under the distribution <code>dist</code>.</p>
+<h2>4. Summary: Importance Sampling step by step</h2>
+<p>We focus on the AbstractMCMC functions that are overridden in <code>is.jl</code> and executed inside <code>mcmcsample</code>: <code>step&#33;</code>, which is called <code>n_samples</code> times, and <code>sample_end&#33;</code>, which is executed once after those <code>n_samples</code> iterations.</p>
+<ul>
+<li><p>During the <span class="math">$i$</span>-th iteration, <code>step&#33;</code> does 3 things:</p>
+<ul>
+<li><p><code>empty&#33;&#33;&#40;spl.state.vi&#41;</code>: remove information about the previous sample from the sampler&#39;s <code>VarInfo</code></p>
+</li>
+<li><p><code>model&#40;rng, spl.state.vi, spl&#41;</code>: call the model evaluation function</p>
+<ul>
+<li><p>calls to <code>assume</code> add the samples from the prior <span class="math">$s_i$</span> and <span class="math">$m_i$</span> to <code>spl.state.vi</code></p>
+</li>
+<li><p>calls to both <code>assume</code> or <code>observe</code> are followed by the line <code>acclogp&#33;&#33;&#40;vi, lp&#41;</code>, where <code>lp</code> is an output of <code>assume</code> and <code>observe</code></p>
+</li>
+<li><p><code>lp</code> is set to 0 after <code>assume</code>, and to the value of the density at the observation after <code>observe</code></p>
+</li>
+<li><p>when all the tilde statements have been covered, <code>spl.state.vi.logp&#91;&#93;</code> is the sum of the <code>lp</code>, i.e., the likelihood <span class="math">$\log p(x, y \mid s_i, m_i) = \log p(x \mid s_i, m_i) + \log p(y \mid s_i, m_i)$</span> of the observations given the latent variable samples <span class="math">$s_i$</span> and <span class="math">$m_i$</span>.</p>
+</li>
+</ul>
+</li>
+<li><p><code>return Transition&#40;spl&#41;</code>: build a transition from the sampler, and return that transition</p>
+<ul>
+<li><p>the transition&#39;s <code>vi</code> field is simply <code>spl.state.vi</code></p>
+</li>
+<li><p>the <code>lp</code> field contains the likelihood <code>spl.state.vi.logp&#91;&#93;</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>When the, <code>n_samples</code> iterations are completed, <code>sample_end&#33;</code> fills the <code>final_logevidence</code> field of <code>spl.state</code></p>
+<ul>
+<li><p>it simply takes the logarithm of the average of the sample weights, using the log weights for numerical stability</p>
+</li>
+</ul>
+</li>
+</ul>
+
+
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="how_turing_implements_abstractmcmc.jmd">how_turing_implements_abstractmcmc.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BODY>
+
+</HTML>
