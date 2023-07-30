@@ -132,8 +132,8 @@ Chains MCMC chain (1000×17×3 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 3
 Samples per chain = 1000
-Wall duration     = 57.68 seconds
-Compute duration  = 57.38 seconds
+Wall duration     = 60.18 seconds
+Compute duration  = 59.88 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -247,8 +247,8 @@ Chains MCMC chain (5000×17×3 Array{Float64, 3}):
 Iterations        = 1001:1:6000
 Number of chains  = 3
 Samples per chain = 5000
-Wall duration     = 46.59 seconds
-Compute duration  = 46.19 seconds
+Wall duration     = 47.4 seconds
+Compute duration  = 46.98 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -405,8 +405,8 @@ Chains MCMC chain (300×17×3 Array{Float64, 3}):
 Iterations        = 151:1:450
 Number of chains  = 3
 Samples per chain = 300
-Wall duration     = 23.7 seconds
-Compute duration  = 23.41 seconds
+Wall duration     = 24.06 seconds
+Compute duration  = 23.76 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -511,8 +511,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1012.1 seconds
-Compute duration  = 1012.1 seconds
+Wall duration     = 999.36 seconds
+Compute duration  = 999.36 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -589,8 +589,8 @@ Chains MCMC chain (1000×17×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 533.61 seconds
-Compute duration  = 533.61 seconds
+Wall duration     = 521.46 seconds
+Compute duration  = 521.46 seconds
 parameters        = σ, α, β, γ, δ
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -753,11 +753,11 @@ Environment:
 Package Information:
 
 ```
-Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
+Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Project.toml`
   [0c46a032] DifferentialEquations v7.8.0
   [1ed8b502] SciMLSensitivity v7.35.1
   [f3b207a7] StatsPlots v0.15.6
-  [fce5fe82] Turing v0.27.0
+  [fce5fe82] Turing v0.28.0
   [e88e6eb3] Zygote v0.6.62
   [37e2e46d] LinearAlgebra
   [9a3f8284] Random
@@ -766,14 +766,14 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
 And the full manifest:
 
 ```
-Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
+Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/10-bayesian-differential-equations/Manifest.toml`
   [47edcb42] ADTypes v0.1.6
-  [621f4979] AbstractFFTs v1.4.0
+  [621f4979] AbstractFFTs v1.5.0
   [80f14c24] AbstractMCMC v4.4.2
 ⌅ [7a57a42e] AbstractPPL v0.5.4
   [1520ce14] AbstractTrees v0.4.4
   [79e6a3ab] Adapt v3.6.2
-⌅ [0bf59076] AdvancedHMC v0.4.6
+  [0bf59076] AdvancedHMC v0.5.3
   [5b7e9947] AdvancedMH v0.7.5
   [576499cb] AdvancedPS v0.4.3
   [b5ca4192] AdvancedVI v0.2.4
@@ -782,11 +782,11 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
   [7d9fca2a] Arpack v0.5.4
   [4fba245c] ArrayInterface v7.4.11
   [30b0a656] ArrayInterfaceCore v0.1.29
-  [4c555306] ArrayLayouts v1.1.0
+  [4c555306] ArrayLayouts v1.1.1
   [a9b6321e] Atomix v0.1.0
   [13072b0f] AxisAlgorithms v1.0.1
   [39de3d68] AxisArrays v0.4.7
-  [aae01518] BandedMatrices v0.17.33
+  [aae01518] BandedMatrices v0.17.34
   [198e06fe] BangBang v0.3.39
   [9718e550] Baselet v0.1.1
 ⌅ [76274a88] Bijectors v0.12.8
@@ -874,7 +874,7 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
   [22cec73e] InitialValues v0.3.1
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.14.7
-  [8197267c] IntervalSets v0.7.5
+  [8197267c] IntervalSets v0.7.7
   [3587e190] InverseFunctions v0.1.11
   [41ab1584] InvertedIndices v1.3.0
   [92d709cd] IrrationalConstants v0.2.2
@@ -931,11 +931,11 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
   [429524aa] Optim v1.7.6
   [3bd65402] Optimisers v0.2.19
   [bac558e1] OrderedCollections v1.6.2
-  [1dea7af3] OrdinaryDiffEq v6.53.3
+  [1dea7af3] OrdinaryDiffEq v6.53.4
   [90014a1f] PDMats v0.11.17
   [65ce6f38] PackageExtensionCompat v1.0.0
   [d96e819e] Parameters v0.12.3
-  [69de0a69] Parsers v2.7.1
+  [69de0a69] Parsers v2.7.2
   [b98c9c47] Pipe v1.3.0
   [ccf2f8ad] PlotThemes v3.1.0
   [995b91a9] PlotUtils v1.3.5
@@ -999,7 +999,7 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
   [4c63d2b9] StatsFuns v1.3.0
   [f3b207a7] StatsPlots v0.15.6
   [9672c7b4] SteadyStateDiffEq v1.16.0
-  [789caeaf] StochasticDiffEq v6.61.2
+  [789caeaf] StochasticDiffEq v6.61.3
   [7792a7ef] StrideArraysCore v0.4.17
   [892a3eda] StringManipulation v0.3.0
   [09ab397b] StructArrays v0.6.15
@@ -1020,7 +1020,7 @@ Status `/cache/build/default-amdci4-4/julialang/turingtutorials/tutorials/10-bay
   [d5829a12] TriangularSolve v0.1.19
   [410a4b4d] Tricks v0.1.7
   [781d530d] TruncatedStacktraces v1.4.0
-  [fce5fe82] Turing v0.27.0
+  [fce5fe82] Turing v0.28.0
   [5c2747f8] URIs v1.4.2
   [3a884ed6] UnPack v1.0.2
   [1cfade01] UnicodeFun v0.4.1
