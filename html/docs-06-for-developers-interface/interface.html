@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<HTML lang = "en">
+<HEAD>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Interface Guide</title>
+  
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  
+<style>
+pre.hljl {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    overflow-x: auto;
+    color: rgb(68,68,68); background-color: rgb(251,251,251); }
+pre.hljl > span.hljl-t { }
+pre.hljl > span.hljl-w { }
+pre.hljl > span.hljl-e { }
+pre.hljl > span.hljl-eB { }
+pre.hljl > span.hljl-o { }
+pre.hljl > span.hljl-k { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kc { color: rgb(59,151,46); font-style: italic; }
+pre.hljl > span.hljl-kd { color: rgb(214,102,97); font-style: italic; }
+pre.hljl > span.hljl-kn { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kp { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kr { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kt { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-n { }
+pre.hljl > span.hljl-na { }
+pre.hljl > span.hljl-nb { }
+pre.hljl > span.hljl-nbp { }
+pre.hljl > span.hljl-nc { }
+pre.hljl > span.hljl-ncB { }
+pre.hljl > span.hljl-nd { color: rgb(214,102,97); }
+pre.hljl > span.hljl-ne { }
+pre.hljl > span.hljl-neB { }
+pre.hljl > span.hljl-nf { color: rgb(66,102,213); }
+pre.hljl > span.hljl-nfm { color: rgb(66,102,213); }
+pre.hljl > span.hljl-np { }
+pre.hljl > span.hljl-nl { }
+pre.hljl > span.hljl-nn { }
+pre.hljl > span.hljl-no { }
+pre.hljl > span.hljl-nt { }
+pre.hljl > span.hljl-nv { }
+pre.hljl > span.hljl-nvc { }
+pre.hljl > span.hljl-nvg { }
+pre.hljl > span.hljl-nvi { }
+pre.hljl > span.hljl-nvm { }
+pre.hljl > span.hljl-l { }
+pre.hljl > span.hljl-ld { color: rgb(148,91,176); font-style: italic; }
+pre.hljl > span.hljl-s { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sa { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sb { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sc { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sd { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdC { color: rgb(201,61,57); }
+pre.hljl > span.hljl-se { color: rgb(59,151,46); }
+pre.hljl > span.hljl-sh { color: rgb(201,61,57); }
+pre.hljl > span.hljl-si { }
+pre.hljl > span.hljl-so { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sr { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ss { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ssB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-nB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nbB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nfB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nh { color: rgb(59,151,46); }
+pre.hljl > span.hljl-ni { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nil { color: rgb(59,151,46); }
+pre.hljl > span.hljl-noB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-oB { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-ow { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-p { }
+pre.hljl > span.hljl-c { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-ch { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cm { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cp { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cpB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cs { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-csB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-g { }
+pre.hljl > span.hljl-gd { }
+pre.hljl > span.hljl-ge { }
+pre.hljl > span.hljl-geB { }
+pre.hljl > span.hljl-gh { }
+pre.hljl > span.hljl-gi { }
+pre.hljl > span.hljl-go { }
+pre.hljl > span.hljl-gp { }
+pre.hljl > span.hljl-gs { }
+pre.hljl > span.hljl-gsB { }
+pre.hljl > span.hljl-gt { }
+</style>
+
+
+
+  <style type="text/css">
+  @font-face {
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 600;
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  font-family: monospace, monospace;
+  font-size : 0.8em;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+thead th {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+tr:nth-child(odd){
+  background-color: rgb(248,248,248);
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle; }
+ol {
+  list-style: decimal; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li > p {margin : 0;}
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 1.0rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+pre.hljl {
+  margin: 0 0 10px;
+  display: block;
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding : 5px;
+}
+
+pre.output {
+  background: #ffffff;
+}
+
+pre.code {
+  background: #ffffff;
+}
+
+pre.julia-error {
+  color : red
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+div.title {text-align: center;}
+
+  </style>
+</HEAD>
+
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">Interface Guide</h1>
+          
+          
+        </div>
+
+        <h1>The sampling interface</h1>
+<p>Turing implements a sampling interface &#40;hosted at <a href="https://github.com/TuringLang/AbstractMCMC.jl">AbstractMCMC</a>&#41; that is intended to provide a common framework for Markov chain Monte Carlo samplers. The interface presents several structures and functions that one needs to overload in order to implement an interface-compatible sampler.</p>
+<p>This guide will demonstrate how to implement the interface without Turing.</p>
+<h2>Interface overview</h2>
+<p>Any implementation of an inference method that uses the AbstractMCMC interface should implement a subset of the following types and functions:</p>
+<ol>
+<li><p>A subtype of <code>AbstractSampler</code>, defined as a mutable struct containing state information or sampler parameters.</p>
+</li>
+<li><p>A function <code>sample_init&#33;</code> which performs any necessary set-up &#40;default: do not perform any set-up&#41;.</p>
+</li>
+<li><p>A function <code>step&#33;</code> which returns a transition that represents a single draw from the sampler.</p>
+</li>
+<li><p>A function <code>transitions_init</code> which returns a container for the transitions obtained from the sampler &#40;default: return a <code>Vector&#123;T&#125;</code> of length <code>N</code> where <code>T</code> is the type of the transition obtained in the first step and <code>N</code> is the number of requested samples&#41;.</p>
+</li>
+<li><p>A function <code>transitions_save&#33;</code> which saves transitions to the container &#40;default: save the transition of iteration <code>i</code> at position <code>i</code> in the vector of transitions&#41;.</p>
+</li>
+<li><p>A function <code>sample_end&#33;</code> which handles any sampler wrap-up &#40;default: do not perform any wrap-up&#41;.</p>
+</li>
+<li><p>A function <code>bundle_samples</code> which accepts the container of transitions and returns a collection of samples &#40;default: return the vector of transitions&#41;.</p>
+</li>
+</ol>
+<p>The interface methods with exclamation points are those that are intended to allow for state mutation. Any mutating function is meant to allow mutation where needed – you might use:</p>
+<ul>
+<li><p><code>sample_init&#33;</code> to run some kind of sampler preparation, before sampling begins. This could mutate a sampler&#39;s state.</p>
+</li>
+<li><p><code>step&#33;</code> might mutate a sampler flag after each sample.</p>
+</li>
+<li><p><code>sample_end&#33;</code> contains any wrap-up you might need to do. If you were sampling in a transformed space, this might be where you convert everything back to a constrained space.</p>
+</li>
+</ul>
+<h2>Why do you have an interface?</h2>
+<p>The motivation for the interface is to allow Julia&#39;s fantastic probabilistic programming language community to have a set of standards and common implementations so we can all thrive together. Markov chain Monte Carlo methods tend to have a very similar framework to one another, and so a common interface should help more great inference methods built in single-purpose packages to experience more use among the community.</p>
+<h2>Implementing Metropolis-Hastings without Turing</h2>
+<p><a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Metropolis-Hastings</a> is often the first sampling method that people are exposed to. It is a very straightforward algorithm and is accordingly the easiest to implement, so it makes for a good example. In this section, you will learn how to use the types and functions listed above to implement the Metropolis-Hastings sampler using the MCMC interface.</p>
+<p>The full code for this implementation is housed in <a href="https://github.com/TuringLang/AdvancedMH.jl">AdvancedMH.jl</a>.</p>
+<h3>Imports</h3>
+<p>Let&#39;s begin by importing the relevant libraries. We&#39;ll import <code>AbstractMCMC</code>, which contains the interface framework we&#39;ll fill out. We also need <code>Distributions</code> and <code>Random</code>.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Import the relevant libraries.</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>:</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Distributions</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span>
+</pre>
+
+
+
+<p>An interface extension &#40;like the one we&#39;re writing right now&#41; typically requires that you overload or implement several functions. Specifically, you should <code>import</code> the functions you intend to overload. This next code block accomplishes that.</p>
+<p>From <code>Distributions</code>, we need <code>Sampleable</code>, <code>VariateForm</code>, and <code>ValueSupport</code>, three abstract types that define a distribution. Models in the interface are assumed to be subtypes of <code>Sampleable&#123;VariateForm, ValueSupport&#125;</code>. In this section our model is going be be extremely simple, so we will not end up using these except to make sure that the inference functions are dispatching correctly.</p>
+<h3>Sampler</h3>
+<p>Let&#39;s begin our sampler definition by defining a sampler called <code>MetropolisHastings</code> which is a subtype of <code>AbstractSampler</code>. Correct typing is very important for proper interface implementation – if you are missing a subtype, your method may not be dispatched to when you call <code>sample</code>.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Define a sampler type.</span><span class='hljl-t'>
+</span><span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-n'>D</span><span class='hljl-p'>}</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;:</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>.</span><span class='hljl-n'>AbstractSampler</span><span class='hljl-t'>
+    </span><span class='hljl-n'>init_θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>T</span><span class='hljl-t'>
+    </span><span class='hljl-n'>proposal</span><span class='hljl-oB'>::</span><span class='hljl-n'>D</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Default constructors.</span><span class='hljl-t'>
+</span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>(</span><span class='hljl-n'>init_θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>Real</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>(</span><span class='hljl-n'>init_θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-ni'>0</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>(</span><span class='hljl-n'>init_θ</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Vector</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Real</span><span class='hljl-p'>})</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>(</span><span class='hljl-n'>init_θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>MvNormal</span><span class='hljl-p'>(</span><span class='hljl-nf'>zero</span><span class='hljl-p'>(</span><span class='hljl-n'>init_θ</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>I</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<pre class="output">
+Main.var&quot;##WeaveSandBox#292&quot;.MetropolisHastings
+</pre>
+
+
+<p>Above, we have defined a sampler that stores the initial parameterization of the prior, and a distribution object from which proposals are drawn. You can have a struct that has no fields, and simply use it for dispatching onto the relevant functions, or you can store a large amount of state information in your sampler.</p>
+<p>The general intuition for what to store in your sampler struct is that anything you may need to perform inference between samples but you don&#39;t want to store in a transition should go into the sampler struct. It&#39;s the only way you can carry non-sample related state information between <code>step&#33;</code> calls.</p>
+<h3>Model</h3>
+<p>Next, we need to have a model of some kind. A model is a struct that&#39;s a subtype of <code>AbstractModel</code> that contains whatever information is necessary to perform inference on your problem. In our case we want to know the mean and variance parameters for a standard Normal distribution, so we can keep our model to the log density of a Normal.</p>
+<p>Note that we only have to do this because we are not yet integrating the sampler with Turing – Turing has a very sophisticated modelling engine that removes the need to define custom model structs.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Define a model type. Stores the log density function.</span><span class='hljl-t'>
+</span><span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-nf'>DensityModel</span><span class='hljl-p'>{</span><span class='hljl-n'>F</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Function</span><span class='hljl-p'>}</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;:</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>.</span><span class='hljl-n'>AbstractModel</span><span class='hljl-t'>
+    </span><span class='hljl-n'>ℓπ</span><span class='hljl-oB'>::</span><span class='hljl-n'>F</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+
+<h3>Transition</h3>
+<p>The next step is to define some transition which we will return from each <code>step&#33;</code> call. We&#39;ll keep it simple by just defining a wrapper struct that contains the parameter draws and the log density of that draw:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Create a very basic Transition type, only stores the </span><span class='hljl-t'>
+</span><span class='hljl-cs'># parameter draws and the log probability of the draw.</span><span class='hljl-t'>
+</span><span class='hljl-k'>struct</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>{</span><span class='hljl-n'>T</span><span class='hljl-p'>,</span><span class='hljl-n'>L</span><span class='hljl-p'>}</span><span class='hljl-t'>
+    </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>T</span><span class='hljl-t'>
+    </span><span class='hljl-n'>lp</span><span class='hljl-oB'>::</span><span class='hljl-n'>L</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Store the new draw and its log density.</span><span class='hljl-t'>
+</span><span class='hljl-nf'>Transition</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>))</span>
+</pre>
+
+
+<pre class="output">
+Main.var&quot;##WeaveSandBox#292&quot;.Transition
+</pre>
+
+
+<p><code>Transition</code> can now store any type of parameter, whether it&#39;s a vector of draws from multiple parameters or a single univariate draw.</p>
+<h3>Metropolis-Hastings</h3>
+<p>Now it&#39;s time to get into the actual inference. We&#39;ve defined all of the core pieces we need, but we need to implement the <code>step&#33;</code> function which actually performs inference.</p>
+<p>As a refresher, Metropolis-Hastings implements a very basic algorithm:</p>
+<ol>
+<li><p>Pick some initial state, <span class="math">$\theta_0$</span>.</p>
+</li>
+<li><p>For <span class="math">$t$</span> in <span class="math">$[1,N],$</span> do</p>
+<ul>
+<li><p>Generate a proposal parameterization <span class="math">$\theta^\prime_t \sim q(\theta^\prime_t \mid \theta_{t-1}).$</span></p>
+</li>
+<li><p>Calculate the acceptance probability, <span class="math">$\alpha = \text{min}\left[1,\frac{\pi(\theta'_t)}{\pi(\theta_{t-1})} \frac{q(\theta_{t-1} \mid \theta'_t)}{q(\theta'_t \mid \theta_{t-1})}) \right].$</span></p>
+</li>
+<li><p>If <span class="math">$U \le \alpha$</span> where <span class="math">$U \sim [0,1],$</span> then <span class="math">$\theta_t = \theta'_t.$</span> Otherwise, <span class="math">$\theta_t = \theta_{t-1}.$</span></p>
+</li>
+</ul>
+</li>
+</ol>
+<p>Of course, it&#39;s much easier to do this in the log space, so the acceptance probability is more commonly written as</p>
+<p class="math">\[
+\log \alpha = \min\left[0, \log \pi(\theta'_t) - \log \pi(\theta_{t-1}) + \log q(\theta_{t-1} \mid \theta^\prime_t) - \log q(\theta\prime_t \mid \theta_{t-1}) \right].
+\]</p>
+<p>In interface terms, we should do the following:</p>
+<ol>
+<li><p>Make a new transition containing a proposed sample.</p>
+</li>
+<li><p>Calculate the acceptance probability.</p>
+</li>
+<li><p>If we accept, return the new transition, otherwise, return the old one.</p>
+</li>
+</ol>
+<h3>Steps</h3>
+<p>The <code>step&#33;</code> function is the function that performs the bulk of your inference. In our case, we will implement two <code>step&#33;</code> functions – one for the very first iteration, and one for every subsequent iteration.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Define the first step! function, which is called at the </span><span class='hljl-t'>
+</span><span class='hljl-cs'># beginning of sampling. Return the initial parameter used</span><span class='hljl-t'>
+</span><span class='hljl-cs'># to define the sampler.</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>.</span><span class='hljl-nf'>step!</span><span class='hljl-p'>(</span><span class='hljl-t'>
+    </span><span class='hljl-n'>rng</span><span class='hljl-oB'>::</span><span class='hljl-n'>AbstractRNG</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>N</span><span class='hljl-oB'>::</span><span class='hljl-n'>Integer</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-oB'>::</span><span class='hljl-n'>Nothing</span><span class='hljl-p'>;</span><span class='hljl-t'>
+    </span><span class='hljl-n'>kwargs</span><span class='hljl-oB'>...</span><span class='hljl-p'>,</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>spl</span><span class='hljl-oB'>.</span><span class='hljl-n'>init_θ</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>The first <code>step&#33;</code> function just packages up the initial parameterization inside the sampler, and returns it. We implicitly accept the very first parameterization.</p>
+<p>The other <code>step&#33;</code> function performs the usual steps from Metropolis-Hastings. Included are several helper functions, <code>proposal</code> and <code>q</code>, which are designed to replicate the functions in the pseudocode above.</p>
+<ul>
+<li><p><code>proposal</code> generates a new proposal in the form of a <code>Transition</code>, which can be univariate if the value passed in is univariate, or it can be multivariate if the <code>Transition</code> given is multivariate. Proposals use a basic <code>Normal</code> or <code>MvNormal</code> proposal distribution.</p>
+</li>
+<li><p><code>q</code> returns the log density of one parameterization conditional on another, according to the proposal distribution.</p>
+</li>
+<li><p><code>step&#33;</code> generates a new proposal, checks the acceptance probability, and then returns either the previous transition or the proposed transition.</p>
+</li>
+</ul>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Define a function that makes a basic proposal depending on a univariate</span><span class='hljl-t'>
+</span><span class='hljl-cs'># parameterization or a multivariate parameterization.</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>propose</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>Real</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>+</span><span class='hljl-t'> </span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>.</span><span class='hljl-n'>proposal</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>propose</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Vector</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Real</span><span class='hljl-p'>})</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>Transition</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>+</span><span class='hljl-t'> </span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>.</span><span class='hljl-n'>proposal</span><span class='hljl-p'>))</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>propose</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-oB'>::</span><span class='hljl-n'>Transition</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>propose</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-oB'>.</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Calculates the probability `q(θ|θcond)`, using the proposal distribution `spl.proposal`.</span><span class='hljl-t'>
+</span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-n'>Real</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θcond</span><span class='hljl-oB'>::</span><span class='hljl-n'>Real</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>logpdf</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>.</span><span class='hljl-n'>proposal</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-n'>θcond</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Vector</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Real</span><span class='hljl-p'>},</span><span class='hljl-t'> </span><span class='hljl-n'>θcond</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Vector</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Real</span><span class='hljl-p'>})</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>logpdf</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>.</span><span class='hljl-n'>proposal</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-n'>θcond</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t1</span><span class='hljl-oB'>::</span><span class='hljl-n'>Transition</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t2</span><span class='hljl-oB'>::</span><span class='hljl-n'>Transition</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t1</span><span class='hljl-oB'>.</span><span class='hljl-n'>θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t2</span><span class='hljl-oB'>.</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Calculate the density of the model given some parameterization.</span><span class='hljl-t'>
+</span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-oB'>.</span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-oB'>::</span><span class='hljl-n'>Transition</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-oB'>.</span><span class='hljl-n'>lp</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Define the other step function. Returns a Transition containing</span><span class='hljl-t'>
+</span><span class='hljl-cs'># either a new proposal (if accepted) or the previous proposal </span><span class='hljl-t'>
+</span><span class='hljl-cs'># (if not accepted).</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>.</span><span class='hljl-nf'>step!</span><span class='hljl-p'>(</span><span class='hljl-t'>
+    </span><span class='hljl-n'>rng</span><span class='hljl-oB'>::</span><span class='hljl-n'>AbstractRNG</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>model</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>spl</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-oB'>::</span><span class='hljl-n'>Integer</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>θ_prev</span><span class='hljl-oB'>::</span><span class='hljl-n'>Transition</span><span class='hljl-p'>;</span><span class='hljl-t'>
+    </span><span class='hljl-n'>kwargs</span><span class='hljl-oB'>...</span><span class='hljl-p'>,</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-cs'># Generate a new proposal.</span><span class='hljl-t'>
+    </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>propose</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ_prev</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+    </span><span class='hljl-cs'># Calculate the log acceptance probability.</span><span class='hljl-t'>
+    </span><span class='hljl-n'>α</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-nf'>ℓπ</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ_prev</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>+</span><span class='hljl-t'> </span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ_prev</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-nf'>q</span><span class='hljl-p'>(</span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>θ_prev</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+    </span><span class='hljl-cs'># Decide whether to return the previous θ or the new one.</span><span class='hljl-t'>
+    </span><span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-nf'>log</span><span class='hljl-p'>(</span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-n'>rng</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-oB'>&lt;</span><span class='hljl-t'> </span><span class='hljl-nf'>min</span><span class='hljl-p'>(</span><span class='hljl-n'>α</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.0</span><span class='hljl-p'>)</span><span class='hljl-t'>
+        </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-t'>
+    </span><span class='hljl-k'>else</span><span class='hljl-t'>
+        </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>θ_prev</span><span class='hljl-t'>
+    </span><span class='hljl-k'>end</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<h3>Chains</h3>
+<p>In the default implementation, <code>sample</code> just returns a vector of all transitions. If instead you would like to obtain a <code>Chains</code> object &#40;e.g., to simplify downstream analysis&#41;, you have to implement the <code>bundle_samples</code> function as well. It accepts the vector of transitions and returns a collection of samples. Fortunately, our <code>Transition</code> is incredibly simple, and we only need to build a little bit of functionality to accept custom parameter names passed in by the user.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># A basic chains constructor that works with the Transition struct we defined.</span><span class='hljl-t'>
+</span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-n'>AbstractMCMC</span><span class='hljl-oB'>.</span><span class='hljl-nf'>bundle_samples</span><span class='hljl-p'>(</span><span class='hljl-t'>
+    </span><span class='hljl-n'>rng</span><span class='hljl-oB'>::</span><span class='hljl-n'>AbstractRNG</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>ℓ</span><span class='hljl-oB'>::</span><span class='hljl-n'>DensityModel</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>s</span><span class='hljl-oB'>::</span><span class='hljl-n'>MetropolisHastings</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>N</span><span class='hljl-oB'>::</span><span class='hljl-n'>Integer</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>ts</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Vector</span><span class='hljl-p'>{</span><span class='hljl-oB'>&lt;:</span><span class='hljl-n'>Transition</span><span class='hljl-p'>},</span><span class='hljl-t'>
+    </span><span class='hljl-n'>chain_type</span><span class='hljl-oB'>::</span><span class='hljl-nf'>Type</span><span class='hljl-p'>{</span><span class='hljl-n'>Any</span><span class='hljl-p'>};</span><span class='hljl-t'>
+    </span><span class='hljl-n'>param_names</span><span class='hljl-oB'>=</span><span class='hljl-n'>missing</span><span class='hljl-p'>,</span><span class='hljl-t'>
+    </span><span class='hljl-n'>kwargs</span><span class='hljl-oB'>...</span><span class='hljl-p'>,</span><span class='hljl-t'>
+</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-cs'># Turn all the transitions into a vector-of-vectors.</span><span class='hljl-t'>
+    </span><span class='hljl-n'>vals</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>copy</span><span class='hljl-p'>(</span><span class='hljl-nf'>reduce</span><span class='hljl-p'>(</span><span class='hljl-n'>hcat</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-nf'>vcat</span><span class='hljl-p'>(</span><span class='hljl-n'>t</span><span class='hljl-oB'>.</span><span class='hljl-n'>θ</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-oB'>.</span><span class='hljl-n'>lp</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>t</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-n'>ts</span><span class='hljl-p'>])</span><span class='hljl-oB'>&#39;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+    </span><span class='hljl-cs'># Check if we received any parameter names.</span><span class='hljl-t'>
+    </span><span class='hljl-k'>if</span><span class='hljl-t'> </span><span class='hljl-nf'>ismissing</span><span class='hljl-p'>(</span><span class='hljl-n'>param_names</span><span class='hljl-p'>)</span><span class='hljl-t'>
+        </span><span class='hljl-n'>param_names</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;Parameter </span><span class='hljl-si'>$i</span><span class='hljl-s'>&quot;</span><span class='hljl-t'> </span><span class='hljl-k'>for</span><span class='hljl-t'> </span><span class='hljl-n'>i</span><span class='hljl-t'> </span><span class='hljl-kp'>in</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-oB'>:</span><span class='hljl-p'>(</span><span class='hljl-nf'>length</span><span class='hljl-p'>(</span><span class='hljl-nf'>first</span><span class='hljl-p'>(</span><span class='hljl-n'>vals</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>)]</span><span class='hljl-t'>
+    </span><span class='hljl-k'>end</span><span class='hljl-t'>
+
+    </span><span class='hljl-cs'># Add the log density field to the parameter names.</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>push!</span><span class='hljl-p'>(</span><span class='hljl-n'>param_names</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;lp&quot;</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+    </span><span class='hljl-cs'># Bundle everything up and return a Chains struct.</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-nf'>Chains</span><span class='hljl-p'>(</span><span class='hljl-n'>vals</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>param_names</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>internals</span><span class='hljl-oB'>=</span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;lp&quot;</span><span class='hljl-p'>],))</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<p>All done&#33;</p>
+<p>You can even implement different output formats by implementing <code>bundle_samples</code> for different <code>chain_type</code>s, which can be provided as keyword argument to <code>sample</code>. As default <code>sample</code> uses <code>chain_type &#61; Any</code>.</p>
+<h3>Testing the implementation</h3>
+<p>Now that we have all the pieces, we should test the implementation by defining a model to calculate the mean and variance parameters of a Normal distribution. We can do this by constructing a target density function, providing a sample of data, and then running the sampler with <code>sample</code>.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Generate a set of data from the posterior we want to estimate.</span><span class='hljl-t'>
+</span><span class='hljl-n'>data</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-ni'>30</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Define the components of a basic model.</span><span class='hljl-t'>
+</span><span class='hljl-nf'>insupport</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>]</span><span class='hljl-t'> </span><span class='hljl-oB'>&gt;=</span><span class='hljl-t'> </span><span class='hljl-ni'>0</span><span class='hljl-t'>
+</span><span class='hljl-nf'>dist</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>],</span><span class='hljl-t'> </span><span class='hljl-n'>θ</span><span class='hljl-p'>[</span><span class='hljl-ni'>2</span><span class='hljl-p'>])</span><span class='hljl-t'>
+</span><span class='hljl-nf'>density</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>insupport</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>?</span><span class='hljl-t'> </span><span class='hljl-nf'>sum</span><span class='hljl-p'>(</span><span class='hljl-n'>logpdf</span><span class='hljl-oB'>.</span><span class='hljl-p'>(</span><span class='hljl-nf'>dist</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-n'>data</span><span class='hljl-p'>))</span><span class='hljl-t'> </span><span class='hljl-oB'>:</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-n'>Inf</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Construct a DensityModel.</span><span class='hljl-t'>
+</span><span class='hljl-n'>model</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>DensityModel</span><span class='hljl-p'>(</span><span class='hljl-n'>density</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Set up our sampler with initial parameters.</span><span class='hljl-t'>
+</span><span class='hljl-n'>spl</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>MetropolisHastings</span><span class='hljl-p'>([</span><span class='hljl-nfB'>0.0</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.0</span><span class='hljl-p'>])</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Sample from the posterior.</span><span class='hljl-t'>
+</span><span class='hljl-n'>chain</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>spl</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>100000</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>param_names</span><span class='hljl-oB'>=</span><span class='hljl-p'>[</span><span class='hljl-s'>&quot;μ&quot;</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-s'>&quot;σ&quot;</span><span class='hljl-p'>])</span>
+</pre>
+
+
+<p>If all the interface functions have been extended properly, you should get an output from <code>display&#40;chain&#41;</code> that looks something like this:</p>
+<pre><code>Object of type Chains, with data of type 100000×3×1 Array&#123;Float64,3&#125;
+
+Iterations        &#61; 1:100000
+Thinning interval &#61; 1
+Chains            &#61; 1
+Samples per chain &#61; 100000
+internals         &#61; lp
+parameters        &#61; μ, σ
+
+2-element Array&#123;ChainDataFrame,1&#125;
+
+Summary Statistics
+
+│ Row │ parameters │ mean    │ std      │ naive_se   │ mcse       │ ess     │ r_hat   │
+│     │ Symbol     │ Float64 │ Float64  │ Float64    │ Float64    │ Any     │ Any     │
+├─────┼────────────┼─────────┼──────────┼────────────┼────────────┼─────────┼─────────┤
+│ 1   │ μ          │ 5.33157 │ 0.854193 │ 0.0027012  │ 0.00893069 │ 8344.75 │ 1.00009 │
+│ 2   │ σ          │ 4.54992 │ 0.632916 │ 0.00200146 │ 0.00534942 │ 14260.8 │ 1.00005 │
+
+Quantiles
+
+│ Row │ parameters │ 2.5&#37;    │ 25.0&#37;   │ 50.0&#37;   │ 75.0&#37;   │ 97.5&#37;   │
+│     │ Symbol     │ Float64 │ Float64 │ Float64 │ Float64 │ Float64 │
+├─────┼────────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│ 1   │ μ          │ 3.6595  │ 4.77754 │ 5.33182 │ 5.89509 │ 6.99651 │
+│ 2   │ σ          │ 3.5097  │ 4.09732 │ 4.47805 │ 4.93094 │ 5.96821 │</code></pre>
+<p>It looks like we&#39;re extremely close to our true parameters of <code>Normal&#40;5,3&#41;</code>, though with a fairly high variance due to the low sample size.</p>
+<h2>Conclusion</h2>
+<p>We&#39;ve seen how to implement the sampling interface for general projects. Turing&#39;s interface methods are ever-evolving, so please open an issue at <a href="https://github.com/TuringLang/AbstractMCMC.jl">AbstractMCMC</a> with feature requests or problems.</p>
+
+
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="interface.jmd">interface.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BODY>
+
+</HTML>
