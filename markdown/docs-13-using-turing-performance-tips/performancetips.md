@@ -217,7 +217,3 @@ Then define the `Turing` model using the new functions as such:
     return x .~ Normal(c, d)
 end
 ```
-
-```julia
-```
-

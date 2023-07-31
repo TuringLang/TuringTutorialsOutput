@@ -94,5 +94,3 @@ using Memoization
     return x .~ Normal(c, d)
 end
 
-
-
