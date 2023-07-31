@@ -1,13 +1,13 @@
 ---
 redirect_from: "docs/1-quickstart/"
 title: "Quickstart"
-permalink: "/docs/using-turing/quickstart"
+permalink: "/docs/using-turing/quick-start"
 ---
 
 
 # Probabilistic Programming in Thirty Seconds
 
-If you are already well-versed in probabilistic programming and just want to take a quick look at how Turing's syntax works or otherwise just want a model to start with, we have provided a complete Bayesian coin-flipping model below.
+If you are already well-versed in probabilistic programming and want to take a quick look at how Turing's syntax works or otherwise just want a model to start with, we have provided a complete Bayesian coin-flipping model below.
 
 This example can be run wherever you have Julia installed (see [Getting Started](%7B%7Bsite.baseurl%7D%7D/docs/using-turing/get-started)), but you will need to install the packages `Turing` and `StatsPlots` if you have not done so already.
 
@@ -102,8 +102,8 @@ Chains MCMC chain (1000×11×1 Array{Float64, 3}):
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.97 seconds
-Compute duration  = 0.97 seconds
+Wall duration     = 0.95 seconds
+Compute duration  = 0.95 seconds
 parameters        = p
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
