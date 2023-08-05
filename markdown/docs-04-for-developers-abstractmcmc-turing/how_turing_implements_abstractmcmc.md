@@ -32,7 +32,7 @@ chn = sample(mod, alg, n_samples)
 ```
 Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.790725604478111
+Log evidence      = -3.659880697553691
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
@@ -47,9 +47,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    2.9066    3.7542    0.1264   801.2404   859.3321    1.0098 
+          s²    3.0938    5.9255    0.2031   877.9196   896.9941    1.0021 
     ⋯
-           m   -0.0328    1.8477    0.0671   817.5965   868.2257    1.0051 
+           m    0.0135    1.7271    0.0557   965.4359   985.3801    0.9990 
     ⋯
                                                                 1 column om
 itted
@@ -58,8 +58,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5650    1.1552    1.8344    3.1498   11.5904
-           m   -3.2388   -0.9527   -0.0836    0.9151    3.8272
+          s²    0.5713    1.1043    1.8482    3.3204   13.2733
+           m   -3.4315   -0.9282   -0.0134    0.9582    3.3667
 ```
 
 
@@ -108,25 +108,25 @@ chn = sample(mod, alg, n_samples)
 ```
 Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.6902878761915265
+Log evidence      = -3.6802562626538666
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.07 seconds
-Compute duration  = 0.07 seconds
+Wall duration     = 0.08 seconds
+Compute duration  = 0.08 seconds
 parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
-  e ⋯
-      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
-    ⋯
+  parameters      mean       std      mcse    ess_bulk    ess_tail      rha
+t   ⋯
+      Symbol   Float64   Float64   Float64     Float64     Float64   Float6
+4   ⋯
 
-          s²    2.8341    4.1980    0.1382   952.1446   943.7586    1.0036 
-    ⋯
-           m    0.0149    1.6522    0.0527   991.2954   903.5186    1.0005 
-    ⋯
+          s²    2.9860    4.7866    0.1732    975.6093    898.6272    0.999
+3   ⋯
+           m   -0.0237    1.7053    0.0509   1137.8916   1023.6250    0.999
+3   ⋯
                                                                 1 column om
 itted
 
@@ -134,8 +134,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5288    1.1125    1.7710    3.0189   11.7170
-           m   -3.2808   -0.9386    0.0120    0.9474    3.4025
+          s²    0.5627    1.1362    1.8161    3.2490   13.6513
+           m   -3.2731   -0.9179    0.0336    0.9090    3.4039
 ```
 
 
