@@ -336,26 +336,24 @@ Platform Info:
 Environment:
   JULIA_CPU_THREADS = 16
   JULIA_DEPOT_PATH = /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
-  JULIA_IMAGE_THREADS = 1
 
 ```
 
 Package Information:
 
 ```
-Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
-⌃ [31c24e10] Distributions v0.25.98
+Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Project.toml`
+  [31c24e10] Distributions v0.25.99
   [c7f686f2] MCMCChains v6.0.3
   [f3b207a7] StatsPlots v0.15.6
-⌃ [fce5fe82] Turing v0.28.0
+  [fce5fe82] Turing v0.28.1
   [9a3f8284] Random
-Info Packages marked with ⌃ have new versions available and may be upgradable.
 ```
 
 And the full manifest:
 
 ```
-Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
+Status `/cache/build/default-amdci4-6/julialang/turingtutorials/tutorials/00-introduction/Manifest.toml`
   [47edcb42] ADTypes v0.1.6
   [621f4979] AbstractFFTs v1.5.0
   [80f14c24] AbstractMCMC v4.4.2
@@ -390,7 +388,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [861a8166] Combinatorics v1.0.2
   [38540f10] CommonSolve v0.2.4
   [bbf7d656] CommonSubexpressions v0.3.0
-⌃ [34da2185] Compat v4.8.0
+  [34da2185] Compat v4.9.0
   [a33af91c] CompositionsBase v0.1.2
   [f0e56b4a] ConcurrentUtilities v2.2.1
   [88cd18e8] ConsoleProgressMonitor v0.1.2
@@ -398,7 +396,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [d38c429a] Contour v0.6.2
   [a8cc5b0e] Crayons v4.1.1
   [9a962f9c] DataAPI v1.15.0
-⌃ [864edb3b] DataStructures v0.18.14
+  [864edb3b] DataStructures v0.18.15
   [e2d170a0] DataValueInterfaces v1.0.0
   [244e2a9f] DefineSingletons v0.1.2
   [8bb1440f] DelimitedFiles v1.9.1
@@ -406,8 +404,8 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [163ba53b] DiffResults v1.1.0
   [b552c78f] DiffRules v1.15.1
   [b4f34e82] Distances v0.10.9
-⌃ [31c24e10] Distributions v0.25.98
-⌃ [ced4e74d] DistributionsAD v0.6.51
+  [31c24e10] Distributions v0.25.99
+  [ced4e74d] DistributionsAD v0.6.52
   [ffbed154] DocStringExtensions v0.9.3
   [fa6b7ba4] DualNumbers v0.6.8
 ⌃ [366bfd00] DynamicPPL v0.23.0
@@ -433,7 +431,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [505f98c9] InplaceOps v0.3.0
   [a98d9a8b] Interpolations v0.14.7
   [8197267c] IntervalSets v0.7.7
-⌃ [3587e190] InverseFunctions v0.1.11
+  [3587e190] InverseFunctions v0.1.12
   [41ab1584] InvertedIndices v1.3.0
   [92d709cd] IrrationalConstants v0.2.2
   [c8e1da08] IterTools v1.8.0
@@ -455,7 +453,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [2ab3a3ac] LogExpFunctions v0.3.24
   [e6f89c97] LoggingExtras v1.0.0
   [c7f686f2] MCMCChains v6.0.3
-⌃ [be115224] MCMCDiagnosticTools v0.3.4
+  [be115224] MCMCDiagnosticTools v0.3.5
   [e80e1ace] MLJModelInterface v1.8.0
   [1914dd2f] MacroTools v0.5.10
   [dbb5928d] MappedArrays v0.4.2
@@ -501,7 +499,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [f2b01f46] Roots v2.0.17
   [7e49a35a] RuntimeGeneratedFunctions v0.5.11
   [0bca4576] SciMLBase v1.94.0
-⌃ [c0aeaf25] SciMLOperators v0.3.5
+  [c0aeaf25] SciMLOperators v0.3.6
   [30f210dd] ScientificTypesBase v3.0.0
   [6c6a2e73] Scratch v1.2.0
   [91c51154] SentinelArrays v1.4.0
@@ -532,10 +530,10 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [28d57a85] Transducers v0.4.78
   [410a4b4d] Tricks v0.1.7
   [781d530d] TruncatedStacktraces v1.4.0
-⌃ [fce5fe82] Turing v0.28.0
-⌃ [5c2747f8] URIs v1.4.2
+  [fce5fe82] Turing v0.28.1
+  [5c2747f8] URIs v1.5.0
   [1cfade01] UnicodeFun v0.4.1
-⌃ [1986cc42] Unitful v1.15.0
+  [1986cc42] Unitful v1.16.1
   [45397f5d] UnitfulLatexify v1.6.3
   [013be700] UnsafeAtomics v0.2.1
   [d80eeb9a] UnsafeAtomicsLLVM v0.1.3
@@ -575,7 +573,7 @@ Status `/cache/build/default-amdci4-0/julialang/turingtutorials/tutorials/00-int
   [38a345b3] Libuuid_jll v2.36.0+0
   [856f044c] MKL_jll v2023.1.0+0
   [e7412a2a] Ogg_jll v1.3.5+1
-⌅ [458c3c95] OpenSSL_jll v1.1.21+0
+⌅ [458c3c95] OpenSSL_jll v1.1.22+0
   [efe28fd5] OpenSpecFun_jll v0.5.5+0
   [91d4177d] Opus_jll v1.3.2+0
   [30392449] Pixman_jll v0.42.2+0
