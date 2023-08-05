@@ -952,9 +952,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64       Float64       Float64   Fl
 oat ⋯
 
-           a    0.9737    0.9022    0.0032    81124.4542   121452.3802    1
+           a    0.9790    0.8991    0.0031    82461.6393   123062.3658    1
 .00 ⋯
-           b    2.8806    0.4878    0.0012   171792.0859   213185.9027    1
+           b    2.8825    0.4865    0.0012   175653.9333   213631.1226    1
 .00 ⋯
                                                                2 columns om
 itted
@@ -963,8 +963,8 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7962    0.3649    0.9723    1.5859    2.7373
-           b    1.9246    2.5527    2.8812    3.2094    3.8371
+           a   -0.7770    0.3717    0.9810    1.5854    2.7379
+           b    1.9254    2.5537    2.8849    3.2108    3.8334
 </pre>
 
 
@@ -992,8 +992,8 @@ Chains MCMC chain &#40;1000000×3×1 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:1000000
 Number of chains  &#61; 1
 Samples per chain &#61; 1000000
-Wall duration     &#61; 8.26 seconds
-Compute duration  &#61; 8.26 seconds
+Wall duration     &#61; 8.31 seconds
+Compute duration  &#61; 8.31 seconds
 parameters        &#61; a, b
 internals         &#61; lp
 
@@ -1003,9 +1003,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64       Float64       Float64   Fl
 oat ⋯
 
-           a    0.9722    0.9021    0.0032    80401.3415   121544.5268    1
+           a    0.9759    0.9008    0.0031    82617.6537   120978.6243    1
 .00 ⋯
-           b    2.8797    0.4898    0.0012   174162.5204   211019.7087    1
+           b    2.8789    0.4880    0.0012   168341.8798   213071.4406    1
 .00 ⋯
                                                                2 columns om
 itted
@@ -1014,8 +1014,8 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.8022    0.3652    0.9753    1.5799    2.7386
-           b    1.9185    2.5499    2.8802    3.2098    3.8371
+           a   -0.7865    0.3672    0.9745    1.5834    2.7405
+           b    1.9219    2.5502    2.8777    3.2075    3.8330
 </pre>
 
 
@@ -1039,25 +1039,24 @@ Platform Info:
   WORD_SIZE: 64
   LIBM: libopenlibm
   LLVM: libLLVM-14.0.6 &#40;ORCJIT, znver2&#41;
-  Threads: 1 on 128 virtual cores
+  Threads: 1 on 16 virtual cores
 Environment:
-  JULIA_CPU_THREADS &#61; 128
+  JULIA_CPU_THREADS &#61; 16
   JULIA_DEPOT_PATH &#61; /cache/julia-buildkite-plugin/depots/7aa0085e-79a4-45f3-a5bd-9743c91cf3da
-  JULIA_IMAGE_THREADS &#61; 1
 </code></pre>
 </div>
 <div class="markdown"><p>Package Information:</p>
 </div>
-<div class="markdown"><pre><code>Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/14-minituring/Project.toml&#96;
+<div class="markdown"><pre><code>Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/14-minituring/Project.toml&#96;
   &#91;80f14c24&#93; AbstractMCMC v4.4.2
-  &#91;31c24e10&#93; Distributions v0.25.98
+  &#91;31c24e10&#93; Distributions v0.25.99
   &#91;c7f686f2&#93; MCMCChains v6.0.3
   &#91;1914dd2f&#93; MacroTools v0.5.10
   &#91;90014a1f&#93; PDMats v0.11.17
-  &#91;fce5fe82&#93; Turing v0.28.0
+  &#91;fce5fe82&#93; Turing v0.28.1
   &#91;9a3f8284&#93; Random</code></pre>
 <p>And the full manifest:</p>
-<pre><code>Status &#96;/cache/build/exclusive-amdci3-0/julialang/turingtutorials/tutorials/14-minituring/Manifest.toml&#96;
+<pre><code>Status &#96;/cache/build/default-amdci4-2/julialang/turingtutorials/tutorials/14-minituring/Manifest.toml&#96;
   &#91;47edcb42&#93; ADTypes v0.1.6
   &#91;621f4979&#93; AbstractFFTs v1.5.0
   &#91;80f14c24&#93; AbstractMCMC v4.4.2
@@ -1084,21 +1083,21 @@ Environment:
   &#91;861a8166&#93; Combinatorics v1.0.2
   &#91;38540f10&#93; CommonSolve v0.2.4
   &#91;bbf7d656&#93; CommonSubexpressions v0.3.0
-  &#91;34da2185&#93; Compat v4.8.0
+  &#91;34da2185&#93; Compat v4.9.0
   &#91;a33af91c&#93; CompositionsBase v0.1.2
   &#91;88cd18e8&#93; ConsoleProgressMonitor v0.1.2
   &#91;187b0558&#93; ConstructionBase v1.5.3
   &#91;a8cc5b0e&#93; Crayons v4.1.1
   &#91;9a962f9c&#93; DataAPI v1.15.0
-  &#91;864edb3b&#93; DataStructures v0.18.14
+  &#91;864edb3b&#93; DataStructures v0.18.15
   &#91;e2d170a0&#93; DataValueInterfaces v1.0.0
   &#91;244e2a9f&#93; DefineSingletons v0.1.2
   &#91;8bb1440f&#93; DelimitedFiles v1.9.1
   &#91;b429d917&#93; DensityInterface v0.4.0
   &#91;163ba53b&#93; DiffResults v1.1.0
   &#91;b552c78f&#93; DiffRules v1.15.1
-  &#91;31c24e10&#93; Distributions v0.25.98
-  &#91;ced4e74d&#93; DistributionsAD v0.6.51
+  &#91;31c24e10&#93; Distributions v0.25.99
+  &#91;ced4e74d&#93; DistributionsAD v0.6.52
   &#91;ffbed154&#93; DocStringExtensions v0.9.3
   &#91;fa6b7ba4&#93; DualNumbers v0.6.8
 ⌃ &#91;366bfd00&#93; DynamicPPL v0.23.0
@@ -1118,7 +1117,7 @@ Environment:
   &#91;505f98c9&#93; InplaceOps v0.3.0
   &#91;a98d9a8b&#93; Interpolations v0.14.7
   &#91;8197267c&#93; IntervalSets v0.7.7
-  &#91;3587e190&#93; InverseFunctions v0.1.11
+  &#91;3587e190&#93; InverseFunctions v0.1.12
   &#91;41ab1584&#93; InvertedIndices v1.3.0
   &#91;92d709cd&#93; IrrationalConstants v0.2.2
   &#91;c8e1da08&#93; IterTools v1.8.0
@@ -1137,7 +1136,7 @@ Environment:
   &#91;2ab3a3ac&#93; LogExpFunctions v0.3.24
   &#91;e6f89c97&#93; LoggingExtras v1.0.0
   &#91;c7f686f2&#93; MCMCChains v6.0.3
-  &#91;be115224&#93; MCMCDiagnosticTools v0.3.4
+  &#91;be115224&#93; MCMCDiagnosticTools v0.3.5
   &#91;e80e1ace&#93; MLJModelInterface v1.8.0
   &#91;1914dd2f&#93; MacroTools v0.5.10
   &#91;dbb5928d&#93; MappedArrays v0.4.2
@@ -1170,7 +1169,7 @@ Environment:
   &#91;f2b01f46&#93; Roots v2.0.17
   &#91;7e49a35a&#93; RuntimeGeneratedFunctions v0.5.11
   &#91;0bca4576&#93; SciMLBase v1.94.0
-  &#91;c0aeaf25&#93; SciMLOperators v0.3.5
+  &#91;c0aeaf25&#93; SciMLOperators v0.3.6
   &#91;30f210dd&#93; ScientificTypesBase v3.0.0
   &#91;efcf1570&#93; Setfield v1.1.1
   &#91;ce78b400&#93; SimpleUnPack v1.1.0
@@ -1193,7 +1192,7 @@ Environment:
   &#91;28d57a85&#93; Transducers v0.4.78
   &#91;410a4b4d&#93; Tricks v0.1.7
   &#91;781d530d&#93; TruncatedStacktraces v1.4.0
-  &#91;fce5fe82&#93; Turing v0.28.0
+  &#91;fce5fe82&#93; Turing v0.28.1
   &#91;013be700&#93; UnsafeAtomics v0.2.1
   &#91;d80eeb9a&#93; UnsafeAtomicsLLVM v0.1.3
   &#91;efce3f68&#93; WoodburyMatrices v0.5.5
@@ -1258,7 +1257,7 @@ Info Packages marked with ⌃ and ⌅ have new versions available, but those wit
         <div class="footer">
           <p>
             Published from <a href="14_minituring.jmd">14_minituring.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-07-30.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-08-05.
           </p>
         </div>
       </div>
