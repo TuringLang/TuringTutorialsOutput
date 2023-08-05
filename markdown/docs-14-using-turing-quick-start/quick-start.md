@@ -102,8 +102,8 @@ Chains MCMC chain (1000×11×1 Array{Float64, 3}):
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.95 seconds
-Compute duration  = 0.95 seconds
+Wall duration     = 0.96 seconds
+Compute duration  = 0.96 seconds
 parameters        = p
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
