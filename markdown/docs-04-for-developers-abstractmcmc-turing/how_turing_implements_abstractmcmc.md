@@ -32,7 +32,7 @@ chn = sample(mod, alg, n_samples)
 ```
 Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.659880697553691
+Log evidence      = -3.7629082314988924
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
@@ -42,14 +42,14 @@ parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
-  e ⋯
-      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat
+    ⋯
+      Symbol   Float64   Float64   Float64    Float64     Float64   Float64
     ⋯
 
-          s²    3.0938    5.9255    0.2031   877.9196   896.9941    1.0021 
+          s²    2.8278    3.5109    0.1073   965.4004   1025.9264    0.9994
     ⋯
-           m    0.0135    1.7271    0.0557   965.4359   985.3801    0.9990 
+           m   -0.0199    1.7060    0.0553   936.2352    967.0131    1.0021
     ⋯
                                                                 1 column om
 itted
@@ -58,8 +58,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5713    1.1043    1.8482    3.3204   13.2733
-           m   -3.4315   -0.9282   -0.0134    0.9582    3.3667
+          s²    0.5420    1.0857    1.8142    3.0478   12.6633
+           m   -3.2150   -0.9762   -0.0582    0.8062    3.3765
 ```
 
 
@@ -108,25 +108,25 @@ chn = sample(mod, alg, n_samples)
 ```
 Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.6802562626538666
+Log evidence      = -3.7292438848526728
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.08 seconds
-Compute duration  = 0.08 seconds
+Wall duration     = 0.07 seconds
+Compute duration  = 0.07 seconds
 parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std      mcse    ess_bulk    ess_tail      rha
-t   ⋯
-      Symbol   Float64   Float64   Float64     Float64     Float64   Float6
-4   ⋯
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+    ⋯
 
-          s²    2.9860    4.7866    0.1732    975.6093    898.6272    0.999
-3   ⋯
-           m   -0.0237    1.7053    0.0509   1137.8916   1023.6250    0.999
-3   ⋯
+          s²    3.0990    6.2072    0.2052   795.3507   933.6185    1.0069 
+    ⋯
+           m    0.0650    1.6417    0.0560   734.8138   848.7930    1.0001 
+    ⋯
                                                                 1 column om
 itted
 
@@ -134,8 +134,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5627    1.1362    1.8161    3.2490   13.6513
-           m   -3.2731   -0.9179    0.0336    0.9090    3.4039
+          s²    0.5526    1.0545    1.7564    3.1086   12.8455
+           m   -2.9798   -0.8469    0.0020    0.9089    3.4400
 ```
 
 
