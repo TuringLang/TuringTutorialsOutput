@@ -121,25 +121,25 @@ m().y
 
 ```
 19-element Vector{Int64}:
- 400
- 281
- 185
- 148
- 130
-  54
-  95
-  70
-  89
- 110
- 120
-  88
-  52
-  92
-  86
+ 147
  114
- 134
- 120
- 109
+  69
+  73
+  61
+  66
+  76
+ 108
+ 132
+ 160
+ 125
+ 132
+ 110
+ 104
+ 131
+ 125
+ 132
+  92
+  89
 ```
 
 
@@ -206,8 +206,8 @@ Chains MCMC chain (1000×33×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 31.99 seconds
-Compute duration  = 31.99 seconds
+Wall duration     = 21.96 seconds
+Compute duration  = 21.96 seconds
 parameters        = v, l, f_latent[1], f_latent[2], f_latent[3], f_latent[4
 ], f_latent[5], f_latent[6], f_latent[7], f_latent[8], f_latent[9], f_laten
 t[10], f_latent[11], f_latent[12], f_latent[13], f_latent[14], f_latent[15]
