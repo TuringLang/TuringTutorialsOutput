@@ -689,24 +689,24 @@ div.title {text-align: center;}
 <pre class="output">
 Chains MCMC chain &#40;1000×3×1 Array&#123;Float64, 3&#125;&#41;:
 
-Log evidence      &#61; -3.77825932953798
+Log evidence      &#61; -3.661557809909515
 Iterations        &#61; 1:1:1000
 Number of chains  &#61; 1
 Samples per chain &#61; 1000
-Wall duration     &#61; 4.2 seconds
-Compute duration  &#61; 4.2 seconds
+Wall duration     &#61; 5.92 seconds
+Compute duration  &#61; 5.92 seconds
 parameters        &#61; s², m
 internals         &#61; lp
 
 Summary Statistics
-  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
-  e ⋯
-      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat
+    ⋯
+      Symbol   Float64   Float64   Float64    Float64     Float64   Float64
     ⋯
 
-          s²    2.9599    4.5043    0.1451   862.6315   981.9942    0.9992 
+          s²    2.8315    3.6495    0.1113   963.0497   1022.8257    1.0028
     ⋯
-           m   -0.0481    1.7195    0.0547   976.6422   975.3813    0.9995 
+           m    0.0372    1.6515    0.0575   825.3914   1024.3146    1.0021
     ⋯
                                                                 1 column om
 itted
@@ -715,8 +715,8 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5532    1.1122    1.8186    3.1871   12.0538
-           m   -3.3333   -0.9484   -0.0779    0.8257    3.7962
+          s²    0.5109    1.0886    1.7720    3.1245   11.2647
+           m   -3.5746   -0.8344    0.0979    0.9459    3.3177
 </pre>
 
 
@@ -753,24 +753,24 @@ w_i = \frac {p(x,y,s_i,m_i)} {p(s_i, m_i)} = p(x,y \mid s_i, m_i)
 <pre class="output">
 Chains MCMC chain &#40;1000×3×1 Array&#123;Float64, 3&#125;&#41;:
 
-Log evidence      &#61; -3.743888484470658
+Log evidence      &#61; -3.679590142010016
 Iterations        &#61; 1:1:1000
 Number of chains  &#61; 1
 Samples per chain &#61; 1000
-Wall duration     &#61; 0.05 seconds
-Compute duration  &#61; 0.05 seconds
+Wall duration     &#61; 0.13 seconds
+Compute duration  &#61; 0.13 seconds
 parameters        &#61; s², m
 internals         &#61; lp
 
 Summary Statistics
-  parameters      mean       std      mcse    ess_bulk   ess_tail      rhat
+  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat
     ⋯
-      Symbol   Float64   Float64   Float64     Float64    Float64   Float64
+      Symbol   Float64   Float64   Float64    Float64     Float64   Float64
     ⋯
 
-          s²    2.8837    4.4139    0.1360   1059.8564   912.0417    1.0007
+          s²    2.6371    3.0341    0.0993   944.9017    813.8664    0.9991
     ⋯
-           m   -0.0701    1.6929    0.0558    926.7658   948.4357    1.0018
+           m    0.0006    1.6368    0.0529   871.9898   1035.1183    1.0018
     ⋯
                                                                 1 column om
 itted
@@ -779,8 +779,8 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5422    1.1025    1.7780    3.1887   11.1018
-           m   -3.7531   -1.0083    0.0025    0.8010    3.4114
+          s²    0.5128    1.0617    1.6962    2.9299   10.7612
+           m   -3.0289   -0.9387   -0.0381    0.8465    3.5352
 </pre>
 
 
@@ -1039,7 +1039,7 @@ p\left(\theta_{\text{prop}}, x_{\text{obs}}\right)
         <div class="footer">
           <p>
             Published from <a href="how_turing_implements_abstractmcmc.jmd">how_turing_implements_abstractmcmc.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-08-12.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-10-14.
           </p>
         </div>
       </div>
