@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<HTML lang = "en">
+<HEAD>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Using External Sampler</title>
+  
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  
+<style>
+pre.hljl {
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
+    overflow-x: auto;
+    color: rgb(68,68,68); background-color: rgb(251,251,251); }
+pre.hljl > span.hljl-t { }
+pre.hljl > span.hljl-w { }
+pre.hljl > span.hljl-e { }
+pre.hljl > span.hljl-eB { }
+pre.hljl > span.hljl-o { }
+pre.hljl > span.hljl-k { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kc { color: rgb(59,151,46); font-style: italic; }
+pre.hljl > span.hljl-kd { color: rgb(214,102,97); font-style: italic; }
+pre.hljl > span.hljl-kn { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kp { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kr { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-kt { color: rgb(148,91,176); font-weight: bold; }
+pre.hljl > span.hljl-n { }
+pre.hljl > span.hljl-na { }
+pre.hljl > span.hljl-nb { }
+pre.hljl > span.hljl-nbp { }
+pre.hljl > span.hljl-nc { }
+pre.hljl > span.hljl-ncB { }
+pre.hljl > span.hljl-nd { color: rgb(214,102,97); }
+pre.hljl > span.hljl-ne { }
+pre.hljl > span.hljl-neB { }
+pre.hljl > span.hljl-nf { color: rgb(66,102,213); }
+pre.hljl > span.hljl-nfm { color: rgb(66,102,213); }
+pre.hljl > span.hljl-np { }
+pre.hljl > span.hljl-nl { }
+pre.hljl > span.hljl-nn { }
+pre.hljl > span.hljl-no { }
+pre.hljl > span.hljl-nt { }
+pre.hljl > span.hljl-nv { }
+pre.hljl > span.hljl-nvc { }
+pre.hljl > span.hljl-nvg { }
+pre.hljl > span.hljl-nvi { }
+pre.hljl > span.hljl-nvm { }
+pre.hljl > span.hljl-l { }
+pre.hljl > span.hljl-ld { color: rgb(148,91,176); font-style: italic; }
+pre.hljl > span.hljl-s { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sa { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sb { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sc { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sd { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sdC { color: rgb(201,61,57); }
+pre.hljl > span.hljl-se { color: rgb(59,151,46); }
+pre.hljl > span.hljl-sh { color: rgb(201,61,57); }
+pre.hljl > span.hljl-si { }
+pre.hljl > span.hljl-so { color: rgb(201,61,57); }
+pre.hljl > span.hljl-sr { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ss { color: rgb(201,61,57); }
+pre.hljl > span.hljl-ssB { color: rgb(201,61,57); }
+pre.hljl > span.hljl-nB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nbB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nfB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nh { color: rgb(59,151,46); }
+pre.hljl > span.hljl-ni { color: rgb(59,151,46); }
+pre.hljl > span.hljl-nil { color: rgb(59,151,46); }
+pre.hljl > span.hljl-noB { color: rgb(59,151,46); }
+pre.hljl > span.hljl-oB { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-ow { color: rgb(102,102,102); font-weight: bold; }
+pre.hljl > span.hljl-p { }
+pre.hljl > span.hljl-c { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-ch { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cm { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cp { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cpB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-cs { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-csB { color: rgb(153,153,119); font-style: italic; }
+pre.hljl > span.hljl-g { }
+pre.hljl > span.hljl-gd { }
+pre.hljl > span.hljl-ge { }
+pre.hljl > span.hljl-geB { }
+pre.hljl > span.hljl-gh { }
+pre.hljl > span.hljl-gi { }
+pre.hljl > span.hljl-go { }
+pre.hljl > span.hljl-gp { }
+pre.hljl > span.hljl-gs { }
+pre.hljl > span.hljl-gsB { }
+pre.hljl > span.hljl-gt { }
+</style>
+
+
+
+  <style type="text/css">
+  @font-face {
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-style: normal;
+  font-weight: 600;
+}
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+body {
+  margin: 0;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+audio,
+canvas,
+progress,
+video {
+  display: inline-block; /* 1 */
+  vertical-align: baseline; /* 2 */
+}
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+[hidden],
+template {
+  display: none;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+b,
+strong {
+  font-weight: bold;
+}
+dfn {
+  font-style: italic;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+small {
+  font-size: 80%;
+}
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+img {
+  border: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+figure {
+  margin: 1em 40px;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+pre {
+  overflow: auto;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+button {
+  overflow: visible;
+}
+button,
+select {
+  text-transform: none;
+}
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+input {
+  line-height: normal;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+input[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box; /* 2 */
+  box-sizing: content-box;
+}
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+legend {
+  border: 0; /* 1 */
+  padding: 0; /* 2 */
+}
+textarea {
+  overflow: auto;
+}
+optgroup {
+  font-weight: bold;
+}
+table {
+  font-family: monospace, monospace;
+  font-size : 0.8em;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td,
+th {
+  padding: 0;
+}
+thead th {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+tr:nth-child(odd){
+  background-color: rgb(248,248,248);
+}
+
+
+/*
+* Skeleton V2.0.4
+* Copyright 2014, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 12/29/2014
+*/
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box; }
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box; }
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0; }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
+
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
+
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
+
+  .one-half.column                { width: 48%; }
+
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
+
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
+
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
+
+}
+html {
+  font-size: 62.5%; }
+body {
+  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222; }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+h1 { font-size: 3.6rem; line-height: 1.2;  letter-spacing: -.1rem;}
+h2 { font-size: 3.4rem; line-height: 1.25; letter-spacing: -.1rem; }
+h3 { font-size: 3.2rem; line-height: 1.3;  letter-spacing: -.1rem; }
+h4 { font-size: 2.8rem; line-height: 1.35; letter-spacing: -.08rem; }
+h5 { font-size: 2.4rem; line-height: 1.5;  letter-spacing: -.05rem; }
+h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
+
+p {
+  margin-top: 0; }
+a {
+  color: #1EAEDB; }
+a:hover {
+  color: #0FA0CE; }
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  height: 38px;
+  padding: 0 30px;
+  color: #555;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  cursor: pointer;
+  box-sizing: border-box; }
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  color: #333;
+  border-color: #888;
+  outline: 0; }
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+  color: #FFF;
+  background-color: #33C3F0;
+  border-color: #33C3F0; }
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+  color: #FFF;
+  background-color: #1EAEDB;
+  border-color: #1EAEDB; }
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+  height: 38px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+  background-color: #fff;
+  border: 1px solid #D1D1D1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box; }
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
+textarea {
+  min-height: 65px;
+  padding-top: 6px;
+  padding-bottom: 6px; }
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 1px solid #33C3F0;
+  outline: 0; }
+label,
+legend {
+  display: block;
+  margin-bottom: .5rem;
+  font-weight: 600; }
+fieldset {
+  padding: 0;
+  border-width: 0; }
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline; }
+label > .label-body {
+  display: inline-block;
+  margin-left: .5rem;
+  font-weight: normal; }
+ul {
+  list-style: circle; }
+ol {
+  list-style: decimal; }
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+li > p {margin : 0;}
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child,
+td:first-child {
+  padding-left: 0; }
+th:last-child,
+td:last-child {
+  padding-right: 0; }
+button,
+.button {
+  margin-bottom: 1rem; }
+input,
+textarea,
+select,
+fieldset {
+  margin-bottom: 1.5rem; }
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+  margin-bottom: 1.0rem; }
+.u-full-width {
+  width: 100%;
+  box-sizing: border-box; }
+.u-max-full-width {
+  max-width: 100%;
+  box-sizing: border-box; }
+.u-pull-right {
+  float: right; }
+.u-pull-left {
+  float: left; }
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1; }
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both; }
+
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+pre.hljl {
+  margin: 0 0 10px;
+  display: block;
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding : 5px;
+}
+
+pre.output {
+  background: #ffffff;
+}
+
+pre.code {
+  background: #ffffff;
+}
+
+pre.julia-error {
+  color : red
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+
+@media (min-width: 400px) {}
+@media (min-width: 550px) {}
+@media (min-width: 750px) {}
+@media (min-width: 1000px) {}
+@media (min-width: 1200px) {}
+
+h1.title {margin-top : 20px}
+img {max-width : 100%}
+div.title {text-align: center;}
+
+  </style>
+</HEAD>
+
+<BODY>
+  <div class ="container">
+    <div class = "row">
+      <div class = "col-md-12 twelve columns">
+        <div class="title">
+          <h1 class="title">Using External Sampler</h1>
+          
+          
+        </div>
+
+        <h1>Using External Samplers on Turing Models</h1>
+<p><code>Turing</code> provides several wrapped samplers from external sampling libraries, e.g., HMC samplers from <code>AdvancedHMC</code>. These wrappers allow new users to seamlessly sample statistical models without leaving <code>Turing</code> However, these wrappers might only sometimes be complete, missing some functionality from the wrapped sampling library. Moreover, users might want to use samplers currently not wrapped within <code>Turing</code>.</p>
+<p>For these reasons, <code>Turing</code> also makes running external samplers on Turing models easy without any necessary modifications or wrapping&#33; Throughout, we will use a 10-dimensional Neal&#39;s funnel as a running example::</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Import libraries.</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Turing</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>Random</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>LinearAlgebra</span><span class='hljl-t'>
+
+</span><span class='hljl-n'>d</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>10</span><span class='hljl-t'>
+</span><span class='hljl-nd'>@model</span><span class='hljl-t'> </span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>funnel</span><span class='hljl-p'>()</span><span class='hljl-t'>
+    </span><span class='hljl-n'>θ</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>Truncated</span><span class='hljl-p'>(</span><span class='hljl-nf'>Normal</span><span class='hljl-p'>(</span><span class='hljl-ni'>0</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-ni'>3</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>3</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-n'>z</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>MvNormal</span><span class='hljl-p'>(</span><span class='hljl-nf'>zeros</span><span class='hljl-p'>(</span><span class='hljl-n'>d</span><span class='hljl-t'> </span><span class='hljl-oB'>-</span><span class='hljl-t'> </span><span class='hljl-ni'>1</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nf'>exp</span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>*</span><span class='hljl-t'> </span><span class='hljl-n'>I</span><span class='hljl-p'>)</span><span class='hljl-t'>
+    </span><span class='hljl-k'>return</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-t'> </span><span class='hljl-oB'>~</span><span class='hljl-t'> </span><span class='hljl-nf'>MvNormal</span><span class='hljl-p'>(</span><span class='hljl-n'>z</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>I</span><span class='hljl-p'>)</span><span class='hljl-t'>
+</span><span class='hljl-k'>end</span>
+</pre>
+
+
+<pre class="output">
+funnel &#40;generic function with 2 methods&#41;
+</pre>
+
+
+<p>Now we sample the model to generate some observations, which we can then condition on.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-p'>(;</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-p'>)</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>rand</span><span class='hljl-p'>(</span><span class='hljl-nf'>funnel</span><span class='hljl-p'>()</span><span class='hljl-t'> </span><span class='hljl-oB'>|</span><span class='hljl-t'> </span><span class='hljl-p'>(</span><span class='hljl-n'>θ</span><span class='hljl-oB'>=</span><span class='hljl-ni'>0</span><span class='hljl-p'>,))</span><span class='hljl-t'>
+</span><span class='hljl-n'>model</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>funnel</span><span class='hljl-p'>()</span><span class='hljl-t'> </span><span class='hljl-oB'>|</span><span class='hljl-t'> </span><span class='hljl-p'>(;</span><span class='hljl-t'> </span><span class='hljl-n'>x</span><span class='hljl-p'>);</span>
+</pre>
+
+
+
+<p>Users can use any sampler algorithm to sample this model if it follows the <code>AbstractMCMC</code> API. Before discussing how this is done in practice, giving a high-level description of the process is interesting. Imagine that we created an instance of an external sampler that we will call <code>spl</code> such that <code>typeof&#40;spl&#41;&lt;:AbstractMCMC.AbstractSampler</code>. In order to avoid type ambiguity within Turing, at the moment it is necessary to declare <code>spl</code> as an external sampler to Turing <code>espl &#61; externalsampler&#40;spl&#41;</code>, where <code>externalsampler&#40;s::AbstractMCMC.AbstractSampler&#41;</code> is a Turing function that types our external sampler adequately.</p>
+<p>An excellent point to start to show how this is done in practice is by looking at the sampling library <code>AdvancedMH</code> &#40;&#40;<code>AdvancedMH</code>&#39;s GitHub&#41;&#91;&#91;https://github.com/TuringLang/AdvancedMH.jl&#93;&#41; for Metropolis-Hastings &#40;MH&#41; methods. Let&#39;s say we want to use a random walk Metropolis-Hastings sampler without specifying the proposal distributions. The code below constructs an MH sampler using a multivariate Gaussian distribution with zero mean and unit variance in <code>d</code> dimensions as a random walk proposal.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-cs'># Importing the sampling library</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>AdvancedMH</span><span class='hljl-t'>
+</span><span class='hljl-n'>rwmh</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>AdvancedMH</span><span class='hljl-oB'>.</span><span class='hljl-nf'>RWMH</span><span class='hljl-p'>(</span><span class='hljl-n'>d</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+AdvancedMH.MetropolisHastings&#123;AdvancedMH.RandomWalkProposal&#123;false, Distribu
+tions.ZeroMeanIsoNormal&#123;Tuple&#123;Base.OneTo&#123;Int64&#125;&#125;&#125;&#125;&#125;&#40;AdvancedMH.RandomWalkPr
+oposal&#123;false, Distributions.ZeroMeanIsoNormal&#123;Tuple&#123;Base.OneTo&#123;Int64&#125;&#125;&#125;&#125;&#40;Ze
+roMeanIsoNormal&#40;
+dim: 10
+μ: Zeros&#40;10&#41;
+Σ: &#91;1.0 0.0 … 0.0 0.0; 0.0 1.0 … 0.0 0.0; … ; 0.0 0.0 … 1.0 0.0; 0.0 0.0 … 
+0.0 1.0&#93;
+&#41;
+&#41;&#41;
+</pre>
+
+
+<p>Sampling is then as easy as:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-n'>chain</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>externalsampler</span><span class='hljl-p'>(</span><span class='hljl-n'>rwmh</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-ni'>10_000</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Chains MCMC chain &#40;10000×11×1 Array&#123;Float64, 3&#125;&#41;:
+
+Iterations        &#61; 1:1:10000
+Number of chains  &#61; 1
+Samples per chain &#61; 10000
+Wall duration     &#61; 8.23 seconds
+Compute duration  &#61; 8.23 seconds
+parameters        &#61; θ, z&#91;1&#93;, z&#91;2&#93;, z&#91;3&#93;, z&#91;4&#93;, z&#91;5&#93;, z&#91;6&#93;, z&#91;7&#93;, z&#91;8&#93;, z&#91;9&#93;
+internals         &#61; lp
+
+Summary Statistics
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+    ⋯
+
+           θ   -1.4165    1.1043    0.2266    24.7141    22.5683    1.1329 
+    ⋯
+        z&#91;1&#93;   -0.3498    0.6745    0.1057    51.6372    85.9451    1.3543 
+    ⋯
+        z&#91;2&#93;   -0.1131    0.4810    0.0691    45.4513    71.3328    1.0802 
+    ⋯
+        z&#91;3&#93;    0.1726    0.5867    0.0951    37.9927    91.8687    1.1354 
+    ⋯
+        z&#91;4&#93;   -0.2965    0.4896    0.0612    50.5414    50.8410    1.1626 
+    ⋯
+        z&#91;5&#93;   -0.4214    0.5231    0.0672    57.9873    93.0261    1.3068 
+    ⋯
+        z&#91;6&#93;   -0.1608    0.5566    0.0862    44.6843    68.1602    1.2628 
+    ⋯
+        z&#91;7&#93;   -0.0859    0.5109    0.0735    46.3684    95.6206    1.4547 
+    ⋯
+        z&#91;8&#93;    0.3104    0.5159    0.0834    40.1279    51.0189    1.3084 
+    ⋯
+        z&#91;9&#93;    0.3294    0.7125    0.1312    31.4666    23.2115    1.2202 
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           θ   -2.7497   -2.4167   -1.7367   -0.5097    0.7514
+        z&#91;1&#93;   -1.9363   -0.8025   -0.0549    0.1097    0.5614
+        z&#91;2&#93;   -1.2285   -0.3348    0.0340    0.1673    0.7166
+        z&#91;3&#93;   -0.5669   -0.3334    0.1280    0.5760    1.3692
+        z&#91;4&#93;   -1.2674   -0.3604   -0.3546   -0.0411    0.9220
+        z&#91;5&#93;   -1.8981   -0.5203   -0.4920    0.0034    0.4920
+        z&#91;6&#93;   -1.4153   -0.4209   -0.3392    0.3162    0.6849
+        z&#91;7&#93;   -1.2215   -0.3217   -0.0001    0.2864    0.6768
+        z&#91;8&#93;   -0.4329   -0.0020    0.0840    0.5230    1.4451
+        z&#91;9&#93;   -0.4855   -0.3780    0.1994    0.9431    1.9748
+</pre>
+
+
+<h2>Going beyond the Turing API</h2>
+<p>As previously mentioned, the Turing wrappers can often limit the capabilities of the sampling libraries they wrap. <code>AdvancedHMC</code><a href="#footnote-1" class="footnote">[1]</a> &#40;&#40;<code>AdvancedHMC</code>&#39;s GitHub&#41;&#91;https://github.com/TuringLang/AdvancedHMC.jl&#93;&#41; is a clear example of this. A common practice when performing HMC is to provide an initial guess for the mass matrix. However, the native HMC sampler within Turing only allows the user to specify the type of the mass matrix despite the two options being possible within <code>AdvancedHMC</code>. Thankfully, we can use Turing&#39;s support for external samplers to define an HMC sampler with a custom mass matrix in <code>AdvancedHMC</code> and then use it to sample our Turing model.</p>
+<p>We will use the library <code>Pathfinder</code><a href="#footnote-2" class="footnote">[2]</a> &#40;&#40;<code>Pathfinder</code>&#39;s GitHub&#41;&#91;https://github.com/mlcolab/Pathfinder.jl&#93;&#41; to construct our estimate of mass matrix. <code>Pathfinder</code> is a variational inference algorithm that first finds the maximum a posteriori &#40;MAP&#41; estimate of a target posterior distribution and then uses the trace of the optimization to construct a sequence of multivariate normal approximations to the target distribution. In this process, <code>Pathfinder</code> computes an estimate of the mass matrix the user can access.</p>
+<p>The code below shows this can be done in practice.</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>AdvancedHMC</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>Pathfinder</span><span class='hljl-t'>
+</span><span class='hljl-cs'># Running pathfinder</span><span class='hljl-t'>
+</span><span class='hljl-n'>draws</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1_000</span><span class='hljl-t'>
+</span><span class='hljl-n'>result_multi</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>multipathfinder</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>draws</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>nruns</span><span class='hljl-oB'>=</span><span class='hljl-ni'>8</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Estimating the metric</span><span class='hljl-t'>
+</span><span class='hljl-n'>inv_metric</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>result_multi</span><span class='hljl-oB'>.</span><span class='hljl-n'>pathfinder_results</span><span class='hljl-p'>[</span><span class='hljl-ni'>1</span><span class='hljl-p'>]</span><span class='hljl-oB'>.</span><span class='hljl-n'>fit_distribution</span><span class='hljl-oB'>.</span><span class='hljl-n'>Σ</span><span class='hljl-t'>
+</span><span class='hljl-n'>metric</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>DenseEuclideanMetric</span><span class='hljl-p'>(</span><span class='hljl-nf'>Matrix</span><span class='hljl-p'>(</span><span class='hljl-n'>inv_metric</span><span class='hljl-p'>))</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Creating an AdvancedHMC NUTS sampler with the custom metric.</span><span class='hljl-t'>
+</span><span class='hljl-n'>n_adapts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1000</span><span class='hljl-t'> </span><span class='hljl-cs'># Number of adaptation steps</span><span class='hljl-t'>
+</span><span class='hljl-n'>tap</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.9</span><span class='hljl-t'> </span><span class='hljl-cs'># Large target acceptance probability to deal with the funnel structure of the posterior</span><span class='hljl-t'>
+</span><span class='hljl-n'>nuts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-n'>AdvancedHMC</span><span class='hljl-oB'>.</span><span class='hljl-nf'>NUTS</span><span class='hljl-p'>(</span><span class='hljl-n'>tap</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>metric</span><span class='hljl-oB'>=</span><span class='hljl-n'>metric</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Sample</span><span class='hljl-t'>
+</span><span class='hljl-n'>chain</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>externalsampler</span><span class='hljl-p'>(</span><span class='hljl-n'>nuts</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-ni'>10_000</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>n_adapts</span><span class='hljl-oB'>=</span><span class='hljl-ni'>1_000</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Chains MCMC chain &#40;10000×23×1 Array&#123;Float64, 3&#125;&#41;:
+
+Iterations        &#61; 1:1:10000
+Number of chains  &#61; 1
+Samples per chain &#61; 10000
+Wall duration     &#61; 8.07 seconds
+Compute duration  &#61; 8.07 seconds
+parameters        &#61; θ, z&#91;1&#93;, z&#91;2&#93;, z&#91;3&#93;, z&#91;4&#93;, z&#91;5&#93;, z&#91;6&#93;, z&#91;7&#93;, z&#91;8&#93;, z&#91;9&#93;
+internals         &#61; lp, n_steps, is_accept, acceptance_rate, log_density, h
+amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
+tree_depth, numerical_error, step_size, nom_step_size, is_adapt
+
+Summary Statistics
+  parameters      mean       std      mcse    ess_bulk    ess_tail      rha
+t   ⋯
+      Symbol   Float64   Float64   Float64     Float64     Float64   Float6
+4   ⋯
+
+           θ   -0.9372    1.0581    0.0272   1409.2151   1688.8103    1.000
+7   ⋯
+        z&#91;1&#93;   -0.6353    0.7034    0.0169   1084.2182    222.8586    1.001
+6   ⋯
+        z&#91;2&#93;   -0.1585    0.5677    0.0095   3554.2525   6087.8369    1.000
+2   ⋯
+        z&#91;3&#93;    0.4231    0.6867    0.0376    625.6475    205.4275    1.002
+1   ⋯
+        z&#91;4&#93;   -0.2790    0.5815    0.0071   6234.6218   6774.2018    1.000
+3   ⋯
+        z&#91;5&#93;   -0.3452    0.6300    0.0225    828.9882    218.0984    1.001
+6   ⋯
+        z&#91;6&#93;   -0.2187    0.5676    0.0065   6991.7143   6320.4758    1.000
+3   ⋯
+        z&#91;7&#93;   -0.1603    0.5866    0.0179   1127.2461    218.5880    1.000
+6   ⋯
+        z&#91;8&#93;    0.4763    0.6282    0.0137   2340.6028   6557.4458    1.001
+0   ⋯
+        z&#91;9&#93;    0.3546    0.6116    0.0205   1351.5992    220.3222    1.000
+5   ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           θ   -2.8214   -1.7560   -0.9151   -0.1450    1.0547
+        z&#91;1&#93;   -2.2938   -1.0388   -0.5182   -0.1407    0.4280
+        z&#91;2&#93;   -1.3961   -0.4943   -0.1243    0.1936    0.9207
+        z&#91;3&#93;   -0.7543    0.0130    0.3619    0.8021    1.9242
+        z&#91;4&#93;   -1.6209   -0.6106   -0.2156    0.1090    0.7411
+        z&#91;5&#93;   -1.7569   -0.7005   -0.2821    0.0543    0.9105
+        z&#91;6&#93;   -1.5043   -0.5377   -0.1679    0.1493    0.7971
+        z&#91;7&#93;   -1.4401   -0.4936   -0.1391    0.1964    1.0277
+        z&#91;8&#93;   -0.5412    0.0502    0.3899    0.8293    1.9115
+        z&#91;9&#93;   -0.6689   -0.0569    0.2724    0.6891    1.7416
+</pre>
+
+
+<h2>Using new inference methods</h2>
+<p>So far we have used Turing&#39;s support for external samplers to go beyond the capabilities of the wrappers. We want to use this support to employ a sampler not supported within Turing&#39;s ecosystem yet. We will use the recently developed Micro-Cannoncial Hamiltonian Monte Carlo &#40;MCHMC&#41; sampler to showcase this. MCHMC<a href="&#40;MCHMC&#39;s GitHub&#41;&#91;https://github.com/JaimeRZP/MicroCanonicalHMC.jl&#93;">^3,^4</a> is HMC sampler that uses one single Hamiltonian energy level to explore the whole parameter space. This is achieved by simulating the dynamics of a microcanonical Hamiltonian with an additional noise term to ensure ergodicity.</p>
+<p>Using this as well as other inference methods outside the Turing ecosystem is as simple as executing the code shown below:</p>
+
+
+<pre class='hljl'>
+<span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>MicroCanonicalHMC</span><span class='hljl-t'>
+</span><span class='hljl-cs'># Create MCHMC sampler</span><span class='hljl-t'>
+</span><span class='hljl-n'>n_adapts</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-ni'>1_000</span><span class='hljl-t'> </span><span class='hljl-cs'># adaptation steps</span><span class='hljl-t'>
+</span><span class='hljl-n'>tev</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nfB'>0.01</span><span class='hljl-t'> </span><span class='hljl-cs'># target energy variance</span><span class='hljl-t'>
+</span><span class='hljl-n'>mchmc</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>MCHMC</span><span class='hljl-p'>(</span><span class='hljl-n'>n_adapts</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>tev</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>adaptive</span><span class='hljl-oB'>=</span><span class='hljl-kc'>true</span><span class='hljl-p'>)</span><span class='hljl-t'>
+
+</span><span class='hljl-cs'># Sample</span><span class='hljl-t'>
+</span><span class='hljl-n'>chain</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-n'>model</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-nf'>externalsampler</span><span class='hljl-p'>(</span><span class='hljl-n'>mchmc</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-ni'>10_000</span><span class='hljl-p'>)</span>
+</pre>
+
+
+<pre class="output">
+Chains MCMC chain &#40;10000×11×1 Array&#123;Float64, 3&#125;&#41;:
+
+Iterations        &#61; 1:1:10000
+Number of chains  &#61; 1
+Samples per chain &#61; 10000
+Wall duration     &#61; 4.48 seconds
+Compute duration  &#61; 4.48 seconds
+parameters        &#61; θ, z&#91;1&#93;, z&#91;2&#93;, z&#91;3&#93;, z&#91;4&#93;, z&#91;5&#93;, z&#91;6&#93;, z&#91;7&#93;, z&#91;8&#93;, z&#91;9&#93;
+internals         &#61; lp
+
+Summary Statistics
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+    ⋯
+
+           θ   -0.9207    1.0363    0.0893   129.6554   176.4886    1.0045 
+    ⋯
+        z&#91;1&#93;   -0.6699    0.7085    0.0514   218.9727   267.3982    1.0042 
+    ⋯
+        z&#91;2&#93;   -0.1589    0.5529    0.0339   274.7444   487.3943    1.0028 
+    ⋯
+        z&#91;3&#93;    0.4348    0.6025    0.0310   433.1693   492.4122    1.0003 
+    ⋯
+        z&#91;4&#93;   -0.2949    0.5862    0.0301   449.9223   472.6695    1.0020 
+    ⋯
+        z&#91;5&#93;   -0.3924    0.6277    0.0423   254.3391   303.9571    1.0023 
+    ⋯
+        z&#91;6&#93;   -0.2173    0.5398    0.0276   393.3274   610.5885    1.0035 
+    ⋯
+        z&#91;7&#93;   -0.2347    0.5905    0.0355   305.4309   299.6585    1.0005 
+    ⋯
+        z&#91;8&#93;    0.4797    0.6025    0.0382   264.8670   485.8904    1.0004 
+    ⋯
+        z&#91;9&#93;    0.3073    0.6126    0.0437   226.7385   212.1987    1.0048 
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           θ   -2.8263   -1.7019   -0.9084   -0.1612    1.0233
+        z&#91;1&#93;   -2.4180   -1.0596   -0.5668   -0.1736    0.4574
+        z&#91;2&#93;   -1.3395   -0.4846   -0.1295    0.1854    0.9186
+        z&#91;3&#93;   -0.5662    0.0228    0.3500    0.7662    1.8108
+        z&#91;4&#93;   -1.5828   -0.6197   -0.2386    0.0867    0.7409
+        z&#91;5&#93;   -1.8274   -0.7391   -0.3179    0.0235    0.6865
+        z&#91;6&#93;   -1.3722   -0.5552   -0.1776    0.1367    0.7729
+        z&#91;7&#93;   -1.6249   -0.5508   -0.1815    0.1449    0.8379
+        z&#91;8&#93;   -0.5193    0.0487    0.4048    0.8536    1.8095
+        z&#91;9&#93;   -0.7739   -0.0762    0.2459    0.6301    1.8280
+</pre>
+
+
+<p>The only requirement to work with <code>externalsampler</code> is that the provided <code>sampler</code> must implement the AbstractMCMC.jl-interface &#91;INSERT LINK&#93; for a <code>model</code> of type <code>AbstractMCMC.LogDensityModel</code> &#91;INSERT LINK&#93;.</p>
+<p>As previously stated, in order to use external sampling libraries within <code>Turing</code> they must follow the <code>AbstractMCMC</code> API. In this section, we will briefly dwell on what this entails. First and foremost, the sampler should be a subtype of <code>AbstractMCMC.AbstractSampler</code>. Second, the stepping function of the MCMC algorithm must be made defined using <code>AbstractMCMC.step</code> and follow the structure below:</p>
+<pre><code># First step
+function AbstractMCMC.step&#123;T&lt;:AbstractMCMC.AbstractSampler&#125;&#40;
+    rng::Random.AbstractRNG,
+    model::AbstractMCMC.LogDensityModel,
+    spl::T;
+    kwargs...,
+&#41;
+    &#91;...&#93;
+    return transition, sample
+end
+
+# N&#43;1 step
+function AbstractMCMC.step&#123;T&lt;:AbstractMCMC.AbstractSampler&#125;&#40;
+    rng::Random.AbstractRNG,
+    model::AbstractMCMC.LogDensityModel,
+    sampler::T,
+    state;
+    kwargs...,
+&#41; 
+    &#91;...&#93;
+    return transition, sample
+end</code></pre>
+<p>There are several characteristics to note in these functions:</p>
+<ul>
+<li><p>There must be two <code>step</code> functions:</p>
+<ul>
+<li><p>A function that performs the first step and initializes the sampler.</p>
+</li>
+<li><p>A function that performs the following steps and takes an extra input, <code>state</code>, which carries the initialization information.</p>
+</li>
+</ul>
+</li>
+<li><p>The functions must follow the displayed signatures.</p>
+</li>
+<li><p>The output of the functions must be a transition, the current state of the sampler, and a sample, what is saved to the MCMC chain.</p>
+</li>
+</ul>
+<p>The last requirement is that the transition must be structured with a field <code>θ</code> which contains the values of the parameters of the model for said transition. This allows <code>Turing</code> to seamlessly extract the parameter values at each step of the chain when bundling the chains. Note that if the external sampler produces transitions that Turing cannot parse the bundling of the samples will be different or fail.</p>
+<p>For practical examples of how to adapt a sampling library to the <code>AbstractMCMC</code> interface, the readers can consult the following libraries:</p>
+<ul>
+<li><p>&#40;AdvancedMH&#41;&#91;https://github.com/TuringLang/AdvancedMH.jl/blob/458a602ac32a8514a117d4c671396a9ba8acbdab/src/mh-core.jl#L73-L115&#93;</p>
+</li>
+<li><p>&#40;AdvancedHMC&#41;&#91;https://github.com/TuringLang/AdvancedHMC.jl/blob/762e55f894d142495a41a6eba0eed9201da0a600/src/abstractmcmc.jl#L102-L170&#93;</p>
+</li>
+<li><p>&#40;MicroCanonicalHMC&#41;&#91;https://github.com/JaimeRZP/MicroCanonicalHMC.jl/blob/master/src/abstractmcmc.jl&#93; within <code>MicroCanonicalHMC</code>.</p>
+</li>
+</ul>
+<h1>Refences</h1>
+<div class="footnote" id="footnote-1"><p class="footnote-title">1</p><p>Xu et al, &#40;AdvancedHMC.jl: A robust, modular and efficient implementation of advanced HMC algorithms&#41;&#91;http://proceedings.mlr.press/v118/xu20a/xu20a.pdf&#93;, 2019</p>
+</div>
+<div class="footnote" id="footnote-2"><p class="footnote-title">2</p><p>Zhang et al, &#40;Pathfinder: Parallel quasi-Newton variational inference&#41;&#91;https://arxiv.org/abs/2108.03782&#93;, 2021</p>
+</div>
+<div class="footnote" id="footnote-3"><p class="footnote-title">3</p><p>Robnik et al, &#40;Microcanonical Hamiltonian Monte Carlo&#41;&#91;https://arxiv.org/abs/2212.08549&#93;, 2022</p>
+</div>
+<div class="footnote" id="footnote-4"><p class="footnote-title">4</p><p>Robnik and Seljak, &#40;Langevine Hamiltonian Monte Carlo&#41;&#91;https://arxiv.org/abs/2303.18221&#93;, 2023</p>
+</div>
+
+
+        <HR/>
+        <div class="footer">
+          <p>
+            Published from <a href="external-samplers.jmd">external-samplers.jmd</a>
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-10-19.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</BODY>
+
+</HTML>
