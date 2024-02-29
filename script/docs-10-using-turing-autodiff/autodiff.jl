@@ -1,5 +1,6 @@
 
 using Turing
+using ReverseDiff
 
 # Define a simple Normal model with unknown mean and variance.
 @model function gdemo(x, y)
@@ -12,7 +13,10 @@ end
 # Sample using Gibbs and varying autodiff backends.
 c = sample(
     gdemo(1.5, 2),
-    Gibbs(HMC{Turing.ForwardDiffAD{1}}(0.1, 5, :m), HMC{Turing.TrackerAD}(0.1, 5, :s²)),
+    Gibbs(
+        HMC(0.1, 5, :m; adtype=AutoForwardDiff(; chunksize=0)),
+        HMC(0.1, 5, :s²; adtype=AutoReverseDiff(false)),
+    ),
     1000,
 )
 

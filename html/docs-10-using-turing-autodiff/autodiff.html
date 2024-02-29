@@ -664,14 +664,19 @@ div.title {text-align: center;}
 
         <h1>Automatic Differentiation</h1>
 <h2>Switching AD Modes</h2>
-<p>Turing supports four automatic differentiation &#40;AD&#41; packages in the back end during sampling. The default AD backend is <a href="https://github.com/JuliaDiff/ForwardDiff.jl">ForwardDiff</a> for forward-mode AD. Three reverse-mode AD backends are also supported, namely <a href="https://github.com/FluxML/Tracker.jl">Tracker</a>, <a href="https://github.com/FluxML/Zygote.jl">Zygote</a> and <a href="https://github.com/JuliaDiff/ReverseDiff.jl">ReverseDiff</a>. <code>Zygote</code> and <code>ReverseDiff</code> are supported optionally if explicitly loaded by the user with <code>using Zygote</code> or <code>using ReverseDiff</code> next to <code>using Turing</code>.</p>
-<p>To switch between the different AD backends, one can call the function <code>Turing.setadbackend&#40;backend_sym&#41;</code>, where <code>backend_sym</code> can be <code>:forwarddiff</code> &#40;<code>ForwardDiff</code>&#41;, <code>:tracker</code> &#40;<code>Tracker</code>&#41;, <code>:zygote</code> &#40;<code>Zygote</code>&#41; or <code>:reversediff</code> &#40;<code>ReverseDiff.jl</code>&#41;. When using <code>ReverseDiff</code>, to compile the tape only once and cache it for later use, the user has to call <code>Turing.setrdcache&#40;true&#41;</code>. However, note that the use of caching in certain types of models can lead to incorrect results and/or errors. Compiled tapes should only be used if you are absolutely certain that the computation doesn&#39;t change between different executions of your model. Thus, e.g., in the model definition and all im- and explicitly called functions in the model all loops should be of fixed size, and <code>if</code>-statements should consistently execute the same branches. For instance, <code>if</code>-statements with conditions that can be determined at compile time or conditions that depend only on the data will always execute the same branches during sampling &#40;if the data is constant throughout sampling and, e.g., no mini-batching is used&#41;. However, <code>if</code>-statements that depend on the model parameters can take different branches during sampling; hence, the compiled tape might be incorrect. Thus you must not use compiled tapes when your model makes decisions based on the model parameters, and you should be careful if you compute functions of parameters that those functions do not have branching which might cause them to execute different code for different values of the parameter.</p>
+<p>Turing currently supports four automatic differentiation &#40;AD&#41; backends for sampling: <a href="https://github.com/JuliaDiff/ForwardDiff.jl">ForwardDiff</a> for forward-mode AD; and <a href="https://github.com/JuliaDiff/ReverseDiff.jl">ReverseDiff</a>, <a href="https://github.com/FluxML/Zygote.jl">Zygote</a>, and <a href="https://github.com/FluxML/Tracker.jl">Tracker</a> for reverse-mode AD. While <code>Tracker</code> is still available, its use is discouraged due to a lack of active maintenance. <code>ForwardDiff</code> is automatically imported by Turing. To utilize <code>Zygote</code> or <code>ReverseDiff</code> for AD, users must explicitly import them with <code>using Zygote</code> or <code>using ReverseDiff</code>, alongside <code>using Turing</code>.</p>
+<p>As of Turing version v0.30, the global configuration flag for the AD backend has been removed in favour of <a href="https://github.com/SciML/ADTypes.jl"><code>AdTypes.jl</code></a>, allowing users to specify the AD backend for individual samplers independently. Users can pass the <code>adtype</code> keyword argument to the sampler constructor to select the desired AD backend, with the default being <code>AutoForwardDiff&#40;; chunksize&#61;0&#41;</code>.</p>
+<p>For <code>ForwardDiff</code>, pass <code>adtype&#61;AutoForwardDiff&#40;; chunksize&#41;</code> to the sampler constructor. A <code>chunksize</code> of 0 permits the chunk size to be automatically determined. For more information regarding the selection of <code>chunksize</code>, please refer to <a href="https://juliadiff.org/ForwardDiff.jl/dev/user/advanced/#Configuring-Chunk-Size">related section of <code>ForwardDiff</code>&#39;s documentation</a>. For <code>ReverseDiff</code>, pass <code>adtype&#61;AutoReverseDiff&#40;&#41;</code> to the sampler constructor. An additional argument can be provided to <code>AutoReverseDiff</code> to specify whether to to compile the tape only once and cache it for later use &#40;<code>false</code> by default, which means no caching tape&#41;. Be aware that the use of caching in certain types of models can lead to incorrect results and/or errors.</p>
+<p>Compiled tapes should only be used if you are absolutely certain that the computation doesn&#39;t change between different executions of your model. Thus, e.g., in the model definition and all im- and explicitly called functions in the model all loops should be of fixed size, and <code>if</code>-statements should consistently execute the same branches. For instance, <code>if</code>-statements with conditions that can be determined at compile time or conditions that depend only on the data will always execute the same branches during sampling &#40;if the data is constant throughout sampling and, e.g., no mini-batching is used&#41;. However, <code>if</code>-statements that depend on the model parameters can take different branches during sampling; hence, the compiled tape might be incorrect. Thus you must not use compiled tapes when your model makes decisions based on the model parameters, and you should be careful if you compute functions of parameters that those functions do not have branching which might cause them to execute different code for different values of the parameter.</p>
+<p>For <code>Zygote</code>, pass <code>adtype&#61;AutoZygote&#40;&#41;</code> to the sampler constructor.</p>
+<p>And the previously used interface functions including <code>ADBackend</code>, <code>setadbackend</code>, <code>setsafe</code>, <code>setchunksize</code>, and <code>setrdcache</code> are deprecated and removed.</p>
 <h2>Compositional Sampling with Differing AD Modes</h2>
-<p>Turing supports intermixed automatic differentiation methods for different variable spaces. The snippet below shows using <code>ForwardDiff</code> to sample the mean &#40;<code>m</code>&#41; parameter and using the Tracker-based <code>TrackerAD</code> autodiff for the variance &#40;<code>s</code>&#41; parameter:</p>
+<p>Turing supports intermixed automatic differentiation methods for different variable spaces. The snippet below shows using <code>ForwardDiff</code> to sample the mean &#40;<code>m</code>&#41; parameter, and using <code>ReverseDiff</code> for the variance &#40;<code>s</code>&#41; parameter:</p>
 
 
 <pre class='hljl'>
 <span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>Turing</span><span class='hljl-t'>
+</span><span class='hljl-k'>using</span><span class='hljl-t'> </span><span class='hljl-n'>ReverseDiff</span><span class='hljl-t'>
 
 </span><span class='hljl-cs'># Define a simple Normal model with unknown mean and variance.</span><span class='hljl-t'>
 </span><span class='hljl-nd'>@model</span><span class='hljl-t'> </span><span class='hljl-k'>function</span><span class='hljl-t'> </span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-n'>x</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-n'>y</span><span class='hljl-p'>)</span><span class='hljl-t'>
@@ -684,7 +689,10 @@ div.title {text-align: center;}
 </span><span class='hljl-cs'># Sample using Gibbs and varying autodiff backends.</span><span class='hljl-t'>
 </span><span class='hljl-n'>c</span><span class='hljl-t'> </span><span class='hljl-oB'>=</span><span class='hljl-t'> </span><span class='hljl-nf'>sample</span><span class='hljl-p'>(</span><span class='hljl-t'>
     </span><span class='hljl-nf'>gdemo</span><span class='hljl-p'>(</span><span class='hljl-nfB'>1.5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>2</span><span class='hljl-p'>),</span><span class='hljl-t'>
-    </span><span class='hljl-nf'>Gibbs</span><span class='hljl-p'>(</span><span class='hljl-nf'>HMC</span><span class='hljl-p'>{</span><span class='hljl-n'>Turing</span><span class='hljl-oB'>.</span><span class='hljl-nf'>ForwardDiffAD</span><span class='hljl-p'>{</span><span class='hljl-ni'>1</span><span class='hljl-p'>}}(</span><span class='hljl-nfB'>0.1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-sc'>:m</span><span class='hljl-p'>),</span><span class='hljl-t'> </span><span class='hljl-nf'>HMC</span><span class='hljl-p'>{</span><span class='hljl-n'>Turing</span><span class='hljl-oB'>.</span><span class='hljl-n'>TrackerAD</span><span class='hljl-p'>}(</span><span class='hljl-nfB'>0.1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-sc'>:s²</span><span class='hljl-p'>)),</span><span class='hljl-t'>
+    </span><span class='hljl-nf'>Gibbs</span><span class='hljl-p'>(</span><span class='hljl-t'>
+        </span><span class='hljl-nf'>HMC</span><span class='hljl-p'>(</span><span class='hljl-nfB'>0.1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-sc'>:m</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>adtype</span><span class='hljl-oB'>=</span><span class='hljl-nf'>AutoForwardDiff</span><span class='hljl-p'>(;</span><span class='hljl-t'> </span><span class='hljl-n'>chunksize</span><span class='hljl-oB'>=</span><span class='hljl-ni'>0</span><span class='hljl-p'>)),</span><span class='hljl-t'>
+        </span><span class='hljl-nf'>HMC</span><span class='hljl-p'>(</span><span class='hljl-nfB'>0.1</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-ni'>5</span><span class='hljl-p'>,</span><span class='hljl-t'> </span><span class='hljl-sc'>:s²</span><span class='hljl-p'>;</span><span class='hljl-t'> </span><span class='hljl-n'>adtype</span><span class='hljl-oB'>=</span><span class='hljl-nf'>AutoReverseDiff</span><span class='hljl-p'>(</span><span class='hljl-kc'>false</span><span class='hljl-p'>)),</span><span class='hljl-t'>
+    </span><span class='hljl-p'>),</span><span class='hljl-t'>
     </span><span class='hljl-ni'>1000</span><span class='hljl-p'>,</span><span class='hljl-t'>
 </span><span class='hljl-p'>)</span>
 </pre>
@@ -696,8 +704,8 @@ Chains MCMC chain &#40;1000×3×1 Array&#123;Float64, 3&#125;&#41;:
 Iterations        &#61; 1:1:1000
 Number of chains  &#61; 1
 Samples per chain &#61; 1000
-Wall duration     &#61; 15.02 seconds
-Compute duration  &#61; 15.02 seconds
+Wall duration     &#61; 16.64 seconds
+Compute duration  &#61; 16.64 seconds
 parameters        &#61; s², m
 internals         &#61; lp
 
@@ -707,9 +715,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    2.0547    1.7732    0.1440   177.1644   252.7599    1.0026 
+          s²    1.9618    1.4346    0.0974   207.6353   294.5111    1.0081 
     ⋯
-           m    1.0347    0.6933    0.0507   188.9687   334.6224    1.0033 
+           m    1.1657    0.8197    0.0870    87.4682   139.3708    1.0217 
     ⋯
                                                                 1 column om
 itted
@@ -718,12 +726,12 @@ Quantiles
   parameters      2.5&#37;     25.0&#37;     50.0&#37;     75.0&#37;     97.5&#37;
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5570    1.0636    1.6020    2.4032    5.9257
-           m   -0.4029    0.6288    1.0485    1.4740    2.4137
+          s²    0.5998    1.0646    1.5428    2.3873    5.5185
+           m   -0.3876    0.6286    1.1499    1.6625    2.7711
 </pre>
 
 
-<p>Generally, <code>TrackerAD</code> is faster when sampling from variables of high dimensionality &#40;greater than 20&#41;, and <code>ForwardDiffAD</code> is more efficient for lower-dimension variables. This functionality allows those who are performance sensitive to fine-tune their automatic differentiation for their specific models.</p>
+<p>Generally, reverse-mode AD, for instance <code>ReverseDiff</code>, is faster when sampling from variables of high dimensionality &#40;greater than 20&#41;, while forward-mode AD, for instance <code>ForwardDiff</code>, is more efficient for lower-dimension variables. This functionality allows those who are performance sensitive to fine tune their automatic differentiation for their specific models.</p>
 <p>If the differentiation method is not specified in this way, Turing will default to using whatever the global AD backend is. Currently, this defaults to <code>ForwardDiff</code>.</p>
 
 
@@ -731,7 +739,7 @@ Quantiles
         <div class="footer">
           <p>
             Published from <a href="autodiff.jmd">autodiff.jmd</a>
-            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2023-10-14.
+            using <a href="http://github.com/JunoLab/Weave.jl">Weave.jl</a> v0.10.12 on 2024-02-29.
           </p>
         </div>
       </div>
