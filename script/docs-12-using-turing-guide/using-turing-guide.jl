@@ -280,7 +280,7 @@ coeftable(mle_estimate)
 map_estimate = optimize(model, MAP())
 
 # Sample with the MAP estimate as the starting point.
-chain = sample(model, NUTS(), 1_000; init_params=map_estimate.values.array)
+chain = sample(model, NUTS(), 1_000; initial_params=map_estimate.values.array)
 
 
 @model function simple_choice(xs)
