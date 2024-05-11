@@ -56,8 +56,8 @@ Chains MCMC chain (100000×5×1 Array{Float64, 3}):
 Iterations        = 1:1:100000
 Number of chains  = 1
 Samples per chain = 100000
-Wall duration     = 1.8 seconds
-Compute duration  = 1.8 seconds
+Wall duration     = 2.1 seconds
+Compute duration  = 2.1 seconds
 parameters        = s², m, x, y
 internals         = lp
 
@@ -67,13 +67,13 @@ rha ⋯
       Symbol   Float64   Float64   Float64       Float64      Float64   Flo
 at6 ⋯
 
-          s²    2.9656    5.7909    0.0184    99715.8341   99377.3172    1.
+          s²    2.9424    5.6793    0.0180   100347.7019   99440.6204    1.
 000 ⋯
-           m   -0.0017    1.7387    0.0055   100117.4247   98621.1531    1.
+           m    0.0003    1.7101    0.0054    99890.2582   98065.6160    1.
 000 ⋯
-           x   -0.0013    2.4329    0.0078    98462.7273   98483.2215    1.
+           x    0.0139    2.4361    0.0077    99755.2179   98064.8845    1.
 000 ⋯
-           y   -0.0051    2.4425    0.0077    99760.7974   98624.2246    1.
+           y   -0.0063    2.4221    0.0077    99001.9384   98925.3975    1.
 000 ⋯
                                                                2 columns om
 itted
@@ -82,10 +82,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5409    1.1090    1.7871    3.1172   12.2321
-           m   -3.4028   -0.9162   -0.0058    0.9074    3.3604
-           x   -4.7530   -1.2989   -0.0007    1.2870    4.7911
-           y   -4.8025   -1.2891   -0.0072    1.2910    4.7621
+          s²    0.5381    1.1138    1.7825    3.1037   12.1347
+           m   -3.3473   -0.9125   -0.0049    0.9035    3.3792
+           x   -4.7745   -1.2786    0.0120    1.2816    4.8070
+           y   -4.7919   -1.2892   -0.0003    1.2713    4.7882
 ```
 
 
@@ -110,8 +110,8 @@ Chains MCMC chain (1000×14×1 Array{Float64, 3}):
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 2.14 seconds
-Compute duration  = 2.14 seconds
+Wall duration     = 2.06 seconds
+Compute duration  = 2.06 seconds
 parameters        = s², m
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, 
@@ -123,9 +123,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    1.9035    1.4454    0.0713   452.8370   645.8307    0.9991 
+          s²    1.9289    1.4467    0.0604   565.2070   633.2511    1.0015 
     ⋯
-           m    1.1354    0.7774    0.0343   494.6409   545.1067    0.9990 
+           m    1.1824    0.7217    0.0298   585.7603   655.4807    1.0000 
     ⋯
                                                                 1 column om
 itted
@@ -134,8 +134,8 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5759    1.0173    1.5261    2.2712    5.6469
-           m   -0.5334    0.6810    1.1581    1.6139    2.5896
+          s²    0.5766    1.0328    1.5063    2.3328    5.8806
+           m   -0.2834    0.6983    1.1991    1.6599    2.5946
 ```
 
 
@@ -217,12 +217,12 @@ sample(model_function(10), SMC(), 100)
 ```
 Chains MCMC chain (100×3×1 Array{Float64, 3}):
 
-Log evidence      = -13.5020446594351
+Log evidence      = -22.4209907336435
 Iterations        = 1:1:100
 Number of chains  = 1
 Samples per chain = 100
-Wall duration     = 1.86 seconds
-Compute duration  = 1.86 seconds
+Wall duration     = 1.84 seconds
+Compute duration  = 1.84 seconds
 parameters        = s
 internals         = lp, weight
 
@@ -232,7 +232,7 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-           s    5.9800    0.1407    0.0221    40.6437        NaN    1.0104 
+           s    4.0000    0.0000       NaN        NaN        NaN       NaN 
     ⋯
                                                                 1 column om
 itted
@@ -241,7 +241,7 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           s    6.0000    6.0000    6.0000    6.0000    6.0000
+           s    4.0000    4.0000    4.0000    4.0000    4.0000
 ```
 
 
@@ -387,7 +387,7 @@ g_prior_sample()
 ```
 
 ```
-(0.9222955586086037, -0.29741353666905757)
+(0.1741213188090317, -0.5141306911530534)
 ```
 
 
@@ -424,8 +424,8 @@ Chains MCMC chain (500×14×1 Array{Float64, 3}):
 Iterations        = 1:1:500
 Number of chains  = 1
 Samples per chain = 500
-Wall duration     = 1.88 seconds
-Compute duration  = 1.88 seconds
+Wall duration     = 1.86 seconds
+Compute duration  = 1.86 seconds
 parameters        = s², m, x[1], x[2]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
@@ -437,13 +437,13 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    0.7511    0.2462    0.1661     2.0752    10.8700    1.4445 
+          s²    0.7271    0.2249    0.0842     7.6115    10.8946    1.0866 
     ⋯
-           m    0.0440    0.2488    0.0904     8.5523    13.2237    1.1229 
+           m   -0.2311    0.2300    0.0543    18.7223    38.4238    1.0040 
     ⋯
-        x[1]    0.0454    0.2730    0.2057     2.0840    26.7105    1.4669 
+        x[1]   -0.0177    0.3176    0.2204     2.1975    27.9147    1.3983 
     ⋯
-        x[2]   -0.9102    0.2356    0.0799     9.3071    12.9486    1.0259 
+        x[2]   -0.6931    0.2532    0.0768    11.8370    28.3523    1.0758 
     ⋯
                                                                 1 column om
 itted
@@ -452,10 +452,10 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.3289    0.6155    0.7019    0.8115    1.3660
-           m   -0.3255   -0.1247   -0.0010    0.1817    0.6228
-        x[1]   -0.4240   -0.1805    0.0894    0.2648    0.5150
-        x[2]   -1.2415   -1.0948   -0.9705   -0.7049   -0.4481
+          s²    0.2867    0.5873    0.7466    0.8790    1.1814
+           m   -0.6826   -0.4042   -0.2247   -0.0424    0.1559
+        x[1]   -0.5122   -0.2953   -0.0706    0.2731    0.4980
+        x[2]   -1.1639   -0.8739   -0.6643   -0.4794   -0.2824
 ```
 
 
@@ -486,8 +486,8 @@ Chains MCMC chain (500×13×1 Array{Float64, 3}):
 Iterations        = 1:1:500
 Number of chains  = 1
 Samples per chain = 500
-Wall duration     = 1.9 seconds
-Compute duration  = 1.9 seconds
+Wall duration     = 1.87 seconds
+Compute duration  = 1.87 seconds
 parameters        = s², m, x[1]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
 amiltonian_energy, hamiltonian_energy_error, numerical_error, step_size, no
@@ -499,11 +499,11 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    3.5040    1.7589    1.4535     1.4714    29.4290    1.9104 
+          s²    3.1704    1.7342    1.4214     1.5735    11.1270    1.7116 
     ⋯
-           m    3.6117    0.4746    0.1850     6.8838    10.8708    1.0158 
+           m   -0.5925    0.4070    0.3487     1.4041    17.9775    1.9386 
     ⋯
-        x[1]    5.0570    0.5935    0.4095     4.4779    11.2143    1.6357 
+        x[1]   -1.4030    0.6071    0.5276     1.4381    22.5542    1.9377 
     ⋯
                                                                 1 column om
 itted
@@ -512,9 +512,9 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    1.3740    1.8683    3.3237    4.4671    7.4676
-           m    2.7320    3.3334    3.6132    4.0281    4.4035
-        x[1]    4.2821    4.5992    4.7941    5.7049    6.1482
+          s²    0.7774    1.4557    3.1170    4.4699    6.6135
+           m   -1.2511   -0.9028   -0.6544   -0.3092    0.2459
+        x[1]   -2.4749   -1.8908   -1.2775   -0.9157   -0.5026
 ```
 
 
@@ -551,8 +551,8 @@ Chains MCMC chain (1000×22×1 Array{Float64, 3}):
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 3.5 seconds
-Compute duration  = 3.5 seconds
+Wall duration     = 3.48 seconds
+Compute duration  = 3.48 seconds
 parameters        = s², m, x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], 
 x[9], x[10]
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, h
@@ -565,29 +565,29 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-          s²    2.0382    0.7629    0.2327     9.2495    28.4166    1.0834 
+          s²    1.1119    0.5207    0.2842     3.1801    21.1090    1.4925 
     ⋯
-           m    0.3864    0.3593    0.1888     3.7504    32.1097    1.3950 
+           m    0.7230    0.3327    0.1126     9.5545    20.4148    1.0748 
     ⋯
-        x[1]   -1.3528    0.5499    0.3313     2.8972    19.6414    1.6858 
+        x[1]    1.1839    0.5516    0.3449     2.8437    21.5142    1.8318 
     ⋯
-        x[2]    1.3947    0.6782    0.4270     2.6795    16.9388    1.8294 
+        x[2]   -0.0426    1.1914    0.7555     2.5746    14.5364    2.0000 
     ⋯
-        x[3]   -0.4247    0.4071    0.2381     3.1210    29.9796    1.6456 
+        x[3]    2.2109    0.4282    0.2460     3.3195    21.2188    1.4879 
     ⋯
-        x[4]   -0.7179    0.3113    0.1111     7.1947    27.2515    1.1871 
+        x[4]    0.7597    0.2948    0.1332     5.3609    38.9687    1.1695 
     ⋯
-        x[5]   -0.7457    0.3914    0.2282     2.9465    13.0191    1.7345 
+        x[5]    0.1832    0.4150    0.1246    11.7747    18.1758    1.0769 
     ⋯
-        x[6]    0.3430    1.0474    0.6859     2.6226    20.3854    1.9926 
+        x[6]    0.1954    0.4584    0.2712     2.9072    20.2899    1.8015 
     ⋯
-        x[7]    0.8443    0.6827    0.4467     2.5889    20.6180    2.0921 
+        x[7]    1.1014    0.2734    0.0862    10.2761    33.9279    1.0363 
     ⋯
-        x[8]    1.5283    0.5809    0.3408     2.9898    21.2077    1.7216 
+        x[8]    0.8650    0.7467    0.4947     2.6025    24.3852    2.1000 
     ⋯
-        x[9]    2.1988    0.7715    0.3304     6.1963    15.8040    1.0587 
+        x[9]    0.7267    0.3944    0.1444     7.4158    15.8452    1.0546 
     ⋯
-       x[10]    0.1483    0.4808    0.2361     4.4751    14.2521    1.3025 
+       x[10]    0.9286    0.3653    0.1516     5.9118    21.5974    1.2243 
     ⋯
                                                                 1 column om
 itted
@@ -596,18 +596,18 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    1.0826    1.4337    1.9049    2.5292    3.7260
-           m   -0.2728    0.1279    0.3731    0.6562    1.0326
-        x[1]   -2.1318   -1.8047   -1.4059   -1.1352   -0.2476
-        x[2]    0.3123    0.8748    1.2580    2.0232    2.6661
-        x[3]   -0.9913   -0.7706   -0.5389   -0.0228    0.2887
-        x[4]   -1.2156   -0.9486   -0.7408   -0.5242   -0.0727
-        x[5]   -1.5032   -0.9820   -0.7742   -0.4968    0.0769
-        x[6]   -1.0427   -0.6121   -0.0328    1.5125    2.1144
-        x[7]   -0.2735    0.2385    0.7708    1.4107    1.9892
-        x[8]    0.4061    1.1089    1.6818    1.9198    2.4081
-        x[9]    1.3179    1.5292    1.9498    2.9387    3.5888
-       x[10]   -0.7949   -0.1911    0.1501    0.5589    0.9514
+          s²    0.4383    0.7739    1.0078    1.3546    2.6791
+           m    0.0607    0.4999    0.7738    0.9723    1.2585
+        x[1]    0.3118    0.7075    1.1020    1.7223    2.0737
+        x[2]   -1.5459   -0.8948   -0.6965    1.3969    2.2193
+        x[3]    1.4374    1.8335    2.2466    2.6105    2.8625
+        x[4]    0.2627    0.5428    0.7215    0.9632    1.3350
+        x[5]   -0.4876   -0.1422    0.1458    0.4749    1.0366
+        x[6]   -0.4925   -0.1268    0.0906    0.4979    1.1674
+        x[7]    0.5612    0.9157    1.0847    1.2993    1.6003
+        x[8]   -0.1609    0.1762    0.6902    1.5329    2.0586
+        x[9]    0.0375    0.3880    0.7529    1.0318    1.5096
+       x[10]    0.1622    0.6578    0.9234    1.2332    1.5525
 ```
 
 
@@ -640,115 +640,182 @@ The element type of a vector (or matrix) of random variables should match the `e
 
 ### Querying Probabilities from Model or Chain
 
-Consider first the following simplified `gdemo` model:
+Turing offers three functions: [`loglikelihood`](https://turinglang.org/DynamicPPL.jl/dev/api/#StatsAPI.loglikelihood), [`logprior`](https://turinglang.org/DynamicPPL.jl/dev/api/#DynamicPPL.logprior), and [`logjoint`](https://turinglang.org/DynamicPPL.jl/dev/api/#DynamicPPL.logjoint) to query the log-likelihood, log-prior, and log-joint probabilities of a model, respectively.
+
+Let's look at a simple model called `gdemo`:
 
 ```julia
-@model function gdemo0(x)
+@model function gdemo0()
     s ~ InverseGamma(2, 3)
     m ~ Normal(0, sqrt(s))
     return x ~ Normal(m, sqrt(s))
 end
-
-# Instantiate three models, with different value of x
-model1 = gdemo0(1)
-model4 = gdemo0(4)
-model10 = gdemo0(10)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#434".gdemo0), (:x,), (), ()
-, Tuple{Int64}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##WeaveSandBox
-#434".gdemo0, (x = 10,), NamedTuple(), DynamicPPL.DefaultContext())
+gdemo0 (generic function with 2 methods)
 ```
 
 
 
 
 
-Now, query the instantiated models: compute the likelihood of `x = 1.0` given the values of `s = 1.0` and `m = 1.0` for the parameters:
+If we observe x to be 1.0, we can condition the model on this datum using the [`condition`](https://turinglang.org/DynamicPPL.jl/dev/api/#AbstractPPL.condition) syntax:
 
 ```julia
-prob"x = 1.0 | model = model1, s = 1.0, m = 1.0"
+model = gdemo0() | (x=1.0,)
 ```
 
 ```
-0.39894228040143265
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#413".gdemo0), (), (), (), T
+uple{}, Tuple{}, DynamicPPL.ConditionContext{@NamedTuple{x::Float64}, Dynam
+icPPL.DefaultContext}}(Main.var"##WeaveSandBox#413".gdemo0, NamedTuple(), N
+amedTuple(), ConditionContext((x = 1.0,), DynamicPPL.DefaultContext()))
+```
+
+
+
+
+
+Now, let's compute the log-likelihood of the observation given specific values of the model parameters, `s` and `m`:
+
+```julia
+loglikelihood(model, (s=1.0, m=1.0))
+```
+
+```
+-0.9189385332046728
+```
+
+
+
+
+
+We can easily verify that value in this case:
+
+```julia
+logpdf(Normal(1.0, 1.0), 1.0)
+```
+
+```
+-0.9189385332046728
+```
+
+
+
+
+
+We can also compute the log-prior probability of the model for the same values of s and m:
+
+```julia
+logprior(model, (s=1.0, m=1.0))
+```
+
+```
+-2.221713955868453
 ```
 
 
 
 ```julia
-prob"x = 1.0 | model = model4, s = 1.0, m = 1.0"
+logpdf(InverseGamma(2, 3), 1.0) + logpdf(Normal(0, sqrt(1.0)), 1.0)
 ```
 
 ```
-0.39894228040143265
+-2.221713955868453
+```
+
+
+
+
+
+Finally, we can compute the log-joint probability of the model parameters and data:
+
+```julia
+logjoint(model, (s=1.0, m=1.0))
+```
+
+```
+-3.1406524890731258
 ```
 
 
 
 ```julia
-prob"x = 1.0 | model = model10, s = 1.0, m = 1.0"
+logpdf(Normal(1.0, 1.0), 1.0) +
+logpdf(InverseGamma(2, 3), 1.0) +
+logpdf(Normal(0, sqrt(1.0)), 1.0)
 ```
 
 ```
-0.39894228040143265
+-3.1406524890731258
 ```
 
 
 
 
 
-Notice that even if we use three models, instantiated with three different values of `x`, we should obtain the same likelihood. We can easily verify that value in this case:
+Querying with `Chains` object is easy as well:
 
 ```julia
-pdf(Normal(1.0, 1.0), 1.0)
+chn = sample(model, Prior(), 10)
 ```
 
 ```
-0.3989422804014327
+Chains MCMC chain (10×3×1 Array{Float64, 3}):
+
+Iterations        = 1:1:10
+Number of chains  = 1
+Samples per chain = 10
+Wall duration     = 0.39 seconds
+Compute duration  = 0.39 seconds
+parameters        = s, m
+internals         = lp
+
+Summary Statistics
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat 
+  e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
+    ⋯
+
+           s    2.3521    1.0661    0.4174     4.9687    10.0000    1.4156 
+    ⋯
+           m   -0.2634    1.9127    0.6048    10.0000    10.0000    0.9681 
+    ⋯
+                                                                1 column om
+itted
+
+Quantiles
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
+
+           s    1.1649    1.6899    2.0003    3.2842    4.0077
+           m   -2.1049   -1.9263   -0.6289    0.9718    3.0625
 ```
 
 
-
-
-
-Let us now consider the following `gdemo` model:
 
 ```julia
-@model function gdemo(x, y)
-    s² ~ InverseGamma(2, 3)
-    m ~ Normal(0, sqrt(s²))
-    x ~ Normal(m, sqrt(s²))
-    return y ~ Normal(m, sqrt(s²))
-end
-
-# Instantiate the model.
-model = gdemo(2.0, 4.0)
+loglikelihood(model, chn)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#434".gdemo), (:x, :y), (), 
-(), Tuple{Float64, Float64}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"#
-#WeaveSandBox#434".gdemo, (x = 2.0, y = 4.0), NamedTuple(), DynamicPPL.Defa
-ultContext())
+10×1 Matrix{Float64}:
+ -1.152512581810826
+ -3.209564317808394
+ -1.2822047083624553
+ -1.1774957331222868
+ -2.784582448464323
+ -3.5390362387698215
+ -3.015852527660817
+ -3.8036178159082445
+ -1.744721992326117
+ -2.431462231454251
 ```
 
 
 
 
-
-The following are examples of valid queries of the `Turing` model or chain:
-
-  - `prob"x = 1.0, y = 1.0 | model = model, s = 1.0, m = 1.0"` calculates the likelihood of `x = 1` and `y = 1` given `s = 1` and `m = 1`.
-
-  - `prob"s² = 1.0, m = 1.0 | model = model, x = nothing, y = nothing"` calculates the joint probability of `s = 1` and `m = 1` ignoring `x` and `y`. `x` and `y` are ignored so they can be optionally dropped from the RHS of `|`, but it is recommended to define them.
-  - `prob"s² = 1.0, m = 1.0, x = 1.0 | model = model, y = nothing"` calculates the joint probability of `s = 1`, `m = 1` and `x = 1` ignoring `y`.
-  - `prob"s² = 1.0, m = 1.0, x = 1.0, y = 1.0 | model = model"` calculates the joint probability of all the variables.
-  - After the MCMC sampling, given a `chain`, `prob"x = 1.0, y = 1.0 | chain = chain, model = model"` calculates the element-wise likelihood of `x = 1.0` and `y = 1.0` for each sample in `chain`.
-  - If `save_state=true` was used during sampling (i.e., `sample(model, sampler, N; save_state=true)`), you can simply do `prob"x = 1.0, y = 1.0 | chain = chain"`.
-
-In all the above cases, `logprob` can be used instead of `prob` to calculate the log probabilities instead.
 
 ### Maximum likelihood and maximum a posterior estimates
 
@@ -793,9 +860,9 @@ model = gdemo(data)
 ```
 
 ```
-DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#434".gdemo), (:x,), (), (),
+DynamicPPL.Model{typeof(Main.var"##WeaveSandBox#413".gdemo), (:x,), (), (),
  Tuple{Vector{Float64}}, Tuple{}, DynamicPPL.DefaultContext}(Main.var"##Wea
-veSandBox#434".gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultCo
+veSandBox#413".gdemo, (x = [1.5, 2.0],), NamedTuple(), DynamicPPL.DefaultCo
 ntext())
 ```
 
@@ -815,7 +882,7 @@ map_estimate = optimize(model, MAP())
 
 ```
 ModeResult with maximized lp of -4.62
-[0.9074074074087559, 1.166666666667198]
+[0.9074074074073607, 1.1666666666663343]
 ```
 
 
@@ -927,8 +994,8 @@ Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 15.82 seconds
-Compute duration  = 15.82 seconds
+Wall duration     = 15.52 seconds
+Compute duration  = 15.52 seconds
 parameters        = p, z
 internals         = lp
 
@@ -938,9 +1005,9 @@ Summary Statistics
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64 
     ⋯
 
-           p    0.4449    0.2221    0.0235    86.7528   108.0304    1.0101 
+           p    0.4408    0.2047    0.0206    98.8899   136.7330    1.0129 
     ⋯
-           z    0.1920    0.3941    0.0204   372.8720        NaN    1.0034 
+           z    0.1920    0.3941    0.0221   317.1798        NaN    0.9999 
     ⋯
                                                                 1 column om
 itted
@@ -949,7 +1016,7 @@ Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           p    0.0585    0.2685    0.4275    0.6161    0.8650
+           p    0.1122    0.2779    0.4240    0.6007    0.8589
            z    0.0000    0.0000    0.0000    0.0000    1.0000
 ```
 
@@ -1022,7 +1089,7 @@ describe(chn) # Lists statistics of the samples.
 plot(chn) # Plots statistics of the samples.
 ```
 
-![](figures/using-turing-guide_35_1.png)
+![](figures/using-turing-guide_39_1.png)
 
 
 

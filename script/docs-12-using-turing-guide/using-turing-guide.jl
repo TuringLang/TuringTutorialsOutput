@@ -183,39 +183,40 @@ m = generative()
 chain = sample(m, HMC(0.01, 5), 1000)
 
 
-@model function gdemo0(x)
+@model function gdemo0()
     s ~ InverseGamma(2, 3)
     m ~ Normal(0, sqrt(s))
     return x ~ Normal(m, sqrt(s))
 end
 
-# Instantiate three models, with different value of x
-model1 = gdemo0(1)
-model4 = gdemo0(4)
-model10 = gdemo0(10)
+
+model = gdemo0() | (x=1.0,)
 
 
-prob"x = 1.0 | model = model1, s = 1.0, m = 1.0"
+loglikelihood(model, (s=1.0, m=1.0))
 
 
-prob"x = 1.0 | model = model4, s = 1.0, m = 1.0"
+logpdf(Normal(1.0, 1.0), 1.0)
 
 
-prob"x = 1.0 | model = model10, s = 1.0, m = 1.0"
+logprior(model, (s=1.0, m=1.0))
 
 
-pdf(Normal(1.0, 1.0), 1.0)
+logpdf(InverseGamma(2, 3), 1.0) + logpdf(Normal(0, sqrt(1.0)), 1.0)
 
 
-@model function gdemo(x, y)
-    s² ~ InverseGamma(2, 3)
-    m ~ Normal(0, sqrt(s²))
-    x ~ Normal(m, sqrt(s²))
-    return y ~ Normal(m, sqrt(s²))
-end
+logjoint(model, (s=1.0, m=1.0))
 
-# Instantiate the model.
-model = gdemo(2.0, 4.0)
+
+logpdf(Normal(1.0, 1.0), 1.0) +
+logpdf(InverseGamma(2, 3), 1.0) +
+logpdf(Normal(0, sqrt(1.0)), 1.0)
+
+
+chn = sample(model, Prior(), 10)
+
+
+loglikelihood(model, chn)
 
 
 # Note that loading Optim explicitly is required for mode estimation to function,
